@@ -3,12 +3,12 @@ import { HydratedDocument } from 'mongoose';
 import { LEVELS } from '../common/constants';
 import { jsonOptions } from '../common/to-json';
 
-export const TOPICS = ['it', 'interview', 'customer', 'leader', 'other'] as const;
+export const TOPICS = ['it', 'interview', 'customer', 'leader', 'toeic', 'other'] as const;
 export type Topic = (typeof TOPICS)[number];
 
 /** Tag added to a word when it is saved from the library. */
 export const TOPIC_TAG: Record<Topic, string> = {
-  it: 'it', interview: 'interview', customer: 'customer-meeting', leader: 'leader-meeting', other: 'library'
+  it: 'it', interview: 'interview', customer: 'customer-meeting', leader: 'leader-meeting', toeic: 'toeic', other: 'library'
 };
 
 /** A word in the shared library that every user can browse and save. */

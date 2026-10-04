@@ -1,0 +1,2282 @@
+[
+  {
+    "word": "photocopier",
+    "ipa": "/ˈfoʊtoʊˌkɑːpiər/",
+    "pos": "Noun",
+    "meaning": "A machine that makes paper copies of documents.",
+    "vi": "máy photocopy",
+    "ex": "The photocopier on the third floor is jammed again.",
+    "syn": [
+      "copier",
+      "copy machine"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "envelope",
+    "ipa": "/ˈenvəloʊp/",
+    "pos": "Noun",
+    "meaning": "A flat paper cover that you put a letter in before mailing it.",
+    "vi": "phong bì",
+    "ex": "Please put the signed contract in the large envelope on my desk.",
+    "syn": [],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "filing cabinet",
+    "ipa": "/ˈfaɪlɪŋ ˌkæbɪnət/",
+    "pos": "Noun",
+    "meaning": "A piece of office furniture with drawers for storing documents.",
+    "vi": "tủ đựng hồ sơ",
+    "ex": "Old invoices are kept in the gray filing cabinet near the window.",
+    "syn": [
+      "file cabinet"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "cartridge",
+    "ipa": "/ˈkɑːrtrɪdʒ/",
+    "pos": "Noun",
+    "meaning": "A small container of ink or toner that fits inside a printer.",
+    "vi": "hộp mực",
+    "ex": "Could you replace the ink cartridge before the afternoon meeting?",
+    "syn": [
+      "refill"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "stationery",
+    "ipa": "/ˈsteɪʃəneri/",
+    "pos": "Noun",
+    "meaning": "Paper, pens, envelopes, and other materials used for writing.",
+    "vi": "văn phòng phẩm",
+    "ex": "Requests for stationery should be sent to the administration office.",
+    "syn": [
+      "writing materials"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "office supplies",
+    "ipa": "/ˈɔːfɪs səˌplaɪz/",
+    "pos": "Noun",
+    "meaning": "Items such as paper, pens, and staples used in daily office work.",
+    "vi": "đồ dùng văn phòng",
+    "ex": "We are running low on office supplies, so I placed an order this morning.",
+    "syn": [
+      "stationery"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "memo",
+    "ipa": "/ˈmemoʊ/",
+    "pos": "Noun",
+    "meaning": "A short written message sent from one person or department to others in a company.",
+    "vi": "bản ghi nhớ, thông báo nội bộ",
+    "ex": "The director sent a memo about the new parking rules.",
+    "syn": [
+      "memorandum",
+      "note"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "correspondence",
+    "ipa": "/ˌkɔːrəˈspɑːndəns/",
+    "pos": "Noun",
+    "meaning": "Letters and emails that people send to each other.",
+    "vi": "thư từ, sự trao đổi thư từ",
+    "ex": "All correspondence with clients must be saved in the shared folder.",
+    "syn": [
+      "letters",
+      "communication"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "attachment",
+    "ipa": "/əˈtætʃmənt/",
+    "pos": "Noun",
+    "meaning": "A file that is sent together with an email.",
+    "vi": "tệp đính kèm",
+    "ex": "Please open the attachment to see the revised floor plan.",
+    "syn": [
+      "enclosure"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "enclose",
+    "ipa": "/ɪnˈkloʊz/",
+    "pos": "Verb",
+    "meaning": "To put something inside an envelope or package together with a letter.",
+    "vi": "gửi kèm, đính kèm",
+    "ex": "I will enclose a copy of my certificate with the application.",
+    "syn": [
+      "include",
+      "attach"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "recipient",
+    "ipa": "/rɪˈsɪpiənt/",
+    "pos": "Noun",
+    "meaning": "A person who receives something, such as a letter or an email.",
+    "vi": "người nhận",
+    "ex": "Check that each recipient is on the mailing list before you send it.",
+    "syn": [
+      "receiver",
+      "addressee"
+    ],
+    "ant": [
+      "sender"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "letterhead",
+    "ipa": "/ˈletərhed/",
+    "pos": "Noun",
+    "meaning": "Paper printed at the top with a company's name, address, and logo.",
+    "vi": "giấy có tiêu đề công ty",
+    "ex": "Official offers must be printed on company letterhead.",
+    "syn": [],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "signature",
+    "ipa": "/ˈsɪɡnətʃər/",
+    "pos": "Noun",
+    "meaning": "Your name written by yourself in your own special way.",
+    "vi": "chữ ký",
+    "ex": "This form is not valid without your signature at the bottom.",
+    "syn": [
+      "autograph"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "forward",
+    "ipa": "/ˈfɔːrwərd/",
+    "pos": "Verb",
+    "meaning": "To send an email or letter you have received on to another person.",
+    "vi": "chuyển tiếp",
+    "ex": "Could you forward the client's message to the whole team?",
+    "syn": [
+      "pass on",
+      "send on"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "reply",
+    "ipa": "/rɪˈplaɪ/",
+    "pos": "Verb",
+    "meaning": "To answer someone in speech or writing.",
+    "vi": "trả lời, hồi âm",
+    "ex": "Please reply to this invitation by Thursday.",
+    "syn": [
+      "answer",
+      "respond"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "inquiry",
+    "ipa": "/ˈɪŋkwəri/",
+    "pos": "Noun",
+    "meaning": "A question you ask to get information.",
+    "vi": "yêu cầu thông tin, câu hỏi",
+    "ex": "Thank you for your inquiry about our summer internship program.",
+    "syn": [
+      "question",
+      "enquiry"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "respond",
+    "ipa": "/rɪˈspɑːnd/",
+    "pos": "Verb",
+    "meaning": "To give an answer to a question, letter, or request.",
+    "vi": "phản hồi, trả lời",
+    "ex": "Our HR team will respond to all applications within two weeks.",
+    "syn": [
+      "reply",
+      "answer"
+    ],
+    "ant": [
+      "ignore"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "conference",
+    "ipa": "/ˈkɑːnfərəns/",
+    "pos": "Noun",
+    "meaning": "A large formal meeting where people discuss topics related to their work.",
+    "vi": "hội nghị",
+    "ex": "Ms. Tran will speak at the annual sales conference in Hanoi.",
+    "syn": [
+      "convention",
+      "meeting"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "conference call",
+    "ipa": "/ˈkɑːnfərəns ˌkɔːl/",
+    "pos": "Noun",
+    "meaning": "A telephone call in which several people in different places talk together.",
+    "vi": "cuộc gọi hội nghị",
+    "ex": "The weekly conference call with the Tokyo office starts at 9 a.m.",
+    "syn": [
+      "teleconference"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "convene",
+    "ipa": "/kənˈviːn/",
+    "pos": "Verb",
+    "meaning": "To come together, or bring people together, for a formal meeting.",
+    "vi": "triệu tập, nhóm họp",
+    "ex": "The board will convene next Monday to discuss the merger.",
+    "syn": [
+      "assemble",
+      "gather"
+    ],
+    "ant": [
+      "adjourn"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "adjourn",
+    "ipa": "/əˈdʒɜːrn/",
+    "pos": "Verb",
+    "meaning": "To stop a meeting for a period of time or end it.",
+    "vi": "hoãn, tạm dừng (cuộc họp)",
+    "ex": "Let's adjourn for lunch and continue at one o'clock.",
+    "syn": [
+      "suspend",
+      "break off"
+    ],
+    "ant": [
+      "convene"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "chairperson",
+    "ipa": "/ˈtʃerpɜːrsn/",
+    "pos": "Noun",
+    "meaning": "The person in charge of a meeting or committee.",
+    "vi": "chủ tọa, chủ tịch",
+    "ex": "The chairperson asked everyone to keep their comments brief.",
+    "syn": [
+      "chair",
+      "chairman"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "presentation",
+    "ipa": "/ˌpriːzenˈteɪʃn/",
+    "pos": "Noun",
+    "meaning": "A talk in which someone shows and explains information to an audience.",
+    "vi": "bài thuyết trình",
+    "ex": "Mr. Lee gave an excellent presentation on the new hiring plan.",
+    "syn": [
+      "talk",
+      "speech"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "handout",
+    "ipa": "/ˈhændaʊt/",
+    "pos": "Noun",
+    "meaning": "A document given to people at a meeting or class.",
+    "vi": "tài liệu phát tay",
+    "ex": "Please read the handout before the training session begins.",
+    "syn": [
+      "leaflet",
+      "printout"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "projector",
+    "ipa": "/prəˈdʒektər/",
+    "pos": "Noun",
+    "meaning": "A machine that shows images or slides on a screen or wall.",
+    "vi": "máy chiếu",
+    "ex": "The projector in Meeting Room B is not working today.",
+    "syn": [],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "boardroom",
+    "ipa": "/ˈbɔːrdruːm/",
+    "pos": "Noun",
+    "meaning": "A room where the directors of a company hold meetings.",
+    "vi": "phòng họp hội đồng quản trị",
+    "ex": "The interviews will be held in the boardroom on the tenth floor.",
+    "syn": [
+      "meeting room"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "appointment",
+    "ipa": "/əˈpɔɪntmənt/",
+    "pos": "Noun",
+    "meaning": "An arrangement to meet someone at a particular time.",
+    "vi": "cuộc hẹn",
+    "ex": "I have an appointment with the hiring manager at 3 p.m.",
+    "syn": [
+      "meeting",
+      "engagement"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "receptionist",
+    "ipa": "/rɪˈsepʃənɪst/",
+    "pos": "Noun",
+    "meaning": "A person who greets visitors and answers phones at the front desk of an office.",
+    "vi": "lễ tân",
+    "ex": "Please sign in with the receptionist when you arrive.",
+    "syn": [
+      "front desk clerk"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "assistant",
+    "ipa": "/əˈsɪstənt/",
+    "pos": "Noun",
+    "meaning": "A person who helps someone else do their job.",
+    "vi": "trợ lý",
+    "ex": "My assistant will send you the meeting details this afternoon.",
+    "syn": [
+      "aide",
+      "helper"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "personnel",
+    "ipa": "/ˌpɜːrsəˈnel/",
+    "pos": "Noun",
+    "meaning": "The people who work for a company or organization.",
+    "vi": "nhân sự, nhân viên",
+    "ex": "Only authorized personnel may enter the server room.",
+    "syn": [
+      "staff",
+      "employees"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "human resources",
+    "ipa": "/ˌhjuːmən ˈriːsɔːrsɪz/",
+    "pos": "Noun",
+    "meaning": "The department of a company that deals with hiring, training, and staff welfare.",
+    "vi": "phòng nhân sự",
+    "ex": "Questions about your contract should be directed to human resources.",
+    "syn": [
+      "hr",
+      "personnel department"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "recruit",
+    "ipa": "/rɪˈkruːt/",
+    "pos": "Verb",
+    "meaning": "To find new people to join a company or organization.",
+    "vi": "tuyển dụng",
+    "ex": "We plan to recruit five new engineers this quarter.",
+    "syn": [
+      "hire",
+      "enlist"
+    ],
+    "ant": [
+      "dismiss"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "hire",
+    "ipa": "/ˈhaɪər/",
+    "pos": "Verb",
+    "meaning": "To give someone a job and pay them to work for you.",
+    "vi": "thuê, tuyển",
+    "ex": "The store will hire extra staff for the holiday season.",
+    "syn": [
+      "employ",
+      "recruit"
+    ],
+    "ant": [
+      "fire",
+      "dismiss"
+    ],
+    "level": "A2"
+  },
+  {
+    "word": "cover letter",
+    "ipa": "/ˈkʌvər ˌletər/",
+    "pos": "Noun",
+    "meaning": "A letter sent with a job application that explains why you are suitable.",
+    "vi": "thư xin việc",
+    "ex": "Your cover letter should be no longer than one page.",
+    "syn": [
+      "application letter"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "job opening",
+    "ipa": "/ˈdʒɑːb ˌoʊpənɪŋ/",
+    "pos": "Noun",
+    "meaning": "A job that is available for someone to apply for.",
+    "vi": "vị trí còn trống",
+    "ex": "There is a job opening in our marketing department.",
+    "syn": [
+      "opening",
+      "position"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "interview",
+    "ipa": "/ˈɪntərvjuː/",
+    "pos": "Noun",
+    "meaning": "A formal meeting where someone is asked questions to see if they are suitable for a job.",
+    "vi": "cuộc phỏng vấn",
+    "ex": "Candidates who pass the test will be invited to an interview.",
+    "syn": [
+      "meeting"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "qualified",
+    "ipa": "/ˈkwɑːlɪfaɪd/",
+    "pos": "Adjective",
+    "meaning": "Having the skills, training, or exams needed for a job.",
+    "vi": "đủ tiêu chuẩn, có trình độ",
+    "ex": "We are looking for a qualified accountant with five years of experience.",
+    "syn": [
+      "skilled",
+      "certified"
+    ],
+    "ant": [
+      "unqualified"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "eligible",
+    "ipa": "/ˈelɪdʒəbl/",
+    "pos": "Adjective",
+    "meaning": "Allowed by the rules to do or receive something.",
+    "vi": "đủ điều kiện",
+    "ex": "Full-time staff are eligible for the company's dental plan.",
+    "syn": [
+      "entitled",
+      "qualified"
+    ],
+    "ant": [
+      "ineligible"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "prerequisite",
+    "ipa": "/priːˈrekwəzɪt/",
+    "pos": "Noun",
+    "meaning": "Something that must exist or be done before something else is possible.",
+    "vi": "điều kiện tiên quyết",
+    "ex": "A university degree is a prerequisite for this position.",
+    "syn": [
+      "requirement",
+      "precondition"
+    ],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "credentials",
+    "ipa": "/krəˈdenʃlz/",
+    "pos": "Noun",
+    "meaning": "Qualifications and experience that show someone is suitable for a job.",
+    "vi": "bằng cấp, trình độ chuyên môn",
+    "ex": "The panel was impressed by her academic credentials.",
+    "syn": [
+      "qualifications"
+    ],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "expertise",
+    "ipa": "/ˌekspɜːrˈtiːz/",
+    "pos": "Noun",
+    "meaning": "Special skill or knowledge in a particular area.",
+    "vi": "chuyên môn",
+    "ex": "We need someone with expertise in payroll software.",
+    "syn": [
+      "know-how",
+      "skill"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "proficiency",
+    "ipa": "/prəˈfɪʃnsi/",
+    "pos": "Noun",
+    "meaning": "A high level of skill or ability in something.",
+    "vi": "sự thành thạo",
+    "ex": "Applicants must show proficiency in English and Japanese.",
+    "syn": [
+      "competence",
+      "skill"
+    ],
+    "ant": [
+      "incompetence"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "proficient",
+    "ipa": "/prəˈfɪʃnt/",
+    "pos": "Adjective",
+    "meaning": "Able to do something well because of training and practice.",
+    "vi": "thành thạo",
+    "ex": "All assistants should be proficient in word-processing software.",
+    "syn": [
+      "skilled",
+      "competent"
+    ],
+    "ant": [
+      "inexperienced"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "fluent",
+    "ipa": "/ˈfluːənt/",
+    "pos": "Adjective",
+    "meaning": "Able to speak a language easily and well.",
+    "vi": "lưu loát, trôi chảy",
+    "ex": "The ideal candidate is fluent in both Vietnamese and English.",
+    "syn": [
+      "articulate"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "employ",
+    "ipa": "/ɪmˈplɔɪ/",
+    "pos": "Verb",
+    "meaning": "To pay someone to work for you.",
+    "vi": "thuê, tuyển dụng",
+    "ex": "The factory will employ about 200 local workers.",
+    "syn": [
+      "hire"
+    ],
+    "ant": [
+      "dismiss"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "employee",
+    "ipa": "/ɪmˈplɔɪiː/",
+    "pos": "Noun",
+    "meaning": "A person who is paid to work for a company or person.",
+    "vi": "nhân viên",
+    "ex": "Every new employee receives a laptop on the first day.",
+    "syn": [
+      "worker",
+      "staff member"
+    ],
+    "ant": [
+      "employer"
+    ],
+    "level": "A2"
+  },
+  {
+    "word": "employer",
+    "ipa": "/ɪmˈplɔɪər/",
+    "pos": "Noun",
+    "meaning": "A person or company that pays people to work for them.",
+    "vi": "người sử dụng lao động, chủ",
+    "ex": "Your employer must give you a written contract.",
+    "syn": [
+      "boss",
+      "company"
+    ],
+    "ant": [
+      "employee"
+    ],
+    "level": "A2"
+  },
+  {
+    "word": "employment",
+    "ipa": "/ɪmˈplɔɪmənt/",
+    "pos": "Noun",
+    "meaning": "The state of having a paid job.",
+    "vi": "việc làm, sự tuyển dụng",
+    "ex": "Proof of employment is required to rent the apartment.",
+    "syn": [
+      "work",
+      "job"
+    ],
+    "ant": [
+      "unemployment"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "staff",
+    "ipa": "/stæf/",
+    "pos": "Noun",
+    "meaning": "All the people who work for an organization.",
+    "vi": "nhân viên, đội ngũ",
+    "ex": "All staff are invited to the year-end party on Friday.",
+    "syn": [
+      "employees",
+      "personnel"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "workforce",
+    "ipa": "/ˈwɜːrkfɔːrs/",
+    "pos": "Noun",
+    "meaning": "All the people who work in a company, industry, or country.",
+    "vi": "lực lượng lao động",
+    "ex": "Women now make up half of our workforce.",
+    "syn": [
+      "labor force",
+      "staff"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "department",
+    "ipa": "/dɪˈpɑːrtmənt/",
+    "pos": "Noun",
+    "meaning": "A section of a large organization that deals with one area of work.",
+    "vi": "phòng, ban",
+    "ex": "She was transferred to the accounting department last month.",
+    "syn": [
+      "division",
+      "section"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "executive",
+    "ipa": "/ɪɡˈzekjətɪv/",
+    "pos": "Noun",
+    "meaning": "A person with an important job as a manager in a company.",
+    "vi": "giám đốc điều hành, cán bộ quản lý",
+    "ex": "Several senior executive staff will attend the opening ceremony.",
+    "syn": [
+      "director",
+      "manager"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "vice president",
+    "ipa": "/ˌvaɪs ˈprezɪdənt/",
+    "pos": "Noun",
+    "meaning": "A senior manager ranked just below the president of a company.",
+    "vi": "phó chủ tịch, phó giám đốc",
+    "ex": "She was named vice president of human resources in May.",
+    "syn": [
+      "deputy"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "subordinate",
+    "ipa": "/səˈbɔːrdɪnət/",
+    "pos": "Noun",
+    "meaning": "A person who has a lower position than someone else at work.",
+    "vi": "cấp dưới",
+    "ex": "A good manager listens to the ideas of each subordinate.",
+    "syn": [
+      "junior"
+    ],
+    "ant": [
+      "superior"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "coworker",
+    "ipa": "/ˈkoʊwɜːrkər/",
+    "pos": "Noun",
+    "meaning": "A person you work with.",
+    "vi": "đồng nghiệp",
+    "ex": "My coworker covered my phone calls while I was at lunch.",
+    "syn": [
+      "colleague",
+      "associate"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "intern",
+    "ipa": "/ˈɪntɜːrn/",
+    "pos": "Noun",
+    "meaning": "A student or new graduate who works for a short time to get experience.",
+    "vi": "thực tập sinh",
+    "ex": "The new intern will help us organize the client files.",
+    "syn": [
+      "trainee"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "trainee",
+    "ipa": "/ˌtreɪˈniː/",
+    "pos": "Noun",
+    "meaning": "A person who is being taught the skills for a job.",
+    "vi": "học viên, người đang được đào tạo",
+    "ex": "Each trainee is paired with an experienced sales representative.",
+    "syn": [
+      "apprentice",
+      "intern"
+    ],
+    "ant": [
+      "trainer"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "workshop",
+    "ipa": "/ˈwɜːrkʃɑːp/",
+    "pos": "Noun",
+    "meaning": "A meeting where people learn about a subject through discussion and practice.",
+    "vi": "hội thảo thực hành",
+    "ex": "Staff can sign up for a free workshop on customer service.",
+    "syn": [
+      "seminar",
+      "class"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "seminar",
+    "ipa": "/ˈsemɪnɑːr/",
+    "pos": "Noun",
+    "meaning": "A meeting for training or discussion on a particular topic.",
+    "vi": "hội thảo chuyên đề",
+    "ex": "The leadership seminar has been moved to Room 402.",
+    "syn": [
+      "workshop",
+      "conference"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "orientation",
+    "ipa": "/ˌɔːriənˈteɪʃn/",
+    "pos": "Noun",
+    "meaning": "Training and information given to new employees when they start.",
+    "vi": "buổi định hướng, giới thiệu",
+    "ex": "New hires must attend orientation on their first Monday.",
+    "syn": [
+      "induction",
+      "introduction"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "instructor",
+    "ipa": "/ɪnˈstrʌktər/",
+    "pos": "Noun",
+    "meaning": "A person whose job is to teach a practical skill.",
+    "vi": "người hướng dẫn, giảng viên",
+    "ex": "The instructor will demonstrate how to use the new software.",
+    "syn": [
+      "trainer",
+      "teacher"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "certification",
+    "ipa": "/ˌsɜːrtɪfɪˈkeɪʃn/",
+    "pos": "Noun",
+    "meaning": "Official proof that someone has completed training or has a skill.",
+    "vi": "chứng nhận, chứng chỉ",
+    "ex": "The company pays for project management certification.",
+    "syn": [
+      "accreditation",
+      "qualification"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "enroll",
+    "ipa": "/ɪnˈroʊl/",
+    "pos": "Verb",
+    "meaning": "To officially join a course or program.",
+    "vi": "đăng ký (khóa học)",
+    "ex": "Employees who wish to enroll in the course should contact HR.",
+    "syn": [
+      "register",
+      "sign up"
+    ],
+    "ant": [
+      "withdraw"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "registration",
+    "ipa": "/ˌredʒɪˈstreɪʃn/",
+    "pos": "Noun",
+    "meaning": "The process of officially recording your name to take part in something.",
+    "vi": "sự đăng ký",
+    "ex": "Online registration for the training closes on June 5.",
+    "syn": [
+      "enrollment",
+      "sign-up"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "attend",
+    "ipa": "/əˈtend/",
+    "pos": "Verb",
+    "meaning": "To go to an event such as a meeting or class.",
+    "vi": "tham dự",
+    "ex": "All department heads are required to attend the budget meeting.",
+    "syn": [
+      "go to",
+      "be present at"
+    ],
+    "ant": [
+      "miss"
+    ],
+    "level": "A2"
+  },
+  {
+    "word": "attendance",
+    "ipa": "/əˈtendəns/",
+    "pos": "Noun",
+    "meaning": "The act of being present at an event, or the number of people present.",
+    "vi": "sự có mặt, số người tham dự",
+    "ex": "Full attendance at the safety briefing is mandatory for all workers.",
+    "syn": [
+      "presence",
+      "turnout"
+    ],
+    "ant": [
+      "absence"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "participate",
+    "ipa": "/pɑːrˈtɪsɪpeɪt/",
+    "pos": "Verb",
+    "meaning": "To take part in an activity or event.",
+    "vi": "tham gia",
+    "ex": "Everyone is encouraged to participate in the staff survey.",
+    "syn": [
+      "take part",
+      "join"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "participant",
+    "ipa": "/pɑːrˈtɪsɪpənt/",
+    "pos": "Noun",
+    "meaning": "A person who takes part in an activity or event.",
+    "vi": "người tham gia",
+    "ex": "Each participant will receive a certificate after the course.",
+    "syn": [
+      "attendee",
+      "member"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "promote",
+    "ipa": "/prəˈmoʊt/",
+    "pos": "Verb",
+    "meaning": "To move someone to a higher position at work.",
+    "vi": "thăng chức",
+    "ex": "The company decided to promote Ms. Hoa to sales director.",
+    "syn": [
+      "upgrade",
+      "advance"
+    ],
+    "ant": [
+      "demote"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "advancement",
+    "ipa": "/ədˈvænsmənt/",
+    "pos": "Noun",
+    "meaning": "Progress to a higher level in your job.",
+    "vi": "sự thăng tiến",
+    "ex": "This role offers excellent opportunities for advancement.",
+    "syn": [
+      "progression",
+      "promotion"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "transfer",
+    "ipa": "/trænsˈfɜːr/",
+    "pos": "Verb",
+    "meaning": "To move someone to a different job, department, or place.",
+    "vi": "thuyên chuyển",
+    "ex": "He asked to transfer to the Da Nang branch next year.",
+    "syn": [
+      "move",
+      "relocate"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "resign",
+    "ipa": "/rɪˈzaɪn/",
+    "pos": "Verb",
+    "meaning": "To officially leave your job.",
+    "vi": "từ chức, nghỉ việc",
+    "ex": "Mr. Kim plans to resign at the end of the year.",
+    "syn": [
+      "quit",
+      "step down"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "resignation",
+    "ipa": "/ˌrezɪɡˈneɪʃn/",
+    "pos": "Noun",
+    "meaning": "The act of officially telling your employer that you are leaving your job.",
+    "vi": "sự từ chức, đơn xin nghỉ việc",
+    "ex": "She handed in her resignation letter on Monday.",
+    "syn": [
+      "departure"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "retire",
+    "ipa": "/rɪˈtaɪər/",
+    "pos": "Verb",
+    "meaning": "To stop working, usually because you have reached a certain age.",
+    "vi": "nghỉ hưu",
+    "ex": "Our head accountant will retire after thirty years with the firm.",
+    "syn": [
+      "stop working"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "retirement",
+    "ipa": "/rɪˈtaɪərmənt/",
+    "pos": "Noun",
+    "meaning": "The time when you stop working, usually because of your age.",
+    "vi": "sự nghỉ hưu",
+    "ex": "We are holding a retirement party for Mr. Binh next week.",
+    "syn": [],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "dismiss",
+    "ipa": "/dɪsˈmɪs/",
+    "pos": "Verb",
+    "meaning": "To officially remove someone from their job.",
+    "vi": "sa thải, cho thôi việc",
+    "ex": "The company may dismiss staff who repeatedly break safety rules.",
+    "syn": [
+      "fire",
+      "let go"
+    ],
+    "ant": [
+      "hire"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "lay off",
+    "ipa": "/ˌleɪ ˈɔːf/",
+    "pos": "Verb",
+    "meaning": "To stop employing workers because there is not enough work or money.",
+    "vi": "cho nghỉ việc (do cắt giảm)",
+    "ex": "The factory had to lay off 50 workers due to low orders.",
+    "syn": [
+      "dismiss",
+      "let go"
+    ],
+    "ant": [
+      "hire"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "terminate",
+    "ipa": "/ˈtɜːrmɪneɪt/",
+    "pos": "Verb",
+    "meaning": "To end something officially, such as a job or agreement.",
+    "vi": "chấm dứt",
+    "ex": "The firm can terminate employment with one month's notice.",
+    "syn": [
+      "end",
+      "cancel"
+    ],
+    "ant": [
+      "begin"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "successor",
+    "ipa": "/səkˈsesər/",
+    "pos": "Noun",
+    "meaning": "A person who takes over a job after someone else leaves it.",
+    "vi": "người kế nhiệm",
+    "ex": "The board has not yet chosen a successor to the retiring CEO.",
+    "syn": [
+      "replacement",
+      "heir"
+    ],
+    "ant": [
+      "predecessor"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "wage",
+    "ipa": "/weɪdʒ/",
+    "pos": "Noun",
+    "meaning": "Money paid to a worker, usually every hour or week.",
+    "vi": "tiền lương (theo giờ, tuần)",
+    "ex": "The minimum wage will rise next January.",
+    "syn": [
+      "pay",
+      "earnings"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "payroll",
+    "ipa": "/ˈpeɪroʊl/",
+    "pos": "Noun",
+    "meaning": "A list of employees and the money paid to them, or the department that handles it.",
+    "vi": "bảng lương, bộ phận tính lương",
+    "ex": "Please contact payroll if your bank details have changed.",
+    "syn": [],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "paycheck",
+    "ipa": "/ˈpeɪtʃek/",
+    "pos": "Noun",
+    "meaning": "The money, or a check, that an employee receives as payment.",
+    "vi": "tiền lương, phiếu lương",
+    "ex": "Your first paycheck will arrive at the end of the month.",
+    "syn": [
+      "wages",
+      "pay"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "incentive",
+    "ipa": "/ɪnˈsentɪv/",
+    "pos": "Noun",
+    "meaning": "Something that encourages a person to work harder.",
+    "vi": "sự khuyến khích, ưu đãi",
+    "ex": "The sales team receives a cash incentive for meeting targets.",
+    "syn": [
+      "motivation",
+      "reward"
+    ],
+    "ant": [
+      "deterrent"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "pension",
+    "ipa": "/ˈpenʃn/",
+    "pos": "Noun",
+    "meaning": "Money paid regularly to a person after they retire.",
+    "vi": "lương hưu",
+    "ex": "The company contributes five percent to each worker's pension plan.",
+    "syn": [
+      "retirement fund"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "allowance",
+    "ipa": "/əˈlaʊəns/",
+    "pos": "Noun",
+    "meaning": "An amount of money given regularly for a particular purpose.",
+    "vi": "phụ cấp, trợ cấp",
+    "ex": "Staff working overseas receive a monthly housing allowance.",
+    "syn": [
+      "stipend",
+      "subsidy"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "reimburse",
+    "ipa": "/ˌriːɪmˈbɜːrs/",
+    "pos": "Verb",
+    "meaning": "To pay back money that someone has spent for work.",
+    "vi": "hoàn trả, bồi hoàn",
+    "ex": "The company will reimburse you for travel costs to the training.",
+    "syn": [
+      "refund",
+      "repay"
+    ],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "maternity leave",
+    "ipa": "/məˈtɜːrnəti ˌliːv/",
+    "pos": "Noun",
+    "meaning": "Time off work that a mother takes before and after having a baby.",
+    "vi": "nghỉ thai sản",
+    "ex": "Ms. Lan will be on maternity leave until September.",
+    "syn": [],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "leave of absence",
+    "ipa": "/ˌliːv əv ˈæbsəns/",
+    "pos": "Noun",
+    "meaning": "A period of time when you are allowed to be away from your job.",
+    "vi": "thời gian nghỉ phép (dài hạn)",
+    "ex": "He was granted a leave of absence to care for his father.",
+    "syn": [
+      "time off"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "policy",
+    "ipa": "/ˈpɑːləsi/",
+    "pos": "Noun",
+    "meaning": "A set of official rules or plans that an organization follows.",
+    "vi": "chính sách",
+    "ex": "According to company policy, visitors must wear a badge.",
+    "syn": [
+      "rule",
+      "guideline"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "procedure",
+    "ipa": "/prəˈsiːdʒər/",
+    "pos": "Noun",
+    "meaning": "An official or accepted way of doing something.",
+    "vi": "thủ tục, quy trình",
+    "ex": "Please follow the correct procedure when requesting leave.",
+    "syn": [
+      "process",
+      "method"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "guideline",
+    "ipa": "/ˈɡaɪdlaɪn/",
+    "pos": "Noun",
+    "meaning": "Advice or a rule about how something should be done.",
+    "vi": "hướng dẫn, nguyên tắc",
+    "ex": "Every guideline on the use of company email is listed on the intranet.",
+    "syn": [
+      "rule",
+      "instruction"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "regulation",
+    "ipa": "/ˌreɡjuˈleɪʃn/",
+    "pos": "Noun",
+    "meaning": "An official rule made by an organization or government.",
+    "vi": "quy định",
+    "ex": "This regulation requires all staff to complete safety training.",
+    "syn": [
+      "rule",
+      "law"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "comply",
+    "ipa": "/kəmˈplaɪ/",
+    "pos": "Verb",
+    "meaning": "To obey a rule, law, or request.",
+    "vi": "tuân thủ",
+    "ex": "All employees must comply with the new data protection rules.",
+    "syn": [
+      "obey",
+      "follow"
+    ],
+    "ant": [
+      "disobey",
+      "violate"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "compliance",
+    "ipa": "/kəmˈplaɪəns/",
+    "pos": "Noun",
+    "meaning": "The act of obeying a rule, law, or request.",
+    "vi": "sự tuân thủ",
+    "ex": "The audit checks our compliance with labor laws.",
+    "syn": [
+      "obedience",
+      "adherence"
+    ],
+    "ant": [
+      "violation"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "dress code",
+    "ipa": "/ˈdres ˌkoʊd/",
+    "pos": "Noun",
+    "meaning": "A set of rules about what clothes people must wear at work.",
+    "vi": "quy định trang phục",
+    "ex": "Our dress code is business casual from Monday to Thursday.",
+    "syn": [],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "handbook",
+    "ipa": "/ˈhændbʊk/",
+    "pos": "Noun",
+    "meaning": "A book that gives instructions or information about a subject.",
+    "vi": "sổ tay hướng dẫn",
+    "ex": "Details about vacation days are in the employee handbook.",
+    "syn": [
+      "manual",
+      "guide"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "manual",
+    "ipa": "/ˈmænjuəl/",
+    "pos": "Noun",
+    "meaning": "A book that explains how to use or do something.",
+    "vi": "sách hướng dẫn",
+    "ex": "Read the user manual before operating the new copier.",
+    "syn": [
+      "handbook",
+      "guide"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "protocol",
+    "ipa": "/ˈproʊtəkɔːl/",
+    "pos": "Noun",
+    "meaning": "A set of rules about the correct way to act in a situation.",
+    "vi": "quy trình, nghi thức",
+    "ex": "Staff must follow the security protocol when leaving the building.",
+    "syn": [
+      "procedure",
+      "convention"
+    ],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "mandatory",
+    "ipa": "/ˈmændətɔːri/",
+    "pos": "Adjective",
+    "meaning": "Required by a rule or law.",
+    "vi": "bắt buộc",
+    "ex": "Fire safety training is mandatory for all new staff.",
+    "syn": [
+      "compulsory",
+      "required"
+    ],
+    "ant": [
+      "optional",
+      "voluntary"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "optional",
+    "ipa": "/ˈɑːpʃənl/",
+    "pos": "Adjective",
+    "meaning": "Available to choose but not required.",
+    "vi": "không bắt buộc, tùy chọn",
+    "ex": "Attendance at the Friday lunch talk is optional.",
+    "syn": [
+      "voluntary",
+      "elective"
+    ],
+    "ant": [
+      "mandatory",
+      "compulsory"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "authorize",
+    "ipa": "/ˈɔːθəraɪz/",
+    "pos": "Verb",
+    "meaning": "To give official permission for something.",
+    "vi": "ủy quyền, cho phép",
+    "ex": "Only a department head can authorize overtime pay.",
+    "syn": [
+      "approve",
+      "permit"
+    ],
+    "ant": [
+      "forbid"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "supervise",
+    "ipa": "/ˈsuːpərvaɪz/",
+    "pos": "Verb",
+    "meaning": "To watch and direct people's work to make sure it is done correctly.",
+    "vi": "giám sát",
+    "ex": "Mr. Quang will supervise the new interns this summer.",
+    "syn": [
+      "oversee",
+      "manage"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "oversee",
+    "ipa": "/ˌoʊvərˈsiː/",
+    "pos": "Verb",
+    "meaning": "To be in charge of a job or activity and make sure it is done well.",
+    "vi": "giám sát, quản lý",
+    "ex": "She was hired to oversee the recruitment process.",
+    "syn": [
+      "supervise",
+      "direct"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "evaluate",
+    "ipa": "/ɪˈvæljueɪt/",
+    "pos": "Verb",
+    "meaning": "To judge the quality, value, or performance of someone or something.",
+    "vi": "đánh giá",
+    "ex": "Managers evaluate each team member twice a year.",
+    "syn": [
+      "assess",
+      "judge"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "evaluation",
+    "ipa": "/ɪˌvæljuˈeɪʃn/",
+    "pos": "Noun",
+    "meaning": "A judgment about how good or useful someone or something is.",
+    "vi": "sự đánh giá",
+    "ex": "Please complete the course evaluation form before you leave.",
+    "syn": [
+      "assessment",
+      "appraisal"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "productivity",
+    "ipa": "/ˌproʊdʌkˈtɪvəti/",
+    "pos": "Noun",
+    "meaning": "The amount of work that a person or company does in a period of time.",
+    "vi": "năng suất",
+    "ex": "The new scheduling system has improved office productivity.",
+    "syn": [
+      "efficiency",
+      "output"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "productive",
+    "ipa": "/prəˈdʌktɪv/",
+    "pos": "Adjective",
+    "meaning": "Doing or achieving a lot of work.",
+    "vi": "năng suất, hiệu quả",
+    "ex": "It was a very productive meeting, and we agreed on all key points.",
+    "syn": [
+      "efficient",
+      "fruitful"
+    ],
+    "ant": [
+      "unproductive"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "efficient",
+    "ipa": "/ɪˈfɪʃnt/",
+    "pos": "Adjective",
+    "meaning": "Working well without wasting time, money, or effort.",
+    "vi": "hiệu quả",
+    "ex": "Our office manager is extremely efficient and well organized.",
+    "syn": [
+      "productive",
+      "effective"
+    ],
+    "ant": [
+      "inefficient"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "punctual",
+    "ipa": "/ˈpʌŋktʃuəl/",
+    "pos": "Adjective",
+    "meaning": "Arriving or doing something at the expected time.",
+    "vi": "đúng giờ",
+    "ex": "Please be punctual for the 8 a.m. briefing.",
+    "syn": [
+      "on time",
+      "prompt"
+    ],
+    "ant": [
+      "late"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "shift",
+    "ipa": "/ʃɪft/",
+    "pos": "Noun",
+    "meaning": "A fixed period of working time, such as during the day or night.",
+    "vi": "ca làm việc",
+    "ex": "Nurses on the night shift start work at 10 p.m.",
+    "syn": [
+      "period",
+      "turn"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "workplace",
+    "ipa": "/ˈwɜːrkpleɪs/",
+    "pos": "Noun",
+    "meaning": "The building or room where people work.",
+    "vi": "nơi làm việc",
+    "ex": "We want to create a safe and friendly workplace for everyone.",
+    "syn": [
+      "office",
+      "work site"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "headquarters",
+    "ipa": "/ˈhedkwɔːrtərz/",
+    "pos": "Noun",
+    "meaning": "The main office of a company or organization.",
+    "vi": "trụ sở chính",
+    "ex": "The company headquarters is located in Ho Chi Minh City.",
+    "syn": [
+      "head office",
+      "main office"
+    ],
+    "ant": [
+      "branch office"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "announce",
+    "ipa": "/əˈnaʊns/",
+    "pos": "Verb",
+    "meaning": "To tell people about something officially.",
+    "vi": "thông báo, công bố",
+    "ex": "The CEO will announce the new appointments at noon.",
+    "syn": [
+      "declare",
+      "state"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "announcement",
+    "ipa": "/əˈnaʊnsmənt/",
+    "pos": "Noun",
+    "meaning": "An official statement that gives people information.",
+    "vi": "thông báo",
+    "ex": "Please read the announcement about the holiday schedule.",
+    "syn": [
+      "notice",
+      "statement"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "bulletin board",
+    "ipa": "/ˈbʊlətɪn ˌbɔːrd/",
+    "pos": "Noun",
+    "meaning": "A board on a wall where notices are put up.",
+    "vi": "bảng thông báo",
+    "ex": "The training dates are posted on the bulletin board in the lobby.",
+    "syn": [
+      "notice board"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "distribute",
+    "ipa": "/dɪˈstrɪbjuːt/",
+    "pos": "Verb",
+    "meaning": "To give things to many people.",
+    "vi": "phân phát",
+    "ex": "Could you distribute these forms to everyone in the room?",
+    "syn": [
+      "hand out",
+      "give out"
+    ],
+    "ant": [
+      "collect"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "notice",
+    "ipa": "/ˈnoʊtɪs/",
+    "pos": "Noun",
+    "meaning": "A written statement giving information or a warning to people.",
+    "vi": "thông báo, giấy báo",
+    "ex": "A notice about the elevator repair was posted near the entrance.",
+    "syn": [
+      "announcement",
+      "sign"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "file",
+    "ipa": "/faɪl/",
+    "pos": "Verb",
+    "meaning": "To put documents in a particular place so they are kept in order.",
+    "vi": "lưu trữ, sắp xếp hồ sơ",
+    "ex": "Please file these receipts under last month's expenses.",
+    "syn": [
+      "store",
+      "organize"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "document",
+    "ipa": "/ˈdɑːkjumənt/",
+    "pos": "Noun",
+    "meaning": "A paper or electronic file that contains official information.",
+    "vi": "tài liệu, văn bản",
+    "ex": "Please sign the document and return it to my office.",
+    "syn": [
+      "paper",
+      "record"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "paperwork",
+    "ipa": "/ˈpeɪpərwɜːrk/",
+    "pos": "Noun",
+    "meaning": "The work of dealing with forms, letters, and other documents.",
+    "vi": "giấy tờ, công việc giấy tờ",
+    "ex": "New employees must finish their paperwork before they start.",
+    "syn": [
+      "documentation",
+      "forms"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "fill out",
+    "ipa": "/ˌfɪl ˈaʊt/",
+    "pos": "Verb",
+    "meaning": "To write the necessary information on a form.",
+    "vi": "điền (vào mẫu đơn)",
+    "ex": "Please fill out this form and give it to the receptionist.",
+    "syn": [
+      "complete",
+      "fill in"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "hand in",
+    "ipa": "/ˌhænd ˈɪn/",
+    "pos": "Verb",
+    "meaning": "To give a piece of work or a document to a person in authority.",
+    "vi": "nộp",
+    "ex": "Remember to hand in your timesheet every Friday.",
+    "syn": [
+      "submit",
+      "turn in"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "submit",
+    "ipa": "/səbˈmɪt/",
+    "pos": "Verb",
+    "meaning": "To formally give a document or plan to someone for them to consider.",
+    "vi": "nộp, đệ trình",
+    "ex": "Applicants should submit their documents online by May 15.",
+    "syn": [
+      "hand in",
+      "present"
+    ],
+    "ant": [
+      "withdraw"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "due",
+    "ipa": "/duː/",
+    "pos": "Adjective",
+    "meaning": "Expected to happen, arrive, or be finished at a certain time.",
+    "vi": "đến hạn, dự kiến",
+    "ex": "The quarterly staff report is due next Wednesday.",
+    "syn": [
+      "expected",
+      "owed"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "confidentiality",
+    "ipa": "/ˌkɑːnfɪˌdenʃiˈæləti/",
+    "pos": "Noun",
+    "meaning": "The state of keeping information secret.",
+    "vi": "sự bảo mật",
+    "ex": "All interviewers must respect the confidentiality of applicant information.",
+    "syn": [
+      "privacy",
+      "secrecy"
+    ],
+    "ant": [
+      "disclosure"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "courier",
+    "ipa": "/ˈkʊriər/",
+    "pos": "Noun",
+    "meaning": "A person or company that delivers documents and packages quickly.",
+    "vi": "người chuyển phát, dịch vụ chuyển phát",
+    "ex": "The signed agreement was sent by courier this morning.",
+    "syn": [
+      "messenger",
+      "delivery service"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "equipment",
+    "ipa": "/ɪˈkwɪpmənt/",
+    "pos": "Noun",
+    "meaning": "The tools and machines needed for a particular activity.",
+    "vi": "thiết bị",
+    "ex": "Report any damaged office equipment to the IT desk.",
+    "syn": [
+      "gear",
+      "devices"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "out of order",
+    "ipa": "/ˌaʊt əv ˈɔːrdər/",
+    "pos": "Other",
+    "meaning": "Not working properly, used about machines.",
+    "vi": "bị hỏng, không hoạt động",
+    "ex": "The coffee machine in the break room is out of order.",
+    "syn": [
+      "broken"
+    ],
+    "ant": [
+      "working"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "technician",
+    "ipa": "/tekˈnɪʃn/",
+    "pos": "Noun",
+    "meaning": "A worker whose job is to check and repair machines or equipment.",
+    "vi": "kỹ thuật viên",
+    "ex": "A technician will come to fix the printer at 2 p.m.",
+    "syn": [
+      "repairer",
+      "mechanic"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "staff meeting",
+    "ipa": "/ˈstæf ˌmiːtɪŋ/",
+    "pos": "Noun",
+    "meaning": "A regular meeting for all the employees of a team or office.",
+    "vi": "cuộc họp nhân viên",
+    "ex": "The staff meeting has been moved to Tuesday morning.",
+    "syn": [],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "brainstorm",
+    "ipa": "/ˈbreɪnstɔːrm/",
+    "pos": "Verb",
+    "meaning": "To meet as a group and suggest many ideas quickly.",
+    "vi": "động não, cùng đưa ra ý tưởng",
+    "ex": "Let's brainstorm ideas for the company anniversary event.",
+    "syn": [
+      "think up"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "consultant",
+    "ipa": "/kənˈsʌltənt/",
+    "pos": "Noun",
+    "meaning": "An expert who gives professional advice to a company.",
+    "vi": "chuyên gia tư vấn",
+    "ex": "We hired a consultant to improve our hiring process.",
+    "syn": [
+      "adviser",
+      "specialist"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "videoconference",
+    "ipa": "/ˈvɪdioʊˌkɑːnfərəns/",
+    "pos": "Noun",
+    "meaning": "A meeting in which people in different places see and hear each other on screens.",
+    "vi": "hội nghị trực tuyến (qua video)",
+    "ex": "The regional managers will join by videoconference.",
+    "syn": [
+      "video call"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "commute",
+    "ipa": "/kəˈmjuːt/",
+    "pos": "Verb",
+    "meaning": "To travel regularly between your home and your workplace.",
+    "vi": "đi lại (giữa nhà và nơi làm việc)",
+    "ex": "Many employees commute to the office by bus.",
+    "syn": [
+      "travel"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "telecommute",
+    "ipa": "/ˈtelikəˌmjuːt/",
+    "pos": "Verb",
+    "meaning": "To work from home and communicate with the office by phone or internet.",
+    "vi": "làm việc từ xa",
+    "ex": "Staff may telecommute two days a week with approval.",
+    "syn": [
+      "work remotely"
+    ],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "part-time",
+    "ipa": "/ˌpɑːrt ˈtaɪm/",
+    "pos": "Adjective",
+    "meaning": "Working or done for only part of the usual working hours.",
+    "vi": "bán thời gian",
+    "ex": "We are hiring part-time cashiers for weekends.",
+    "syn": [],
+    "ant": [
+      "full-time"
+    ],
+    "level": "A2"
+  },
+  {
+    "word": "temporary",
+    "ipa": "/ˈtempəreri/",
+    "pos": "Adjective",
+    "meaning": "Lasting or used for only a limited time.",
+    "vi": "tạm thời",
+    "ex": "She accepted a temporary position covering for a colleague on leave.",
+    "syn": [
+      "short-term",
+      "interim"
+    ],
+    "ant": [
+      "permanent"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "permanent",
+    "ipa": "/ˈpɜːrmənənt/",
+    "pos": "Adjective",
+    "meaning": "Lasting for a long time or for all time in the future.",
+    "vi": "lâu dài, chính thức",
+    "ex": "After six months, interns may be offered a permanent contract.",
+    "syn": [
+      "long-term",
+      "lasting"
+    ],
+    "ant": [
+      "temporary"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "recruitment",
+    "ipa": "/rɪˈkruːtmənt/",
+    "pos": "Noun",
+    "meaning": "The process of finding new people to work for a company.",
+    "vi": "sự tuyển dụng",
+    "ex": "Our recruitment campaign targets recent university graduates.",
+    "syn": [
+      "hiring",
+      "staffing"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "job title",
+    "ipa": "/ˈdʒɑːb ˌtaɪtl/",
+    "pos": "Noun",
+    "meaning": "The name of a person's job, such as manager or engineer.",
+    "vi": "chức danh",
+    "ex": "Please include your job title in your email signature.",
+    "syn": [
+      "position",
+      "title"
+    ],
+    "ant": [],
+    "level": "A2"
+  },
+  {
+    "word": "occupation",
+    "ipa": "/ˌɑːkjuˈpeɪʃn/",
+    "pos": "Noun",
+    "meaning": "A person's job or profession.",
+    "vi": "nghề nghiệp",
+    "ex": "Please write your name, address, and occupation on the form.",
+    "syn": [
+      "job",
+      "profession"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "profession",
+    "ipa": "/prəˈfeʃn/",
+    "pos": "Noun",
+    "meaning": "A job that needs special training or education.",
+    "vi": "nghề, nghề nghiệp chuyên môn",
+    "ex": "Accounting is a respected profession in many countries.",
+    "syn": [
+      "occupation",
+      "career"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "professional",
+    "ipa": "/prəˈfeʃənl/",
+    "pos": "Adjective",
+    "meaning": "Related to a job that needs skill and training, or showing good work standards.",
+    "vi": "chuyên nghiệp",
+    "ex": "Staff are expected to maintain a professional appearance.",
+    "syn": [
+      "businesslike",
+      "skilled"
+    ],
+    "ant": [
+      "unprofessional",
+      "amateur"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "duty",
+    "ipa": "/ˈduːti/",
+    "pos": "Noun",
+    "meaning": "A task that is part of your job.",
+    "vi": "nhiệm vụ, bổn phận",
+    "ex": "Answering client calls is one duty of the office assistant.",
+    "syn": [
+      "task",
+      "responsibility"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "assignment",
+    "ipa": "/əˈsaɪnmənt/",
+    "pos": "Noun",
+    "meaning": "A piece of work that someone is given to do.",
+    "vi": "nhiệm vụ được giao",
+    "ex": "His first assignment was to update the customer database.",
+    "syn": [
+      "task",
+      "job"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "commend",
+    "ipa": "/kəˈmend/",
+    "pos": "Verb",
+    "meaning": "To praise someone formally or publicly.",
+    "vi": "khen ngợi, tuyên dương",
+    "ex": "The director wanted to commend the team for its hard work.",
+    "syn": [
+      "praise",
+      "applaud"
+    ],
+    "ant": [
+      "criticize"
+    ],
+    "level": "C1"
+  },
+  {
+    "word": "nominate",
+    "ipa": "/ˈnɑːmɪneɪt/",
+    "pos": "Verb",
+    "meaning": "To officially suggest someone for a position or award.",
+    "vi": "đề cử",
+    "ex": "You may nominate a colleague for Employee of the Month.",
+    "syn": [
+      "propose",
+      "put forward"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "motivate",
+    "ipa": "/ˈmoʊtɪveɪt/",
+    "pos": "Verb",
+    "meaning": "To make someone want to work hard or do something.",
+    "vi": "thúc đẩy, tạo động lực",
+    "ex": "Bonuses and praise help motivate the sales staff.",
+    "syn": [
+      "inspire",
+      "encourage"
+    ],
+    "ant": [
+      "discourage"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "seniority",
+    "ipa": "/ˌsiːniˈɔːrəti/",
+    "pos": "Noun",
+    "meaning": "The higher rank someone has because they have worked somewhere longer.",
+    "vi": "thâm niên",
+    "ex": "Vacation days are assigned based on seniority.",
+    "syn": [
+      "rank",
+      "tenure"
+    ],
+    "ant": [],
+    "level": "C1"
+  },
+  {
+    "word": "experienced",
+    "ipa": "/ɪkˈspɪriənst/",
+    "pos": "Adjective",
+    "meaning": "Having skill or knowledge because you have done something for a long time.",
+    "vi": "có kinh nghiệm",
+    "ex": "We are looking for an experienced office manager.",
+    "syn": [
+      "skilled",
+      "seasoned"
+    ],
+    "ant": [
+      "inexperienced"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "coordinator",
+    "ipa": "/koʊˈɔːrdɪneɪtər/",
+    "pos": "Noun",
+    "meaning": "A person who organizes people or activities so they work well together.",
+    "vi": "điều phối viên",
+    "ex": "Contact the training coordinator to change your session.",
+    "syn": [
+      "organizer"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "administrative",
+    "ipa": "/ədˈmɪnɪstreɪtɪv/",
+    "pos": "Adjective",
+    "meaning": "Relating to the work of managing and organizing a company or office.",
+    "vi": "thuộc hành chính",
+    "ex": "She handles administrative tasks such as booking rooms and ordering supplies.",
+    "syn": [
+      "managerial",
+      "clerical"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "inbox",
+    "ipa": "/ˈɪnbɑːks/",
+    "pos": "Noun",
+    "meaning": "The place where new emails arrive on a computer.",
+    "vi": "hộp thư đến",
+    "ex": "Please check your inbox for the meeting invitation.",
+    "syn": [],
+    "ant": [
+      "outbox"
+    ],
+    "level": "B1"
+  },
+  {
+    "word": "spreadsheet",
+    "ipa": "/ˈspredʃiːt/",
+    "pos": "Noun",
+    "meaning": "A computer document with rows and columns used to organize numbers and data.",
+    "vi": "bảng tính",
+    "ex": "I have entered all the vacation requests in a shared spreadsheet.",
+    "syn": [
+      "worksheet"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "vacant",
+    "ipa": "/ˈveɪkənt/",
+    "pos": "Adjective",
+    "meaning": "Available because nobody is doing the job or using the space.",
+    "vi": "còn trống",
+    "ex": "The position of office manager has been vacant since March.",
+    "syn": [
+      "open",
+      "unfilled"
+    ],
+    "ant": [
+      "occupied",
+      "filled"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "assess",
+    "ipa": "/əˈses/",
+    "pos": "Verb",
+    "meaning": "To judge the ability, quality, or value of someone or something.",
+    "vi": "đánh giá, thẩm định",
+    "ex": "The test is designed to assess each candidate's writing skills.",
+    "syn": [
+      "evaluate",
+      "judge"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "competent",
+    "ipa": "/ˈkɑːmpɪtənt/",
+    "pos": "Adjective",
+    "meaning": "Having enough skill or knowledge to do something well.",
+    "vi": "có năng lực, đủ khả năng",
+    "ex": "He is a competent manager who keeps projects running smoothly.",
+    "syn": [
+      "capable",
+      "proficient"
+    ],
+    "ant": [
+      "incompetent"
+    ],
+    "level": "B2"
+  },
+  {
+    "word": "timesheet",
+    "ipa": "/ˈtaɪmʃiːt/",
+    "pos": "Noun",
+    "meaning": "A record of the hours a person has worked.",
+    "vi": "bảng chấm công",
+    "ex": "Your timesheet must be signed by your supervisor.",
+    "syn": [
+      "time card"
+    ],
+    "ant": [],
+    "level": "B2"
+  },
+  {
+    "word": "job fair",
+    "ipa": "/ˈdʒɑːb ˌfer/",
+    "pos": "Noun",
+    "meaning": "An event where companies meet people who are looking for jobs.",
+    "vi": "hội chợ việc làm",
+    "ex": "Our HR team will have a booth at the job fair this Saturday.",
+    "syn": [
+      "career fair"
+    ],
+    "ant": [],
+    "level": "B1"
+  },
+  {
+    "word": "letter of recommendation",
+    "ipa": "/ˌletər əv ˌrekəmenˈdeɪʃn/",
+    "pos": "Noun",
+    "meaning": "A letter in which someone praises a person and supports their application.",
+    "vi": "thư giới thiệu",
+    "ex": "Please ask a former employer for a letter of recommendation.",
+    "syn": [
+      "reference letter"
+    ],
+    "ant": [],
+    "level": "B2"
+  }
+]
