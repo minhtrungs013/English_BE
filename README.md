@@ -7,7 +7,7 @@ NestJS + MongoDB (Mongoose) backend for the Wordbook vocabulary app (frontend in
 ```bash
 npm install
 cp .env.example .env   # then fill in the MongoDB password and a JWT secret
-npm run start:dev      # http://localhost:3000/api, Swagger at /api/docs
+npm run start:dev      # development (watch mode): http://localhost:3000/api, Swagger at /api/docs
 ```
 
 ## Environment
