@@ -84,6 +84,12 @@ Learning a day saves its words into My Vocabulary, tagged with the course tag.
 | GET | `/courses/:id/days/:day/homework` | The day's homework (answers only after handing in) |
 | POST | `/courses/:id/days/:day/homework` | `{ answers }` — hand in once; graded on the server |
 | GET | `/courses/:id/leaderboard?day=` | One day's ranking, total score, and on-time streaks (real names) |
+| GET | `/courses/:id/days/:day/warmup` | Warm-up before the day: earlier words (missed ones first) with practice questions, and the day's recap story |
+| GET | `/courses/:id/questions?day=` | Question bank: tense questions and recaps with their status (owner) |
+| POST | `/courses/:id/days/:day/questions/generate` | `{ tenses?, perWord? }` — AI writes tense questions + a recap (pending approval; uses the daily AI limit) |
+| POST | `/courses/:id/days/:day/questions` | Add a question / recap by hand (approved) |
+| PATCH / DELETE | `/courses/:id/questions/:qid` | Edit (incl. `status`) / delete |
+| POST | `/courses/:id/questions/status` | `{ ids, status: approved\|rejected\|pending }` |
 
 ### Homework
 
@@ -92,6 +98,16 @@ then type it or fill the gap in the example) and one question each for a few wor
 It's graded on the server and can be handed in once. Late homework keeps part of its score:
 on the day **100%**, 1 day late **80%**, 2 days **60%**, 3+ days **50%**. Ties on a day's board go to the faster learner
 (time from opening the homework to handing it in). A streak counts days in a row handed in on time.
+
+### Tense questions, recap and warm-up
+
+The owner can have AI write **tense exercises** for a day's words (present simple / continuous / perfect, past simple /
+continuous, will, going to; typed or multiple choice, with a Vietnamese explanation) and a short **recap story** using
+earlier days' words. AI-written items wait for the owner's approval; only approved ones are used. Up to 4 tense
+questions about the day's words and 2 about review words go into the homework (made when the first learner opens it,
+fixed after the first hand-in). When AI isn't available, verbs get built-in template questions instead.
+Before each day, learners get a **warm-up**: the recap story and practice questions on earlier words, starting with
+the words they got wrong in earlier homework (not graded).
 
 ## Vocabulary library
 

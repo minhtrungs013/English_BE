@@ -1,11 +1,13 @@
 import { PartialType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
-  ArrayMaxSize, IsArray, IsIn, IsInt, IsNotEmpty, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested
+  ArrayMaxSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested
 } from 'class-validator';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { TOPICS } from '../library/library.schema';
 import { VISIBILITIES, WORD_SOURCES } from './course.schema';
+import { BANK_KINDS, BANK_STATUSES, type BankStatus } from './homework.schema';
+import { TENSES } from './tense';
 
 const trim = ({ value }: { value: unknown }) => (typeof value === 'string' ? value.trim() : value);
 
@@ -59,5 +61,45 @@ export class SubmitHomeworkDto {
 }
 
 export class LeaderboardQuery {
+  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(30) day?: number;
+}
+
+export class GenerateQuestionsDto {
+  /** Tenses to practise (default: all). */
+  @IsOptional() @IsArray() @ArrayMaxSize(7) @IsIn(TENSES, { each: true }) tenses?: string[];
+  /** Questions per word, 1–3 (default 2). */
+  @IsOptional() @IsInt() @Min(1) @Max(3) perWord?: number;
+}
+
+export class BankItemDto {
+  @IsIn(BANK_KINDS) kind: string;
+  @IsOptional() @IsString() @MaxLength(80) word?: string;
+  @IsOptional() @IsIn([...TENSES, '']) tense?: string;
+  /** The sentence with one "___", or the recap story. */
+  @IsString() @IsNotEmpty() @MaxLength(1500) prompt: string;
+  @IsOptional() @IsArray() @ArrayMaxSize(4) @IsString({ each: true }) @MaxLength(80, { each: true }) choices?: string[];
+  @IsOptional() @IsString() @MaxLength(80) answer?: string;
+  @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(80, { each: true }) accept?: string[];
+  /** Why this tense (Vietnamese), or the recap's translation. */
+  @IsOptional() @IsString() @MaxLength(1500) explain?: string;
+}
+
+export class UpdateBankItemDto {
+  @IsOptional() @IsString() @MaxLength(80) word?: string;
+  @IsOptional() @IsIn([...TENSES, '']) tense?: string;
+  @IsOptional() @IsString() @IsNotEmpty() @MaxLength(1500) prompt?: string;
+  @IsOptional() @IsArray() @ArrayMaxSize(4) @IsString({ each: true }) @MaxLength(80, { each: true }) choices?: string[];
+  @IsOptional() @IsString() @MaxLength(80) answer?: string;
+  @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(80, { each: true }) accept?: string[];
+  @IsOptional() @IsString() @MaxLength(1500) explain?: string;
+  @IsOptional() @IsIn(BANK_STATUSES) status?: BankStatus;
+}
+
+export class BankStatusDto {
+  @IsArray() @ArrayMaxSize(100) @IsMongoId({ each: true }) ids: string[];
+  @IsIn(BANK_STATUSES) status: BankStatus;
+}
+
+export class BankQuery {
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(30) day?: number;
 }

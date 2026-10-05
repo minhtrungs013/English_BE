@@ -9,8 +9,9 @@ import { WordsModule } from '../words/words.module';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from './course.schema';
 import { CoursesController } from './courses.controller';
 import { CoursesService } from './courses.service';
-import { Homework, HomeworkSchema, Submission, SubmissionSchema } from './homework.schema';
+import { BankItem, BankItemSchema, Homework, HomeworkSchema, Submission, SubmissionSchema } from './homework.schema';
 import { HomeworkService } from './homework.service';
+import { QuestionsService } from './questions.service';
 
 @Module({
   imports: [
@@ -19,12 +20,13 @@ import { HomeworkService } from './homework.service';
       { name: Enrollment.name, schema: EnrollmentSchema },
       { name: Homework.name, schema: HomeworkSchema },
       { name: Submission.name, schema: SubmissionSchema },
+      { name: BankItem.name, schema: BankItemSchema },
       { name: User.name, schema: UserSchema }
     ]),
     WordsModule, LibraryModule, LookupModule, ProfileModule, TagsModule
   ],
   controllers: [CoursesController],
-  providers: [CoursesService, HomeworkService],
+  providers: [CoursesService, HomeworkService, QuestionsService],
   exports: [CoursesService]
 })
 export class CoursesModule {}

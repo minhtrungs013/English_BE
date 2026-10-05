@@ -5,14 +5,22 @@ import { UserId } from '../auth/auth.decorators';
 import { ParseObjectIdPipe } from '../common/parse-object-id.pipe';
 import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
-import { AiWordDto, CoursesQuery, CreateCourseDto, JoinByCodeDto, LeaderboardQuery, SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateCourseDto } from './courses.dto';
+import {
+  AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto
+} from './courses.dto';
+import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
 
 @ApiTags('courses')
 @ApiBearerAuth()
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly courses: CoursesService, private readonly homework: HomeworkService) {}
+  constructor(
+    private readonly courses: CoursesService,
+    private readonly homework: HomeworkService,
+    private readonly questions: QuestionsService
+  ) {}
 
   /** ?scope=joined (default) | mine | public */
   @Get()
@@ -101,6 +109,52 @@ export class CoursesController {
   @HttpCode(200)
   submitHomework(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: SubmitHomeworkDto) {
     return this.homework.submit(user, id, day, dto.answers);
+  }
+
+  /** Warm-up before a day's new words: earlier words (the ones I missed first) and the day's recap story. */
+  @Get(':id/days/:day/warmup')
+  warmup(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.homework.warmup(user, id, day);
+  }
+
+  /* ---------- question bank (owner) ---------- */
+
+  /** The tense questions and recap stories (?day= for one day), with their approval status. */
+  @Get(':id/questions')
+  listQuestions(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Query() q: BankQuery) {
+    return this.questions.list(user, id, q.day);
+  }
+
+  /** Write tense questions (and a recap) for a day with AI; they wait for approval. */
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  @Post(':id/days/:day/questions/generate')
+  @HttpCode(200)
+  generateQuestions(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: GenerateQuestionsDto) {
+    return this.questions.generate(user, id, day, dto);
+  }
+
+  /** Add a question or recap by hand (approved straight away). */
+  @Post(':id/days/:day/questions')
+  createQuestion(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: BankItemDto) {
+    return this.questions.create(user, id, day, dto);
+  }
+
+  /** Approve / reject several at once. */
+  @Post(':id/questions/status')
+  @HttpCode(200)
+  setQuestionStatus(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Body() dto: BankStatusDto) {
+    return this.questions.setStatus(user, id, dto.ids, dto.status);
+  }
+
+  @Patch(':id/questions/:qid')
+  updateQuestion(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('qid', ParseObjectIdPipe) qid: string, @Body() dto: UpdateBankItemDto) {
+    return this.questions.update(user, id, qid, dto);
+  }
+
+  @Delete(':id/questions/:qid')
+  @HttpCode(204)
+  async removeQuestion(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('qid', ParseObjectIdPipe) qid: string) {
+    await this.questions.remove(user, id, qid);
   }
 
   /** Leaderboards: one day (?day=, default my current day), total score, and on-time streaks. */

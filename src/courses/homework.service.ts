@@ -5,11 +5,18 @@ import { addDays, daysBetween, todayKey } from '../common/day';
 import { LibraryService } from '../library/library.service';
 import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
-import { Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
+import { BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
+import { QuestionsService } from './questions.service';
+import { TENSE_LABEL, type Tense } from './tense';
 
 /** How many earlier words a day's homework reviews (at least this many, or the course's words per day). */
 const MIN_REVIEW = 3;
 const BOARD_ROWS = 50;
+/** Tense questions from the bank in a day's homework: about the new words, and about review words. */
+const TENSE_NEW = 4;
+const TENSE_REVIEW = 2;
+/** Words in the warm-up before a day's new words. */
+const WARMUP_WORDS = 6;
 
 /** Percent of the score kept when homework is handed in late: on time 100%, then 80%, 60%, and 50% from 3 days late. */
 export function penaltyFor(lateDays: number): number {
@@ -87,6 +94,13 @@ function makeQuestion(w: CourseWord, type: QuestionType, review: boolean, pool: 
   return { type: 'type', word: w.word, review, prompt: meaning || w.meaning, hint: lettersHint(w.word), choices: [], answer: w.word, accept: [] };
 }
 
+/** A homework question from an approved bank item. */
+function fromBank(b: BankItemDocument, review: boolean): Question {
+  return { type: b.kind, word: b.word, review, prompt: b.prompt, hint: '', choices: b.kind === 'tenseChoice' ? shuffle(b.choices) : [], answer: b.answer, accept: b.accept, tense: b.tense, explain: b.explain };
+}
+
+const tenseLabel = (t: string) => TENSE_LABEL[t as Tense] ?? '';
+
 @Injectable()
 export class HomeworkService {
   constructor(
@@ -95,7 +109,8 @@ export class HomeworkService {
     @InjectModel(Homework.name) private readonly homework: Model<Homework>,
     @InjectModel(Submission.name) private readonly submissions: Model<Submission>,
     @InjectModel(User.name) private readonly users: Model<User>,
-    private readonly library: LibraryService
+    private readonly library: LibraryService,
+    private readonly questions: QuestionsService
   ) {}
 
   /* ---------- access ---------- */
@@ -118,22 +133,34 @@ export class HomeworkService {
 
   /* ---------- making the homework ---------- */
 
-  private wordsKey(c: CourseDocument, day: number): string {
+  /** What the homework is made from: the words up to this day and the approved tense questions for them. */
+  private wordsKey(c: CourseDocument, day: number, bank: BankItemDocument[]): string {
     return c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
-      .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|');
+      .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|') +
+      '#' + bank.map((b) => String(b._id) + ':' + ((b as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? 0)).join(',');
+  }
+
+  private async bankUpTo(c: CourseDocument, day: number): Promise<BankItemDocument[]> {
+    const items = await this.questions.approved(String(c._id), Array.from({ length: day }, (_, i) => i + 1));
+    return items.filter((b) => b.kind !== 'recap');
+  }
+
+  /** Words to take wrong choices from: the course's, plus some library words for small courses. */
+  private async poolFor(c: CourseDocument): Promise<Pool> {
+    const all = c.toObject().days.flatMap((d) => d.words);
+    const extra = all.length < 12 ? await this.library.sample(12) : [];
+    return [...all, ...extra].map((w) => ({ word: w.word, label: label(w) }));
   }
 
   /**
    * Questions for a day: two for each new word (pick the meaning or the word, then type it or fill the example),
    * and one for each of a few words from earlier days.
    */
-  private async build(c: CourseDocument, day: number): Promise<Question[]> {
+  private async build(c: CourseDocument, day: number, bank: BankItemDocument[]): Promise<Question[]> {
     const days = c.toObject().days;
     const today = days.find((d) => d.day === day)?.words ?? [];
     const earlier = days.filter((d) => d.day < day).flatMap((d) => d.words);
-    const all = days.flatMap((d) => d.words);
-    const extra = all.length < 12 ? await this.library.sample(12) : [];
-    const pool: Pool = [...all, ...extra].map((w) => ({ word: w.word, label: label(w) }));
+    const pool = await this.poolFor(c);
 
     const qs: Question[] = [];
     for (const w of today) {
@@ -144,16 +171,21 @@ export class HomeworkService {
     const review = shuffle(earlier.filter((w) => !seen.has(w.word.toLowerCase()))).slice(0, Math.max(MIN_REVIEW, c.wordsPerDay));
     const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
     for (const w of review) qs.push(makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool));
+    // Tense practice from the owner-approved question bank.
+    qs.push(...shuffle(bank.filter((b) => b.day === day)).slice(0, TENSE_NEW).map((b) => fromBank(b, false)));
+    const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
+    qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true)));
     return shuffle(qs);
   }
 
   /** The day's homework, made the first time someone opens it (and again if the words changed before anyone submitted). */
   private async ensure(c: CourseDocument, day: number): Promise<HomeworkDocument> {
     const courseId = String(c._id);
-    const key = this.wordsKey(c, day);
+    const bank = await this.bankUpTo(c, day);
+    const key = this.wordsKey(c, day, bank);
     const existing = await this.homework.findOne({ courseId, day });
     if (existing && (existing.wordsKey === key || (await this.submissions.exists({ courseId, day, submittedAt: { $ne: null } })))) return existing;
-    const questions = await this.build(c, day);
+    const questions = await this.build(c, day, bank);
     try {
       return (await this.homework.findOneAndUpdate({ courseId, day }, { $set: { wordsKey: key, questions } }, { upsert: true, returnDocument: 'after' }))!;
     } catch {
@@ -170,6 +202,7 @@ export class HomeworkService {
       durationMs: s.durationMs, submittedAt: s.submittedAt?.getTime() ?? null,
       review: hw.questions.map((q, i) => ({
         type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices,
+        tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '',
         yourAnswer: s.answers[i] ?? '', answer: q.answer, correct: !!s.results[i]
       }))
     };
@@ -220,6 +253,53 @@ export class HomeworkService {
     }
     if (!s) throw new ConflictException('You’ve already handed in day ' + day + '.');
     return this.result(hw, s);
+  }
+
+  /**
+   * The warm-up before a day's new words: a few earlier words, the ones I got wrong in earlier homework first,
+   * each with one practice question (answers included, since it isn't graded), plus the day's approved recap story.
+   */
+  async warmup(user: string, id: string, day: number) {
+    const c = await this.courses.findById(id);
+    if (!c) throw new NotFoundException('Course not found.');
+    const e = await this.enrollments.findOne({ user, courseId: id });
+    if (!e) throw new ForbiddenException('Join the course first.');
+    if (!Number.isInteger(day) || day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
+    const days = c.toObject().days;
+    const earlier = days.filter((d) => d.day < day).flatMap((d) => d.words);
+    const recapItem = (await this.questions.approved(id, [day])).find((b) => b.kind === 'recap');
+    const recap = recapItem ? { text: recapItem.prompt, vi: recapItem.explain } : null;
+    if (!earlier.length) return { day, recap, words: [], questions: [] };
+
+    // Mistakes in my earlier homework, by word.
+    const subs = await this.submissions.find({ courseId: id, user, day: { $lt: day }, submittedAt: { $ne: null } }).lean();
+    const hws = new Map((await this.homework.find({ courseId: id, day: { $in: subs.map((s) => s.day) } }).lean()).map((h) => [h.day, h]));
+    const wrong = new Map<string, number>();
+    const practised = new Set<string>();
+    for (const s of subs) {
+      hws.get(s.day)?.questions.forEach((q, i) => {
+        const k = q.word.toLowerCase();
+        practised.add(k);
+        if (!s.results[i]) wrong.set(k, (wrong.get(k) ?? 0) + 1);
+      });
+    }
+    // Missed most first, then words not practised in homework yet, then the rest (random within each group).
+    const rank = (w: CourseWord) => (wrong.get(w.word.toLowerCase()) ?? 0) * 10 + (practised.has(w.word.toLowerCase()) ? 0 : 1) + Math.random();
+    const picked = [...earlier].sort((a, b) => rank(b) - rank(a)).slice(0, WARMUP_WORDS);
+
+    const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => b.kind !== 'recap');
+    const pool = await this.poolFor(c);
+    const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
+    const questions = picked.map((w) => {
+      const tense = shuffle(bank.filter((b) => b.word.toLowerCase() === w.word.toLowerCase()))[0];
+      const q = tense && Math.random() < 0.5 ? fromBank(tense, true) : makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool);
+      return { type: q.type, word: q.word, prompt: q.prompt, hint: q.hint, choices: q.choices, answer: q.answer, accept: q.accept, tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '' };
+    });
+    return {
+      day, recap,
+      words: picked.map((w) => ({ word: w.word, ipa: w.ipa, vi: w.vi, meaning: w.meaning, missed: wrong.get(w.word.toLowerCase()) ?? 0 })),
+      questions
+    };
   }
 
   /** My submitted scores in a course, by day. */

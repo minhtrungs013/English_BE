@@ -13,6 +13,7 @@ import { WordsService } from '../words/words.service';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, TOTAL_DAYS, currentDay } from './course.schema';
 import { CourseWordDto, CreateCourseDto, UpdateCourseDto } from './courses.dto';
 import { HomeworkService } from './homework.service';
+import { QuestionsService } from './questions.service';
 
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O or 1/I, easy to read out
 
@@ -27,7 +28,8 @@ export class CoursesService {
     private readonly library: LibraryService,
     private readonly lookup: LookupService,
     private readonly profile: ProfileService,
-    private readonly homework: HomeworkService
+    private readonly homework: HomeworkService,
+    private readonly questions: QuestionsService
   ) {}
 
   /* ---------- views ---------- */
@@ -59,7 +61,10 @@ export class CoursesService {
    * Full course. The owner sees every day's words; a learner sees the words of the days that are open
    * for them (future days show only how many words they have).
    */
-  private detail(c: CourseDocument, user: string, members: number, e: EnrollmentDocument | null, scores = new Map<number, number>()) {
+  private detail(
+    c: CourseDocument, user: string, members: number, e: EnrollmentDocument | null,
+    scores = new Map<number, number>(), bank?: Map<number, { pending: number; approved: number }>
+  ) {
     const base = this.summary(c, user, members, e);
     const open = base.isOwner ? c.totalDays : e ? currentDay(e, c.totalDays) : 0;
     // Plain objects (spreading Mongoose subdocuments doesn't copy their fields).
@@ -67,7 +72,11 @@ export class CoursesService {
     const days = Array.from({ length: c.totalDays }, (_, i) => {
       const n = i + 1;
       const words = byDay.get(n) ?? [];
-      return { day: n, count: words.length, words: n <= open ? words : null, myScore: scores.get(n) ?? null };
+      return {
+        day: n, count: words.length, words: n <= open ? words : null, myScore: scores.get(n) ?? null,
+        // Owner only: tense questions / recap waiting for approval and approved.
+        ...(bank ? { bank: bank.get(n) ?? { pending: 0, approved: 0 } } : {})
+      };
     });
     return { ...base, days };
   }
@@ -105,7 +114,7 @@ export class CoursesService {
     // Private courses are only visible to their owner and learners who joined with the code.
     if (c.visibility !== 'public' && c.ownerId !== user && !e) throw new NotFoundException('Course not found.');
     const counts = await this.memberCounts([id]);
-    return this.detail(c, user, counts[id] ?? 0, e, e ? await this.homework.myScores(user, id) : undefined);
+    return this.detail(c, user, counts[id] ?? 0, e, e ? await this.homework.myScores(user, id) : undefined, c.ownerId === user ? await this.questions.counts(id) : undefined);
   }
 
   /* ---------- owner: create & edit ---------- */
@@ -145,7 +154,7 @@ export class CoursesService {
 
   async remove(user: string, id: string): Promise<void> {
     await this.loadOwned(user, id);
-    await Promise.all([this.courses.deleteOne({ _id: id }), this.enrollments.deleteMany({ courseId: id }), this.homework.removeCourse(id)]);
+    await Promise.all([this.courses.deleteOne({ _id: id }), this.enrollments.deleteMany({ courseId: id }), this.homework.removeCourse(id), this.questions.removeCourses([id])]);
   }
 
   /** Replaces the words of one day. */
@@ -263,7 +272,8 @@ export class CoursesService {
     await Promise.all([
       this.courses.deleteMany({ ownerId: user }),
       this.enrollments.deleteMany({ $or: [{ user }, { courseId: { $in: owned } }] }),
-      this.homework.deleteForUser(user, owned)
+      this.homework.deleteForUser(user, owned),
+      this.questions.removeCourses(owned)
     ]);
   }
 }
