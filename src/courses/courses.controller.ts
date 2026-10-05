@@ -7,7 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto
 } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
@@ -90,11 +90,18 @@ export class CoursesController {
     await this.courses.leave(user, id);
   }
 
-  /** Learn an open day: its words are saved to My Vocabulary. */
+  /** Mark an open day as learned; `save` picks which of its words go to My Vocabulary (default: all). */
   @Post(':id/days/:day/learn')
   @HttpCode(200)
-  learn(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
-    return this.courses.learn(user, id, day);
+  learn(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: LearnDayDto) {
+    return this.courses.learn(user, id, day, dto.save);
+  }
+
+  /** Save chosen words of an open day to My Vocabulary (doesn't mark the day learned). */
+  @Post(':id/days/:day/words/save')
+  @HttpCode(200)
+  saveWords(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: SaveDayWordsDto) {
+    return this.courses.saveWords(user, id, day, dto.words);
   }
 
   /** The homework of an open day (answers only after it's handed in). */

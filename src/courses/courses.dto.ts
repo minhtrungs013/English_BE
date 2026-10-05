@@ -60,6 +60,15 @@ export class SubmitHomeworkDto {
   @IsArray() @ArrayMaxSize(60) @IsString({ each: true }) @MaxLength(200, { each: true }) answers: string[];
 }
 
+export class LearnDayDto {
+  /** Words to save to My Vocabulary ([] = none). Left out: all of the day's words. */
+  @IsOptional() @IsArray() @ArrayMaxSize(10) @IsString({ each: true }) @MaxLength(80, { each: true }) save?: string[];
+}
+
+export class SaveDayWordsDto {
+  @IsArray() @ArrayMaxSize(10) @IsString({ each: true }) @IsNotEmpty({ each: true }) @MaxLength(80, { each: true }) words: string[];
+}
+
 export class WarmupDoneDto {
   @IsOptional() @IsInt() @Min(0) @Max(100) correct?: number;
   @IsOptional() @IsInt() @Min(0) @Max(100) total?: number;

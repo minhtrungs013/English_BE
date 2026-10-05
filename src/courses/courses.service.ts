@@ -248,26 +248,52 @@ export class CoursesService {
    * Learns an open day: its words go into My Vocabulary (tagged with the course tag);
    * words already there are kept as they are.
    */
-  async learn(user: string, id: string, day: number) {
+  /** The course, my enrollment and an open day's words. */
+  private async openDay(user: string, id: string, day: number) {
     const c = await this.load(id);
     const e = await this.enrollments.findOne({ user, courseId: id });
     if (!e) throw new ForbiddenException('Join the course first.');
     if (day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
     const words = c.days.find((d) => d.day === day)?.words ?? [];
     if (!words.length) throw new BadRequestException('Day ' + day + ' has no words yet.');
-    await this.tags.updateOne({ user, name: c.tag }, { $setOnInsert: { user, name: c.tag } }, { upsert: true });
+    return { c, e, words };
+  }
+
+  /** Saves some of a day's words to My Vocabulary (tagged with the course tag); words already there are kept as they are. */
+  private async saveDayWords(user: string, c: CourseDocument, words: CourseWord[], only?: string[]) {
+    const pick = only ? new Set(only.map((w) => w.trim().toLowerCase())) : null;
+    const chosen = pick ? words.filter((w) => pick.has(w.word.toLowerCase())) : words;
+    if (chosen.length) await this.tags.updateOne({ user, name: c.tag }, { $setOnInsert: { user, name: c.tag } }, { upsert: true });
     const added = [];
     const skipped: string[] = [];
-    for (const w of words) {
+    for (const w of chosen) {
       if (await this.words.findByWord(user, w.word)) { skipped.push(w.word); continue; }
       const created = await this.words.create(user, { word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant, level: w.level, tags: [c.tag] });
       added.push(created.toJSON());
     }
+    return { added, skipped };
+  }
+
+  /**
+   * Marks an open day as learned. `save` lists the words to also put in My Vocabulary
+   * ([] = none); when it's left out every word is saved (what older app versions expect).
+   */
+  async learn(user: string, id: string, day: number, save?: string[]) {
+    const { c, e, words } = await this.openDay(user, id, day);
+    const { added, skipped } = await this.saveDayWords(user, c, words, save);
     if (!e.learned.some((l) => l.day === day)) {
       e.learned.push({ day, at: new Date() });
       await e.save();
     }
     return { added, skipped, tag: c.tag, course: await this.get(user, id) };
+  }
+
+  /** Saves chosen words of an open day to My Vocabulary, without marking the day learned. */
+  async saveWords(user: string, id: string, day: number, words: string[]) {
+    const { c, words: dayWords } = await this.openDay(user, id, day);
+    const unknown = words.filter((w) => !dayWords.some((d) => d.word.toLowerCase() === w.trim().toLowerCase()));
+    if (unknown.length) throw new BadRequestException('Not in day ' + day + ': ' + unknown.join(', '));
+    return { ...(await this.saveDayWords(user, c, dayWords, words)), tag: c.tag };
   }
 
   /** Account deletion: the user's courses (with everyone's enrollments and homework in them) and the user's own enrollments and homework. */

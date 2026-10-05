@@ -68,7 +68,7 @@ Anyone can create a course. Each day has a few words (3–10, set by the owner),
 generated with AI; the owner can optionally add generated words to the library. Courses are **private**
 (owner + people with the 6-letter join code) or **public** (listed for everyone).
 Each learner starts at **day 1 on the day they join**; one more day opens every day (app time zone).
-Learning a day saves its words into My Vocabulary, tagged with the course tag.
+Learning a day marks it learned; learners choose which of its words to save to My Vocabulary (tagged with the course tag).
 
 | Method | Path | |
 |---|---|---|
@@ -80,7 +80,8 @@ Learning a day saves its words into My Vocabulary, tagged with the course tag.
 | POST | `/courses/:id/days/:day/words/:index/library` | Add a course word to the library (owner) |
 | POST | `/courses/join` / `/courses/:id/join` | Join with a code / join a public course |
 | DELETE | `/courses/:id/enrollment` | Leave |
-| POST | `/courses/:id/days/:day/learn` | Save an open day's words to My Vocabulary |
+| POST | `/courses/:id/days/:day/learn` | `{ save?: string[] }` — mark an open day learned; also save the listed words to My Vocabulary (`[]` = none, left out = all) |
+| POST | `/courses/:id/days/:day/words/save` | `{ words }` — save chosen words of an open day to My Vocabulary |
 | GET | `/courses/:id/days/:day/homework` | The day's homework (answers only after handing in) |
 | POST | `/courses/:id/days/:day/homework` | `{ answers }` — hand in once; graded on the server |
 | GET | `/courses/:id/leaderboard?day=` | One day's ranking, total score, and on-time streaks (real names) |
