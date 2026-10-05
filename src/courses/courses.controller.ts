@@ -7,7 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto
 } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
@@ -115,6 +115,13 @@ export class CoursesController {
   @Get(':id/days/:day/warmup')
   warmup(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
     return this.homework.warmup(user, id, day);
+  }
+
+  /** Mark a day's warm-up as finished. */
+  @Post(':id/days/:day/warmup/done')
+  @HttpCode(200)
+  warmupDone(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: WarmupDoneDto) {
+    return this.homework.warmupDone(user, id, day, dto.correct, dto.total);
   }
 
   /* ---------- question bank (owner) ---------- */

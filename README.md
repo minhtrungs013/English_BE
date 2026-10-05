@@ -84,6 +84,7 @@ Learning a day saves its words into My Vocabulary, tagged with the course tag.
 | GET | `/courses/:id/days/:day/homework` | The day's homework (answers only after handing in) |
 | POST | `/courses/:id/days/:day/homework` | `{ answers }` — hand in once; graded on the server |
 | GET | `/courses/:id/leaderboard?day=` | One day's ranking, total score, and on-time streaks (real names) |
+| POST | `/courses/:id/days/:day/warmup/done` | `{ correct?, total? }` — mark the warm-up finished (shown in `enrollment.warmedUp`) |
 | GET | `/courses/:id/days/:day/warmup` | Warm-up before the day: earlier words (missed ones first) with practice questions, and the day's recap story |
 | GET | `/courses/:id/questions?day=` | Question bank: tense questions and recaps with their status (owner) |
 | POST | `/courses/:id/days/:day/questions/generate` | `{ tenses?, perWord? }` — AI writes tense questions + a recap (pending approval; uses the daily AI limit) |

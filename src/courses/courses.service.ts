@@ -42,7 +42,11 @@ export class CoursesService {
 
   private enrollmentView(e: EnrollmentDocument | null, c: CourseDocument) {
     if (!e) return null;
-    return { startDay: e.startDay, currentDay: currentDay(e, c.totalDays), learned: e.learned.map((l) => l.day).sort((a, b) => a - b) };
+    return {
+      startDay: e.startDay, currentDay: currentDay(e, c.totalDays),
+      learned: e.learned.map((l) => l.day).sort((a, b) => a - b),
+      warmedUp: (e.warmedUp ?? []).map((w) => w.day).sort((a, b) => a - b)
+    };
   }
 
   /** Card data for course lists. */
@@ -226,7 +230,7 @@ export class CoursesService {
     const c = await this.load(id);
     const ok = c.visibility === 'public' || c.ownerId === user || (!!code && code.toUpperCase() === c.joinCode);
     if (!ok) throw new NotFoundException('Course not found.');
-    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: todayKey(), learned: [] } }, { upsert: true });
+    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: todayKey(), learned: [], warmedUp: [] } }, { upsert: true });
     return this.get(user, id);
   }
 

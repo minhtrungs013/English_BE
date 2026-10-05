@@ -60,6 +60,11 @@ export class SubmitHomeworkDto {
   @IsArray() @ArrayMaxSize(60) @IsString({ each: true }) @MaxLength(200, { each: true }) answers: string[];
 }
 
+export class WarmupDoneDto {
+  @IsOptional() @IsInt() @Min(0) @Max(100) correct?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(100) total?: number;
+}
+
 export class LeaderboardQuery {
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(30) day?: number;
 }

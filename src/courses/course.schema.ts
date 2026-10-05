@@ -63,6 +63,9 @@ export class Enrollment {
   @Prop({ required: true }) startDay: string;
   /** Days whose words the learner has learned (saved to My Vocabulary). */
   @Prop({ type: [{ day: Number, at: Date, _id: false }], default: [] }) learned: { day: number; at: Date }[];
+  /** Days whose warm-up (review of earlier words) the learner has finished, with how they did. */
+  @Prop({ type: [{ day: Number, at: Date, correct: Number, total: Number, _id: false }], default: [] })
+  warmedUp: { day: number; at: Date; correct: number; total: number }[];
 }
 export type EnrollmentDocument = HydratedDocument<Enrollment>;
 export const EnrollmentSchema = SchemaFactory.createForClass(Enrollment);

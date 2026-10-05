@@ -302,6 +302,20 @@ export class HomeworkService {
     };
   }
 
+  /** Marks a day's warm-up as finished (it isn't graded; the result is only kept for the learner's progress). */
+  async warmupDone(user: string, id: string, day: number, correct = 0, total = 0) {
+    const c = await this.courses.findById(id);
+    if (!c) throw new NotFoundException('Course not found.');
+    const e = await this.enrollments.findOne({ user, courseId: id });
+    if (!e) throw new ForbiddenException('Join the course first.');
+    if (!Number.isInteger(day) || day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
+    const entry = { day, at: new Date(), correct: Math.max(0, correct), total: Math.max(0, total) };
+    const others = (e.warmedUp ?? []).filter((w) => w.day !== day);
+    e.warmedUp = [...others, entry].sort((a, b) => a.day - b.day);
+    await e.save();
+    return { warmedUp: e.warmedUp.map((w) => w.day) };
+  }
+
   /** My submitted scores in a course, by day. */
   async myScores(user: string, courseId: string): Promise<Map<number, number>> {
     const rows = await this.submissions.find({ courseId, user, submittedAt: { $ne: null } }, { day: 1, score: 1 }).lean();
