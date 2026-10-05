@@ -52,3 +52,12 @@ export class CoursesQuery {
   /** mine = courses I created, joined = courses I'm taking, public = all public courses. */
   @IsOptional() @IsIn(['mine', 'joined', 'public']) scope?: string;
 }
+
+export class SubmitHomeworkDto {
+  /** One answer per question, in order ('' for a question left blank). */
+  @IsArray() @ArrayMaxSize(60) @IsString({ each: true }) @MaxLength(200, { each: true }) answers: string[];
+}
+
+export class LeaderboardQuery {
+  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(30) day?: number;
+}

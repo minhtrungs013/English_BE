@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { LEVELS } from '../common/constants';
+import { daysBetween, todayKey } from '../common/day';
 import { jsonOptions } from '../common/to-json';
 
 export const VISIBILITIES = ['private', 'public'] as const;
@@ -66,3 +67,8 @@ export class Enrollment {
 export type EnrollmentDocument = HydratedDocument<Enrollment>;
 export const EnrollmentSchema = SchemaFactory.createForClass(Enrollment);
 EnrollmentSchema.index({ user: 1, courseId: 1 }, { unique: true });
+
+/** The learner's current day: day 1 on the day they joined, one more each day, up to the last day. */
+export function currentDay(e: Pick<Enrollment, 'startDay'>, totalDays: number): number {
+  return Math.min(totalDays, Math.max(1, daysBetween(e.startDay, todayKey()) + 1));
+}

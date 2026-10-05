@@ -130,6 +130,11 @@ export class LibraryService implements OnApplicationBootstrap {
     return this.lib.findOne({ wordLower });
   }
 
+  /** A few random library words (e.g. wrong choices for quiz questions). */
+  async sample(n: number): Promise<{ word: string; vi: string; meaning: string }[]> {
+    return this.lib.aggregate([{ $sample: { size: n } }, { $project: { _id: 0, word: 1, vi: 1, meaning: 1 } }]);
+  }
+
   /** Which of these words (lower-cased) are already in the library. */
   async existing(wordsLower: string[]): Promise<string[]> {
     if (!wordsLower.length) return [];

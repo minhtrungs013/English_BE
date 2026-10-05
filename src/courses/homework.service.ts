@@ -1,0 +1,307 @@
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { addDays, daysBetween, todayKey } from '../common/day';
+import { LibraryService } from '../library/library.service';
+import { User } from '../users/user.schema';
+import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
+import { Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
+
+/** How many earlier words a day's homework reviews (at least this many, or the course's words per day). */
+const MIN_REVIEW = 3;
+const BOARD_ROWS = 50;
+
+/** Percent of the score kept when homework is handed in late: on time 100%, then 80%, 60%, and 50% from 3 days late. */
+export function penaltyFor(lateDays: number): number {
+  return lateDays <= 0 ? 100 : lateDays === 1 ? 80 : lateDays === 2 ? 60 : 50;
+}
+
+/** Lower-case, trimmed, straight quotes, single spaces, no punctuation around it. */
+export function normalizeAnswer(s: string): string {
+  return s.toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '');
+}
+
+function shuffle<T>(a: T[]): T[] {
+  const r = [...a];
+  for (let i = r.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [r[i], r[j]] = [r[j], r[i]];
+  }
+  return r;
+}
+
+function escapeRegex(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** The Vietnamese meaning, or the English one when there is none. */
+const label = (w: { vi: string; meaning: string }) => (w.vi || w.meaning || '').trim();
+
+/** The example sentence with the word (or a simple inflection of it) blanked out. */
+function blankOut(w: CourseWord): { prompt: string; found: string } | null {
+  if (!w.ex) return null;
+  const m = new RegExp('\\b' + escapeRegex(w.word) + '(?:s|es|ed|d|ing|er|ers)?\\b', 'i').exec(w.ex);
+  if (!m) return null;
+  return { prompt: w.ex.slice(0, m.index) + '_____' + w.ex.slice(m.index + m[0].length), found: m[0] };
+}
+
+function lettersHint(word: string): string {
+  return word.charAt(0) + '… (' + word.replace(/\s/g, '').length + ' letters' + (word.includes(' ') ? ', ' + word.split(/\s+/).length + ' words' : '') + ')';
+}
+
+type Pool = { word: string; label: string }[];
+
+/** Three wrong choices for a question, different from the answer and from each other. */
+function distractors(answer: string, pool: string[]): string[] {
+  const seen = new Set([normalizeAnswer(answer)]);
+  const out: string[] = [];
+  for (const p of shuffle(pool)) {
+    const k = normalizeAnswer(p);
+    if (!p || seen.has(k)) continue;
+    seen.add(k);
+    out.push(p);
+    if (out.length === 3) break;
+  }
+  return out;
+}
+
+function makeQuestion(w: CourseWord, type: QuestionType, review: boolean, pool: Pool): Question {
+  const meaning = label(w);
+  if (type === 'meaning' || type === 'word') {
+    const answer = type === 'meaning' ? meaning : w.word;
+    const wrong = distractors(answer, pool.map((p) => (type === 'meaning' ? p.label : p.word)));
+    if (wrong.length === 3 && answer) {
+      return {
+        type, word: w.word, review, answer, accept: [],
+        prompt: type === 'meaning' ? w.word : meaning,
+        hint: type === 'meaning' ? w.pos : (w.vi && w.meaning ? w.meaning : ''),
+        choices: shuffle([answer, ...wrong])
+      };
+    }
+    type = 'type'; // not enough other words for choices
+  }
+  if (type === 'blank') {
+    const b = blankOut(w);
+    if (b) return { type, word: w.word, review, prompt: b.prompt, hint: meaning, choices: [], answer: b.found, accept: [w.word] };
+  }
+  return { type: 'type', word: w.word, review, prompt: meaning || w.meaning, hint: lettersHint(w.word), choices: [], answer: w.word, accept: [] };
+}
+
+@Injectable()
+export class HomeworkService {
+  constructor(
+    @InjectModel(Course.name) private readonly courses: Model<Course>,
+    @InjectModel(Enrollment.name) private readonly enrollments: Model<Enrollment>,
+    @InjectModel(Homework.name) private readonly homework: Model<Homework>,
+    @InjectModel(Submission.name) private readonly submissions: Model<Submission>,
+    @InjectModel(User.name) private readonly users: Model<User>,
+    private readonly library: LibraryService
+  ) {}
+
+  /* ---------- access ---------- */
+
+  /** The course and the learner's enrollment, checking the day is open for them and has words. */
+  private async openDay(user: string, id: string, day: number): Promise<{ c: CourseDocument; e: EnrollmentDocument }> {
+    const c = await this.courses.findById(id);
+    if (!c) throw new NotFoundException('Course not found.');
+    const e = await this.enrollments.findOne({ user, courseId: id });
+    if (!e) throw new ForbiddenException('Join the course to do its homework.');
+    if (!Number.isInteger(day) || day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
+    if (!c.days.find((d) => d.day === day)?.words.length) throw new BadRequestException('Day ' + day + ' has no words yet.');
+    return { c, e };
+  }
+
+  /** Days after the day opened for this learner (0 = today is that day). */
+  private lateDays(e: EnrollmentDocument, day: number): number {
+    return Math.max(0, daysBetween(addDays(e.startDay, day - 1), todayKey()));
+  }
+
+  /* ---------- making the homework ---------- */
+
+  private wordsKey(c: CourseDocument, day: number): string {
+    return c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
+      .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|');
+  }
+
+  /**
+   * Questions for a day: two for each new word (pick the meaning or the word, then type it or fill the example),
+   * and one for each of a few words from earlier days.
+   */
+  private async build(c: CourseDocument, day: number): Promise<Question[]> {
+    const days = c.toObject().days;
+    const today = days.find((d) => d.day === day)?.words ?? [];
+    const earlier = days.filter((d) => d.day < day).flatMap((d) => d.words);
+    const all = days.flatMap((d) => d.words);
+    const extra = all.length < 12 ? await this.library.sample(12) : [];
+    const pool: Pool = [...all, ...extra].map((w) => ({ word: w.word, label: label(w) }));
+
+    const qs: Question[] = [];
+    for (const w of today) {
+      qs.push(makeQuestion(w, Math.random() < 0.5 ? 'meaning' : 'word', false, pool));
+      qs.push(makeQuestion(w, blankOut(w) ? 'blank' : 'type', false, pool));
+    }
+    const seen = new Set(today.map((w) => w.word.toLowerCase()));
+    const review = shuffle(earlier.filter((w) => !seen.has(w.word.toLowerCase()))).slice(0, Math.max(MIN_REVIEW, c.wordsPerDay));
+    const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
+    for (const w of review) qs.push(makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool));
+    return shuffle(qs);
+  }
+
+  /** The day's homework, made the first time someone opens it (and again if the words changed before anyone submitted). */
+  private async ensure(c: CourseDocument, day: number): Promise<HomeworkDocument> {
+    const courseId = String(c._id);
+    const key = this.wordsKey(c, day);
+    const existing = await this.homework.findOne({ courseId, day });
+    if (existing && (existing.wordsKey === key || (await this.submissions.exists({ courseId, day, submittedAt: { $ne: null } })))) return existing;
+    const questions = await this.build(c, day);
+    try {
+      return (await this.homework.findOneAndUpdate({ courseId, day }, { $set: { wordsKey: key, questions } }, { upsert: true, returnDocument: 'after' }))!;
+    } catch {
+      // Someone else made it at the same moment.
+      return (await this.homework.findOne({ courseId, day }))!;
+    }
+  }
+
+  /* ---------- views ---------- */
+
+  private result(hw: HomeworkDocument, s: SubmissionDocument) {
+    return {
+      score: s.score, raw: s.raw, correct: s.correct, total: s.total, lateDays: s.lateDays, penalty: s.penalty,
+      durationMs: s.durationMs, submittedAt: s.submittedAt?.getTime() ?? null,
+      review: hw.questions.map((q, i) => ({
+        type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices,
+        yourAnswer: s.answers[i] ?? '', answer: q.answer, correct: !!s.results[i]
+      }))
+    };
+  }
+
+  /** The homework for an open day. Answers are only included once it's submitted. */
+  async get(user: string, id: string, day: number) {
+    const { c, e } = await this.openDay(user, id, day);
+    const hw = await this.ensure(c, day);
+    await this.submissions.updateOne({ courseId: id, user, day }, { $setOnInsert: { courseId: id, user, day, openedAt: new Date() } }, { upsert: true });
+    const s = (await this.submissions.findOne({ courseId: id, user, day }))!;
+    const lateDays = this.lateDays(e, day);
+    return {
+      day, total: hw.questions.length, lateDays, penalty: penaltyFor(lateDays),
+      questions: hw.questions.map((q) => ({ type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices })),
+      submission: s.submittedAt ? this.result(hw, s) : null
+    };
+  }
+
+  /** Grades and saves the homework. Each learner hands in each day once. */
+  async submit(user: string, id: string, day: number, answers: string[]) {
+    const { e } = await this.openDay(user, id, day);
+    const hw = await this.homework.findOne({ courseId: id, day });
+    if (!hw) throw new ConflictException('Open the homework first.');
+    if (answers.length !== hw.questions.length) throw new ConflictException('This homework has changed. Reload it and try again.');
+    const results = hw.questions.map((q, i) => {
+      const a = normalizeAnswer(answers[i] ?? '');
+      return !!a && [q.answer, ...q.accept].some((x) => normalizeAnswer(x) === a);
+    });
+    const correct = results.filter(Boolean).length;
+    const total = hw.questions.length;
+    const lateDays = this.lateDays(e, day);
+    const penalty = penaltyFor(lateDays);
+    const raw = total ? Math.round((correct / total) * 100) : 0;
+    const now = new Date();
+    const prev = await this.submissions.findOne({ courseId: id, user, day });
+    if (prev?.submittedAt) throw new ConflictException('You’ve already handed in day ' + day + '.');
+    const openedAt = prev?.openedAt ?? now;
+    let s: SubmissionDocument | null;
+    try {
+      s = await this.submissions.findOneAndUpdate(
+        { courseId: id, user, day, submittedAt: null },
+        { $set: { submittedAt: now, answers, results, correct, total, raw, lateDays, penalty, score: Math.round((raw * penalty) / 100), durationMs: now.getTime() - openedAt.getTime() }, $setOnInsert: { openedAt } },
+        { upsert: true, returnDocument: 'after' }
+      );
+    } catch {
+      s = null; // handed in twice at the same moment
+    }
+    if (!s) throw new ConflictException('You’ve already handed in day ' + day + '.');
+    return this.result(hw, s);
+  }
+
+  /** My submitted scores in a course, by day. */
+  async myScores(user: string, courseId: string): Promise<Map<number, number>> {
+    const rows = await this.submissions.find({ courseId, user, submittedAt: { $ne: null } }, { day: 1, score: 1 }).lean();
+    return new Map(rows.map((r) => [r.day, r.score]));
+  }
+
+  /* ---------- leaderboards ---------- */
+
+  /**
+   * Leaderboards for a course (owner and learners only): one day's homework, total score over all days,
+   * and streaks of homework handed in on time. Learners are shown by their real name.
+   */
+  async leaderboard(user: string, id: string, dayArg?: number) {
+    const c = await this.courses.findById(id);
+    if (!c) throw new NotFoundException('Course not found.');
+    const enrolled = await this.enrollments.find({ courseId: id }).lean();
+    const mine = enrolled.find((e) => e.user === user);
+    if (c.ownerId !== user && !mine) throw new ForbiddenException('Join the course to see its leaderboard.');
+
+    const maxDay = c.ownerId === user ? c.totalDays : currentDay(mine!, c.totalDays);
+    const day = Math.min(maxDay, Math.max(1, dayArg ?? (mine ? currentDay(mine, c.totalDays) : 1)));
+    const ids = enrolled.map((e) => e.user);
+    const names = new Map((await this.users.find({ _id: { $in: ids } }, { name: 1 }).lean()).map((u) => [String(u._id), u.name]));
+    const subs = (await this.submissions.find({ courseId: id, user: { $in: ids }, submittedAt: { $ne: null } }).lean());
+
+    const board = <T extends { user: string }>(rows: T[]) => {
+      const ranked = rows.map((r, i) => {
+        const { user: u, ...rest } = r;
+        return { rank: i + 1, name: names.get(u) || 'Learner', me: u === user, ...rest };
+      });
+      return { rows: ranked.slice(0, BOARD_ROWS), me: ranked.find((r) => r.me) ?? null, count: ranked.length };
+    };
+
+    const dayRows = subs.filter((s) => s.day === day)
+      .sort((a, b) => b.score - a.score || a.durationMs - b.durationMs || +a.submittedAt! - +b.submittedAt!)
+      .map((s) => ({ user: s.user, score: s.score, correct: s.correct, total: s.total, lateDays: s.lateDays, durationMs: s.durationMs }));
+
+    const totals = new Map<string, { score: number; days: number }>();
+    for (const s of subs) {
+      const t = totals.get(s.user) ?? { score: 0, days: 0 };
+      t.score += s.score;
+      t.days += 1;
+      totals.set(s.user, t);
+    }
+    const overallRows = [...totals].map(([u, t]) => ({ user: u, ...t })).sort((a, b) => b.score - a.score || b.days - a.days);
+
+    // Streak: on-time homework on consecutive days up to today (or yesterday, if today isn't done yet).
+    // Days without words don't break a streak.
+    const hasWords = new Set(c.days.filter((d) => d.words.length).map((d) => d.day));
+    const onTime = new Map<string, Set<number>>();
+    for (const s of subs) if (s.lateDays === 0) (onTime.get(s.user) ?? onTime.set(s.user, new Set()).get(s.user)!).add(s.day);
+    const streakRows = enrolled.map((e) => {
+      const done = onTime.get(e.user) ?? new Set<number>();
+      let d = currentDay(e, c.totalDays);
+      if (!done.has(d)) d--;
+      let streak = 0;
+      for (; d >= 1; d--) {
+        if (done.has(d)) streak++;
+        else if (hasWords.has(d)) break;
+      }
+      return { user: e.user, streak, score: totals.get(e.user)?.score ?? 0 };
+    }).filter((r) => r.streak > 0).sort((a, b) => b.streak - a.streak || b.score - a.score);
+
+    return { day, maxDay, members: enrolled.length, dayBoard: board(dayRows), overall: board(overallRows), streak: board(streakRows) };
+  }
+
+  /* ---------- clean-up ---------- */
+
+  async removeCourse(courseId: string): Promise<void> {
+    await Promise.all([this.homework.deleteMany({ courseId }), this.submissions.deleteMany({ courseId })]);
+  }
+
+  async removeLearner(user: string, courseId: string): Promise<void> {
+    await this.submissions.deleteMany({ user, courseId });
+  }
+
+  async deleteForUser(user: string, ownedCourseIds: string[]): Promise<void> {
+    await Promise.all([
+      this.submissions.deleteMany({ $or: [{ user }, { courseId: { $in: ownedCourseIds } }] }),
+      this.homework.deleteMany({ courseId: { $in: ownedCourseIds } })
+    ]);
+  }
+}

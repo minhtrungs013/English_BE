@@ -81,6 +81,17 @@ Learning a day saves its words into My Vocabulary, tagged with the course tag.
 | POST | `/courses/join` / `/courses/:id/join` | Join with a code / join a public course |
 | DELETE | `/courses/:id/enrollment` | Leave |
 | POST | `/courses/:id/days/:day/learn` | Save an open day's words to My Vocabulary |
+| GET | `/courses/:id/days/:day/homework` | The day's homework (answers only after handing in) |
+| POST | `/courses/:id/days/:day/homework` | `{ answers }` — hand in once; graded on the server |
+| GET | `/courses/:id/leaderboard?day=` | One day's ranking, total score, and on-time streaks (real names) |
+
+### Homework
+
+Each open day has homework, the same for every learner: two questions per new word (pick the meaning or the word,
+then type it or fill the gap in the example) and one question each for a few words from earlier days.
+It's graded on the server and can be handed in once. Late homework keeps part of its score:
+on the day **100%**, 1 day late **80%**, 2 days **60%**, 3+ days **50%**. Ties on a day's board go to the faster learner
+(time from opening the homework to handing it in). A streak counts days in a row handed in on time.
 
 ## Vocabulary library
 

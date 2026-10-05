@@ -5,13 +5,14 @@ import { UserId } from '../auth/auth.decorators';
 import { ParseObjectIdPipe } from '../common/parse-object-id.pipe';
 import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
-import { AiWordDto, CoursesQuery, CreateCourseDto, JoinByCodeDto, SetDayDto, ShareCourseWordDto, UpdateCourseDto } from './courses.dto';
+import { AiWordDto, CoursesQuery, CreateCourseDto, JoinByCodeDto, LeaderboardQuery, SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateCourseDto } from './courses.dto';
+import { HomeworkService } from './homework.service';
 
 @ApiTags('courses')
 @ApiBearerAuth()
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly courses: CoursesService) {}
+  constructor(private readonly courses: CoursesService, private readonly homework: HomeworkService) {}
 
   /** ?scope=joined (default) | mine | public */
   @Get()
@@ -86,5 +87,25 @@ export class CoursesController {
   @HttpCode(200)
   learn(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
     return this.courses.learn(user, id, day);
+  }
+
+  /** The homework of an open day (answers only after it's handed in). */
+  @Get(':id/days/:day/homework')
+  getHomework(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.homework.get(user, id, day);
+  }
+
+  /** Hand in a day's homework (once); graded on the server, with the late penalty applied. */
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
+  @Post(':id/days/:day/homework')
+  @HttpCode(200)
+  submitHomework(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: SubmitHomeworkDto) {
+    return this.homework.submit(user, id, day, dto.answers);
+  }
+
+  /** Leaderboards: one day (?day=, default my current day), total score, and on-time streaks. */
+  @Get(':id/leaderboard')
+  leaderboard(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Query() q: LeaderboardQuery) {
+    return this.homework.leaderboard(user, id, q.day);
   }
 }
