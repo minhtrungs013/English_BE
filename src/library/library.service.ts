@@ -117,6 +117,11 @@ export class LibraryService implements OnApplicationBootstrap {
     await d.deleteOne();
   }
 
+  /** One library entry by its lower-cased word. */
+  async findByWord(wordLower: string): Promise<LibraryWordDocument | null> {
+    return this.lib.findOne({ wordLower });
+  }
+
   /** Which of these words (lower-cased) are already in the library. */
   async existing(wordsLower: string[]): Promise<string[]> {
     if (!wordsLower.length) return [];

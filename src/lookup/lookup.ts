@@ -1,14 +1,19 @@
-import { Controller, Get, Injectable, Module, NotFoundException, Query } from '@nestjs/common';
+import { Controller, Get, Injectable, Logger, Module, NotFoundException, Query } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Throttle } from '@nestjs/throttler';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { UserId } from '../auth/auth.decorators';
 import { POS_LIST, type Level } from '../common/constants';
+import { LibraryModule } from '../library/library.module';
+import { LibraryService } from '../library/library.service';
 import { WordsModule } from '../words/words.module';
+import { aiLookup } from './ai';
 import { WordsService } from '../words/words.service';
 import { BUILTIN_DICT } from './builtin-dict';
 
 export interface LookupResult {
-  source: 'collection' | 'builtin' | 'online';
+  source: 'collection' | 'library' | 'builtin' | 'ai' | 'online';
   ipa?: string; pos?: string; meaning?: string; vi?: string; ex?: string;
   syn?: string[]; ant?: string[]; level?: Level;
 }
@@ -38,9 +43,18 @@ export class LookupQuery {
 
 @Injectable()
 export class LookupService {
-  constructor(private readonly words: WordsService) {}
+  private readonly log = new Logger('Lookup');
 
-  /** Your own collection first, then the built-in list, then free online sources. */
+  constructor(
+    private readonly words: WordsService,
+    private readonly library: LibraryService,
+    private readonly config: ConfigService
+  ) {}
+
+  /**
+   * Your own words first, then the shared library and the built-in list (free and instant),
+   * then OpenAI when OPENAI_API_KEY is set, then free online dictionaries.
+   */
   async lookup(user: string, raw: string): Promise<LookupResult | null> {
     const word = raw.trim();
     const lw = word.toLowerCase();
@@ -48,8 +62,17 @@ export class LookupService {
     if (mine) {
       return { source: 'collection', ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, syn: mine.syn, ant: mine.ant, level: mine.level as Level };
     }
+    const lib = await this.library.findByWord(lw);
+    if (lib) return { source: 'library', ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level as Level };
     const b = BUILTIN_DICT[lw];
     if (b) return { source: 'builtin', ipa: b[0], pos: b[1], meaning: b[2], vi: b[3], ex: b[4], syn: b[5], ant: b[6], level: b[7] };
+
+    const key = this.config.get<string>('OPENAI_API_KEY');
+    if (key) {
+      const ai = await aiLookup(word, key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
+      if (ai) return { source: 'ai', ...ai };
+      this.log.warn('AI lookup gave no result for a word; using the free dictionary instead.');
+    }
 
     const [dict, vi] = await Promise.all([this.fromDictionary(word), this.translateVi(word)]);
     if (!dict && !vi) return null;
@@ -93,7 +116,8 @@ export class LookupService {
 export class LookupController {
   constructor(private readonly lookup: LookupService) {}
 
-  /** Auto-fill details for a word: GET /api/lookup?word=resilient */
+  /** Auto-fill details for a word: GET /api/lookup?word=resilient (limited, since it can call a paid AI API) */
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
   @Get()
   async find(@UserId() user: string, @Query() q: LookupQuery) {
     const res = await this.lookup.lookup(user, q.word);
@@ -103,7 +127,7 @@ export class LookupController {
 }
 
 @Module({
-  imports: [WordsModule],
+  imports: [WordsModule, LibraryModule],
   controllers: [LookupController],
   providers: [LookupService]
 })

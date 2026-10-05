@@ -20,6 +20,8 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | `CORS_ORIGIN` | `http://localhost:5173` | Comma-separated allowed frontend origins |
 | `JWT_SECRET` | — | Secret used to sign login tokens (required) |
 | `JWT_EXPIRES_IN` | `7d` | How long a login lasts |
+| `OPENAI_API_KEY` | — | Optional. Lets auto-fill ask OpenAI for words not in the library |
+| `OPENAI_MODEL` | `gpt-4o-mini` | Model used for auto-fill |
 
 ## Accounts
 
@@ -49,7 +51,7 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | DELETE | `/tags/:name` | Also removes the tag from every word |
 | GET | `/profile` | Settings + progress |
 | PATCH | `/profile/settings` | Learning preferences (goal, direction, autoplay, examples, theme) |
-| GET | `/lookup?word=` | Auto-fill: your words → built-in list → dictionaryapi.dev + MyMemory |
+| GET | `/lookup?word=` | Auto-fill: your words → library → OpenAI (if configured) → dictionaryapi.dev + MyMemory. Max 20/min per IP |
 | DELETE | `/data` | Delete your words, categories and tags (keeps the account) |
 | GET | `/library` | Shared library: `?q=&topic=it\|interview\|customer\|leader\|other&level=&source=builtin\|community\|me&page=&limit=` → items, total, per-topic counts |
 | GET | `/library/:id` | One library word |
