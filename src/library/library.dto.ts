@@ -14,6 +14,10 @@ export class LibraryQuery {
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(100) limit?: number;
 }
 
+export class FindWordQuery {
+  @IsString() @MaxLength(80) word: string;
+}
+
 export class ShareWordDto {
   @IsMongoId() wordId: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;

@@ -3,7 +3,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserId } from '../auth/auth.decorators';
 import { ParseObjectIdPipe } from '../common/parse-object-id.pipe';
 import { LibraryService } from './library.service';
-import { LibraryQuery, ShareWordDto } from './library.dto';
+import { FindWordQuery, LibraryQuery, ShareWordDto } from './library.dto';
 
 @ApiTags('library')
 @ApiBearerAuth()
@@ -15,6 +15,16 @@ export class LibraryController {
   @Get()
   list(@UserId() user: string, @Query() q: LibraryQuery) {
     return this.library.list(user, q);
+  }
+
+  /**
+   * Exact (case-insensitive) match for a word, so the add-word form can offer the library's
+   * version instead of creating a duplicate. Returns { word: null } when there is none.
+   */
+  @Get('find')
+  async find(@Query() q: FindWordQuery) {
+    const d = q.word.trim() ? await this.library.findByWord(q.word.trim().toLowerCase()) : null;
+    return { word: d ? d.toJSON() : null };
   }
 
   @Get(':id')
