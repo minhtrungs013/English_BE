@@ -336,7 +336,7 @@ export class HomeworkService {
     if (c.ownerId !== user && !mine) throw new ForbiddenException('Join the course to see its leaderboard.');
 
     const maxDay = c.ownerId === user ? c.totalDays : currentDay(mine!, c.totalDays);
-    const day = Math.min(maxDay, Math.max(1, dayArg ?? (mine ? currentDay(mine, c.totalDays) : 1)));
+    const day = Math.max(1, Math.min(maxDay, dayArg ?? (mine ? currentDay(mine, c.totalDays) : 1)));
     const ids = enrolled.map((e) => e.user);
     const names = new Map((await this.users.find({ _id: { $in: ids } }, { name: 1 }).lean()).map((u) => [String(u._id), u.name]));
     const subs = (await this.submissions.find({ courseId: id, user: { $in: ids }, submittedAt: { $ne: null } }).lean());

@@ -154,6 +154,44 @@ export class QuestionsService {
     return this.view(q);
   }
 
+  /**
+   * Imports tense questions (from the owner's CSV/JSON) for a day that has words. Each row is checked on its own;
+   * good rows are saved (approved), bad ones are reported by their index with the reason.
+   */
+  async importItems(user: string, id: string, day: number, rows: Record<string, unknown>[]) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const words = c.days.find((d) => d.day === day)?.words ?? [];
+    if (!words.length) throw new BadRequestException('Add words to day ' + day + ' before importing questions.');
+    const byLower = new Map(words.map((w) => [w.word.toLowerCase(), w.word]));
+    const text = (v: unknown) => (typeof v === 'string' ? v.trim() : typeof v === 'number' ? String(v) : '');
+    const list = (v: unknown) => (Array.isArray(v) ? v.map(text).filter(Boolean) : text(v) ? text(v).split('|').map((x) => x.trim()).filter(Boolean) : []);
+    const docs: Partial<BankItem>[] = [];
+    const errors: { index: number; message: string }[] = [];
+    rows.forEach((r, index) => {
+      try {
+        const rawKind = text(r.kind ?? r.type).toLowerCase();
+        const kind = ['tense', 'typed', 'type'].includes(rawKind) ? 'tense' : ['tensechoice', 'multi', 'choice', 'mc', 'multiple'].includes(rawKind) ? 'tenseChoice' : '';
+        if (!kind) throw new BadRequestException('Type must be "typed" or "multi".');
+        const word = byLower.get(text(r.word).toLowerCase());
+        if (!word) throw new BadRequestException('“' + text(r.word) + '” isn’t one of day ' + day + '’s words.');
+        const tense = text(r.tense);
+        if (tense && !(TENSES as readonly string[]).includes(tense)) throw new BadRequestException('Unknown tense “' + tense + '”. Use one of: ' + TENSES.join(', ') + '.');
+        const prompt = text(r.prompt ?? r.sentence);
+        const answer = text(r.answer);
+        const choices = kind === 'tenseChoice' ? (Array.isArray(r.choices) ? list(r.choices) : [r.choice1, r.choice2, r.choice3, r.choice4].map(text).filter(Boolean)) : [];
+        if (kind === 'tenseChoice' && choices.length === 3 && answer && !choices.includes(answer)) choices.push(answer);
+        this.validate(kind, prompt, choices, answer);
+        if (prompt.length > 1500 || answer.length > 80 || choices.some((x) => x.length > 80)) throw new BadRequestException('Text is too long.');
+        docs.push({ courseId: id, day, kind, word, tense, prompt, choices, answer, accept: list(r.accept).slice(0, 5), explain: text(r.explain).slice(0, 1500), source: 'manual', status: 'approved' });
+      } catch (e) {
+        errors.push({ index, message: e instanceof Error ? e.message : 'Invalid row.' });
+      }
+    });
+    if (docs.length) await this.bank.insertMany(docs);
+    return { added: docs.length, errors, items: await this.list(user, id, day) };
+  }
+
   /** Approve or reject several items at once. */
   async setStatus(user: string, id: string, ids: string[], status: BankStatus) {
     await this.owned(user, id);

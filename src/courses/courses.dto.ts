@@ -16,6 +16,8 @@ export class CreateCourseDto {
   @IsOptional() @IsString() @MaxLength(500) description?: string;
   @IsOptional() @IsInt() @Min(3) @Max(10) wordsPerDay?: number;
   @IsOptional() @IsIn(VISIBILITIES) visibility?: string;
+  /** Day 1 for everyone (YYYY-MM-DD); '' or left out = each learner starts when they join. */
+  @IsOptional() @IsString() @Matches(/^(\d{4}-\d{2}-\d{2})?$/, { message: 'Start date must look like 2026-10-06.' }) startDate?: string;
 }
 export class UpdateCourseDto extends PartialType(CreateCourseDto) {}
 
@@ -67,6 +69,11 @@ export class LearnDayDto {
 
 export class SaveDayWordsDto {
   @IsArray() @ArrayMaxSize(10) @IsString({ each: true }) @IsNotEmpty({ each: true }) @MaxLength(80, { each: true }) words: string[];
+}
+
+export class ImportQuestionsDto {
+  /** Rows from a CSV/JSON file; each is checked on its own and bad rows are reported, not saved. */
+  @IsArray() @ArrayMaxSize(100) items: Record<string, unknown>[];
 }
 
 export class WarmupDoneDto {

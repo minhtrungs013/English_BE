@@ -68,12 +68,14 @@ Anyone can create a course. Each day has a few words (3–10, set by the owner),
 generated with AI; the owner can optionally add generated words to the library. Courses are **private**
 (owner + people with the 6-letter join code) or **public** (listed for everyone).
 Each learner starts at **day 1 on the day they join**; one more day opens every day (app time zone).
+An owner can instead set a **start date** (`startDate`, YYYY-MM-DD): then day 1 is that date for everyone, nothing opens
+before it, and people who join later start on the course's current day (earlier days count as late).
 Learning a day marks it learned; learners choose which of its words to save to My Vocabulary (tagged with the course tag).
 
 | Method | Path | |
 |---|---|---|
 | GET | `/courses?scope=joined\|mine\|public` | Course cards (with my progress) |
-| POST | `/courses` | `{ title, description?, wordsPerDay?, visibility? }` |
+| POST | `/courses` | `{ title, description?, wordsPerDay?, visibility?, startDate? }` |
 | GET / PATCH / DELETE | `/courses/:id` | Detail (learners see words only for open days) / edit / delete (owner) |
 | PUT | `/courses/:id/days/:day` | `{ words }` — set a day's words (owner) |
 | POST | `/courses/ai-word` | `{ word }` — library entry, or AI-generated details (daily limit) |
@@ -91,6 +93,7 @@ Learning a day marks it learned; learners choose which of its words to save to M
 | POST | `/courses/:id/days/:day/questions/generate` | `{ tenses?, perWord? }` — AI writes tense questions + a recap (pending approval; uses the daily AI limit) |
 | POST | `/courses/:id/days/:day/questions` | Add a question / recap by hand (approved) |
 | PATCH / DELETE | `/courses/:id/questions/:qid` | Edit (incl. `status`) / delete |
+| POST | `/courses/:id/days/:day/questions/import` | `{ items }` — import typed / multiple-choice tense questions (rows from CSV/JSON: `type` typed|multi, `word`, `tense?`, `sentence`, `answer`, `choice1–4` or `choices`, `accept?` (a|b), `explain?`); approved; bad rows are returned in `errors` |
 | POST | `/courses/:id/questions/status` | `{ ids, status: approved\|rejected\|pending }` |
 
 ### Homework

@@ -43,6 +43,10 @@ export class Course {
   /** How many new words each day has (set by the course owner). */
   @Prop({ default: 5 }) wordsPerDay: number;
   @Prop({ default: TOTAL_DAYS }) totalDays: number;
+  /**
+   * Day 1 for everyone (YYYY-MM-DD, app time zone). '' = self-paced: each learner's day 1 is the day they join.
+   */
+  @Prop({ default: '' }) startDate: string;
   /** private: only the owner and people with the join code; public: listed for everyone. */
   @Prop({ enum: VISIBILITIES, default: 'private', index: true }) visibility: string;
   /** Code others can use to join (also works for public courses). */
@@ -71,7 +75,10 @@ export type EnrollmentDocument = HydratedDocument<Enrollment>;
 export const EnrollmentSchema = SchemaFactory.createForClass(Enrollment);
 EnrollmentSchema.index({ user: 1, courseId: 1 }, { unique: true });
 
-/** The learner's current day: day 1 on the day they joined, one more each day, up to the last day. */
+/**
+ * The learner's current day: day 1 on their start day (the course's start date, or the day they joined),
+ * one more each day, up to the last day. 0 = the course hasn't started yet.
+ */
 export function currentDay(e: Pick<Enrollment, 'startDay'>, totalDays: number): number {
-  return Math.min(totalDays, Math.max(1, daysBetween(e.startDay, todayKey()) + 1));
+  return Math.min(totalDays, Math.max(0, daysBetween(e.startDay, todayKey()) + 1));
 }

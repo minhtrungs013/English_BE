@@ -7,7 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto
 } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
@@ -151,6 +151,13 @@ export class CoursesController {
   @Post(':id/days/:day/questions')
   createQuestion(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: BankItemDto) {
     return this.questions.create(user, id, day, dto);
+  }
+
+  /** Import tense questions for a day from the owner's CSV/JSON rows (approved; bad rows are reported). */
+  @Post(':id/days/:day/questions/import')
+  @HttpCode(200)
+  importQuestions(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: ImportQuestionsDto) {
+    return this.questions.importItems(user, id, day, dto.items);
   }
 
   /** Approve / reject several at once. */

@@ -3,6 +3,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { randomInt } from 'crypto';
 import { Model } from 'mongoose';
 import { todayKey } from '../common/day';
+
+/** A real calendar date in YYYY-MM-DD form. */
+function validDate(s: string): boolean {
+  const d = new Date(s + 'T00:00:00Z');
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+}
 import type { Topic } from '../library/library.schema';
 import { LibraryService } from '../library/library.service';
 import { LookupService } from '../lookup/lookup';
@@ -54,7 +60,7 @@ export class CoursesService {
     const isOwner = c.ownerId === user;
     return {
       id: String(c._id), title: c.title, description: c.description, ownerId: c.ownerId, ownerName: c.ownerName, isOwner,
-      visibility: c.visibility, wordsPerDay: c.wordsPerDay, totalDays: c.totalDays, tag: c.tag,
+      visibility: c.visibility, wordsPerDay: c.wordsPerDay, totalDays: c.totalDays, tag: c.tag, startDate: c.startDate ?? '',
       readyDays: c.days.filter((d) => d.words.length > 0).length, members,
       ...(isOwner ? { joinCode: c.joinCode } : {}),
       enrollment: this.enrollmentView(e, c)
@@ -136,14 +142,34 @@ export class CoursesService {
     const slug = normalizeTag(dto.title).replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 30);
     const c = await this.courses.create({
       ownerId: user, ownerName: u?.name ?? '', title: dto.title, description: dto.description?.trim() ?? '',
-      wordsPerDay: dto.wordsPerDay ?? 5, totalDays: TOTAL_DAYS, visibility: dto.visibility ?? 'private',
+      wordsPerDay: dto.wordsPerDay ?? 5, totalDays: TOTAL_DAYS, visibility: dto.visibility ?? 'private', startDate: this.checkDate(dto.startDate),
       joinCode: await this.newCode(), tag: 'course-' + (slug || 'words'), days: []
     });
     return this.detail(c, user, 0, null);
   }
 
+  private checkDate(s?: string): string {
+    if (!s) return '';
+    if (!validDate(s)) throw new BadRequestException('Start date ' + s + ' isn’t a real date.');
+    return s;
+  }
+
+  /** Moves every learner to the course's start date, or back to the day they joined when it's cleared. */
+  private async applyStartDate(c: CourseDocument) {
+    const courseId = String(c._id);
+    if (c.startDate) {
+      await this.enrollments.updateMany({ courseId }, { $set: { startDay: c.startDate } });
+      return;
+    }
+    const all = await this.enrollments.find({ courseId }, { createdAt: 1 }).lean<{ _id: unknown; createdAt?: Date }[]>();
+    for (const e of all) await this.enrollments.updateOne({ _id: e._id }, { $set: { startDay: todayKey(e.createdAt ?? new Date()) } });
+  }
+
   async update(user: string, id: string, dto: UpdateCourseDto) {
     const c = await this.loadOwned(user, id);
+    const newStart = dto.startDate !== undefined ? this.checkDate(dto.startDate) : undefined;
+    const startChanged = newStart !== undefined && newStart !== (c.startDate ?? '');
+    if (startChanged) c.startDate = newStart;
     if (dto.title !== undefined) c.title = dto.title;
     if (dto.description !== undefined) c.description = dto.description.trim();
     if (dto.visibility !== undefined) c.visibility = dto.visibility;
@@ -153,6 +179,7 @@ export class CoursesService {
       c.wordsPerDay = dto.wordsPerDay;
     }
     await c.save();
+    if (startChanged) await this.applyStartDate(c);
     return this.get(user, id);
   }
 
@@ -230,7 +257,7 @@ export class CoursesService {
     const c = await this.load(id);
     const ok = c.visibility === 'public' || c.ownerId === user || (!!code && code.toUpperCase() === c.joinCode);
     if (!ok) throw new NotFoundException('Course not found.');
-    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: todayKey(), learned: [], warmedUp: [] } }, { upsert: true });
+    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: c.startDate || todayKey(), learned: [], warmedUp: [] } }, { upsert: true });
     return this.get(user, id);
   }
 
