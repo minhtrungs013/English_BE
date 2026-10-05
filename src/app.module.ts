@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories';
+import { CoursesModule } from './courses/courses.module';
 import { DataModule } from './data/data';
 import { LibraryModule } from './library/library.module';
 import { LookupModule } from './lookup/lookup';
@@ -31,6 +32,7 @@ import { WordsModule } from './words/words.module';
     TagsModule,
     LookupModule,
     LibraryModule,
+    CoursesModule,
     DataModule
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }]

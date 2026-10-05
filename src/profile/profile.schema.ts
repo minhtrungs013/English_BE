@@ -28,7 +28,7 @@ export class Progress {
   @Prop({ default: 0 }) reviewedToday: number;
 }
 
-/** Auto-fills that went to OpenAI / online dictionaries on `day` (YYYY-MM-DD, app time zone). */
+/** A per-day usage counter: `count` uses on `day` (YYYY-MM-DD, app time zone). */
 @Schema({ _id: false })
 export class Autofill {
   @Prop({ default: '' }) day: string;
@@ -41,7 +41,10 @@ export class Profile {
   @Prop({ required: true, unique: true }) user: string;
   @Prop({ type: SchemaFactory.createForClass(Settings), default: () => ({}) }) settings: Settings;
   @Prop({ type: SchemaFactory.createForClass(Progress), default: () => ({}) }) progress: Progress;
+  /** Auto-fills that went to OpenAI / online dictionaries today. */
   @Prop({ type: SchemaFactory.createForClass(Autofill), default: () => ({}) }) autofill: Autofill;
+  /** Words generated with AI for courses today. */
+  @Prop({ type: SchemaFactory.createForClass(Autofill), default: () => ({}) }) courseAi: Autofill;
 }
 
 export type ProfileDocument = HydratedDocument<Profile>;

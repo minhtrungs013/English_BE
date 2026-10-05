@@ -78,13 +78,17 @@ export class LookupService {
       throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used all ' + limit + ' auto-fills for today. You can still fill in the details yourself, or try again tomorrow.' }, HttpStatus.TOO_MANY_REQUESTS);
     }
 
+    return this.external(word);
+  }
+
+  /** OpenAI when configured, otherwise (or on failure) the free online dictionaries. No quota checks here. */
+  async external(word: string): Promise<LookupResult | null> {
     const key = this.config.get<string>('OPENAI_API_KEY');
     if (key) {
       const ai = await aiLookup(word, key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
       if (ai) return { source: 'ai', ...ai };
       this.log.warn('AI lookup gave no result for a word; using the free dictionary instead.');
     }
-
     const [dict, vi] = await Promise.all([this.fromDictionary(word), this.translateVi(word)]);
     if (!dict && !vi) return null;
     return { source: 'online', ...(dict ?? {}), ...(vi ? { vi } : {}) };
@@ -141,6 +145,7 @@ export class LookupController {
 @Module({
   imports: [WordsModule, LibraryModule, ProfileModule],
   controllers: [LookupController],
-  providers: [LookupService]
+  providers: [LookupService],
+  exports: [LookupService]
 })
 export class LookupModule {}

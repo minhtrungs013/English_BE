@@ -23,7 +23,8 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | `OPENAI_API_KEY` | — | Optional. Lets auto-fill ask OpenAI for words not in the library |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Model used for auto-fill |
 | `AUTOFILL_DAILY_LIMIT` | `3` | Auto-fills per user per day that go to OpenAI / online dictionaries (answers from your words or the library are free) |
-| `APP_TIMEZONE` | `Asia/Ho_Chi_Minh` | Time zone for the daily limit reset |
+| `APP_TIMEZONE` | `Asia/Ho_Chi_Minh` | Time zone for the daily limit reset and course days |
+| `COURSE_AI_DAILY_LIMIT` | `30` | Words per user per day that a course owner can generate with AI (library words are free) |
 
 ## Accounts
 
@@ -60,6 +61,26 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | POST | `/library/:id/save` | Copy a library word into my vocabulary (tagged with its topic) |
 | POST | `/library/share` | `{ wordId, topic }` — share one of my words; my name is shown as the author |
 | DELETE | `/library/:id` | Remove a word I shared (only the author can) |
+
+## Courses (30 days)
+
+Anyone can create a course. Each day has a few words (3–10, set by the owner), taken from the library or
+generated with AI; the owner can optionally add generated words to the library. Courses are **private**
+(owner + people with the 6-letter join code) or **public** (listed for everyone).
+Each learner starts at **day 1 on the day they join**; one more day opens every day (app time zone).
+Learning a day saves its words into My Vocabulary, tagged with the course tag.
+
+| Method | Path | |
+|---|---|---|
+| GET | `/courses?scope=joined\|mine\|public` | Course cards (with my progress) |
+| POST | `/courses` | `{ title, description?, wordsPerDay?, visibility? }` |
+| GET / PATCH / DELETE | `/courses/:id` | Detail (learners see words only for open days) / edit / delete (owner) |
+| PUT | `/courses/:id/days/:day` | `{ words }` — set a day's words (owner) |
+| POST | `/courses/ai-word` | `{ word }` — library entry, or AI-generated details (daily limit) |
+| POST | `/courses/:id/days/:day/words/:index/library` | Add a course word to the library (owner) |
+| POST | `/courses/join` / `/courses/:id/join` | Join with a code / join a public course |
+| DELETE | `/courses/:id/enrollment` | Leave |
+| POST | `/courses/:id/days/:day/learn` | Save an open day's words to My Vocabulary |
 
 ## Vocabulary library
 

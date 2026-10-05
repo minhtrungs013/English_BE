@@ -96,14 +96,22 @@ export class LibraryService implements OnApplicationBootstrap {
   /** Shares one of the user's own words to the library under the user's name. */
   async share(user: string, dto: ShareWordDto) {
     const w = await this.words.findOne(user, dto.wordId);
+    return (await this.shareData(user, w, dto.topic ?? 'other')).toJSON();
+  }
+
+  /** Adds a word to the library under the user's name (used for my words and for course words). */
+  async shareData(
+    user: string,
+    w: { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string },
+    topic: string
+  ): Promise<LibraryWordDocument> {
     if (!w.meaning.trim() && !w.vi.trim()) throw new ConflictException('Add a meaning or a Vietnamese translation before sharing.');
     const u = await this.users.findById(user);
     try {
-      const d = await this.lib.create({
+      return await this.lib.create({
         word: w.word, wordLower: w.word.toLowerCase(), ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex,
-        syn: w.syn, ant: w.ant, level: w.level, topic: dto.topic ?? 'other', authorId: user, authorName: u?.name ?? 'A learner'
+        syn: w.syn, ant: w.ant, level: w.level, topic, authorId: user, authorName: u?.name ?? 'A learner'
       });
-      return d.toJSON();
     } catch (e) {
       if ((e as { code?: number }).code === 11000) throw new ConflictException('“' + w.word + '” is already in the library.');
       throw e;

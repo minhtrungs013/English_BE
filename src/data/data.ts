@@ -11,6 +11,8 @@ import { Tag, TagsModule } from '../tags/tags';
 import { User, UserSchema } from '../users/user.schema';
 import { Word } from '../words/word.schema';
 import { WordsModule } from '../words/words.module';
+import { CoursesModule } from '../courses/courses.module';
+import { CoursesService } from '../courses/courses.service';
 import { LibraryModule } from '../library/library.module';
 import { LibraryService } from '../library/library.service';
 
@@ -27,7 +29,8 @@ export class DataService implements OnApplicationBootstrap {
     @InjectModel(Profile.name) private readonly profiles: Model<Profile>,
     @InjectModel(User.name) private readonly users: Model<User>,
     private readonly profile: ProfileService,
-    private readonly library: LibraryService
+    private readonly library: LibraryService,
+    private readonly courses: CoursesService
   ) {}
 
   /**
@@ -68,6 +71,7 @@ export class DataService implements OnApplicationBootstrap {
 
   /** Deletes the account and everything it owns. */
   async deleteAccount(user: string): Promise<void> {
+    await this.courses.deleteForUser(user);
     await Promise.all([
       this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user }),
       this.profiles.deleteOne({ user }), this.users.deleteOne({ _id: user })
@@ -128,7 +132,7 @@ export class DataController {
 }
 
 @Module({
-  imports: [WordsModule, CategoriesModule, TagsModule, ProfileModule, LibraryModule, MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
+  imports: [WordsModule, CategoriesModule, TagsModule, ProfileModule, LibraryModule, CoursesModule, MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
   controllers: [DataController],
   providers: [DataService],
   exports: [DataService]
