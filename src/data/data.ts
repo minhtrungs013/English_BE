@@ -89,6 +89,7 @@ export class DataService implements OnApplicationBootstrap {
       // Lower-cased words of yours that are already in the library (so the app hides "Share").
       shared,
       userId: user,
+      autofill: await this.profile.autofillStatus(user),
       // Name and email come from the account; the rest are learning preferences.
       settings: { ...p.settings, name: u?.name ?? '', email: u?.email ?? '' },
       progress: p.progress

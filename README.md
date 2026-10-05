@@ -22,6 +22,8 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | `JWT_EXPIRES_IN` | `7d` | How long a login lasts |
 | `OPENAI_API_KEY` | — | Optional. Lets auto-fill ask OpenAI for words not in the library |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Model used for auto-fill |
+| `AUTOFILL_DAILY_LIMIT` | `3` | Auto-fills per user per day that go to OpenAI / online dictionaries (answers from your words or the library are free) |
+| `APP_TIMEZONE` | `Asia/Ho_Chi_Minh` | Time zone for the daily limit reset |
 
 ## Accounts
 
@@ -51,7 +53,7 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | DELETE | `/tags/:name` | Also removes the tag from every word |
 | GET | `/profile` | Settings + progress |
 | PATCH | `/profile/settings` | Learning preferences (goal, direction, autoplay, examples, theme) |
-| GET | `/lookup?word=` | Auto-fill: your words → library → OpenAI (if configured) → dictionaryapi.dev + MyMemory. Max 20/min per IP |
+| GET | `/lookup?word=` | Auto-fill: your words → library → OpenAI (if configured) → dictionaryapi.dev + MyMemory. Max 20/min per IP; going past the library uses one of the user's daily auto-fills (429 when used up). Responses include `quota: { used, limit }` |
 | DELETE | `/data` | Delete your words, categories and tags (keeps the account) |
 | GET | `/library` | Shared library: `?q=&topic=it\|interview\|customer\|leader\|other&level=&source=builtin\|community\|me&page=&limit=` → items, total, per-topic counts |
 | GET | `/library/:id` | One library word |

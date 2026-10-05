@@ -1,4 +1,4 @@
-import { Controller, Get, Injectable, Logger, Module, NotFoundException, Query } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Injectable, Logger, Module, NotFoundException, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Throttle } from '@nestjs/throttler';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -7,6 +7,8 @@ import { UserId } from '../auth/auth.decorators';
 import { POS_LIST, type Level } from '../common/constants';
 import { LibraryModule } from '../library/library.module';
 import { LibraryService } from '../library/library.service';
+import { ProfileModule } from '../profile/profile.module';
+import { ProfileService } from '../profile/profile.service';
 import { WordsModule } from '../words/words.module';
 import { aiLookup } from './ai';
 import { WordsService } from '../words/words.service';
@@ -16,6 +18,8 @@ export interface LookupResult {
   source: 'collection' | 'library' | 'builtin' | 'ai' | 'online';
   ipa?: string; pos?: string; meaning?: string; vi?: string; ex?: string;
   syn?: string[]; ant?: string[]; level?: Level;
+  /** Today's auto-fill usage after this request. */
+  quota?: { used: number; limit: number };
 }
 
 interface DictDefinition { definition?: string; example?: string; synonyms?: string[]; antonyms?: string[] }
@@ -48,7 +52,8 @@ export class LookupService {
   constructor(
     private readonly words: WordsService,
     private readonly library: LibraryService,
-    private readonly config: ConfigService
+    private readonly config: ConfigService,
+    private readonly profile: ProfileService
   ) {}
 
   /**
@@ -66,6 +71,12 @@ export class LookupService {
     if (lib) return { source: 'library', ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level as Level };
     const b = BUILTIN_DICT[lw];
     if (b) return { source: 'builtin', ipa: b[0], pos: b[1], meaning: b[2], vi: b[3], ex: b[4], syn: b[5], ant: b[6], level: b[7] };
+
+    // Anything past this point calls OpenAI or online dictionaries: limited per user per day.
+    if (!(await this.profile.useAutofill(user))) {
+      const { limit } = await this.profile.autofillStatus(user);
+      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used all ' + limit + ' auto-fills for today. You can still fill in the details yourself, or try again tomorrow.' }, HttpStatus.TOO_MANY_REQUESTS);
+    }
 
     const key = this.config.get<string>('OPENAI_API_KEY');
     if (key) {
@@ -114,20 +125,21 @@ export class LookupService {
 @ApiBearerAuth()
 @Controller('lookup')
 export class LookupController {
-  constructor(private readonly lookup: LookupService) {}
+  constructor(private readonly lookup: LookupService, private readonly profile: ProfileService) {}
 
   /** Auto-fill details for a word: GET /api/lookup?word=resilient (limited, since it can call a paid AI API) */
   @Throttle({ default: { limit: 20, ttl: 60_000 } })
   @Get()
   async find(@UserId() user: string, @Query() q: LookupQuery) {
     const res = await this.lookup.lookup(user, q.word);
-    if (!res) throw new NotFoundException('No details found for “' + q.word.trim() + '”.');
-    return res;
+    const quota = await this.profile.autofillStatus(user);
+    if (!res) throw new NotFoundException({ statusCode: 404, error: 'Not Found', message: 'No details found for “' + q.word.trim() + '”.', quota });
+    return { ...res, quota };
   }
 }
 
 @Module({
-  imports: [WordsModule, LibraryModule],
+  imports: [WordsModule, LibraryModule, ProfileModule],
   controllers: [LookupController],
   providers: [LookupService]
 })

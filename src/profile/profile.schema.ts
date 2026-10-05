@@ -28,12 +28,20 @@ export class Progress {
   @Prop({ default: 0 }) reviewedToday: number;
 }
 
+/** Auto-fills that went to OpenAI / online dictionaries on `day` (YYYY-MM-DD, app time zone). */
+@Schema({ _id: false })
+export class Autofill {
+  @Prop({ default: '' }) day: string;
+  @Prop({ default: 0 }) count: number;
+}
+
 /** One profile (settings + progress) per user. */
 @Schema({ collection: 'profiles', timestamps: true, toJSON: jsonOptions })
 export class Profile {
   @Prop({ required: true, unique: true }) user: string;
   @Prop({ type: SchemaFactory.createForClass(Settings), default: () => ({}) }) settings: Settings;
   @Prop({ type: SchemaFactory.createForClass(Progress), default: () => ({}) }) progress: Progress;
+  @Prop({ type: SchemaFactory.createForClass(Autofill), default: () => ({}) }) autofill: Autofill;
 }
 
 export type ProfileDocument = HydratedDocument<Profile>;
