@@ -89,6 +89,9 @@ Learning a day marks it learned; learners choose which of its words to save to M
 | GET | `/courses/:id/leaderboard?day=` | One day's ranking, total score, and on-time streaks (real names) |
 | POST | `/courses/:id/days/:day/warmup/done` | `{ correct?, total? }` — mark the warm-up finished (shown in `enrollment.warmedUp`) |
 | GET | `/courses/:id/days/:day/warmup` | Warm-up before the day: earlier words (missed ones first) with practice questions, and the day's recap story |
+| GET | `/courses/:id/days/:day/listening` | The day's listening dialogue (practice; answers included) with a word bank, or `{ dialogue: null }` |
+| POST | `/courses/:id/days/:day/listening/done` | `{ correct?, total? }` — mark listening finished/skipped (`enrollment.listened`) |
+| POST | `/courses/:id/days/:day/dialogue/generate` | AI writes a listening dialogue with the day's words (pending approval; daily AI limit) |
 | GET | `/courses/:id/questions?day=` | Question bank: tense questions and recaps with their status (owner) |
 | POST | `/courses/:id/days/:day/questions/generate` | `{ tenses?, perWord? }` — AI writes tense questions + a recap (pending approval; uses the daily AI limit) |
 | POST | `/courses/:id/days/:day/questions` | Add a question / recap by hand (approved) |
@@ -113,6 +116,14 @@ questions about the day's words and 2 about review words go into the homework (m
 fixed after the first hand-in). When AI isn't available, verbs get built-in template questions instead.
 Before each day, learners get a **warm-up**: the recap story and practice questions on earlier words, starting with
 the words they got wrong in earlier homework (not graded).
+
+### Listening
+
+Each day can have one approved **listening dialogue** (bank kind `dialogue`, created by hand/import with
+`{ kind: 'dialogue', data }` or by AI): `data = { title, scenario, speakers: [{ name, gender }] ×2, lines: [{ s: 0|1, text, vi }],
+questions: [{ question, choices ×4, answer, explain }] }`. Blanks are written in a line as `[[word]]` or `[[said form|word]]`.
+Learners listen (device text-to-speech, one voice per speaker), fill the blanks from a word bank or by typing, and answer
+the comprehension questions. It's practice only (not graded) and can be skipped.
 
 ## Vocabulary library
 

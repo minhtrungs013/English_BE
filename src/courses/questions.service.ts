@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { ProfileService } from '../profile/profile.service';
 import { Course, CourseDocument } from './course.schema';
 import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.dto';
+import { Dialogue, aiDialogue, cleanDialogue } from './dialogue';
 import { BankItem, BankItemDocument, BankStatus } from './homework.schema';
 import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiTenseQuestions, templateQuestions } from './tense';
 
@@ -34,12 +35,14 @@ export class QuestionsService {
   view(q: BankItemDocument) {
     return {
       id: String(q._id), day: q.day, kind: q.kind, word: q.word, tense: q.tense, tenseLabel: TENSE_LABEL[q.tense as Tense] ?? '',
-      prompt: q.prompt, choices: q.choices, answer: q.answer, accept: q.accept, explain: q.explain, source: q.source, status: q.status
+      prompt: q.prompt, choices: q.choices, answer: q.answer, accept: q.accept, explain: q.explain, source: q.source, status: q.status,
+      ...(q.kind === 'dialogue' ? { data: q.data } : {})
     };
   }
 
   /** Checks a question's shape: one blank, and for multiple choice 4 different choices including the answer. */
   private validate(kind: string, prompt: string, choices: string[], answer: string) {
+    if (kind === 'dialogue') return; // checked by cleanDialogue
     if (kind === 'recap') {
       if (!prompt.trim()) throw new BadRequestException('The recap story is empty.');
       return;
@@ -121,16 +124,40 @@ export class QuestionsService {
     return { source, added: docs.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
   }
 
+  /** Has AI write a listening dialogue with the day's words (waits for approval; uses one daily AI generation). */
+  async generateDialogue(user: string, id: string, day: number) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const words = c.days.find((d) => d.day === day)?.words ?? [];
+    if (!words.length) throw new BadRequestException('Add words to day ' + day + ' first.');
+    const key = this.config.get<string>('OPENAI_API_KEY');
+    if (!key) throw new UnprocessableEntityException('AI isn’t set up. Write the dialogue by hand or import it.');
+    const { used, limit } = await this.profile.dailyStatus(user, 'courseAi');
+    if (used >= limit) {
+      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write the dialogue by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
+    }
+    const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
+    if (!d) throw new UnprocessableEntityException('AI couldn’t write a dialogue right now. Try again later, or write it by hand / import it.');
+    await this.profile.useDaily(user, 'courseAi');
+    await this.bank.create({ courseId: id, day, kind: 'dialogue', word: '', tense: '', prompt: d.title, explain: d.scenario, choices: [], answer: '', accept: [], data: d as unknown as Record<string, unknown>, source: 'ai', status: 'pending' });
+    return { quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
+  }
+
   /** A question (or recap) the owner writes; approved straight away. */
   async create(user: string, id: string, day: number, dto: BankItemDto) {
     const c = await this.owned(user, id);
     this.checkDay(c, day);
     const choices = dto.kind === 'tenseChoice' ? (dto.choices ?? []).map((x) => x.trim()) : [];
-    this.validate(dto.kind, dto.prompt, choices, dto.answer ?? '');
+    const dialogue = dto.kind === 'dialogue' ? cleanDialogue(dto.data) : null;
+    this.validate(dto.kind, dto.prompt ?? '', choices, dto.answer ?? '');
     if (dto.kind === 'recap') await this.bank.deleteMany({ courseId: id, day, kind: 'recap' });
+    // One approved dialogue per day: the new one replaces it.
+    if (dialogue) await this.bank.updateMany({ courseId: id, day, kind: 'dialogue', status: 'approved' }, { $set: { status: 'rejected' } });
     const q = await this.bank.create({
-      courseId: id, day, kind: dto.kind, word: dto.word?.trim() ?? '', tense: dto.tense ?? '', prompt: dto.prompt.trim(), choices,
-      answer: dto.answer?.trim() ?? '', accept: dto.accept ?? [], explain: dto.explain?.trim() ?? '', source: 'manual', status: 'approved'
+      courseId: id, day, kind: dto.kind, word: dto.word?.trim() ?? '', tense: dto.tense ?? '',
+      prompt: dialogue ? dialogue.title : (dto.prompt ?? '').trim(), choices,
+      answer: dto.answer?.trim() ?? '', accept: dto.accept ?? [], explain: dialogue ? dialogue.scenario : dto.explain?.trim() ?? '',
+      data: dialogue as unknown as Record<string, unknown> | null, source: 'manual', status: 'approved'
     });
     return this.view(q);
   }
@@ -147,9 +174,18 @@ export class QuestionsService {
     if (dto.tense !== undefined) q.tense = dto.tense;
     if (dto.word !== undefined) q.word = dto.word.trim();
     if (dto.status !== undefined) q.status = dto.status;
+    if (q.kind === 'dialogue' && dto.data !== undefined) {
+      const d = cleanDialogue(dto.data);
+      q.data = d as unknown as Record<string, unknown>;
+      q.prompt = d.title;
+      q.explain = d.scenario;
+      q.markModified('data');
+    }
     this.validate(q.kind, q.prompt, q.choices, q.answer);
-    // Only one recap per day is used.
-    if (q.kind === 'recap' && q.status === 'approved') await this.bank.updateMany({ courseId: id, day: q.day, kind: 'recap', status: 'approved', _id: { $ne: q._id } }, { $set: { status: 'rejected' } });
+    // Only one recap and one dialogue per day are used.
+    if ((q.kind === 'recap' || q.kind === 'dialogue') && q.status === 'approved') {
+      await this.bank.updateMany({ courseId: id, day: q.day, kind: q.kind, status: 'approved', _id: { $ne: q._id } }, { $set: { status: 'rejected' } });
+    }
     await q.save();
     return this.view(q);
   }
@@ -195,9 +231,9 @@ export class QuestionsService {
   /** Approve or reject several items at once. */
   async setStatus(user: string, id: string, ids: string[], status: BankStatus) {
     await this.owned(user, id);
-    await this.bank.updateMany({ courseId: id, _id: { $in: ids }, kind: { $ne: 'recap' } }, { $set: { status } });
-    // Recaps one at a time, so a day keeps a single approved recap.
-    const recaps = await this.bank.find({ courseId: id, _id: { $in: ids }, kind: 'recap' });
+    await this.bank.updateMany({ courseId: id, _id: { $in: ids }, kind: { $nin: ['recap', 'dialogue'] } }, { $set: { status } });
+    // Recaps and dialogues one at a time, so a day keeps a single approved one of each.
+    const recaps = await this.bank.find({ courseId: id, _id: { $in: ids }, kind: { $in: ['recap', 'dialogue'] } });
     for (const r of recaps) await this.update(user, id, String(r._id), { status });
     return { updated: ids.length };
   }

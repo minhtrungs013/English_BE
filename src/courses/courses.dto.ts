@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
-  ArrayMaxSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested
+  ArrayMaxSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested
 } from 'class-validator';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { TOPICS } from '../library/library.schema';
@@ -76,6 +76,11 @@ export class ImportQuestionsDto {
   @IsArray() @ArrayMaxSize(100) items: Record<string, unknown>[];
 }
 
+export class ListeningDoneDto {
+  @IsOptional() @IsInt() @Min(0) @Max(100) correct?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(100) total?: number;
+}
+
 export class WarmupDoneDto {
   @IsOptional() @IsInt() @Min(0) @Max(100) correct?: number;
   @IsOptional() @IsInt() @Min(0) @Max(100) total?: number;
@@ -96,8 +101,10 @@ export class BankItemDto {
   @IsIn(BANK_KINDS) kind: string;
   @IsOptional() @IsString() @MaxLength(80) word?: string;
   @IsOptional() @IsIn([...TENSES, '']) tense?: string;
-  /** The sentence with one "___", or the recap story. */
-  @IsString() @IsNotEmpty() @MaxLength(1500) prompt: string;
+  /** The sentence with one "___", or the recap story (dialogues use data.title). */
+  @IsOptional() @IsString() @MaxLength(1500) prompt?: string;
+  /** Dialogues only: { title, scenario, speakers, lines, questions } — see dialogue.ts. */
+  @IsOptional() @IsObject() data?: Record<string, unknown>;
   @IsOptional() @IsArray() @ArrayMaxSize(4) @IsString({ each: true }) @MaxLength(80, { each: true }) choices?: string[];
   @IsOptional() @IsString() @MaxLength(80) answer?: string;
   @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(80, { each: true }) accept?: string[];
@@ -114,6 +121,7 @@ export class UpdateBankItemDto {
   @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(80, { each: true }) accept?: string[];
   @IsOptional() @IsString() @MaxLength(1500) explain?: string;
   @IsOptional() @IsIn(BANK_STATUSES) status?: BankStatus;
+  @IsOptional() @IsObject() data?: Record<string, unknown>;
 }
 
 export class BankStatusDto {

@@ -70,7 +70,9 @@ export const SubmissionSchema = SchemaFactory.createForClass(Submission);
 SubmissionSchema.index({ courseId: 1, user: 1, day: 1 }, { unique: true });
 SubmissionSchema.index({ courseId: 1, day: 1, submittedAt: 1 });
 
-export const BANK_KINDS = ['tense', 'tenseChoice', 'recap'] as const;
+export const BANK_KINDS = ['tense', 'tenseChoice', 'recap', 'dialogue'] as const;
+/** Bank kinds that are questions in homework and warm-ups. */
+export const TENSE_KINDS = ['tense', 'tenseChoice'];
 export const BANK_STATUSES = ['pending', 'approved', 'rejected'] as const;
 export type BankStatus = (typeof BANK_STATUSES)[number];
 
@@ -96,6 +98,8 @@ export class BankItem {
   @Prop({ default: '' }) explain: string;
   @Prop({ enum: ['ai', 'template', 'manual'], default: 'manual' }) source: string;
   @Prop({ enum: BANK_STATUSES, default: 'pending' }) status: string;
+  /** Dialogues: speakers, lines (with [[blanks]]) and comprehension questions — see dialogue.ts. */
+  @Prop({ type: Object, default: null }) data: Record<string, unknown> | null;
 }
 export type BankItemDocument = HydratedDocument<BankItem>;
 export const BankItemSchema = SchemaFactory.createForClass(BankItem);

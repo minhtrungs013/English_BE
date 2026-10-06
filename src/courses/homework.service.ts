@@ -5,7 +5,8 @@ import { addDays, daysBetween, todayKey } from '../common/day';
 import { LibraryService } from '../library/library.service';
 import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
-import { BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
+import { TENSE_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
+import { Dialogue, dialogueBlanks } from './dialogue';
 import { QuestionsService } from './questions.service';
 import { TENSE_LABEL, type Tense } from './tense';
 
@@ -142,7 +143,7 @@ export class HomeworkService {
 
   private async bankUpTo(c: CourseDocument, day: number): Promise<BankItemDocument[]> {
     const items = await this.questions.approved(String(c._id), Array.from({ length: day }, (_, i) => i + 1));
-    return items.filter((b) => b.kind !== 'recap');
+    return items.filter((b) => TENSE_KINDS.includes(b.kind));
   }
 
   /** Words to take wrong choices from: the course's, plus some library words for small courses. */
@@ -287,7 +288,7 @@ export class HomeworkService {
     const rank = (w: CourseWord) => (wrong.get(w.word.toLowerCase()) ?? 0) * 10 + (practised.has(w.word.toLowerCase()) ? 0 : 1) + Math.random();
     const picked = [...earlier].sort((a, b) => rank(b) - rank(a)).slice(0, WARMUP_WORDS);
 
-    const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => b.kind !== 'recap');
+    const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => TENSE_KINDS.includes(b.kind));
     const pool = await this.poolFor(c);
     const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
     const questions = picked.map((w) => {
@@ -314,6 +315,28 @@ export class HomeworkService {
     e.warmedUp = [...others, entry].sort((a, b) => a.day - b.day);
     await e.save();
     return { warmedUp: e.warmedUp.map((w) => w.day) };
+  }
+
+  /**
+   * The day's approved listening dialogue (answers included — it's practice), with a shuffled word bank
+   * of the blanks' base words. null when the owner hasn't added one.
+   */
+  async listening(user: string, id: string, day: number) {
+    await this.openDay(user, id, day);
+    const item = (await this.questions.approved(id, [day])).find((b) => b.kind === 'dialogue');
+    if (!item?.data) return { day, dialogue: null };
+    const d = item.data as unknown as Dialogue;
+    const bank = shuffle([...new Set(dialogueBlanks(d).map((b) => b.base))]);
+    return { day, dialogue: { id: String(item._id), ...d, wordBank: bank } };
+  }
+
+  /** Marks a day's listening practice as finished (or skipped). */
+  async listeningDone(user: string, id: string, day: number, correct = 0, total = 0) {
+    const { e } = await this.openDay(user, id, day);
+    const entry = { day, at: new Date(), correct: Math.max(0, correct), total: Math.max(0, total) };
+    e.listened = [...(e.listened ?? []).filter((w) => w.day !== day), entry].sort((a, b) => a.day - b.day);
+    await e.save();
+    return { listened: e.listened.map((w) => w.day) };
   }
 
   /** My submitted scores in a course, by day. */

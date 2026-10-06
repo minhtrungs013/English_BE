@@ -7,7 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, ListeningDoneDto
 } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
@@ -131,6 +131,19 @@ export class CoursesController {
     return this.homework.warmupDone(user, id, day, dto.correct, dto.total);
   }
 
+  /** The day's listening dialogue (practice; answers included), or { dialogue: null }. */
+  @Get(':id/days/:day/listening')
+  listening(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.homework.listening(user, id, day);
+  }
+
+  /** Mark a day's listening practice finished (or skipped). */
+  @Post(':id/days/:day/listening/done')
+  @HttpCode(200)
+  listeningDone(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: ListeningDoneDto) {
+    return this.homework.listeningDone(user, id, day, dto.correct, dto.total);
+  }
+
   /* ---------- question bank (owner) ---------- */
 
   /** The tense questions and recap stories (?day= for one day), with their approval status. */
@@ -145,6 +158,14 @@ export class CoursesController {
   @HttpCode(200)
   generateQuestions(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: GenerateQuestionsDto) {
     return this.questions.generate(user, id, day, dto);
+  }
+
+  /** Have AI write a listening dialogue for a day (waits for approval). */
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  @Post(':id/days/:day/dialogue/generate')
+  @HttpCode(200)
+  generateDialogue(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.questions.generateDialogue(user, id, day);
   }
 
   /** Add a question or recap by hand (approved straight away). */

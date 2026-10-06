@@ -70,6 +70,9 @@ export class Enrollment {
   /** Days whose warm-up (review of earlier words) the learner has finished, with how they did. */
   @Prop({ type: [{ day: Number, at: Date, correct: Number, total: Number, _id: false }], default: [] })
   warmedUp: { day: number; at: Date; correct: number; total: number }[];
+  /** Days whose listening practice the learner has finished (or skipped). */
+  @Prop({ type: [{ day: Number, at: Date, correct: Number, total: Number, _id: false }], default: [] })
+  listened: { day: number; at: Date; correct: number; total: number }[];
 }
 export type EnrollmentDocument = HydratedDocument<Enrollment>;
 export const EnrollmentSchema = SchemaFactory.createForClass(Enrollment);

@@ -51,7 +51,8 @@ export class CoursesService {
     return {
       startDay: e.startDay, currentDay: currentDay(e, c.totalDays),
       learned: e.learned.map((l) => l.day).sort((a, b) => a - b),
-      warmedUp: (e.warmedUp ?? []).map((w) => w.day).sort((a, b) => a - b)
+      warmedUp: (e.warmedUp ?? []).map((w) => w.day).sort((a, b) => a - b),
+      listened: (e.listened ?? []).map((w) => w.day).sort((a, b) => a - b)
     };
   }
 
@@ -257,7 +258,7 @@ export class CoursesService {
     const c = await this.load(id);
     const ok = c.visibility === 'public' || c.ownerId === user || (!!code && code.toUpperCase() === c.joinCode);
     if (!ok) throw new NotFoundException('Course not found.');
-    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: c.startDate || todayKey(), learned: [], warmedUp: [] } }, { upsert: true });
+    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: c.startDate || todayKey(), learned: [], warmedUp: [], listened: [] } }, { upsert: true });
     return this.get(user, id);
   }
 
