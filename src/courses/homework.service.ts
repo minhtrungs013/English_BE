@@ -102,6 +102,20 @@ function fromBank(b: BankItemDocument, review: boolean): Question {
 
 const tenseLabel = (t: string) => TENSE_LABEL[t as Tense] ?? '';
 
+/**
+ * On-time homework on consecutive days up to the learner's current day (or the day before, if today isn't done yet).
+ * Days without words don't break a streak.
+ */
+function streakOf(onTime: Set<number>, current: number, hasWords: Set<number>): number {
+  let d = onTime.has(current) ? current : current - 1;
+  let streak = 0;
+  for (; d >= 1; d--) {
+    if (onTime.has(d)) streak++;
+    else if (hasWords.has(d)) break;
+  }
+  return streak;
+}
+
 @Injectable()
 export class HomeworkService {
   constructor(
@@ -391,18 +405,101 @@ export class HomeworkService {
     const onTime = new Map<string, Set<number>>();
     for (const s of subs) if (s.lateDays === 0) (onTime.get(s.user) ?? onTime.set(s.user, new Set()).get(s.user)!).add(s.day);
     const streakRows = enrolled.map((e) => {
-      const done = onTime.get(e.user) ?? new Set<number>();
-      let d = currentDay(e, c.totalDays);
-      if (!done.has(d)) d--;
-      let streak = 0;
-      for (; d >= 1; d--) {
-        if (done.has(d)) streak++;
-        else if (hasWords.has(d)) break;
-      }
+      const streak = streakOf(onTime.get(e.user) ?? new Set<number>(), currentDay(e, c.totalDays), hasWords);
       return { user: e.user, streak, score: totals.get(e.user)?.score ?? 0 };
     }).filter((r) => r.streak > 0).sort((a, b) => b.streak - a.streak || b.score - a.score);
 
     return { day, maxDay, members: enrolled.length, dayBoard: board(dayRows), overall: board(overallRows), streak: board(streakRows) };
+  }
+
+  /* ---------- members (owner) ---------- */
+
+  private async ownedCourse(user: string, id: string): Promise<CourseDocument> {
+    const c = await this.courses.findById(id);
+    if (!c) throw new NotFoundException('Course not found.');
+    if (c.ownerId !== user) throw new ForbiddenException('Only the course owner can see its members.');
+    return c;
+  }
+
+  /**
+   * Everyone taking the course with their progress: days learned / reviewed / listened, homework handed in,
+   * average and total score, late hand-ins, streak, how many open days still have no homework, and last activity.
+   */
+  async members(user: string, id: string) {
+    const c = await this.ownedCourse(user, id);
+    const enrolled = await this.enrollments.find({ courseId: id }).lean<(Enrollment & { createdAt?: Date })[]>();
+    const ids = enrolled.map((e) => e.user);
+    const [users, subs] = await Promise.all([
+      this.users.find({ _id: { $in: ids } }, { name: 1 }).lean(),
+      this.submissions.find({ courseId: id, user: { $in: ids } }).lean()
+    ]);
+    const people = new Map(users.map((u) => [String(u._id), u]));
+    const hasWords = new Set(c.days.filter((d) => d.words.length).map((d) => d.day));
+    const rows = enrolled.map((e) => {
+      const mine = subs.filter((s) => s.user === e.user);
+      const handed = mine.filter((s) => s.submittedAt);
+      const cur = currentDay(e, c.totalDays);
+      const scores = handed.map((s) => s.score);
+      const times = [
+        ...(e.learned ?? []).map((x) => x.at), ...(e.warmedUp ?? []).map((x) => x.at), ...(e.listened ?? []).map((x) => x.at),
+        ...mine.map((s) => s.submittedAt ?? s.openedAt), e.createdAt
+      ].filter(Boolean).map((t) => new Date(t as Date).getTime());
+      const handedDays = new Set(handed.map((s) => s.day));
+      const missing = [...hasWords].filter((d) => d <= cur && !handedDays.has(d)).length;
+      return {
+        userId: e.user, name: people.get(e.user)?.name || 'Learner',
+        isOwner: e.user === c.ownerId, joinedAt: e.createdAt ? new Date(e.createdAt).getTime() : null,
+        startDay: e.startDay, currentDay: cur,
+        learned: (e.learned ?? []).length, warmedUp: (e.warmedUp ?? []).length, listened: (e.listened ?? []).length,
+        homework: handed.length, missing, late: handed.filter((s) => s.lateDays > 0).length,
+        totalScore: scores.reduce((a, b) => a + b, 0), avgScore: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null,
+        streak: streakOf(new Set(handed.filter((s) => s.lateDays === 0).map((s) => s.day)), cur, hasWords),
+        lastActive: times.length ? Math.max(...times) : null
+      };
+    }).sort((a, b) => (b.lastActive ?? 0) - (a.lastActive ?? 0));
+    return { members: rows, totalDays: c.totalDays, daysWithWords: hasWords.size };
+  }
+
+  /** One member's day-by-day progress. */
+  async member(user: string, id: string, memberId: string) {
+    const c = await this.ownedCourse(user, id);
+    const e = await this.enrollments.findOne({ courseId: id, user: memberId }).lean<Enrollment & { createdAt?: Date }>();
+    if (!e) throw new NotFoundException('This person isn’t in the course.');
+    const u = await this.users.findById(memberId, { name: 1 }).lean();
+    const subs = await this.submissions.find({ courseId: id, user: memberId }).lean();
+    const cur = currentDay(e, c.totalDays);
+    const at = (list: { day: number; at: Date }[] | undefined, d: number) => {
+      const x = (list ?? []).find((y) => y.day === d);
+      return x ? new Date(x.at).getTime() : null;
+    };
+    const days = Array.from({ length: c.totalDays }, (_, i) => {
+      const d = i + 1;
+      const s = subs.find((x) => x.day === d);
+      const warm = (e.warmedUp ?? []).find((x) => x.day === d);
+      const lis = (e.listened ?? []).find((x) => x.day === d);
+      return {
+        day: d, date: addDays(e.startDay, i), open: d <= cur, words: c.days.find((x) => x.day === d)?.words.length ?? 0,
+        learnedAt: at(e.learned, d), warmedUpAt: at(e.warmedUp, d), listenedAt: at(e.listened, d),
+        warmup: warm && warm.total ? { correct: warm.correct, total: warm.total } : null,
+        listening: lis && lis.total ? { correct: lis.correct, total: lis.total } : null,
+        homework: s?.submittedAt
+          ? { score: s.score, raw: s.raw, correct: s.correct, total: s.total, lateDays: s.lateDays, durationMs: s.durationMs, submittedAt: new Date(s.submittedAt).getTime() }
+          : s ? { opened: true } : null
+      };
+    });
+    return {
+      userId: memberId, name: u?.name || 'Learner', isOwner: memberId === c.ownerId,
+      joinedAt: e.createdAt ? new Date(e.createdAt).getTime() : null, startDay: e.startDay, currentDay: cur, days
+    };
+  }
+
+  /** The owner removes someone from the course (their enrollment and homework go too). */
+  async removeMember(user: string, id: string, memberId: string): Promise<void> {
+    const c = await this.ownedCourse(user, id);
+    if (memberId === c.ownerId) throw new BadRequestException('Use “Leave course” to stop taking your own course.');
+    const r = await this.enrollments.deleteOne({ courseId: id, user: memberId });
+    if (!r.deletedCount) throw new NotFoundException('This person isn’t in the course.');
+    await this.submissions.deleteMany({ courseId: id, user: memberId });
   }
 
   /* ---------- clean-up ---------- */

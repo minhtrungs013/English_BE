@@ -144,6 +144,24 @@ export class CoursesController {
     return this.homework.listeningDone(user, id, day, dto.correct, dto.total);
   }
 
+  /* ---------- members (owner) ---------- */
+
+  @Get(':id/members')
+  members(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string) {
+    return this.homework.members(user, id);
+  }
+
+  @Get(':id/members/:userId')
+  member(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('userId', ParseObjectIdPipe) memberId: string) {
+    return this.homework.member(user, id, memberId);
+  }
+
+  @Delete(':id/members/:userId')
+  @HttpCode(204)
+  async removeMember(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('userId', ParseObjectIdPipe) memberId: string) {
+    await this.homework.removeMember(user, id, memberId);
+  }
+
   /* ---------- question bank (owner) ---------- */
 
   /** The tense questions and recap stories (?day= for one day), with their approval status. */

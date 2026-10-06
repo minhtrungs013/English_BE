@@ -92,6 +92,9 @@ Learning a day marks it learned; learners choose which of its words to save to M
 | GET | `/courses/:id/days/:day/listening` | The day's listening dialogue (practice; answers included) with a word bank, or `{ dialogue: null }` |
 | POST | `/courses/:id/days/:day/listening/done` | `{ correct?, total? }` — mark listening finished/skipped (`enrollment.listened`) |
 | POST | `/courses/:id/days/:day/dialogue/generate` | AI writes a listening dialogue with the day's words (pending approval; daily AI limit) |
+| GET | `/courses/:id/members` | Owner: everyone taking the course with progress (days learned/reviewed/listened, homework, avg/total score, late, missing, streak, last activity) |
+| GET | `/courses/:id/members/:userId` | Owner: one member's day-by-day progress |
+| DELETE | `/courses/:id/members/:userId` | Owner: remove someone (their homework goes too) |
 | GET | `/courses/:id/questions?day=` | Question bank: tense questions and recaps with their status (owner) |
 | POST | `/courses/:id/days/:day/questions/generate` | `{ tenses?, perWord? }` — AI writes tense questions + a recap (pending approval; uses the daily AI limit) |
 | POST | `/courses/:id/days/:day/questions` | Add a question / recap by hand (approved) |
