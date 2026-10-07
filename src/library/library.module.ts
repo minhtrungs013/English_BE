@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { NotificationsModule } from '../notifications/notifications.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TagsModule } from '../tags/tags';
 import { User, UserSchema } from '../users/user.schema';
@@ -11,7 +12,8 @@ import { LibraryService } from './library.service';
   imports: [
     MongooseModule.forFeature([{ name: LibraryWord.name, schema: LibraryWordSchema }, { name: User.name, schema: UserSchema }]),
     WordsModule,
-    TagsModule
+    TagsModule,
+    NotificationsModule
   ],
   controllers: [LibraryController],
   providers: [LibraryService],

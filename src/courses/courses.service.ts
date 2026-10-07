@@ -19,6 +19,7 @@ import { WordsService } from '../words/words.service';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, TOTAL_DAYS, currentDay } from './course.schema';
 import { CourseWordDto, CreateCourseDto, UpdateCourseDto } from './courses.dto';
 import { HomeworkService } from './homework.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { QuestionsService } from './questions.service';
 
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no 0/O or 1/I, easy to read out
@@ -35,7 +36,8 @@ export class CoursesService {
     private readonly lookup: LookupService,
     private readonly profile: ProfileService,
     private readonly homework: HomeworkService,
-    private readonly questions: QuestionsService
+    private readonly questions: QuestionsService,
+    private readonly notes: NotificationsService
   ) {}
 
   /* ---------- views ---------- */
@@ -258,7 +260,11 @@ export class CoursesService {
     const c = await this.load(id);
     const ok = c.visibility === 'public' || c.ownerId === user || (!!code && code.toUpperCase() === c.joinCode);
     if (!ok) throw new NotFoundException('Course not found.');
-    await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: c.startDate || todayKey(), learned: [], warmedUp: [], listened: [] } }, { upsert: true });
+    const r = await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: c.startDate || todayKey(), learned: [], warmedUp: [], listened: [] } }, { upsert: true });
+    if (r.upsertedCount) {
+      const u = await this.users.findById(user, { name: 1 }).lean();
+      await this.notes.memberJoined(c.ownerId, user, id, c.title, u?.name || 'Someone').catch(() => undefined);
+    }
     return this.get(user, id);
   }
 

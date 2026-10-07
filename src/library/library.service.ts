@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, QueryFilter } from 'mongoose';
 import { Tag } from '../tags/tags';
 import { User } from '../users/user.schema';
+import { NotificationsService } from '../notifications/notifications.service';
 import { WordsService } from '../words/words.service';
 import { LibraryQuery, ShareWordDto } from './library.dto';
 import { LibraryWord, LibraryWordDocument, TOPIC_TAG, TOPICS, type Topic } from './library.schema';
@@ -22,7 +23,8 @@ export class LibraryService implements OnApplicationBootstrap {
     @InjectModel(LibraryWord.name) private readonly lib: Model<LibraryWord>,
     @InjectModel(Tag.name) private readonly tags: Model<Tag>,
     @InjectModel(User.name) private readonly users: Model<User>,
-    private readonly words: WordsService
+    private readonly words: WordsService,
+    private readonly notes: NotificationsService
   ) {}
 
   /**
@@ -90,6 +92,7 @@ export class LibraryService implements OnApplicationBootstrap {
       syn: d.syn, ant: d.ant, level: d.level, tags: [tag]
     });
     await this.lib.updateOne({ _id: d._id }, { $inc: { saves: 1 } });
+    await this.notes.librarySaved(d.authorId, user, String(d._id), d.word).catch(() => undefined);
     return { word: w.toJSON(), tag };
   }
 

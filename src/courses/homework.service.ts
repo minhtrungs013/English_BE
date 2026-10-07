@@ -7,6 +7,7 @@ import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
 import { TENSE_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
 import { Dialogue, dialogueBlanks } from './dialogue';
+import { NotificationsService } from '../notifications/notifications.service';
 import { QuestionsService } from './questions.service';
 import { TENSE_LABEL, type Tense } from './tense';
 
@@ -125,7 +126,8 @@ export class HomeworkService {
     @InjectModel(Submission.name) private readonly submissions: Model<Submission>,
     @InjectModel(User.name) private readonly users: Model<User>,
     private readonly library: LibraryService,
-    private readonly questions: QuestionsService
+    private readonly questions: QuestionsService,
+    private readonly notes: NotificationsService
   ) {}
 
   /* ---------- access ---------- */
@@ -500,6 +502,7 @@ export class HomeworkService {
     const r = await this.enrollments.deleteOne({ courseId: id, user: memberId });
     if (!r.deletedCount) throw new NotFoundException('This person isn’t in the course.');
     await this.submissions.deleteMany({ courseId: id, user: memberId });
+    await this.notes.memberRemoved(memberId, id, c.title).catch(() => undefined);
   }
 
   /* ---------- clean-up ---------- */

@@ -128,6 +128,23 @@ questions: [{ question, choices ×4, answer, explain }] }`. Blanks are written i
 Learners listen (device text-to-speech, one voice per speaker), fill the blanks from a word bank or by typing, and answer
 the comprehension questions. It's practice only (not graded) and can be skipped.
 
+## Notifications
+
+In-app notifications, created when the user opens the app (no push or background jobs yet). Checking (at most once a
+minute per user, app time zone) creates whatever is missing, once each (unique key per user):
+day open, homework due tonight (after 18:00), streak about to end (after 20:00, streak ≥ 3), late homework (last 3 days,
+with the % kept), course starting tomorrow, words due for review; for owners: items waiting for approval and days without
+words a learner reaches within 2 days. Events add notifications right away: someone joined your course (grouped per day),
+you were removed from a course, someone saved your shared library word (grouped per day). Users can turn types off with
+`settings.mute`. Notifications are kept for 60 days.
+
+| Method | Path | |
+|---|---|---|
+| GET | `/notifications?limit=&before=` | Newest first (checks for new ones first) → `{ items, hasMore, unread }` |
+| GET | `/notifications/unread` | `{ unread }` (checks for new ones first) |
+| POST | `/notifications/read` | `{ ids }` or `{ all: true }` → `{ unread }` |
+| DELETE | `/notifications/:id` | |
+
 ## Vocabulary library
 
 A shared collection every user can browse. On first start it is filled with 500 built-in

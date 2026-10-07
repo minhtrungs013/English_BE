@@ -17,6 +17,8 @@ export class Settings {
   /** Speaking speed (0.5–1.5) and pitch (0.5–1.5). */
   @Prop({ default: 0.9 }) rate: number;
   @Prop({ default: 1 }) pitch: number;
+  /** Notification types the user turned off (see notifications/notification.schema.ts). */
+  @Prop({ type: [String], default: [] }) mute: string[];
 }
 
 @Schema({ _id: false })

@@ -1,4 +1,6 @@
 import { Controller, Delete, Get, HttpCode, Injectable, Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { NotificationsService } from '../notifications/notifications.service';
 import { InjectConnection, InjectModel, MongooseModule } from '@nestjs/mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Connection, Model } from 'mongoose';
@@ -30,7 +32,8 @@ export class DataService implements OnApplicationBootstrap {
     @InjectModel(User.name) private readonly users: Model<User>,
     private readonly profile: ProfileService,
     private readonly library: LibraryService,
-    private readonly courses: CoursesService
+    private readonly courses: CoursesService,
+    private readonly notes: NotificationsService
   ) {}
 
   /**
@@ -72,6 +75,7 @@ export class DataService implements OnApplicationBootstrap {
   /** Deletes the account and everything it owns. */
   async deleteAccount(user: string): Promise<void> {
     await this.courses.deleteForUser(user);
+    await this.notes.deleteForUser(user);
     await Promise.all([
       this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user }),
       this.profiles.deleteOne({ user }), this.users.deleteOne({ _id: user })
@@ -132,7 +136,7 @@ export class DataController {
 }
 
 @Module({
-  imports: [WordsModule, CategoriesModule, TagsModule, ProfileModule, LibraryModule, CoursesModule, MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
+  imports: [WordsModule, CategoriesModule, TagsModule, ProfileModule, LibraryModule, CoursesModule, NotificationsModule, MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
   controllers: [DataController],
   providers: [DataService],
   exports: [DataService]
