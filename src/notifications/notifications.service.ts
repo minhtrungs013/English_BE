@@ -60,10 +60,12 @@ export class NotificationsService {
   private async addMany(user: string, drafts: Draft[]): Promise<void> {
     if (!drafts.length) return;
     const mute = await this.muted(user);
-    const ops = drafts.filter((d) => !mute.has(d.type)).map((d) => ({
+    // One millisecond apart (first draft newest), so paging by `at` never skips ties.
+    const now = Date.now();
+    const ops = drafts.filter((d) => !mute.has(d.type)).map((d, i) => ({
       updateOne: {
         filter: { user, key: d.key },
-        update: { $setOnInsert: { user, key: d.key, type: d.type, title: d.title, body: d.body ?? '', link: d.link ?? null, count: 1, readAt: null } },
+        update: { $setOnInsert: { user, key: d.key, type: d.type, title: d.title, body: d.body ?? '', link: d.link ?? null, count: 1, readAt: null, at: new Date(now - i), hidden: false } },
         upsert: true
       }
     }));
@@ -83,7 +85,7 @@ export class NotificationsService {
     );
     if (!n) return;
     const t = text(n.count);
-    await this.notes.updateOne({ _id: n._id }, { $set: { title: t.title, body: t.body ?? '', readAt: null } });
+    await this.notes.updateOne({ _id: n._id }, { $set: { title: t.title, body: t.body ?? '', readAt: null, at: new Date(), hidden: false } });
   }
 
   /* ---------- events (called by other services) ---------- */
@@ -243,19 +245,19 @@ export class NotificationsService {
   private view(n: NotificationDocument) {
     return {
       id: String(n._id), type: n.type, title: n.title, body: n.body, link: n.link, count: n.count,
-      read: !!n.readAt, at: (n as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? Date.now()
+      read: !!n.readAt, at: (n.at ?? new Date()).getTime()
     };
   }
 
   async unread(user: string): Promise<number> {
-    return this.notes.countDocuments({ user, readAt: null });
+    return this.notes.countDocuments({ user, readAt: null, hidden: { $ne: true } });
   }
 
   /** Newest first; `before` (ms) pages back. */
   async list(user: string, limit = 30, before?: number) {
     await this.refresh(user);
-    const q = { user, ...(before ? { updatedAt: { $lt: new Date(before) } } : {}) };
-    const rows = await this.notes.find(q).sort({ updatedAt: -1 }).limit(limit + 1);
+    const q = { user, hidden: { $ne: true }, ...(before ? { at: { $lt: new Date(before) } } : {}) };
+    const rows = await this.notes.find(q).sort({ at: -1, _id: -1 }).limit(limit + 1);
     return { items: rows.slice(0, limit).map((n) => this.view(n)), hasMore: rows.length > limit, unread: await this.unread(user) };
   }
 
@@ -272,8 +274,9 @@ export class NotificationsService {
   }
 
   async remove(user: string, id: string): Promise<void> {
-    const r = await this.notes.deleteOne({ _id: id, user });
-    if (!r.deletedCount) throw new NotFoundException('Notification not found.');
+    // Hidden rather than deleted, so the next check doesn't create the same notification again.
+    const r = await this.notes.updateOne({ _id: id, user, hidden: { $ne: true } }, { $set: { hidden: true, readAt: new Date() } });
+    if (!r.matchedCount) throw new NotFoundException('Notification not found.');
   }
 
   async deleteForUser(user: string): Promise<void> {

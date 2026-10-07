@@ -35,9 +35,13 @@ export class Notification {
   @Prop({ type: Object, default: null }) link: NotifyLink | null;
   @Prop({ default: 1 }) count: number;
   @Prop({ type: Date, default: null }) readAt: Date | null;
+  /** When it was created, or last grouped again; the list is sorted and paged by this (reading doesn't change it). */
+  @Prop({ type: Date, default: () => new Date() }) at: Date;
+  /** Dismissed by the user: kept (so the same key isn't created again) but no longer listed. */
+  @Prop({ default: false }) hidden: boolean;
 }
 export type NotificationDocument = HydratedDocument<Notification>;
 export const NotificationSchema = SchemaFactory.createForClass(Notification);
 NotificationSchema.index({ user: 1, key: 1 }, { unique: true });
-NotificationSchema.index({ user: 1, createdAt: -1 });
+NotificationSchema.index({ user: 1, hidden: 1, at: -1 });
 NotificationSchema.index({ createdAt: 1 }, { expireAfterSeconds: KEEP_SECONDS });
