@@ -12,7 +12,7 @@
   "negative": {
    "pattern": "S + was/were + not + V-ing (wasn't / weren't)",
    "example": "We weren't using the database when it crashed.",
-   "vi": "Chúng tôi không đang dùng cơ sở dữ liệu khi nó bị sập."
+   "vi": "Lúc cơ sở dữ liệu bị sập, chúng tôi đang không dùng nó."
   },
   "question": {
    "pattern": "(Wh-) + was/were + S + V-ing?",
@@ -52,7 +52,7 @@
   },
   {
    "title": "Hành động đang diễn ra thì bị hành động khác xen vào",
-   "explain": "Hành động dài, đang diễn ra dùng quá khứ tiếp diễn; hành động ngắn xen vào dùng quá khứ đơn (thường đi với when).",
+   "explain": "Hành động dài, đang diễn ra dùng quá khứ tiếp diễn; hành động ngắn xen vào dùng quá khứ đơn. when thường đi với hành động ngắn (when + V2), while đi với hành động dài (while + was/were + V-ing).",
    "examples": [
     {
      "en": "The developers were fixing a bug when the power went out.",
@@ -91,17 +91,59 @@
      "vi": "Văn phòng đang bắt đầu đông đúc thì những khách hàng đầu tiên đến."
     }
    ]
+  },
+  {
+   "title": "Động từ trạng thái: không dùng ở dạng tiếp diễn",
+   "explain": "Các động từ chỉ suy nghĩ, cảm xúc, sở hữu như know, believe, understand, want, need, like, prefer, own, belong, seem, have (= sở hữu) dùng quá khứ đơn, kể cả khi nói về một lúc đang diễn ra trong quá khứ.",
+   "examples": [
+    {
+     "en": "During the meeting, I knew the answer, but I didn't say anything.",
+     "vi": "Trong cuộc họp, tôi biết câu trả lời nhưng không nói gì."
+    },
+    {
+     "en": "At that time, the company had only ten employees.",
+     "vi": "Hồi đó công ty chỉ có mười nhân viên."
+    }
+   ]
+  },
+  {
+   "title": "Nhờ vả lịch sự trong email: I was wondering if…",
+   "explain": "I was wondering if you could… / I was hoping to… nghe nhẹ nhàng, lịch sự hơn \"Can you…?\" hay \"I want…\". Dù dùng hình thức quá khứ, câu vẫn nói về hiện tại. Sau if giữ trật tự câu kể: if you could, không phải if could you.",
+   "examples": [
+    {
+     "en": "I was wondering if you could send me the updated contract by Friday.",
+     "vi": "Không biết anh có thể gửi tôi bản hợp đồng cập nhật trước thứ Sáu được không."
+    },
+    {
+     "en": "I was hoping to discuss the budget with you this afternoon.",
+     "vi": "Tôi mong được trao đổi với chị về ngân sách chiều nay."
+    }
+   ]
+  },
+  {
+   "title": "Than phiền về thói quen gây khó chịu: was / were always + V-ing (B2)",
+   "explain": "Dùng always (hoặc constantly) với quá khứ tiếp diễn để nhấn mạnh một việc lặp đi lặp lại gây bực mình trong quá khứ.",
+   "examples": [
+    {
+     "en": "Our old supplier was always changing the delivery dates.",
+     "vi": "Nhà cung cấp cũ của chúng tôi cứ liên tục đổi ngày giao hàng."
+    },
+    {
+     "en": "He was always arriving late for client meetings.",
+     "vi": "Anh ta lúc nào cũng đến muộn trong các buổi họp với khách hàng."
+    }
+   ]
   }
  ],
  "signals": [
-  "while",
-  "when + past simple",
+  "while + was/were + V-ing",
+  "when + V2 (hành động ngắn xen vào)",
   "at 3 p.m. yesterday",
   "at that time",
   "at this time yesterday",
   "this time last week",
-  "at the moment (in the past)",
-  "all day yesterday",
+  "at that moment",
+  "all day yesterday (nhấn mạnh quá trình)",
   "at midnight last night"
  ],
  "mistakes": [
@@ -124,11 +166,31 @@
    "wrong": "I was knowing the answer during the meeting.",
    "right": "I knew the answer during the meeting.",
    "explain": "Động từ chỉ trạng thái (know, want, need, like...) thường không dùng ở dạng tiếp diễn."
+  },
+  {
+   "wrong": "Were you work at 4 p.m.? / Did you working at 4 p.m.?",
+   "right": "Were you working at 4 p.m.?",
+   "explain": "Câu hỏi quá khứ tiếp diễn: Was/Were + S + V-ing; không dùng did và không bỏ -ing."
+  },
+  {
+   "wrong": "I was went to the bank at lunchtime.",
+   "right": "I went to the bank at lunchtime.",
+   "explain": "Không ghép was với V2. Việc đã xong dùng quá khứ đơn (went); nếu muốn nói đang đi thì dùng was going."
+  },
+  {
+   "wrong": "Yesterday I was writing the report and sent it to the boss.",
+   "right": "Yesterday I wrote the report and sent it to the boss.",
+   "explain": "Người Việt hay dùng \"đang\" quá nhiều. Kể một chuỗi hành động đã xong thì dùng quá khứ đơn cho tất cả."
+  },
+  {
+   "wrong": "I was wondering if could you send me the file.",
+   "right": "I was wondering if you could send me the file.",
+   "explain": "Sau \"I was wondering if\" dùng trật tự câu kể (S + could), không đảo như câu hỏi."
   }
  ],
  "compare": {
   "with": "past-simple",
-  "explain": "Quá khứ đơn diễn tả hành động đã hoàn tất, thường ngắn hoặc nối tiếp nhau. Quá khứ tiếp diễn diễn tả hành động đang diễn ra, chưa kết thúc tại một thời điểm. Khi hai hành động gặp nhau, hành động dài đang diễn ra dùng quá khứ tiếp diễn, hành động ngắn xen vào dùng quá khứ đơn: \"I was coding when the boss called.\"",
+  "explain": "Quá khứ đơn diễn tả hành động đã hoàn tất, thường ngắn hoặc nối tiếp nhau. Quá khứ tiếp diễn diễn tả hành động đang diễn ra, chưa kết thúc tại một thời điểm. Khi hai hành động gặp nhau, hành động dài đang diễn ra dùng quá khứ tiếp diễn, hành động ngắn xen vào dùng quá khứ đơn: \"I was coding when the boss called.\" Với when: \"When the manager came in, we were discussing…\" (đang thảo luận từ trước) khác \"When the manager came in, we discussed…\" (ông vào rồi mới bắt đầu thảo luận).",
   "examples": [
    {
     "en": "I was coding when the boss called.",
@@ -148,6 +210,16 @@
    {
     "en": "We discussed the budget yesterday and approved it.",
     "vi": "Hôm qua chúng tôi đã thảo luận ngân sách và phê duyệt nó.",
+    "tense": "past-simple"
+   },
+   {
+    "en": "When the manager came in, we were discussing the budget.",
+    "vi": "Khi quản lý bước vào, chúng tôi đang thảo luận ngân sách (đã bắt đầu từ trước).",
+    "tense": "past-continuous"
+   },
+   {
+    "en": "When the manager came in, we discussed the budget.",
+    "vi": "Khi quản lý bước vào, chúng tôi (mới) thảo luận ngân sách.",
     "tense": "past-simple"
    }
   ]
@@ -219,7 +291,7 @@
    "kind": "tense",
    "tense": "past-continuous",
    "level": "medium",
-   "prompt": "Luckily, we ___ (not use) the database when it crashed at 2 a.m.",
+   "prompt": "Luckily, we ___ (not / use) the database when it crashed at 2 a.m.",
    "choices": [],
    "answer": "were not using",
    "accept": [
@@ -251,7 +323,7 @@
    "kind": "tense",
    "tense": "past-continuous",
    "level": "medium",
-   "prompt": "Hung ___ (not wear) his staff badge when the security guard stopped him at the gate.",
+   "prompt": "Hung ___ (not / wear) his staff badge when the security guard stopped him at the gate.",
    "choices": [],
    "answer": "was not wearing",
    "accept": [
@@ -276,9 +348,7 @@
    "prompt": "___ (Tom / attend) the online training when the Internet connection dropped?",
    "choices": [],
    "answer": "Was Tom attending",
-   "accept": [
-    "was Tom attending"
-   ],
+   "accept": [],
    "explain": "Câu hỏi về hành động đang diễn ra khi mất mạng ('when... dropped'): Was + S + V-ing?"
   },
   {
@@ -298,8 +368,10 @@
    "prompt": "While the IT team ___ (upgrade) the system, one of the servers suddenly overheated.",
    "choices": [],
    "answer": "were upgrading",
-   "accept": [],
-   "explain": "'While' + hành động kéo dài, bị sự cố đột ngột 'suddenly overheated' xen vào."
+   "accept": [
+    "was upgrading"
+   ],
+   "explain": "'While' + hành động kéo dài, bị sự cố đột ngột 'suddenly overheated' xen vào; the IT team dùng was hoặc were đều được."
   },
   {
    "kind": "tense",
@@ -325,7 +397,7 @@
    "kind": "tense",
    "tense": "past-continuous",
    "level": "hard",
-   "prompt": "I ___ (not sit) at my desk when the error message appeared, so I didn't see it.",
+   "prompt": "I ___ (not / sit) at my desk when the error message appeared, so I didn't see it.",
    "choices": [],
    "answer": "was not sitting",
    "accept": [
@@ -337,11 +409,11 @@
    "kind": "tense",
    "tense": "past-continuous",
    "level": "hard",
-   "prompt": "How many people ___ (work) on the project when it was cancelled?",
+   "prompt": "How many people ___ (still / work) on the project when it was cancelled?",
    "choices": [],
-   "answer": "were working",
+   "answer": "were still working",
    "accept": [],
-   "explain": "Hỏi số người đang làm dự án vào lúc dự án bị hủy ('when it was cancelled')."
+   "explain": "Hỏi số người vẫn đang làm dự án vào lúc dự án bị hủy ('when it was cancelled'): were + still + V-ing."
   },
   {
    "kind": "tense",
@@ -442,16 +514,16 @@
    "kind": "tenseChoice",
    "tense": "past-continuous",
    "level": "easy",
-   "prompt": "It ___ heavily when we left the office yesterday evening, so we waited inside.",
+   "prompt": "When we finished work yesterday evening, it ___ heavily, so we waited in the lobby until it stopped.",
    "choices": [
-    "was raining",
-    "rained",
-    "rains",
-    "is raining"
+    "was still raining",
+    "still rained",
+    "still rains",
+    "is still raining"
    ],
-   "answer": "was raining",
+   "answer": "was still raining",
    "accept": [],
-   "explain": "Trời đang mưa vào lúc chúng tôi rời văn phòng ('when we left') nên phải đợi."
+   "explain": "Lúc chúng tôi xong việc, trời đã đang mưa và còn mưa tiếp (waited… until it stopped) nên dùng quá khứ tiếp diễn."
   },
   {
    "kind": "tenseChoice",
@@ -565,13 +637,13 @@
    "prompt": "The phone in the meeting room ___ when I came in, but nobody answered it.",
    "choices": [
     "was ringing",
-    "rang",
+    "has rung",
     "rings",
     "is ringing"
    ],
    "answer": "was ringing",
    "accept": [],
-   "explain": "Điện thoại đã đang reo lúc tôi bước vào ('when I came in')."
+   "explain": "Điện thoại đã đang reo lúc tôi bước vào ('when I came in') và không ai nghe máy."
   },
   {
    "kind": "tenseChoice",
@@ -607,16 +679,16 @@
    "kind": "tenseChoice",
    "tense": "past-continuous",
    "level": "hard",
-   "prompt": "Unfortunately, we ___ the meeting when the CEO made the key announcement, so there is no video of it.",
+   "prompt": "We recorded most of the meeting, but unfortunately we ___ at the moment the CEO made the key announcement, so there is no video of it.",
    "choices": [
     "weren't recording",
-    "didn't record",
     "aren't recording",
-    "don't record"
+    "don't record",
+    "haven't recorded"
    ],
    "answer": "weren't recording",
    "accept": [],
-   "explain": "Vào lúc CEO thông báo ('when the CEO made'), chúng tôi không đang ghi hình."
+   "explain": "Vào đúng lúc CEO thông báo ('at the moment the CEO made'), việc ghi hình không đang diễn ra."
   },
   {
    "kind": "tenseChoice",
@@ -662,6 +734,341 @@
    "answer": "were staying",
    "accept": [],
    "explain": "Lúc hợp đồng được ký ('when the contract was signed'), họ đang ở Singapore nên phải tham gia qua video."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "past-simple",
+   "prompt": "I was writing the report when the boss ___ (call).",
+   "choices": [],
+   "answer": "called",
+   "accept": [],
+   "explain": "Hành động ngắn xen vào (sếp gọi) dùng quá khứ đơn; hành động dài là \"was writing\"."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "past-simple",
+   "prompt": "While I was presenting the quarterly results, my phone ___ (ring).",
+   "choices": [],
+   "answer": "rang",
+   "accept": [],
+   "explain": "Hành động ngắn, đột ngột xen vào hành động dài (while…) dùng quá khứ đơn: ring – rang."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "When the boss called, I ___ (stop) coding and answered the phone.",
+   "choices": [],
+   "answer": "stopped",
+   "accept": [],
+   "explain": "Hai hành động nối tiếp: sếp gọi rồi tôi mới dừng, nên dùng quá khứ đơn; stop gấp đôi p."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "I ___ (not / understand) the new process during the training, so I asked my mentor afterwards.",
+   "choices": [],
+   "answer": "didn't understand",
+   "accept": [
+    "did not understand"
+   ],
+   "explain": "Understand là động từ trạng thái, không dùng tiếp diễn; phủ định quá khứ đơn: didn't + V."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "The engineers were testing the new app when the server suddenly ___ (crash).",
+   "choices": [],
+   "answer": "crashed",
+   "accept": [],
+   "explain": "Sự cố đột ngột (suddenly) là hành động ngắn xen vào nên dùng quá khứ đơn."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "At that time, the company ___ (own) only two small servers, so the website was often slow.",
+   "choices": [],
+   "answer": "owned",
+   "accept": [],
+   "explain": "Own (sở hữu) là động từ trạng thái nên dùng quá khứ đơn dù có \"at that time\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "First the technician checked the cables; then he ___ (restart) the router and tested the connection.",
+   "choices": [],
+   "answer": "restarted",
+   "accept": [],
+   "explain": "Chuỗi hành động nối tiếp (first… then…) đã xong dùng quá khứ đơn."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "past-simple",
+   "prompt": "We were having lunch when the client ___.",
+   "choices": [
+    "arrived",
+    "were arriving",
+    "arrives",
+    "has arrived"
+   ],
+   "answer": "arrived",
+   "accept": [],
+   "explain": "Khách đến là hành động ngắn xen vào bữa trưa đang diễn ra nên dùng quá khứ đơn."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "Yesterday I ___ the report and sent it to the manager before lunch.",
+   "choices": [
+    "wrote",
+    "was writing",
+    "write",
+    "have written"
+   ],
+   "answer": "wrote",
+   "accept": [],
+   "explain": "Kể chuỗi việc đã xong (viết xong rồi gửi) dùng quá khứ đơn, không dùng \"đang\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "As soon as the fire alarm went off, everyone ___ the building.",
+   "choices": [
+    "left",
+    "was leaving",
+    "leaves",
+    "has left"
+   ],
+   "answer": "left",
+   "accept": [],
+   "explain": "\"As soon as\" nối hai hành động liên tiếp đã xong nên dùng quá khứ đơn."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "Ms. Hoa ___ for the company from 2015 to 2020, and then she moved to Singapore.",
+   "choices": [
+    "worked",
+    "was working",
+    "works",
+    "has worked"
+   ],
+   "answer": "worked",
+   "accept": [],
+   "explain": "Khoảng thời gian đã kết thúc (from 2015 to 2020) dùng quá khứ đơn, không dùng tiếp diễn."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "I ___ your email while I was checking my inbox this morning, so I replied at once.",
+   "choices": [
+    "noticed",
+    "was noticing",
+    "notice",
+    "have noticed"
+   ],
+   "answer": "noticed",
+   "accept": [],
+   "explain": "Nhìn thấy email là hành động ngắn xảy ra trong lúc đang kiểm tra hộp thư nên dùng quá khứ đơn."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "past-continuous",
+   "prompt": "\"Were you working at 9 p.m. last night?\" – \"Yes, I ___.\"",
+   "choices": [
+    "was",
+    "were",
+    "did",
+    "am"
+   ],
+   "answer": "was",
+   "accept": [],
+   "explain": "Câu trả lời ngắn lặp lại trợ động từ: Were you…? → Yes, I was."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "past-continuous",
+   "prompt": "\"Were the testers using the latest version when the bug appeared?\" – \"No, they ___.\"",
+   "choices": [
+    "weren't",
+    "wasn't",
+    "didn't",
+    "aren't"
+   ],
+   "answer": "weren't",
+   "accept": [],
+   "explain": "Câu hỏi Were + they → trả lời ngắn No, they weren't; không dùng didn't."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "past-continuous",
+   "prompt": "I ___ if you could send me the updated price list by Friday.",
+   "choices": [
+    "was wondering",
+    "am wonder",
+    "was wonder",
+    "wondering"
+   ],
+   "answer": "was wondering",
+   "accept": [],
+   "explain": "Lời nhờ lịch sự trong email: I was wondering if you could… (was + V-ing)."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "past-continuous",
+   "prompt": "At 3 p.m. yesterday, the project manager ___ (plan) the next sprint with the team.",
+   "choices": [],
+   "answer": "was planning",
+   "accept": [],
+   "explain": "\"At 3 p.m. yesterday\" chỉ hành động đang diễn ra; plan gấp đôi n: planning."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-continuous",
+   "prompt": "Two engineers ___ (run) the load test when the database stopped responding.",
+   "choices": [],
+   "answer": "were running",
+   "accept": [],
+   "explain": "Đang chạy kiểm thử thì database ngừng phản hồi; run gấp đôi n: running."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-continuous",
+   "prompt": "At 4 p.m. yesterday, the interns ___ (write) test cases while the senior developers were reviewing the code.",
+   "choices": [],
+   "answer": "were writing",
+   "accept": [],
+   "explain": "\"At 4 p.m. yesterday\" và while cho thấy hai hành động đang song song diễn ra; write bỏ e: writing."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "past-continuous",
+   "prompt": "\"___ (you / use) the meeting room at 2 p.m. yesterday?\" – \"No, I wasn't.\"",
+   "choices": [],
+   "answer": "Were you using",
+   "accept": [],
+   "explain": "Câu trả lời \"No, I wasn't\" cho thấy câu hỏi quá khứ tiếp diễn: Were + you + V-ing; use bỏ e."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "past-continuous",
+   "prompt": "The old vendor ___ excuses for late deliveries, and our director was getting very annoyed.",
+   "choices": [
+    "was always making",
+    "was always make",
+    "always was make",
+    "is always making"
+   ],
+   "answer": "was always making",
+   "accept": [],
+   "explain": "Than phiền về thói quen gây khó chịu trong quá khứ: was always + V-ing."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Chính tả -ing",
+   "columns": [
+    "Quy tắc",
+    "Nguyên mẫu",
+    "V-ing"
+   ],
+   "rows": [
+    {
+     "label": "Thường: + ing",
+     "cells": [
+      "Thường: + ing",
+      "work, test, call, fix",
+      "working, testing, calling, fixing"
+     ]
+    },
+    {
+     "label": "Tận cùng -e câm: bỏ e",
+     "cells": [
+      "Tận cùng -e câm: bỏ e + ing",
+      "make, write, arrive, argue",
+      "making, writing, arriving, arguing"
+     ]
+    },
+    {
+     "label": "Tận cùng -ie: ie → y",
+     "cells": [
+      "Tận cùng -ie: ie → y + ing",
+      "lie, die, tie",
+      "lying, dying, tying"
+     ]
+    },
+    {
+     "label": "Phụ âm–nguyên âm–phụ âm, nhấn âm cuối",
+     "cells": [
+      "Phụ âm–nguyên âm–phụ âm, nhấn âm cuối: gấp đôi phụ âm",
+      "sit, run, plan, begin",
+      "sitting, running, planning, beginning"
+     ]
+    },
+    {
+     "label": "Tận cùng -ee / -y: giữ nguyên",
+     "cells": [
+      "Tận cùng -ee / -y: giữ nguyên + ing",
+      "see, agree, study, play",
+      "seeing, agreeing, studying, playing"
+     ]
+    }
+   ],
+   "note": "Không gấp đôi khi trọng âm không rơi vào âm tiết cuối (visit → visiting, open → opening, develop → developing) hoặc khi tận cùng là w, x (fix → fixing, show → showing)."
+  },
+  {
+   "title": "Câu trả lời ngắn",
+   "columns": [
+    "Câu hỏi",
+    "Yes",
+    "No"
+   ],
+   "rows": [
+    {
+     "label": "Were you working at 9 p.m.?",
+     "cells": [
+      "Were you working at 9 p.m.?",
+      "Yes, I was.",
+      "No, I wasn't."
+     ]
+    },
+    {
+     "label": "Was she using the meeting room?",
+     "cells": [
+      "Was she using the meeting room?",
+      "Yes, she was.",
+      "No, she wasn't."
+     ]
+    },
+    {
+     "label": "Were they testing the app?",
+     "cells": [
+      "Were they testing the app?",
+      "Yes, they were.",
+      "No, they weren't."
+     ]
+    }
+   ],
+   "note": "Câu trả lời ngắn chỉ lặp lại was / were, không dùng did và không lặp lại V-ing."
   }
  ]
 }

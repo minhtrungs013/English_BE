@@ -97,6 +97,34 @@
      "vi": "Chúng tôi sẽ ra mắt ứng dụng mới vào thứ Hai tới."
     }
    ]
+  },
+  {
+   "title": "Động từ thường không dùng V-ing",
+   "explain": "Động từ trạng thái (know, understand, want, need, like, belong, agree, seem, mean) dùng hiện tại đơn kể cả khi có now. Khi mang nghĩa hành động thì được dùng V-ing: have lunch / a meeting, think about, see a client.",
+   "examples": [
+    {
+     "en": "I agree with your plan, but we need more time.",
+     "vi": "Tôi đồng ý với kế hoạch của bạn, nhưng chúng ta cần thêm thời gian."
+    },
+    {
+     "en": "I'm thinking about your offer, and I'll reply tomorrow.",
+     "vi": "Tôi đang cân nhắc lời đề nghị của bạn và sẽ trả lời vào ngày mai."
+    }
+   ]
+  },
+  {
+   "title": "always + V-ing để phàn nàn",
+   "explain": "Always + hiện tại tiếp diễn dùng để phàn nàn về việc ai đó cứ lặp đi lặp lại gây khó chịu; always đứng sau am/is/are (trình độ B1–B2).",
+   "examples": [
+    {
+     "en": "He is always leaving the meeting room door open.",
+     "vi": "Anh ấy cứ để cửa phòng họp mở hoài."
+    },
+    {
+     "en": "The printer is always running out of paper on busy days.",
+     "vi": "Máy in cứ hết giấy vào những ngày bận rộn."
+    }
+   ]
   }
  ],
  "signals": [
@@ -111,7 +139,9 @@
   "this month",
   "these days",
   "today",
-  "still"
+  "still",
+  "tomorrow (đã hẹn)",
+  "next week (đã hẹn)"
  ],
  "mistakes": [
   {
@@ -133,11 +163,26 @@
    "wrong": "Look! The manager comes to our desk.",
    "right": "Look! The manager is coming to our desk.",
    "explain": "Hành động đang diễn ra trước mắt (Look!) phải dùng hiện tại tiếp diễn, không dùng hiện tại đơn."
+  },
+  {
+   "wrong": "I am agree with you.",
+   "right": "I agree with you.",
+   "explain": "Agree là động từ thường (và là động từ trạng thái): không thêm am/is/are và không dùng V-ing."
+  },
+  {
+   "wrong": "He is runing the tests. / She is writeing the report.",
+   "right": "He is running the tests. / She is writing the report.",
+   "explain": "Chính tả V-ing: run gấp đôi n (running); write bỏ -e (writing)."
+  },
+  {
+   "wrong": "I meet the supplier tomorrow at 10.",
+   "right": "I'm meeting the supplier tomorrow at 10.",
+   "explain": "Lịch hẹn cá nhân đã sắp xếp dùng hiện tại tiếp diễn; hiện tại đơn chỉ dùng cho lịch trình cố định (tàu xe, giờ mở cửa)."
   }
  ],
  "compare": {
   "with": "present-simple",
-  "explain": "Hiện tại đơn nói về thói quen, lịch trình cố định, sự thật lâu dài (every day, usually, always). Hiện tại tiếp diễn nói về việc đang xảy ra lúc nói hoặc tạm thời trong giai đoạn này (now, at the moment, this week). Ví dụ: \"I usually take the bus\" (thói quen) khác với \"This week I am driving to work\" (tạm thời). Động từ trạng thái (know, want, need, belong) thường chỉ dùng hiện tại đơn.",
+  "explain": "Hiện tại đơn nói về thói quen, lịch trình cố định, sự thật lâu dài (every day, usually, always). Hiện tại tiếp diễn nói về việc đang xảy ra lúc nói hoặc tạm thời trong giai đoạn này (now, at the moment, this week). Ví dụ: \"I usually take the bus\" (thói quen) khác với \"This week I am driving to work\" (tạm thời). Động từ trạng thái (know, want, need, belong) thường chỉ dùng hiện tại đơn. Tương lai: hẹn đã sắp xếp → tiếp diễn (I'm meeting…); lịch trình → hiện tại đơn (The train leaves…).",
   "examples": [
    {
     "en": "Linh usually works in the Hanoi office.",
@@ -158,6 +203,16 @@
     "en": "Sorry, the team is having its stand-up meeting right now.",
     "vi": "Xin lỗi, nhóm đang họp nhanh ngay lúc này.",
     "tense": "present-continuous"
+   },
+   {
+    "en": "I'm meeting the client at 3 p.m. today.",
+    "vi": "Tôi sẽ gặp khách hàng lúc 3 giờ chiều nay (đã hẹn).",
+    "tense": "present-continuous"
+   },
+   {
+    "en": "The train to Hai Phong leaves at 3 p.m.",
+    "vi": "Tàu đi Hải Phòng khởi hành lúc 3 giờ chiều (theo lịch).",
+    "tense": "present-simple"
    }
   ]
  },
@@ -227,12 +282,12 @@
    "level": "easy",
    "prompt": "Lan ___ (not / work) from home today; she is sitting at her desk in the office.",
    "choices": [],
-   "answer": "is not working",
+   "answer": "isn't working",
    "accept": [
-    "isn't working",
+    "is not working",
     "'s not working"
    ],
-   "explain": "\"today\" và vế sau \"is sitting\" cho thấy tình huống hiện tại, phủ định là is not + V-ing.",
+   "explain": "“today” và vế sau “is sitting” cho thấy tình huống hiện tại, phủ định là isn't (is not) + V-ing.",
    "tense": "present-continuous"
   },
   {
@@ -310,7 +365,9 @@
    "prompt": "What ___ (Nam / do) at the moment? His chat status says \"busy\".",
    "choices": [],
    "answer": "is Nam doing",
-   "accept": [],
+   "accept": [
+    "'s Nam doing"
+   ],
    "explain": "Câu hỏi Wh- về việc đang làm \"at the moment\": What + is + S + V-ing.",
    "tense": "present-continuous"
   },
@@ -381,7 +438,9 @@
    "prompt": "Why ___ (the build / fail) right now? It passed this morning.",
    "choices": [],
    "answer": "is the build failing",
-   "accept": [],
+   "accept": [
+    "'s the build failing"
+   ],
    "explain": "\"right now\" chỉ tình trạng đang xảy ra, câu hỏi Wh- dùng is + S + V-ing.",
    "tense": "present-continuous"
   },
@@ -694,6 +753,426 @@
    "accept": [],
    "explain": "\"this Friday… instead\" là kế hoạch đã sắp xếp khác thói quen nên dùng hiện tại tiếp diễn.",
    "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-continuous",
+   "prompt": "We ___ (plan) the year-end party for the whole company this week.",
+   "choices": [],
+   "answer": "are planning",
+   "accept": [
+    "'re planning"
+   ],
+   "explain": "Việc đang làm trong tuần này → hiện tại tiếp diễn; plan gấp đôi n: planning."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-continuous",
+   "prompt": "Mr. Bao ___ (sit) in Room 3 with the auditors right now.",
+   "choices": [],
+   "answer": "is sitting",
+   "accept": [
+    "'s sitting"
+   ],
+   "explain": "“right now” → is + V-ing; sit gấp đôi t: sitting."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "Why ___ (you / lie) on the sofa in the break room? — I have a terrible backache.",
+   "choices": [],
+   "answer": "are you lying",
+   "accept": [],
+   "explain": "Hỏi về việc đang diễn ra → Why + are + you + V-ing; lie đổi -ie thành -ying: lying."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "Please switch off your phones — the keynote speaker ___ (begin) her talk right now.",
+   "choices": [],
+   "answer": "is beginning",
+   "accept": [
+    "'s beginning"
+   ],
+   "explain": "“right now” → is + V-ing; begin nhấn âm cuối nên gấp đôi n: beginning."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "Our new tester ___ (get) better at writing test cases these days.",
+   "choices": [],
+   "answer": "is getting",
+   "accept": [
+    "'s getting"
+   ],
+   "explain": "“these days” chỉ sự thay đổi dần → hiện tại tiếp diễn; get gấp đôi t: getting."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-continuous",
+   "prompt": "We ___ the new sales dashboard right now, so it isn't ready yet.",
+   "choices": [
+    "are making",
+    "are makeing",
+    "are makking",
+    "make"
+   ],
+   "answer": "are making",
+   "accept": [],
+   "explain": "“right now” → are + V-ing; make bỏ -e rồi thêm -ing: making."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "The HR team ___ the new staff handbook this week.",
+   "choices": [
+    "is writing",
+    "is writeing",
+    "is writting",
+    "writes"
+   ],
+   "answer": "is writing",
+   "accept": [],
+   "explain": "Việc tạm thời trong tuần này → is + V-ing; write bỏ -e và không gấp đôi t: writing."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-continuous",
+   "prompt": "Ms. Trang ___ a new client at 4 p.m. today; it's already in her calendar.",
+   "choices": [
+    "is seeing",
+    "is seing",
+    "is see",
+    "seeing"
+   ],
+   "answer": "is seeing",
+   "accept": [],
+   "explain": "Hẹn đã sắp xếp → hiện tại tiếp diễn; see (= gặp) là hành động nên dùng được V-ing: seeing."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-continuous",
+   "prompt": "Are you using the projector? — No, I ___.",
+   "choices": [
+    "am not",
+    "amn't",
+    "don't",
+    "isn't"
+   ],
+   "answer": "am not",
+   "accept": [],
+   "explain": "Hỏi bằng Are you → trả lời ngắn bằng am not (I'm not); không có dạng “amn't”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "Is Hoa working from home today? — Yes, she ___.",
+   "choices": [
+    "is",
+    "'s",
+    "does",
+    "are"
+   ],
+   "answer": "is",
+   "accept": [],
+   "explain": "Trả lời ngắn khẳng định không viết tắt: “Yes, she is”, không nói “Yes, she's”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-continuous",
+   "prompt": "Are the testers still checking the build? — No, they ___.",
+   "choices": [
+    "aren't",
+    "don't",
+    "isn't",
+    "doesn't"
+   ],
+   "answer": "aren't",
+   "accept": [],
+   "explain": "Hỏi bằng Are, chủ ngữ they → trả lời ngắn “No, they aren't”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-continuous",
+   "prompt": "My colleague ___ my stapler without asking — it's really annoying!",
+   "choices": [
+    "is always borrowing",
+    "always is borrowing",
+    "is borrowing always",
+    "always borrowing"
+   ],
+   "answer": "is always borrowing",
+   "accept": [],
+   "explain": "Always + hiện tại tiếp diễn để phàn nàn; always đứng sau is."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "I ___ with your idea about moving the release to Friday.",
+   "choices": [
+    "agree",
+    "am agree",
+    "am agreeing",
+    "agrees"
+   ],
+   "answer": "agree",
+   "accept": [],
+   "explain": "Agree là động từ trạng thái → hiện tại đơn; không nói “I am agree”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-continuous",
+   "prompt": "We ___ to Osaka next Monday — the tickets are already booked.",
+   "choices": [
+    "are flying",
+    "flies",
+    "flew",
+    "were flying"
+   ],
+   "answer": "are flying",
+   "accept": [],
+   "explain": "“next Monday” và vé đã đặt → kế hoạch đã sắp xếp nên dùng hiện tại tiếp diễn."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Spelling: verb + -ing",
+   "columns": [
+    "Base verb",
+    "-ing form",
+    "Rule"
+   ],
+   "rows": [
+    {
+     "label": "work",
+     "cells": [
+      "work",
+      "working",
+      "+ ing"
+     ]
+    },
+    {
+     "label": "make",
+     "cells": [
+      "make",
+      "making",
+      "drop final -e"
+     ]
+    },
+    {
+     "label": "write",
+     "cells": [
+      "write",
+      "writing",
+      "drop final -e"
+     ]
+    },
+    {
+     "label": "use",
+     "cells": [
+      "use",
+      "using",
+      "drop final -e"
+     ]
+    },
+    {
+     "label": "run",
+     "cells": [
+      "run",
+      "running",
+      "double the consonant (CVC)"
+     ]
+    },
+    {
+     "label": "plan",
+     "cells": [
+      "plan",
+      "planning",
+      "double the consonant (CVC)"
+     ]
+    },
+    {
+     "label": "sit",
+     "cells": [
+      "sit",
+      "sitting",
+      "double the consonant (CVC)"
+     ]
+    },
+    {
+     "label": "get",
+     "cells": [
+      "get",
+      "getting",
+      "double the consonant (CVC)"
+     ]
+    },
+    {
+     "label": "begin",
+     "cells": [
+      "begin",
+      "beginning",
+      "double: stress on last syllable"
+     ]
+    },
+    {
+     "label": "lie",
+     "cells": [
+      "lie",
+      "lying",
+      "-ie → -ying"
+     ]
+    },
+    {
+     "label": "die",
+     "cells": [
+      "die",
+      "dying",
+      "-ie → -ying"
+     ]
+    },
+    {
+     "label": "see",
+     "cells": [
+      "see",
+      "seeing",
+      "-ee: just + ing"
+     ]
+    },
+    {
+     "label": "fix",
+     "cells": [
+      "fix",
+      "fixing",
+      "no doubling after w / x / y"
+     ]
+    },
+    {
+     "label": "play",
+     "cells": [
+      "play",
+      "playing",
+      "no doubling after w / x / y"
+     ]
+    },
+    {
+     "label": "open",
+     "cells": [
+      "open",
+      "opening",
+      "no doubling: stress not on last syllable"
+     ]
+    },
+    {
+     "label": "visit",
+     "cells": [
+      "visit",
+      "visiting",
+      "no doubling: stress not on last syllable"
+     ]
+    },
+    {
+     "label": "travel",
+     "cells": [
+      "travel",
+      "travelling (BrE) / traveling (AmE)",
+      "final -l"
+     ]
+    }
+   ],
+   "note": "Gấp đôi phụ âm cuối khi từ kết thúc bằng phụ âm – nguyên âm – phụ âm và trọng âm rơi vào âm cuối (run, plan, begin). Sai: runing, writeing, lieing."
+  },
+  {
+   "title": "Short answers",
+   "columns": [
+    "Question",
+    "Yes",
+    "No"
+   ],
+   "rows": [
+    {
+     "label": "Are you using the projector?",
+     "cells": [
+      "Are you using the projector?",
+      "Yes, I am.",
+      "No, I'm not."
+     ]
+    },
+    {
+     "label": "Is Hoa working from home?",
+     "cells": [
+      "Is Hoa working from home?",
+      "Yes, she is.",
+      "No, she isn't."
+     ]
+    },
+    {
+     "label": "Is it raining?",
+     "cells": [
+      "Is it raining?",
+      "Yes, it is.",
+      "No, it isn't."
+     ]
+    },
+    {
+     "label": "Are they testing the build?",
+     "cells": [
+      "Are they testing the build?",
+      "Yes, they are.",
+      "No, they aren't."
+     ]
+    }
+   ],
+   "note": "Câu khẳng định ngắn không viết tắt: nói “Yes, I am / Yes, she is”, không nói “Yes, I'm / Yes, she's”."
+  },
+  {
+   "title": "Contractions",
+   "columns": [
+    "Full form",
+    "Short form",
+    "Negative"
+   ],
+   "rows": [
+    {
+     "label": "I am",
+     "cells": [
+      "I am",
+      "I'm",
+      "I'm not (không có “I amn't”)"
+     ]
+    },
+    {
+     "label": "he / she / it is",
+     "cells": [
+      "he / she / it is",
+      "he's / she's / it's",
+      "isn't = 's not"
+     ]
+    },
+    {
+     "label": "you / we / they are",
+     "cells": [
+      "you / we / they are",
+      "you're / we're / they're",
+      "aren't = 're not"
+     ]
+    }
+   ],
+   "note": "She isn't working = She's not working; cả hai đều đúng."
   }
  ]
 }

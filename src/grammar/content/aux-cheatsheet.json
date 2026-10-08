@@ -3,21 +3,23 @@
  "group": "foundations",
  "name": "Cheat sheet: helping verbs in each tense",
  "vi": "Bảng trợ động từ theo thì",
- "summary": "Mỗi thì dùng một trợ động từ riêng để tạo câu phủ định và câu hỏi. Tra nhanh ở đây, bấm vào tên thì để mở bài học.",
+ "summary": "Mỗi thì dùng một trợ động từ riêng để tạo câu phủ định, câu hỏi và câu trả lời ngắn. Tra nhanh ở đây, bấm vào tên thì để mở bài học.",
  "tables": [
   {
-   "title": "Helping verbs in the 7 tenses",
-   "columns": ["Tense", "Helping verb", "Negative", "Question"],
+   "title": "Helping verbs in the 7 tenses (and be)",
+   "columns": ["Tense", "Helping verb", "Negative", "Question", "Short answer"],
    "rows": [
-    { "label": "Present simple", "link": "present-simple", "cells": ["Present simple", "do / does", "She doesn't work here.", "Does she work here?"] },
-    { "label": "Present continuous", "link": "present-continuous", "cells": ["Present continuous", "am / is / are + V-ing", "They aren't working now.", "Are they working now?"] },
-    { "label": "Present perfect", "link": "present-perfect", "cells": ["Present perfect", "have / has + V3", "He hasn't finished yet.", "Has he finished yet?"] },
-    { "label": "Past simple", "link": "past-simple", "cells": ["Past simple", "did", "We didn't call them.", "Did you call them?"] },
-    { "label": "Past continuous", "link": "past-continuous", "cells": ["Past continuous", "was / were + V-ing", "I wasn't listening.", "Were you listening?"] },
-    { "label": "Future simple", "link": "future-simple", "cells": ["Future simple", "will", "I won't forget.", "Will you send it?"] },
-    { "label": "Going to", "link": "going-to", "cells": ["Going to", "am / is / are + going to", "We aren't going to wait.", "Are you going to join?"] }
+    { "label": "Present simple", "link": "present-simple", "cells": ["Present simple", "do / does + V", "She doesn't work here.", "Does she work here?", "Yes, she does. / No, she doesn't."] },
+    { "label": "Present continuous", "link": "present-continuous", "cells": ["Present continuous", "am / is / are + V-ing", "They aren't working now.", "Are they working now?", "Yes, they are. / No, they aren't."] },
+    { "label": "Present perfect", "link": "present-perfect", "cells": ["Present perfect", "have / has + V3", "He hasn't finished yet.", "Has he finished yet?", "Yes, he has. / No, he hasn't."] },
+    { "label": "Past simple", "link": "past-simple", "cells": ["Past simple", "did + V", "We didn't call them.", "Did you call them?", "Yes, I did. / No, I didn't."] },
+    { "label": "Past continuous", "link": "past-continuous", "cells": ["Past continuous", "was / were + V-ing", "I wasn't listening.", "Were you listening?", "Yes, I was. / No, I wasn't."] },
+    { "label": "Future simple", "link": "future-simple", "cells": ["Future simple", "will + V", "I won't forget.", "Will you send it?", "Yes, I will. / No, I won't."] },
+    { "label": "Going to", "link": "going-to", "cells": ["Going to", "am / is / are + going to + V", "We aren't going to wait.", "Are you going to join?", "Yes, I am. / No, I'm not."] },
+    { "label": "Be (present)", "link": "be", "cells": ["Be (present)", "am / is / are (no do)", "She isn't busy.", "Is she busy?", "Yes, she is. / No, she isn't."] },
+    { "label": "Be (past)", "link": "be", "cells": ["Be (past)", "was / were (no did)", "I wasn't late.", "Were you late?", "Yes, I was. / No, I wasn't."] }
    ],
-   "note": "Câu phủ định và câu hỏi luôn mượn trợ động từ; động từ chính sau do / does / did / will trở về nguyên mẫu."
+   "note": "Câu phủ định và câu hỏi luôn mượn trợ động từ; động từ chính sau do / does / did / will trở về nguyên mẫu. Riêng be làm động từ chính thì không mượn do / did: không nói “Did you be late?” mà nói “Were you late?”. Trả lời ngắn không viết tắt ở cuối: “Yes, I am”, không phải “Yes, I'm”."
   },
   {
    "title": "Which form for which subject?",
@@ -27,7 +29,33 @@
     { "label": "he / she / it", "link": "agreement", "cells": ["he / she / it", "is / was", "does / did", "has / had"] },
     { "label": "you / we / they", "link": "agreement", "cells": ["you / we / they", "are / were", "do / did", "have / had"] }
    ],
-   "note": "Tương lai thì mọi chủ ngữ đều dùng will (will be, will have…)."
+   "note": "Tương lai thì mọi chủ ngữ đều dùng will (will be, will have…), nhưng be going to vẫn chia am / is / are theo chủ ngữ. Have làm động từ chính (có, sở hữu) thì mượn do: “Do you have a laptop?”, không nói “Have you a laptop?”."
+  },
+  {
+   "title": "Affirmative sentences",
+   "columns": ["Tense", "Affirmative"],
+   "rows": [
+    { "label": "Present simple", "link": "present-simple", "cells": ["Present simple", "She works here."] },
+    { "label": "Present continuous", "link": "present-continuous", "cells": ["Present continuous", "They are working now."] },
+    { "label": "Present perfect", "link": "present-perfect", "cells": ["Present perfect", "He has finished."] },
+    { "label": "Past simple", "link": "past-simple", "cells": ["Past simple", "We called them."] },
+    { "label": "Past continuous", "link": "past-continuous", "cells": ["Past continuous", "I was listening."] },
+    { "label": "Future simple", "link": "future-simple", "cells": ["Future simple", "I will send it."] },
+    { "label": "Going to", "link": "going-to", "cells": ["Going to", "We are going to wait."] }
+   ],
+   "note": "Câu khẳng định ở hiện tại đơn và quá khứ đơn không cần trợ động từ: She works, We called (không nói “She is work” hay “We did call”, trừ khi muốn nhấn mạnh)."
+  },
+  {
+   "title": "Short forms",
+   "columns": ["Full form", "Short form"],
+   "rows": [
+    { "label": "will", "link": "future-simple", "cells": ["I will / will not", "I'll / won't"] },
+    { "label": "be (present)", "link": "be", "cells": ["I am / is not / are not", "I'm / isn't / aren't"] },
+    { "label": "be (past)", "link": "be", "cells": ["was not / were not", "wasn't / weren't"] },
+    { "label": "do", "link": "do", "cells": ["do not / does not / did not", "don't / doesn't / didn't"] },
+    { "label": "have", "link": "have", "cells": ["have not / has not", "haven't / hasn't"] }
+   ],
+   "note": "Không có “amn't”: phủ định của I am là I'm not. Không có “willn't”: phủ định rút gọn của will là won't."
   }
  ],
  "uses": [],

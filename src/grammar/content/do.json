@@ -6,35 +6,59 @@
   "summary": "Tiếng Anh dùng trợ động từ do / does (hiện tại) và did (quá khứ) để đặt câu hỏi, câu phủ định và câu trả lời ngắn với động từ thường; sau trợ động từ, động từ chính luôn ở dạng nguyên mẫu. Tương lai không dùng do mà dùng will / won't.",
   "tables": [
     {
-      "title": "Câu hỏi theo chủ ngữ",
-      "columns": ["Chủ ngữ", "Present", "Past", "Future"],
+      "title": "Questions by subject",
+      "columns": ["Subject","Present","Past","Future"],
       "rows": [
-        { "label": "I", "cells": ["I", "Do I need a badge?", "Did I miss anything?", "Will I need a badge?"] },
-        { "label": "you / we / they", "cells": ["you / we / they", "Do you use Jira?", "Did they call the client?", "Will you join the call?"] },
-        { "label": "he / she / it", "cells": ["he / she / it", "Does he work here?", "Did she send the file?", "Will it work on Mac?"] }
+        {"label":"I","cells":["I","Do I need a badge?","Did I miss anything?","Will I need a badge?"]},
+        {"label":"You / We / They","cells":["You / We / They","Do you use Jira?","Did they call the client?","Will you join the call?"]},
+        {"label":"He / She / It","cells":["He / She / It","Does he work here?","Did she send the file?","Will it work on Mac?"]}
       ],
       "note": "Does chỉ dùng với he / she / it (và danh từ số ít) ở hiện tại; did dùng cho mọi chủ ngữ. Tương lai dùng Will, không dùng Do."
     },
     {
-      "title": "Câu phủ định theo chủ ngữ",
-      "columns": ["Chủ ngữ", "Present", "Past", "Future"],
+      "title": "Negatives by subject",
+      "columns": ["Subject","Present","Past","Future"],
       "rows": [
-        { "label": "I", "cells": ["I", "I don't know.", "I didn't see it.", "I won't be late."] },
-        { "label": "you / we / they", "cells": ["you / we / they", "They don't work on Sundays.", "We didn't finish.", "You won't need it."] },
-        { "label": "he / she / it", "cells": ["he / she / it", "She doesn't use Excel.", "It didn't crash.", "He won't come."] }
+        {"label":"I","cells":["I","I don't know.","I didn't see it.","I won't forget."]},
+        {"label":"You / We / They","cells":["You / We / They","They don't work on Sundays.","We didn't finish.","You won't need it."]},
+        {"label":"He / She / It","cells":["He / She / It","She doesn't use Excel.","It didn't crash.","He won't come."]}
       ],
       "note": "don't = do not, doesn't = does not, didn't = did not, won't = will not. Sau các từ này, động từ chính ở dạng nguyên mẫu."
     },
     {
-      "title": "Câu trả lời ngắn",
-      "columns": ["Câu hỏi", "Yes", "No"],
+      "title": "Short answers",
+      "columns": ["Question","Yes","No"],
       "rows": [
-        { "label": "Do you…?", "cells": ["Do you use Git?", "Yes, I do.", "No, I don't."] },
-        { "label": "Does she…?", "cells": ["Does she work remotely?", "Yes, she does.", "No, she doesn't."] },
-        { "label": "Did you…?", "cells": ["Did you fix the bug?", "Yes, we did.", "No, we didn't."] },
-        { "label": "Will you…?", "cells": ["Will you be there?", "Yes, I will.", "No, I won't."] }
+        {"label":"Do you…?","cells":["Do you use Git?","Yes, I do.","No, I don't."]},
+        {"label":"Does she…?","cells":["Does she work remotely?","Yes, she does.","No, she doesn't."]},
+        {"label":"Did you…?","cells":["Did you fix the bug?","Yes, I did.","No, I didn't."]},
+        {"label":"Will you…?","cells":["Will you be there?","Yes, I will.","No, I won't."]}
       ],
       "note": "Câu trả lời ngắn lặp lại trợ động từ của câu hỏi, không lặp lại động từ chính (không nói “Yes, I use”)."
+    },
+    {
+      "title": "Wh- questions: object, subject, indirect",
+      "columns": ["Type","Pattern","Example"],
+      "rows": [
+        {"label":"Object question","cells":["Object question","Wh- + do / does / did + subject + verb","Who did you call? (= Bạn đã gọi ai?)"]},
+        {"label":"Subject question","cells":["Subject question","Who / What + verb-s / verb-ed (no do)","Who called you? (= Ai đã gọi bạn?)"]},
+        {"label":"Wh- + present","cells":["Wh- + present","Where / When / Why + do / does + subject + verb","Where does Lan sit?"]},
+        {"label":"Indirect question","cells":["Indirect question","Can you tell me / Do you know + wh- + subject + verb","Can you tell me where the office is?"]}
+      ],
+      "note": "Câu hỏi chủ ngữ (Who / What làm chủ ngữ) và phần câu hỏi trong câu hỏi gián tiếp không dùng do / does / did và không đảo ngữ."
+    },
+    {
+      "title": "Tags, replies & imperatives",
+      "columns": ["Pattern","Example"],
+      "rows": [
+        {"label":"Positive sentence → negative tag","cells":["Positive sentence → negative tag","You work in QA, don't you?"]},
+        {"label":"Negative sentence → positive tag","cells":["Negative sentence → positive tag","She doesn't use Jira, does she?"]},
+        {"label":"Negative question","cells":["Negative question","Didn't you get my email?"]},
+        {"label":"Agree (+): So do I","cells":["Agree (+): So do I","I like the new UI. – So do I."]},
+        {"label":"Agree (–): Neither do I","cells":["Agree (–): Neither do I","I don't like long meetings. – Neither do I. / I don't either."]},
+        {"label":"Negative imperative","cells":["Negative imperative","Don't touch the production database."]}
+      ],
+      "note": "Đuôi câu hỏi và câu đồng tình dùng lại trợ động từ: do / does (hiện tại), did (quá khứ)."
     }
   ],
   "uses": [
@@ -42,93 +66,141 @@
       "title": "Câu hỏi Yes/No và câu trả lời ngắn",
       "explain": "Đặt Do / Does / Did trước chủ ngữ, động từ chính giữ nguyên mẫu. Trả lời ngắn bằng chính trợ động từ đó.",
       "examples": [
-        { "en": "Does your team work on weekends? – No, it doesn't.", "vi": "Nhóm của bạn có làm việc cuối tuần không? – Không." },
-        { "en": "Did you get my email? – Yes, I did.", "vi": "Bạn đã nhận email của tôi chưa? – Rồi." }
+        {"en":"Does your team work on weekends? – No, we don't.","vi":"Nhóm của bạn có làm việc cuối tuần không? – Không."},
+        {"en":"Did you get my email? – Yes, I did.","vi":"Bạn đã nhận email của tôi chưa? – Rồi."}
       ]
     },
     {
       "title": "Câu phủ định",
       "explain": "Dùng don't / doesn't / didn't + động từ nguyên mẫu. Không thêm -s hay -ed vào động từ chính.",
       "examples": [
-        { "en": "The app doesn't support dark mode.", "vi": "Ứng dụng không hỗ trợ chế độ tối." },
-        { "en": "I didn't see the error message.", "vi": "Tôi đã không thấy thông báo lỗi." }
+        {"en":"The app doesn't support dark mode.","vi":"Ứng dụng không hỗ trợ chế độ tối."},
+        {"en":"I didn't see the error message.","vi":"Tôi đã không thấy thông báo lỗi."}
       ]
     },
     {
       "title": "Câu hỏi có từ để hỏi (Wh-)",
-      "explain": "Từ để hỏi + do / does / did + chủ ngữ + động từ nguyên mẫu. Nhưng khi Who / What là chủ ngữ thì không dùng do: Who called?",
+      "explain": "Từ để hỏi + do / does / did + chủ ngữ + động từ nguyên mẫu. Nhưng khi Who / What là chủ ngữ thì không dùng do: Who called you? (Ai gọi bạn?) ↔ Who did you call? (Bạn gọi ai?)",
       "examples": [
-        { "en": "Where does the company store its backups?", "vi": "Công ty lưu bản sao lưu ở đâu?" },
-        { "en": "What time did the meeting finish?", "vi": "Cuộc họp kết thúc lúc mấy giờ?" },
-        { "en": "Who sent this request?", "vi": "Ai đã gửi yêu cầu này?" }
+        {"en":"Where does the company store its backups?","vi":"Công ty lưu bản sao lưu ở đâu?"},
+        {"en":"Who called you this morning? – The client did.","vi":"Ai đã gọi bạn sáng nay? – Khách hàng."},
+        {"en":"Who did you call about the outage? – The data center.","vi":"Bạn đã gọi ai về sự cố? – Trung tâm dữ liệu."}
       ]
     },
     {
       "title": "“Do” là động từ chính",
-      "explain": "Do cũng có nghĩa “làm”; khi đó câu hỏi và phủ định vẫn cần thêm trợ động từ do / does / did.",
+      "explain": "Do cũng có nghĩa “làm”; khi đó câu hỏi và phủ định vẫn cần thêm trợ động từ: What do you do? (Bạn làm nghề gì?). Lưu ý: do a report / do research / do the testing, nhưng make a decision / make a mistake.",
       "examples": [
-        { "en": "I do the weekly report every Friday.", "vi": "Tôi làm báo cáo tuần vào mỗi thứ Sáu." },
-        { "en": "Did you do the security test?", "vi": "Bạn đã làm bài kiểm tra bảo mật chưa?" },
-        { "en": "She doesn't do overtime.", "vi": "Cô ấy không làm thêm giờ." }
+        {"en":"What do you do? – I'm a business analyst.","vi":"Bạn làm nghề gì? – Tôi là chuyên viên phân tích nghiệp vụ."},
+        {"en":"Did you do the security test?","vi":"Bạn đã làm bài kiểm tra bảo mật chưa?"},
+        {"en":"She doesn't do overtime.","vi":"Cô ấy không làm thêm giờ."}
       ]
     },
     {
       "title": "“Do” để nhấn mạnh",
-      "explain": "Trong câu khẳng định, thêm do / does / did trước động từ nguyên mẫu để nhấn mạnh hoặc phản bác.",
+      "explain": "Trong câu khẳng định, thêm do / does / did trước động từ nguyên mẫu để nhấn mạnh hoặc phản bác (does work, không phải does works).",
       "examples": [
-        { "en": "I do agree with your idea.", "vi": "Tôi thật sự đồng ý với ý tưởng của bạn." },
-        { "en": "She did call you, but you were in a meeting.", "vi": "Cô ấy có gọi cho bạn đấy, nhưng bạn đang họp." }
+        {"en":"I do agree with your idea.","vi":"Tôi thật sự đồng ý với ý tưởng của bạn."},
+        {"en":"She did call you, but you were in a meeting.","vi":"Cô ấy có gọi cho bạn đấy, nhưng bạn đang họp."},
+        {"en":"He does work hard, but he often misses deadlines.","vi":"Anh ấy thật sự làm việc chăm chỉ, nhưng hay trễ hạn."}
+      ]
+    },
+    {
+      "title": "Câu hỏi gián tiếp: không dùng do",
+      "explain": "Sau Can you tell me… / Do you know… / I don't know…, phần câu hỏi giữ trật tự câu kể (chủ ngữ + động từ) và không dùng do / does / did.",
+      "examples": [
+        {"en":"Can you tell me where the office is?","vi":"Bạn có thể cho tôi biết văn phòng ở đâu không?"},
+        {"en":"Do you know what time the meeting starts?","vi":"Bạn có biết mấy giờ cuộc họp bắt đầu không?"},
+        {"en":"I don't know why the build failed.","vi":"Tôi không biết vì sao bản build bị lỗi."}
+      ]
+    },
+    {
+      "title": "Mệnh lệnh phủ định: Don't…",
+      "explain": "Don't + động từ nguyên mẫu để cấm hoặc nhắc nhở, dùng cho mọi người nghe, kể cả với be: Don't be late.",
+      "examples": [
+        {"en":"Don't touch the production database.","vi":"Đừng động vào cơ sở dữ liệu production."},
+        {"en":"Don't forget to log your hours.","vi":"Đừng quên ghi giờ làm."}
+      ]
+    },
+    {
+      "title": "Câu hỏi đuôi, câu hỏi phủ định, So do I / Neither do I",
+      "explain": "Câu khẳng định → đuôi phủ định (…, don't you?); câu phủ định → đuôi khẳng định (…, does she?). Đồng tình: So do I (khẳng định), Neither do I / I don't either (phủ định).",
+      "examples": [
+        {"en":"You work in QA, don't you?","vi":"Bạn làm ở bộ phận QA, phải không?"},
+        {"en":"Didn't you get my email?","vi":"Bạn không nhận được email của tôi à?"},
+        {"en":"I don't like long meetings. – Neither do I.","vi":"Tôi không thích họp lâu. – Tôi cũng vậy."}
       ]
     }
   ],
   "mistakes": [
-    { "wrong": "She don't know the password.", "right": "She doesn't know the password.", "explain": "Chủ ngữ she / he / it ở hiện tại dùng doesn't, không dùng don't." },
-    { "wrong": "Does he works in IT?", "right": "Does he work in IT?", "explain": "Does đã mang -s, nên động từ chính giữ nguyên mẫu." },
-    { "wrong": "Did you went to the meeting? / I didn't saw it.", "right": "Did you go to the meeting? / I didn't see it.", "explain": "Did đã thể hiện quá khứ, động từ chính phải ở nguyên mẫu." },
-    { "wrong": "Do you can help me?", "right": "Can you help me?", "explain": "Can, will, must… là trợ động từ riêng, không đi với do." },
-    { "wrong": "He doesn't has a laptop.", "right": "He doesn't have a laptop.", "explain": "Sau doesn't dùng have, không dùng has." },
-    { "wrong": "Are you agree with me?", "right": "Do you agree with me?", "explain": "Agree là động từ thường nên hỏi bằng do, không dùng be." }
+    {"wrong":"She don't know the password.","right":"She doesn't know the password.","explain":"Chủ ngữ she / he / it ở hiện tại dùng doesn't, không dùng don't."},
+    {"wrong":"Does he works in IT?","right":"Does he work in IT?","explain":"Does đã mang -s, nên động từ chính giữ nguyên mẫu."},
+    {"wrong":"Did you went to the meeting? / I didn't saw it.","right":"Did you go to the meeting? / I didn't see it.","explain":"Did đã thể hiện quá khứ, động từ chính phải ở nguyên mẫu."},
+    {"wrong":"Do you can help me?","right":"Can you help me?","explain":"Can, will, must… là trợ động từ riêng, không đi với do."},
+    {"wrong":"Who did call you?","right":"Who called you?","explain":"Who là chủ ngữ (ai gọi) nên không dùng did. Chỉ khi hỏi “bạn gọi ai” mới dùng did: Who did you call?"},
+    {"wrong":"Are you agree with me?","right":"Do you agree with me?","explain":"Agree là động từ thường nên hỏi bằng do, không dùng be."},
+    {"wrong":"Do you know where does he live? / Can you tell me what time does the meeting start?","right":"Do you know where he lives? / Can you tell me what time the meeting starts?","explain":"Câu hỏi gián tiếp giữ trật tự chủ ngữ + động từ, không dùng do / does / did."},
+    {"wrong":"Not touch the server! / No be late!","right":"Don't touch the server! / Don't be late!","explain":"Mệnh lệnh phủ định luôn bắt đầu bằng Don't + động từ nguyên mẫu."},
+    {"wrong":"He does works hard.","right":"He does work hard.","explain":"Khi nhấn mạnh bằng does, động từ chính về nguyên mẫu (does work)."}
   ],
   "drills": [
-    { "kind": "tense", "level": "easy", "topic": "Do · question", "prompt": "___ (do) you use Slack or Teams at work?", "choices": [], "answer": "Do", "accept": [], "explain": "Chủ ngữ you ở hiện tại dùng Do." },
-    { "kind": "tense", "level": "easy", "topic": "Does · question", "prompt": "___ (do) your manager approve leave requests?", "choices": [], "answer": "Does", "accept": [], "explain": "Your manager là số ít (= he/she) nên dùng Does." },
-    { "kind": "tense", "level": "easy", "topic": "Does · negative", "prompt": "She ___ (not do) use a Mac at the office.", "choices": [], "answer": "doesn't", "accept": ["does not"], "explain": "She ở hiện tại phủ định dùng doesn't." },
-    { "kind": "tense", "level": "easy", "topic": "Did · past", "prompt": "___ (do) you finish the report yesterday?", "choices": [], "answer": "Did", "accept": [], "explain": "Yesterday là quá khứ nên dùng Did." },
-    { "kind": "tense", "level": "easy", "topic": "Base form", "prompt": "Does she ___ (work) from home on Fridays?", "choices": [], "answer": "work", "accept": [], "explain": "Sau Does, động từ giữ nguyên mẫu." },
-    { "kind": "tense", "level": "easy", "topic": "Did · negative", "prompt": "They ___ (not do) attend the meeting last Monday.", "choices": [], "answer": "didn't", "accept": ["did not"], "explain": "Last Monday là quá khứ nên phủ định dùng didn't." },
-    { "kind": "tense", "level": "easy", "topic": "Base form", "prompt": "Did you ___ (send) the invoice to the customer?", "choices": [], "answer": "send", "accept": [], "explain": "Sau Did, động từ giữ nguyên mẫu." },
-    { "kind": "tense", "level": "medium", "topic": "Base form", "prompt": "Did the client ___ (sign) the contract last week?", "choices": [], "answer": "sign", "accept": [], "explain": "Did đã chỉ quá khứ nên sign giữ nguyên mẫu." },
-    { "kind": "tense", "level": "medium", "topic": "Base form", "prompt": "He doesn't ___ (have) admin rights on this server.", "choices": [], "answer": "have", "accept": [], "explain": "Sau doesn't dùng have, không dùng has." },
-    { "kind": "tense", "level": "medium", "topic": "Wh- question", "prompt": "Where ___ (do) your company store its backups?", "choices": [], "answer": "does", "accept": [], "explain": "Your company là số ít, hiện tại nên dùng does." },
-    { "kind": "tense", "level": "medium", "topic": "Wh- question", "prompt": "What time ___ (do) the daily stand-up start?", "choices": [], "answer": "does", "accept": [], "explain": "The daily stand-up là số ít, thói quen hiện tại nên dùng does." },
-    { "kind": "tense", "level": "medium", "topic": "Short answer", "prompt": "A: Do you use Git? B: Yes, I ___ (do).", "choices": [], "answer": "do", "accept": [], "explain": "Câu hỏi bằng Do thì trả lời ngắn bằng do." },
-    { "kind": "tense", "level": "medium", "topic": "Short answer", "prompt": "A: Does the printer work now? B: No, it ___ (not do).", "choices": [], "answer": "doesn't", "accept": ["does not"], "explain": "Câu hỏi bằng Does thì trả lời phủ định bằng doesn't." },
-    { "kind": "tense", "level": "hard", "topic": "Future · will", "prompt": "___ (do / will) you join the training session next Monday?", "choices": [], "answer": "Will", "accept": [], "explain": "Next Monday là tương lai nên dùng Will, không dùng Do." },
-    { "kind": "tense", "level": "hard", "topic": "Future · won't", "prompt": "We ___ (do / will + not) release version 2.0 next week.", "choices": [], "answer": "won't", "accept": ["will not"], "explain": "Phủ định tương lai dùng won't, không dùng don't." },
-    { "kind": "tense", "level": "hard", "topic": "Who as subject", "prompt": "Who ___ (call) the IT helpdesk yesterday morning?", "choices": [], "answer": "called", "accept": [], "explain": "Who là chủ ngữ nên không dùng did, động từ chia quá khứ: called." },
-    { "kind": "tense", "level": "hard", "topic": "Do vs be", "prompt": "___ (do) you agree with the new remote-work policy?", "choices": [], "answer": "Do", "accept": [], "explain": "Agree là động từ thường nên hỏi bằng Do, không dùng Are." },
-    { "kind": "tense", "level": "hard", "topic": "Have question", "prompt": "___ (do) your laptop have enough memory for Docker?", "choices": [], "answer": "Does", "accept": [], "explain": "Hỏi với have dùng Does cho chủ ngữ số ít." },
-    { "kind": "tense", "level": "hard", "topic": "Wh- question", "prompt": "How many bugs ___ (do) the QA team find in the last sprint?", "choices": [], "answer": "did", "accept": [], "explain": "In the last sprint là quá khứ nên dùng did." },
-    { "kind": "tense", "level": "hard", "topic": "Emphasis", "prompt": "I ___ (do) check the logs, but I didn't find any errors.", "choices": [], "answer": "did", "accept": [], "explain": "Câu ở quá khứ (didn't find) nên nhấn mạnh bằng did + check." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Does · question", "prompt": "___ he speak Japanese?", "choices": ["Do", "Does", "Is"], "answer": "Does", "accept": [], "explain": "He ở hiện tại dùng Does." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Do · negative", "prompt": "My colleagues ___ like long meetings.", "choices": ["doesn't", "don't", "isn't"], "answer": "don't", "accept": [], "explain": "My colleagues là số nhiều nên dùng don't." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Did · past", "prompt": "___ you check your email before the meeting yesterday?", "choices": ["Do", "Did", "Does"], "answer": "Did", "accept": [], "explain": "Yesterday là quá khứ nên dùng Did." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Does · negative", "prompt": "The software ___ support Windows 7.", "choices": ["don't", "doesn't", "isn't"], "answer": "doesn't", "accept": [], "explain": "The software là số ít nên dùng doesn't + support." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Short answer", "prompt": "A: Did you back up the database? B: Yes, I ___.", "choices": ["did", "do", "was"], "answer": "did", "accept": [], "explain": "Câu hỏi bằng Did thì trả lời ngắn bằng did." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Short answer", "prompt": "A: Does Minh work in the HR department? B: No, he ___.", "choices": ["doesn't", "don't", "isn't"], "answer": "doesn't", "accept": [], "explain": "Câu hỏi bằng Does thì trả lời phủ định bằng doesn't." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Base form", "prompt": "Does your team ___ Jira for task tracking?", "choices": ["use", "uses", "using"], "answer": "use", "accept": [], "explain": "Sau Does, động từ giữ nguyên mẫu." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Base form", "prompt": "She didn't ___ the training video yesterday.", "choices": ["watch", "watched", "watches"], "answer": "watch", "accept": [], "explain": "Sau didn't, động từ giữ nguyên mẫu." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Wh- question", "prompt": "Why ___ the server restart every night?", "choices": ["does", "do", "is"], "answer": "does", "accept": [], "explain": "The server là số ít, động từ thường nên dùng does." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Future · will", "prompt": "___ you be at the office tomorrow afternoon?", "choices": ["Will", "Do", "Did"], "answer": "Will", "accept": [], "explain": "Tomorrow là tương lai nên dùng Will, không dùng Do." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Wh- question", "prompt": "How often ___ the system send automatic reports?", "choices": ["does", "do", "is"], "answer": "does", "accept": [], "explain": "The system là số ít nên dùng does + send." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Did · negative", "prompt": "Mr. Tan ___ approve the budget at yesterday's meeting.", "choices": ["didn't", "doesn't", "don't"], "answer": "didn't", "accept": [], "explain": "Yesterday's meeting là quá khứ nên dùng didn't." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Who as subject", "prompt": "Who ___ the meeting room for 3 p.m.?", "choices": ["booked", "did booked", "does booked"], "answer": "booked", "accept": [], "explain": "Who là chủ ngữ nên không cần did: Who booked…?" },
-    { "kind": "tenseChoice", "level": "hard", "topic": "What as subject", "prompt": "What ___ to the database last night? It's empty now.", "choices": ["happened", "did happened", "does happen"], "answer": "happened", "accept": [], "explain": "What là chủ ngữ nên dùng happened, không thêm did." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Do vs be", "prompt": "___ she understand the new security rules?", "choices": ["Does", "Is", "Do"], "answer": "Does", "accept": [], "explain": "Understand là động từ thường nên hỏi bằng Does, không dùng Is." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Have question", "prompt": "___ you have a spare charger for my laptop?", "choices": ["Do", "Are", "Does"], "answer": "Do", "accept": [], "explain": "Hỏi với have cho chủ ngữ you dùng Do." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Did · negative", "prompt": "The manager ___ like the first design, so we changed it.", "choices": ["didn't", "doesn't", "wasn't"], "answer": "didn't", "accept": [], "explain": "Changed là quá khứ nên vế đầu dùng didn't." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Do · negative", "prompt": "I'm sorry, I ___ know the answer right now, but I'll ask the team lead.", "choices": ["don't", "didn't", "won't"], "answer": "don't", "accept": [], "explain": "Right now là hiện tại nên dùng don't." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Wh- question", "prompt": "Which department ___ you work in before you joined our company?", "choices": ["did", "do", "were"], "answer": "did", "accept": [], "explain": "Before you joined là quá khứ nên dùng did + work." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Future · won't", "prompt": "The meeting is tomorrow, but Lan ___ be there because she is on leave.", "choices": ["won't", "doesn't", "didn't"], "answer": "won't", "accept": [], "explain": "Tomorrow là tương lai và đi với be nên dùng won't." }
+    {"kind":"tense","level":"easy","topic":"Do · question","prompt":"___ (do) you use Slack or Teams at work?","choices":[],"answer":"Do","accept":[],"explain":"Chủ ngữ you ở hiện tại dùng Do."},
+    {"kind":"tense","level":"easy","topic":"Does · question","prompt":"___ (do) your manager approve leave requests?","choices":[],"answer":"Does","accept":[],"explain":"Your manager là số ít (= he/she) nên dùng Does."},
+    {"kind":"tense","level":"easy","topic":"Does · negative","prompt":"She ___ (not / do) use a Mac at the office.","choices":[],"answer":"doesn't","accept":["does not"],"explain":"She ở hiện tại phủ định dùng doesn't."},
+    {"kind":"tense","level":"easy","topic":"Did · past","prompt":"___ (do) you finish the report yesterday?","choices":[],"answer":"Did","accept":[],"explain":"Yesterday là quá khứ nên dùng Did."},
+    {"kind":"tense","level":"easy","topic":"Base form","prompt":"Does she ___ (work) from home on Fridays?","choices":[],"answer":"work","accept":[],"explain":"Sau Does, động từ giữ nguyên mẫu."},
+    {"kind":"tense","level":"easy","topic":"Did · negative","prompt":"They ___ (not / do) attend the meeting last Monday.","choices":[],"answer":"didn't","accept":["did not"],"explain":"Last Monday là quá khứ nên phủ định dùng didn't."},
+    {"kind":"tense","level":"easy","topic":"Base form","prompt":"Did you ___ (send) the invoice to the customer?","choices":[],"answer":"send","accept":[],"explain":"Sau Did, động từ giữ nguyên mẫu."},
+    {"kind":"tense","level":"medium","topic":"Base form","prompt":"Did the client ___ (sign) the contract last week?","choices":[],"answer":"sign","accept":[],"explain":"Did đã chỉ quá khứ nên sign giữ nguyên mẫu."},
+    {"kind":"tense","level":"medium","topic":"Base form","prompt":"He doesn't ___ (have) admin rights on this server.","choices":[],"answer":"have","accept":[],"explain":"Sau doesn't dùng have, không dùng has."},
+    {"kind":"tense","level":"medium","topic":"Wh- question","prompt":"Where ___ (do) your company store its backups?","choices":[],"answer":"does","accept":[],"explain":"Your company là số ít, hiện tại nên dùng does."},
+    {"kind":"tense","level":"medium","topic":"Wh- question","prompt":"What time ___ (do) the daily stand-up start?","choices":[],"answer":"does","accept":[],"explain":"The daily stand-up là số ít, thói quen hiện tại nên dùng does."},
+    {"kind":"tense","level":"medium","topic":"Short answer","prompt":"A: Do you use Git? B: Yes, I ___ (do).","choices":[],"answer":"do","accept":[],"explain":"Câu hỏi bằng Do thì trả lời ngắn bằng do."},
+    {"kind":"tense","level":"medium","topic":"Short answer","prompt":"A: Does the printer work now? B: No, it ___ (not / do).","choices":[],"answer":"doesn't","accept":["does not"],"explain":"Câu hỏi bằng Does thì trả lời phủ định bằng doesn't."},
+    {"kind":"tense","level":"hard","topic":"Future · will","prompt":"I'm not sure yet, but I think I ___ (join) the training session next Monday.","choices":[],"answer":"will join","accept":["'ll join","am going to join","'m going to join"],"explain":"Quyết định / dự đoán chưa chắc chắn (I think) cho tương lai → will join; tương lai không dùng do."},
+    {"kind":"tense","level":"hard","topic":"Future · won't","prompt":"I promise we ___ (not / release) version 2.0 without a full regression test.","choices":[],"answer":"won't release","accept":["will not release"],"explain":"Lời hứa cho tương lai → won't + động từ nguyên mẫu; không dùng don't."},
+    {"kind":"tense","level":"hard","topic":"Who as subject","prompt":"Who ___ (call) the IT helpdesk yesterday morning?","choices":[],"answer":"called","accept":[],"explain":"Who là chủ ngữ nên không dùng did, động từ chia quá khứ: called."},
+    {"kind":"tense","level":"hard","topic":"Do vs be","prompt":"___ (do) you agree with the new remote-work policy?","choices":[],"answer":"Do","accept":[],"explain":"Agree là động từ thường nên hỏi bằng Do, không dùng Are."},
+    {"kind":"tense","level":"hard","topic":"Have question","prompt":"___ (do) your laptop have enough memory for Docker?","choices":[],"answer":"Does","accept":[],"explain":"Hỏi với have dùng Does cho chủ ngữ số ít."},
+    {"kind":"tense","level":"hard","topic":"Wh- question","prompt":"How many bugs ___ (do) the QA team find in the last sprint?","choices":[],"answer":"did","accept":[],"explain":"In the last sprint là quá khứ nên dùng did."},
+    {"kind":"tense","level":"hard","topic":"Emphasis","prompt":"I ___ (do) check the logs, but I didn't find any errors.","choices":[],"answer":"did","accept":[],"explain":"Đây là nhấn mạnh / phản bác (“Tôi CÓ kiểm tra log mà…”); câu ở quá khứ nên dùng did + check (nguyên mẫu)."},
+    {"kind":"tenseChoice","level":"easy","topic":"Does · question","prompt":"___ he speak Japanese?","choices":["Do","Does","Is"],"answer":"Does","accept":[],"explain":"He ở hiện tại dùng Does."},
+    {"kind":"tenseChoice","level":"easy","topic":"Do · negative","prompt":"My colleagues ___ like long meetings.","choices":["doesn't","don't","isn't"],"answer":"don't","accept":[],"explain":"My colleagues là số nhiều nên dùng don't."},
+    {"kind":"tenseChoice","level":"easy","topic":"Did · past","prompt":"___ you check your email before the meeting yesterday?","choices":["Do","Did","Does"],"answer":"Did","accept":[],"explain":"Yesterday là quá khứ nên dùng Did."},
+    {"kind":"tenseChoice","level":"easy","topic":"Does · negative","prompt":"The software ___ support Windows 7.","choices":["don't","doesn't","isn't"],"answer":"doesn't","accept":[],"explain":"The software là số ít nên dùng doesn't + support."},
+    {"kind":"tenseChoice","level":"easy","topic":"Short answer","prompt":"A: Did you back up the database? B: Yes, I ___.","choices":["did","do","was"],"answer":"did","accept":[],"explain":"Câu hỏi bằng Did thì trả lời ngắn bằng did."},
+    {"kind":"tenseChoice","level":"easy","topic":"Short answer","prompt":"A: Does Minh work in the HR department? B: No, he ___.","choices":["doesn't","don't","isn't"],"answer":"doesn't","accept":[],"explain":"Câu hỏi bằng Does thì trả lời phủ định bằng doesn't."},
+    {"kind":"tenseChoice","level":"easy","topic":"Base form","prompt":"Does your team ___ Jira for task tracking?","choices":["use","uses","using"],"answer":"use","accept":[],"explain":"Sau Does, động từ giữ nguyên mẫu."},
+    {"kind":"tenseChoice","level":"medium","topic":"Base form","prompt":"She didn't ___ the training video yesterday.","choices":["watch","watched","watches"],"answer":"watch","accept":[],"explain":"Sau didn't, động từ giữ nguyên mẫu."},
+    {"kind":"tenseChoice","level":"medium","topic":"Wh- question","prompt":"Why ___ the server restart every night?","choices":["does","do","is"],"answer":"does","accept":[],"explain":"The server là số ít, động từ thường nên dùng does."},
+    {"kind":"tenseChoice","level":"medium","topic":"Future · will","prompt":"___ you be at the office tomorrow afternoon?","choices":["Will","Do","Did"],"answer":"Will","accept":[],"explain":"Tomorrow là tương lai nên dùng Will, không dùng Do."},
+    {"kind":"tenseChoice","level":"medium","topic":"Wh- question","prompt":"How often ___ the system send automatic reports?","choices":["does","do","is"],"answer":"does","accept":[],"explain":"The system là số ít nên dùng does + send."},
+    {"kind":"tenseChoice","level":"medium","topic":"Did · negative","prompt":"Mr. Tan ___ approve the budget at yesterday's meeting.","choices":["didn't","doesn't","don't"],"answer":"didn't","accept":[],"explain":"Yesterday's meeting là quá khứ nên dùng didn't."},
+    {"kind":"tenseChoice","level":"hard","topic":"Who as subject","prompt":"Who ___ the meeting room for 3 p.m.?","choices":["booked","did booked","does booked"],"answer":"booked","accept":[],"explain":"Who là chủ ngữ nên không cần did: Who booked…?"},
+    {"kind":"tenseChoice","level":"hard","topic":"What as subject","prompt":"What ___ to the database last night? It's empty now.","choices":["happened","did happened","does happen"],"answer":"happened","accept":[],"explain":"What là chủ ngữ nên dùng happened, không thêm did."},
+    {"kind":"tenseChoice","level":"hard","topic":"Do vs be","prompt":"___ she understand the new security rules?","choices":["Does","Is","Do"],"answer":"Does","accept":[],"explain":"Understand là động từ thường nên hỏi bằng Does, không dùng Is."},
+    {"kind":"tenseChoice","level":"hard","topic":"Have question","prompt":"___ you have a spare charger for my laptop?","choices":["Do","Are","Does"],"answer":"Do","accept":[],"explain":"Hỏi với have cho chủ ngữ you dùng Do."},
+    {"kind":"tenseChoice","level":"hard","topic":"Did · negative","prompt":"The manager ___ like the first design, so we changed it.","choices":["didn't","doesn't","wasn't"],"answer":"didn't","accept":[],"explain":"Changed là quá khứ nên vế đầu dùng didn't."},
+    {"kind":"tenseChoice","level":"hard","topic":"Do · negative","prompt":"I'm sorry, I ___ know the answer right now, but I'll ask the team lead.","choices":["don't","didn't","won't"],"answer":"don't","accept":[],"explain":"Right now là hiện tại nên dùng don't."},
+    {"kind":"tenseChoice","level":"hard","topic":"Wh- question","prompt":"Which department ___ you work in before you joined our company?","choices":["did","do","were"],"answer":"did","accept":[],"explain":"Before you joined là quá khứ nên dùng did + work."},
+    {"kind":"tenseChoice","level":"hard","topic":"Future · won't","prompt":"The meeting is tomorrow, but Lan ___ be there because she is on leave.","choices":["won't","doesn't","didn't"],"answer":"won't","accept":[],"explain":"Tomorrow là tương lai và đi với be nên dùng won't."},
+    {"kind":"tenseChoice","level":"hard","topic":"Who · object question","prompt":"Who ___ call about the server outage last night?","choices":["did you","you did","you"],"answer":"did you","accept":[],"explain":"Hỏi “bạn đã gọi ai”: Who là tân ngữ nên cần did + chủ ngữ + động từ nguyên mẫu: Who did you call?"},
+    {"kind":"tense","level":"medium","topic":"Who · object question","prompt":"Who ___ (do) Lan report to — Mr. Tan or Ms. Hoa?","choices":[],"answer":"does","accept":[],"explain":"Who là tân ngữ (Lan báo cáo cho ai), Lan số ít, hiện tại → Who does Lan report to?"},
+    {"kind":"tense","level":"hard","topic":"Who · subject question","prompt":"Who usually ___ (approve) the leave requests in your department?","choices":[],"answer":"approves","accept":[],"explain":"Who là chủ ngữ (ai duyệt) nên không dùng does; động từ chia như he / she → approves."},
+    {"kind":"tenseChoice","level":"hard","topic":"Indirect question","prompt":"Excuse me, can you tell me where ___?","choices":["the meeting room is","is the meeting room","does the meeting room is"],"answer":"the meeting room is","accept":[],"explain":"Câu hỏi gián tiếp giữ trật tự chủ ngữ + động từ: …where the meeting room is."},
+    {"kind":"tenseChoice","level":"hard","topic":"Indirect question","prompt":"Do you know what time ___ tomorrow?","choices":["the training starts","does the training start","starts the training"],"answer":"the training starts","accept":[],"explain":"Sau “Do you know…”, phần câu hỏi không dùng does và giữ trật tự câu kể: the training starts."},
+    {"kind":"tense","level":"hard","topic":"Indirect question","prompt":"Do you know where Mr. Long usually ___ (keep) the key to the server room?","choices":[],"answer":"keeps","accept":[],"explain":"Câu hỏi gián tiếp không dùng does; Mr. Long số ít, thói quen → keeps."},
+    {"kind":"tense","level":"easy","topic":"Do · main verb","prompt":"A: What ___ (do) you do? B: I'm a business analyst at a bank.","choices":[],"answer":"do","accept":[],"explain":"Hỏi nghề nghiệp: What do you do? (do đầu là trợ động từ, do sau là động từ chính)."},
+    {"kind":"tense","level":"easy","topic":"Do · main verb","prompt":"Lan ___ (do) the weekly sales report every Friday afternoon.","choices":[],"answer":"does","accept":[],"explain":"Do là động từ chính (làm báo cáo), Lan số ít, thói quen → does."},
+    {"kind":"tense","level":"medium","topic":"Do · main verb","prompt":"Did you ___ (do) the code review for my pull request yesterday?","choices":[],"answer":"do","accept":[],"explain":"Sau Did, động từ chính do giữ nguyên mẫu: Did you do…?"},
+    {"kind":"tenseChoice","level":"medium","topic":"Do vs make","prompt":"Who is going to ___ the final decision about the budget?","choices":["make","do","have"],"answer":"make","accept":[],"explain":"Cụm cố định: make a decision (không nói do a decision)."},
+    {"kind":"tenseChoice","level":"medium","topic":"Do vs make","prompt":"Before the meeting, I need to ___ some research on the client's competitors.","choices":["do","make","have"],"answer":"do","accept":[],"explain":"Cụm cố định: do research (giống do a report, do the testing)."},
+    {"kind":"tense","level":"medium","topic":"Do · main verb","prompt":"Linh ___ (not / do) overtime at weekends unless there is an urgent release.","choices":[],"answer":"doesn't do","accept":["does not do"],"explain":"Do là động từ chính (làm thêm giờ) nên phủ định vẫn cần trợ động từ: doesn't do."},
+    {"kind":"tenseChoice","level":"easy","topic":"Don't · imperative","prompt":"___ touch the production database without approval.","choices":["Don't","Doesn't","Not","No"],"answer":"Don't","accept":[],"explain":"Mệnh lệnh phủ định: Don't + động từ nguyên mẫu, dùng cho mọi người nghe."},
+    {"kind":"tenseChoice","level":"medium","topic":"Tag question","prompt":"You work in the QA team, ___?","choices":["don't you","aren't you","do you","didn't you"],"answer":"don't you","accept":[],"explain":"Câu khẳng định hiện tại với động từ thường (work) → đuôi phủ định don't you?"},
+    {"kind":"tenseChoice","level":"hard","topic":"Tag question","prompt":"The client didn't sign the contract yesterday, ___?","choices":["did they","didn't they","do they"],"answer":"did they","accept":[],"explain":"Câu phủ định quá khứ → đuôi khẳng định did; “the client” thường được thay bằng they."},
+    {"kind":"tenseChoice","level":"medium","topic":"Neither do I","prompt":"A: I don't like long meetings. B: ___. Let's keep it short.","choices":["Neither do I","So do I","Neither I do","So I don't"],"answer":"Neither do I","accept":[],"explain":"Đồng tình với câu phủ định: Neither do I (đảo do lên trước I)."},
+    {"kind":"tenseChoice","level":"hard","topic":"Emphasis · does","prompt":"He ___ work hard, but he often misses deadlines.","choices":["does","do","is"],"answer":"does","accept":[],"explain":"Nhấn mạnh với chủ ngữ he: does + động từ nguyên mẫu (does work)."},
+    {"kind":"tense","level":"hard","topic":"Negative question","prompt":"___ (not / do) you get my email about the new schedule? I sent it yesterday.","choices":[],"answer":"Didn't","accept":[],"explain":"Câu hỏi phủ định ở quá khứ (ngạc nhiên): Didn't you get…?"}
   ]
 }

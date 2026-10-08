@@ -3,40 +3,56 @@
   "group": "foundations",
   "name": "Be (am / is / are / was / were)",
   "vi": "Động từ “to be”",
-  "summary": "“Be” nghĩa là “thì, là, ở” và đổi dạng theo chủ ngữ và thời gian: am / is / are (hiện tại), was / were (quá khứ), will be (tương lai). Nó cũng là trợ động từ trong thì tiếp diễn và câu bị động, nên không bao giờ đi kèm động từ nguyên mẫu như “is work”.",
+  "summary": "“Be” nghĩa là “thì, là, ở” và đổi dạng theo chủ ngữ và thời gian: am / is / are (hiện tại), was / were (quá khứ), will be (tương lai). Nó cũng là trợ động từ trong thì tiếp diễn và câu bị động, nên không đi kèm động từ nguyên mẫu như “is work”. Muốn nói “có” (tồn tại) thì dùng there is / there are, không dùng “it has”.",
   "tables": [
     {
       "title": "Forms by subject",
-      "columns": ["Subject", "Present", "Past", "Future"],
+      "columns": ["Subject","Present","Past","Future"],
       "rows": [
-        { "label": "I", "cells": ["I", "am (I'm)", "was", "will be"] },
-        { "label": "You / We / They", "cells": ["You / We / They", "are (you're, we're, they're)", "were", "will be"] },
-        { "label": "He / She / It", "cells": ["He / She / It", "is (he's, she's, it's)", "was", "will be"] },
-        { "label": "Danh từ số ít / không đếm được", "cells": ["The server / The data / Everyone", "is", "was", "will be"] },
-        { "label": "Danh từ số nhiều", "cells": ["The servers / My colleagues", "are", "were", "will be"] }
+        {"label":"I","cells":["I","am (I'm)","was","will be (I'll be)"]},
+        {"label":"You / We / They","cells":["You / We / They","are (you're, we're, they're)","were","will be (we'll be…)"]},
+        {"label":"He / She / It","cells":["He / She / It","is (he's, she's, it's)","was","will be (it'll be…)"]},
+        {"label":"Singular / uncountable noun","cells":["The server / The information / Everyone","is","was","will be"]},
+        {"label":"Plural noun","cells":["The servers / My colleagues","are","were","will be"]}
       ],
-      "note": "“Will be” giống nhau cho mọi chủ ngữ. Everyone, nobody, each of…, one of… và danh từ không đếm được (information, software, news) đi với is / was."
+      "note": "“Will be” giống nhau cho mọi chủ ngữ (rút gọn: 'll be). Was / were không có dạng rút gọn. Everyone, nobody, each of…, one of… và danh từ không đếm được (information, software, news) đi với is / was."
     },
     {
       "title": "Negative & question",
-      "columns": ["Time", "Negative", "Question", "Short answer"],
+      "columns": ["Time","Negative","Question","Short answer"],
       "rows": [
-        { "label": "Present", "cells": ["Present", "I'm not / She isn't / They aren't ready.", "Is she ready? / Are they ready?", "Yes, she is. / No, they aren't."] },
-        { "label": "Past", "cells": ["Past", "He wasn't / We weren't at work.", "Was he at work? / Were they late?", "Yes, he was. / No, they weren't."] },
-        { "label": "Future", "cells": ["Future", "It won't be easy.", "Will it be ready tomorrow?", "Yes, it will. / No, it won't."] }
+        {"label":"Present","cells":["Present","I'm not / She isn't / They aren't ready.","Am I late? / Is she ready? / Are they ready?","Yes, she is. / No, they aren't."]},
+        {"label":"Present (full form)","cells":["Present (full form)","I am not / She is not / They are not ready.","Is the server down?","No, I'm not. / No, it's not."]},
+        {"label":"Past","cells":["Past","He wasn't / We weren't at work.","Was he at work? / Were they late?","Yes, he was. / No, they weren't."]},
+        {"label":"Future","cells":["Future","It won't be easy.","Will it be ready tomorrow?","Yes, it will. / No, it won't."]},
+        {"label":"Wh- question","cells":["Wh- question","Why weren't you at the stand-up?","Where is the server room? / Who was on call?","It's on the 5th floor. / Nam was."]}
       ],
-      "note": "Phủ định: thêm “not” sau be (không dùng don't / didn't). Câu hỏi: đảo be lên trước chủ ngữ. Trả lời ngắn “Yes, I am” — không viết tắt “Yes, I'm”."
+      "note": "Phủ định: thêm “not” sau be (không dùng don't / didn't, trừ câu mệnh lệnh: Don't be late). Không có dạng “amn't”: I'm not; câu hỏi đuôi: I'm late, aren't I? “She's not / they're not” cũng đúng như “isn't / aren't”. Trả lời ngắn khẳng định: “Yes, I am”, không viết “Yes, I'm”."
     },
     {
       "title": "There is / there are",
-      "columns": ["Time", "Singular / uncountable", "Plural"],
+      "columns": ["Time","Singular / uncountable","Plural"],
       "rows": [
-        { "label": "Present", "cells": ["Present", "There is a bug. / There is some data.", "There are two bugs."] },
-        { "label": "Past", "cells": ["Past", "There was a meeting.", "There were many tickets."] },
-        { "label": "Future", "cells": ["Future", "There will be a demo.", "There will be three demos."] },
-        { "label": "Negative / question", "cells": ["Negative / question", "There isn't any time. / Is there a problem?", "There weren't any errors. / Are there any questions?"] }
+        {"label":"Present","cells":["Present","There is a bug. / There is some information.","There are two bugs."]},
+        {"label":"Past","cells":["Past","There was a meeting.","There were many tickets."]},
+        {"label":"Future","cells":["Future","There will be a demo.","There will be three demos."]},
+        {"label":"Negative / question","cells":["Negative / question","There isn't any time. / Is there a problem?","There aren't any errors. / Are there any questions?"]},
+        {"label":"Short answer","cells":["Short answer","Is there a fix? – Yes, there is.","Are there any tickets? – No, there aren't."]}
       ],
-      "note": "Be chia theo danh từ đứng ngay sau “there”."
+      "note": "Be chia theo danh từ đầu tiên sau “there” (There is a laptop and two monitors). Văn nói hay dùng “there's” + số nhiều, nhưng khi viết hãy dùng “there are”. Muốn nói “có” thì không bao giờ dùng “there have / has” hay “it has”."
+    },
+    {
+      "title": "Special cases",
+      "columns": ["Case","Right","Wrong"],
+      "rows": [
+        {"label":"“Có” (something exists)","cells":["“Có” (something exists)","There is a problem with the VPN.","It has a problem with the VPN. / Have a problem…"]},
+        {"label":"Imperative","cells":["Imperative","Be careful. / Don't be late.","Not be late. / Aren't late."]},
+        {"label":"Born","cells":["Born","I was born in 1998.","I born in 1998. / I am born in Hue."]},
+        {"label":"Age","cells":["Age","I am 26 (years old).","I have 26 years old."]},
+        {"label":"Weather / time / distance","cells":["Weather / time / distance","It's hot today. / It's 3 p.m. / It's 5 km.","Is hot today. / Is 3 p.m."]},
+        {"label":"been / being","cells":["been / being","It has been fixed. / It is being fixed.","It has being fixed. / It is been fixed."]}
+      ],
+      "note": "been = dạng V3 của be (dùng sau have / has / had); being = dạng V-ing của be (dùng sau am / is / are / was / were)."
     }
   ],
   "uses": [
@@ -44,85 +60,130 @@
       "title": "Be + tính từ / danh từ / nơi chốn",
       "explain": "Dùng be để mô tả trạng thái, nghề nghiệp, vị trí. Tiếng Việt thường bỏ chữ “thì / là”, nhưng tiếng Anh bắt buộc phải có be.",
       "examples": [
-        { "en": "I am a QA engineer.", "vi": "Tôi là kỹ sư kiểm thử." },
-        { "en": "The server was very slow yesterday.", "vi": "Hôm qua máy chủ rất chậm." },
-        { "en": "Our manager is in Singapore this week.", "vi": "Tuần này quản lý của chúng tôi đang ở Singapore." }
+        {"en":"I am a QA engineer.","vi":"Tôi là kỹ sư kiểm thử."},
+        {"en":"The server was very slow yesterday.","vi":"Hôm qua máy chủ rất chậm."},
+        {"en":"Our manager is in Singapore this week.","vi":"Tuần này quản lý của chúng tôi đang ở Singapore."}
       ]
     },
     {
       "title": "Be làm trợ động từ (tiếp diễn, bị động)",
-      "explain": "Be + V-ing tạo thì tiếp diễn; be + V3 (quá khứ phân từ) tạo câu bị động. Không dùng be + động từ nguyên mẫu.",
+      "explain": "Be + V-ing tạo thì tiếp diễn; be + V3 (quá khứ phân từ) tạo câu bị động. Dạng V-ing của be là being (is being tested), dạng V3 là been (has been down). Không dùng be + động từ nguyên mẫu.",
       "examples": [
-        { "en": "She is working on the payment module.", "vi": "Cô ấy đang làm module thanh toán." },
-        { "en": "The bug was fixed last night.", "vi": "Lỗi đã được sửa tối qua." },
-        { "en": "The reports will be sent on Friday.", "vi": "Các báo cáo sẽ được gửi vào thứ Sáu." }
+        {"en":"She is working on the payment module.","vi":"Cô ấy đang làm module thanh toán."},
+        {"en":"The bug was fixed last night.","vi":"Lỗi đã được sửa tối qua."},
+        {"en":"The app is being tested now, and the server has been stable since Monday.","vi":"Ứng dụng đang được kiểm thử, và máy chủ đã ổn định từ thứ Hai."}
       ]
     },
     {
       "title": "There is / there are: “có”",
-      "explain": "Dùng để nói một thứ tồn tại ở đâu đó. Chia be theo danh từ phía sau: số ít / không đếm được → is / was; số nhiều → are / were.",
+      "explain": "Dùng để nói một thứ tồn tại ở đâu đó. Chia be theo danh từ phía sau: số ít / không đếm được → is / was; số nhiều → are / were. Không dùng “it has / have” để nói “có”.",
       "examples": [
-        { "en": "There is a problem with the VPN.", "vi": "Có một vấn đề với VPN." },
-        { "en": "There were 20 people in the training.", "vi": "Có 20 người trong buổi đào tạo." }
+        {"en":"There is a problem with the VPN.","vi":"Có một vấn đề với VPN."},
+        {"en":"There were 20 people in the training.","vi":"Có 20 người trong buổi đào tạo."},
+        {"en":"Is there a meeting room free at 3 p.m.? – No, there isn't.","vi":"Có phòng họp nào trống lúc 3 giờ chiều không? – Không có."}
       ]
     },
     {
       "title": "Câu hỏi và câu trả lời ngắn",
-      "explain": "Đảo be lên đầu để hỏi; trả lời ngắn bằng chủ ngữ + be (không viết tắt khi khẳng định).",
+      "explain": "Đảo be lên trước chủ ngữ để hỏi, có thể thêm từ để hỏi phía trước (Where is…? Who was…?). Trả lời ngắn bằng chủ ngữ + be (không viết tắt khi khẳng định).",
       "examples": [
-        { "en": "Are you ready for the demo? — Yes, I am.", "vi": "Bạn sẵn sàng cho buổi demo chưa? — Rồi." },
-        { "en": "Were they in the meeting? — No, they weren't.", "vi": "Họ có ở trong cuộc họp không? — Không." }
+        {"en":"Are you ready for the demo? — Yes, I am.","vi":"Bạn sẵn sàng cho buổi demo chưa? — Rồi."},
+        {"en":"Were they in the meeting? — No, they weren't.","vi":"Họ có ở trong cuộc họp không? — Không."},
+        {"en":"Where is the server room? — It's on the 5th floor.","vi":"Phòng máy chủ ở đâu? — Ở tầng 5."}
+      ]
+    },
+    {
+      "title": "Mệnh lệnh: Be… / Don't be…",
+      "explain": "Câu mệnh lệnh dùng be nguyên mẫu: Be careful. Phủ định là Don't be… — đây là trường hợp duy nhất be đi với don't.",
+      "examples": [
+        {"en":"Be on time for the demo.","vi":"Hãy đến đúng giờ buổi demo."},
+        {"en":"Don't be late for the client call.","vi":"Đừng trễ cuộc gọi với khách hàng."}
+      ]
+    },
+    {
+      "title": "Chủ ngữ giả “It”: thời tiết, giờ, khoảng cách",
+      "explain": "Câu tiếng Anh luôn cần chủ ngữ. Khi nói về thời tiết, giờ, ngày, khoảng cách, dùng It + be, không bỏ chủ ngữ như tiếng Việt (“Nóng quá”).",
+      "examples": [
+        {"en":"It's very hot in the server room today.","vi":"Hôm nay phòng máy chủ nóng quá."},
+        {"en":"It's 3 p.m., so the meeting is starting now.","vi":"Đã 3 giờ chiều rồi, cuộc họp đang bắt đầu."},
+        {"en":"It's about 5 km from here to the airport.","vi":"Từ đây đến sân bay khoảng 5 km."}
+      ]
+    },
+    {
+      "title": "Sinh ra: was / were born; tuổi: be + số",
+      "explain": "“Sinh ra” là be born và thường dùng ở quá khứ: I was born… Nói tuổi cũng dùng be: I am 26 (years old), không dùng have.",
+      "examples": [
+        {"en":"I was born in Hue in 1998.","vi":"Tôi sinh ra ở Huế năm 1998."},
+        {"en":"Where were you born?","vi":"Bạn sinh ra ở đâu?"},
+        {"en":"My manager is 35 years old.","vi":"Quản lý của tôi 35 tuổi."}
       ]
     }
   ],
   "mistakes": [
-    { "wrong": "I am agree with you.", "right": "I agree with you.", "explain": "“Agree” là động từ, không cần “am”. Tương tự: “I am not understand” → “I don't understand”." },
-    { "wrong": "He is work here.", "right": "He works here. / He is working here.", "explain": "Không dùng be + động từ nguyên mẫu. Dùng hiện tại đơn (works) hoặc be + V-ing." },
-    { "wrong": "They was late for the meeting.", "right": "They were late for the meeting.", "explain": "Chủ ngữ số nhiều (they, we, you) dùng “were”, không dùng “was”." },
-    { "wrong": "There is two bugs in this build.", "right": "There are two bugs in this build.", "explain": "Be chia theo danh từ sau “there”: “two bugs” số nhiều → are." },
-    { "wrong": "Is you ready?", "right": "Are you ready?", "explain": "“You” luôn đi với are / were, kể cả khi chỉ một người." },
-    { "wrong": "The informations are wrong.", "right": "The information is wrong.", "explain": "Information, software, news, equipment là danh từ không đếm được → dùng is / was, không thêm -s." }
+    {"wrong":"I am agree with you.","right":"I agree with you.","explain":"“Agree” là động từ, không cần “am”. Tương tự: “I am not understand” → “I don't understand”."},
+    {"wrong":"He is work here.","right":"He works here. / He is working here.","explain":"Không dùng be + động từ nguyên mẫu. Dùng hiện tại đơn (works) hoặc be + V-ing."},
+    {"wrong":"They was late for the meeting.","right":"They were late for the meeting.","explain":"Chủ ngữ số nhiều (they, we, you) dùng “were”, không dùng “was”."},
+    {"wrong":"There is two bugs in this build.","right":"There are two bugs in this build.","explain":"Be chia theo danh từ sau “there”: “two bugs” số nhiều → are."},
+    {"wrong":"Is you ready?","right":"Are you ready?","explain":"“You” luôn đi với are / were, kể cả khi chỉ một người."},
+    {"wrong":"The informations are wrong.","right":"The information is wrong.","explain":"Information, software, news, equipment là danh từ không đếm được → dùng is / was, không thêm -s."},
+    {"wrong":"It has two bugs in this build. / Have a problem with the VPN.","right":"There are two bugs in this build. / There is a problem with the VPN.","explain":"Nói “có” (một thứ tồn tại ở đâu đó) dùng there is / there are, không dịch từng chữ thành “it has / have”."},
+    {"wrong":"I born in 1995. / I am born in Hue.","right":"I was born in 1995. / I was born in Hue.","explain":"“Sinh ra” là be born; kể chuyện đã qua nên dùng was / were born."},
+    {"wrong":"Is very hot today.","right":"It is very hot today.","explain":"Câu tiếng Anh luôn cần chủ ngữ; thời tiết, giờ, khoảng cách dùng chủ ngữ giả “it”."}
   ],
   "drills": [
-    { "kind": "tense", "level": "easy", "topic": "Be · present", "prompt": "Right now I ___ (be) a backend developer at a software company in Da Nang.", "choices": [], "answer": "am", "accept": [], "explain": "Chủ ngữ “I” ở hiện tại (right now) → am." },
-    { "kind": "tense", "level": "easy", "topic": "Be · present", "prompt": "Our team leader ___ (be) in a meeting at the moment, so please call back later.", "choices": [], "answer": "is", "accept": [], "explain": "Chủ ngữ số ít, “at the moment” là hiện tại → is." },
-    { "kind": "tense", "level": "easy", "topic": "Be · past", "prompt": "All the servers ___ (be) down for two hours yesterday because of a power cut.", "choices": [], "answer": "were", "accept": [], "explain": "“The servers” số nhiều, “yesterday” là quá khứ → were." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Be · present", "prompt": "My colleagues ___ very friendly and always help new staff.", "choices": ["am", "is", "are"], "answer": "are", "accept": [], "explain": "“My colleagues” số nhiều ở hiện tại → are." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Be · present", "prompt": "The meeting room ___ on the third floor, next to the IT department.", "choices": ["am", "is", "are"], "answer": "is", "accept": [], "explain": "“The meeting room” số ít → is." },
-    { "kind": "tense", "level": "easy", "topic": "Be · future", "prompt": "Don't worry. I'm sure you ___ (be) fine at your job interview tomorrow.", "choices": [], "answer": "will be", "accept": [], "explain": "Dự đoán cho “tomorrow” sau “I'm sure” → will be." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Be · question", "prompt": "___ you at the office yesterday afternoon? I couldn't find you.", "choices": ["Was", "Were", "Are", "Did"], "answer": "Were", "accept": [], "explain": "Câu hỏi quá khứ với “you” → Were you…?" },
-    { "kind": "tense", "level": "medium", "topic": "Be · negative", "prompt": "The printer ___ (not / be) working this morning, so I couldn't print the report.", "choices": [], "answer": "wasn't", "accept": ["was not"], "explain": "Chủ ngữ số ít, câu kể chuyện quá khứ (couldn't) → wasn't (+ V-ing)." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "There is/are", "prompt": "Please check your email. There ___ a new message from the client in your inbox.", "choices": ["am", "is", "are"], "answer": "is", "accept": [], "explain": "“A new message” số ít → there is." },
-    { "kind": "tense", "level": "medium", "topic": "Be · agreement", "prompt": "Mr. Nam and I ___ (be) on the same project team now, so we sit together.", "choices": [], "answer": "are", "accept": [], "explain": "Hai chủ ngữ nối bằng “and” = số nhiều (we) → are." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Be · agreement", "prompt": "Everyone in the QA team ___ ready for the demo now.", "choices": ["am", "is", "are"], "answer": "is", "accept": [], "explain": "“Everyone” đi với động từ số ít → is." },
-    { "kind": "tense", "level": "hard", "topic": "Be · agreement", "prompt": "The information in this report ___ (be) out of date now, so please update it before the meeting.", "choices": [], "answer": "is", "accept": [], "explain": "“Information” không đếm được, ở hiện tại (now) → is." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Be · agreement", "prompt": "One of our servers ___ offline for an hour last night.", "choices": ["was", "were", "is"], "answer": "was", "accept": [], "explain": "Chủ ngữ thật là “one” (số ít), “last night” → was." },
-    { "kind": "tense", "level": "medium", "topic": "There was/were", "prompt": "There ___ (be) three critical bugs in the version we released last Friday, but we fixed them all on Monday.", "choices": [], "answer": "were", "accept": [], "explain": "“Three critical bugs” số nhiều, đã sửa xong trong quá khứ → there were." },
-    { "kind": "tense", "level": "easy", "topic": "Be · question", "prompt": "___ (be) the client happy with the demo yesterday?", "choices": [], "answer": "Was", "accept": [], "explain": "Câu hỏi quá khứ, “the client” số ít → Was…?" },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Be · agreement", "prompt": "The news about the merger ___ a big surprise to everyone last week.", "choices": ["was", "were", "is"], "answer": "was", "accept": [], "explain": "“News” không đếm được dù có -s → was." },
-    { "kind": "tense", "level": "medium", "topic": "Be · negative", "prompt": "The new laptops ___ (not / be) here yet; the supplier says they will arrive next week.", "choices": [], "answer": "aren't", "accept": ["are not"], "explain": "“The new laptops” số nhiều, hiện tại (yet) → aren't." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Be · question", "prompt": "___ it be sunny for the team-building trip next Saturday?", "choices": ["Will", "Is", "Was", "Does"], "answer": "Will", "accept": [], "explain": "Câu hỏi tương lai với be → Will it be…?" },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Be · future", "prompt": "I'm sure the customers ___ happy when they see the new dashboard next week.", "choices": ["will be", "are", "were", "was"], "answer": "will be", "accept": [], "explain": "Dự đoán cho “next week” → will be." },
-    { "kind": "tense", "level": "easy", "topic": "Be · question", "prompt": "Where ___ (be) you at 9 a.m. yesterday? The manager was looking for you.", "choices": [], "answer": "were", "accept": [], "explain": "Câu hỏi quá khứ với “you” → were." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "If I were", "prompt": "If I ___ you, I would ask the team lead for help.", "choices": ["am", "are", "were", "will be"], "answer": "were", "accept": [], "explain": "Lời khuyên giả định “If I were you” → were." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Be · agreement", "prompt": "The number of support tickets ___ much higher this month than last month.", "choices": ["is", "are", "were"], "answer": "is", "accept": [], "explain": "“The number of…” là một con số (số ít) → is." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Be · agreement", "prompt": "A number of employees ___ working from home today because of the storm.", "choices": ["is", "are", "was"], "answer": "are", "accept": [], "explain": "“A number of…” = nhiều người (số nhiều) → are." },
-    { "kind": "tense", "level": "hard", "topic": "Be · agreement", "prompt": "Nobody ___ (be) in the office when the fire alarm went off last night.", "choices": [], "answer": "was", "accept": [], "explain": "“Nobody” là số ít, “last night” → was." },
-    { "kind": "tense", "level": "hard", "topic": "Be · agreement", "prompt": "The new accounting software ___ (be) much faster than the old one, so everyone likes it now.", "choices": [], "answer": "is", "accept": [], "explain": "“Software” không đếm được, hiện tại (now) → is." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "There is/are", "prompt": "There ___ some useful information about the API in the README file.", "choices": ["am", "is", "are"], "answer": "is", "accept": [], "explain": "“Information” không đếm được → there is." },
-    { "kind": "tense", "level": "medium", "topic": "Be · past", "prompt": "My manager and the HR director ___ (be) in Hanoi for a conference last week.", "choices": [], "answer": "were", "accept": [], "explain": "Hai người nối bằng “and” = số nhiều, “last week” → were." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Be · auxiliary", "prompt": "Look at the dashboard! The build ___ failing again.", "choices": ["is", "are", "were"], "answer": "is", "accept": [], "explain": "“Look!” → đang xảy ra; “the build” số ít → is failing." },
-    { "kind": "tense", "level": "medium", "topic": "Be · auxiliary", "prompt": "The login bug ___ (be) fixed by Minh yesterday afternoon.", "choices": [], "answer": "was", "accept": [], "explain": "Bị động quá khứ, chủ ngữ số ít → was fixed." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Be · auxiliary", "prompt": "All the test cases ___ updated during the last sprint.", "choices": ["was", "were", "are"], "answer": "were", "accept": [], "explain": "Bị động quá khứ, “test cases” số nhiều → were updated." },
-    { "kind": "tense", "level": "easy", "topic": "Be · negative", "prompt": "Lan ___ (not / be) at work yesterday because she was sick.", "choices": [], "answer": "wasn't", "accept": ["was not"], "explain": "Chủ ngữ số ít, “yesterday” → wasn't." },
-    { "kind": "tense", "level": "medium", "topic": "Be · negative", "prompt": "Don't worry. We ___ (not / be) late for the client call tomorrow.", "choices": [], "answer": "won't be", "accept": ["will not be"], "explain": "Lời hứa cho “tomorrow” → won't be." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Be · short answer", "prompt": "A: Were the testers in the meeting? B: No, they ___.", "choices": ["weren't", "didn't", "wasn't", "aren't"], "answer": "weren't", "accept": [], "explain": "Hỏi bằng “Were” thì trả lời ngắn bằng “were / weren't”." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Be · short answer", "prompt": "A: Are you free after lunch? B: Yes, I ___.", "choices": ["am", "'m", "do", "are"], "answer": "am", "accept": [], "explain": "Trả lời ngắn khẳng định không viết tắt: “Yes, I am”." },
-    { "kind": "tense", "level": "medium", "topic": "There was/were", "prompt": "There ___ (be) a lot of traffic on the way to the office this morning, so I arrived late.", "choices": [], "answer": "was", "accept": [], "explain": "“Traffic” không đếm được, chuyện đã xảy ra (arrived) → there was." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "There is/are", "prompt": "There ___ a lot of users online right now, so the server is slow.", "choices": ["is", "are", "was"], "answer": "are", "accept": [], "explain": "“A lot of users” số nhiều, “right now” → there are." },
-    { "kind": "tense", "level": "hard", "topic": "Be · agreement", "prompt": "Each of the developers ___ (be) responsible for one module in the current project.", "choices": [], "answer": "is", "accept": [], "explain": "“Each of…” đi với động từ số ít → is." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Be · agreement", "prompt": "The manager, together with two engineers, ___ visiting the client site right now.", "choices": ["is", "are", "were"], "answer": "is", "accept": [], "explain": "Chủ ngữ chính là “the manager” (số ít); “together with…” không làm thành số nhiều → is." },
-    { "kind": "tense", "level": "medium", "topic": "There is/are", "prompt": "___ (be) there any questions before we finish the meeting?", "choices": [], "answer": "Are", "accept": [], "explain": "“Any questions” số nhiều, hiện tại → Are there…?" },
-    { "kind": "tense", "level": "easy", "topic": "Be · negative", "prompt": "I ___ (not / be) sure about the new requirements yet, so I'll ask the BA.", "choices": [], "answer": "am not", "accept": ["'m not"], "explain": "Chủ ngữ “I”, hiện tại → am not." }
+    {"kind":"tense","level":"easy","topic":"Be · present","prompt":"Currently I ___ (be) a backend developer at a software company in Da Nang.","choices":[],"answer":"am","accept":["'m"],"explain":"Chủ ngữ “I” ở hiện tại (currently) → am."},
+    {"kind":"tense","level":"easy","topic":"Be · present","prompt":"Our team leader ___ (be) in a meeting at the moment, so please call back later.","choices":[],"answer":"is","accept":["'s"],"explain":"Chủ ngữ số ít, “at the moment” là hiện tại → is."},
+    {"kind":"tense","level":"easy","topic":"Be · past","prompt":"All the servers ___ (be) down for two hours yesterday because of a power cut.","choices":[],"answer":"were","accept":[],"explain":"“The servers” số nhiều, “yesterday” là quá khứ → were."},
+    {"kind":"tenseChoice","level":"easy","topic":"Be · present","prompt":"My colleagues ___ very friendly and always help new staff.","choices":["am","is","are"],"answer":"are","accept":[],"explain":"“My colleagues” số nhiều ở hiện tại → are."},
+    {"kind":"tenseChoice","level":"easy","topic":"Be · present","prompt":"The meeting room ___ on the third floor, next to the IT department.","choices":["am","is","are"],"answer":"is","accept":[],"explain":"“The meeting room” số ít → is."},
+    {"kind":"tense","level":"easy","topic":"Be · future","prompt":"Don't worry. I'm sure you ___ (be) fine at your job interview tomorrow.","choices":[],"answer":"will be","accept":["'ll be","are going to be","'re going to be"],"explain":"Dự đoán cho “tomorrow” sau “I'm sure” → will be (cũng có thể: are going to be)."},
+    {"kind":"tenseChoice","level":"easy","topic":"Be · question","prompt":"___ you at the office yesterday afternoon? I couldn't find you.","choices":["Was","Were","Are","Did"],"answer":"Were","accept":[],"explain":"Câu hỏi quá khứ với “you” → Were you…?"},
+    {"kind":"tense","level":"medium","topic":"Be · negative","prompt":"The printer ___ (not / be) working yesterday morning, so I couldn't print the report.","choices":[],"answer":"wasn't","accept":["was not"],"explain":"Chủ ngữ số ít, “yesterday morning” là quá khứ → wasn't (+ V-ing)."},
+    {"kind":"tenseChoice","level":"easy","topic":"There is/are","prompt":"Please check your email. There ___ a new message from the client in your inbox.","choices":["am","is","are"],"answer":"is","accept":[],"explain":"“A new message” số ít → there is."},
+    {"kind":"tense","level":"medium","topic":"Be · agreement","prompt":"Mr. Nam and I ___ (be) on the same project team now, so we sit together.","choices":[],"answer":"are","accept":[],"explain":"Hai chủ ngữ nối bằng “and” = số nhiều (we) → are."},
+    {"kind":"tenseChoice","level":"medium","topic":"There is vs it has","prompt":"___ a lot of people in the lobby waiting for the job interviews.","choices":["There are","It has","Have","There is"],"answer":"There are","accept":[],"explain":"“Có” (tồn tại) dùng there are với “a lot of people” (số nhiều), không dùng “it has / have”."},
+    {"kind":"tense","level":"hard","topic":"Was/were born","prompt":"Both of my parents ___ (be) born in Hai Phong, but I grew up in Hanoi.","choices":[],"answer":"were","accept":[],"explain":"“Sinh ra” là be born ở quá khứ; “both of my parents” số nhiều → were born."},
+    {"kind":"tenseChoice","level":"medium","topic":"Imperative · don't be","prompt":"___ late for the client call tomorrow; it starts at 8 a.m. sharp.","choices":["Don't be","Not be","Aren't","Don't"],"answer":"Don't be","accept":[],"explain":"Mệnh lệnh phủ định với be dùng Don't be + tính từ; đây là trường hợp duy nhất be đi với don't."},
+    {"kind":"tense","level":"medium","topic":"There was/were","prompt":"There ___ (be) three critical bugs in the version we released last Friday, but we fixed them all on Monday.","choices":[],"answer":"were","accept":[],"explain":"“Three critical bugs” số nhiều, đã sửa xong trong quá khứ → there were."},
+    {"kind":"tense","level":"easy","topic":"Be · question","prompt":"___ (be) the client happy with the demo yesterday?","choices":[],"answer":"Was","accept":[],"explain":"Câu hỏi quá khứ, “the client” số ít → Was…?"},
+    {"kind":"tenseChoice","level":"hard","topic":"Aren't I?","prompt":"I'm on the list for next week's training, ___ I?","choices":["aren't","amn't","am not","isn't"],"answer":"aren't","accept":[],"explain":"Câu hỏi đuôi của “I am” là “aren't I?”; không có dạng “amn't”."},
+    {"kind":"tense","level":"medium","topic":"Be · negative","prompt":"The new laptops ___ (not / be) here yet; the supplier says they will arrive next week.","choices":[],"answer":"aren't","accept":["are not"],"explain":"“The new laptops” số nhiều, hiện tại (yet) → aren't."},
+    {"kind":"tenseChoice","level":"easy","topic":"Be · question","prompt":"___ it be sunny for the team-building trip next Saturday?","choices":["Will","Is","Was","Does"],"answer":"Will","accept":[],"explain":"Câu hỏi tương lai với be → Will it be…?"},
+    {"kind":"tenseChoice","level":"medium","topic":"Be · future","prompt":"I'm sure the customers ___ happy when they see the new dashboard next week.","choices":["will be","are","were","was"],"answer":"will be","accept":[],"explain":"Dự đoán cho “next week” → will be."},
+    {"kind":"tense","level":"easy","topic":"Be · question","prompt":"Where ___ (be) you at 9 a.m. yesterday? The manager was looking for you.","choices":[],"answer":"were","accept":[],"explain":"Câu hỏi quá khứ với “you” → were."},
+    {"kind":"tenseChoice","level":"hard","topic":"If I were","prompt":"If I ___ you, I would ask the team lead for help.","choices":["am","are","were","will be"],"answer":"were","accept":[],"explain":"Lời khuyên giả định “If I were you” → were."},
+    {"kind":"tenseChoice","level":"hard","topic":"Been vs being","prompt":"The new payment API is ___ tested by the QA team right now.","choices":["being","been","be"],"answer":"being","accept":[],"explain":"Bị động tiếp diễn: is being + V3 (đang được kiểm thử); “been” chỉ đi sau have / has / had."},
+    {"kind":"tenseChoice","level":"hard","topic":"Been vs being","prompt":"The server has ___ down since 2 a.m., and users still can't log in.","choices":["been","being","be","was"],"answer":"been","accept":[],"explain":"Sau has / have / had dùng “been” (dạng V3 của be)."},
+    {"kind":"tense","level":"hard","topic":"Is there…? short answer","prompt":"A: Is there a projector in Meeting Room B? B: No, there ___ (not / be). Let's use Room C.","choices":[],"answer":"isn't","accept":["is not"],"explain":"Hỏi “Is there…?” thì trả lời ngắn phủ định là “No, there isn't”."},
+    {"kind":"tense","level":"hard","topic":"Be · Wh- question","prompt":"Why ___ (be) the build pipeline so slow yesterday? Did someone change the config?","choices":[],"answer":"was","accept":[],"explain":"Câu hỏi Wh- quá khứ (yesterday), “the build pipeline” số ít → Why was…?"},
+    {"kind":"tenseChoice","level":"hard","topic":"There is vs it has","prompt":"In the latest build, ___ two bugs that crash the app on startup.","choices":["there are","it has","has","there is"],"answer":"there are","accept":[],"explain":"“Có hai lỗi” = there are two bugs (số nhiều); không dịch “có” thành “it has / has”."},
+    {"kind":"tense","level":"medium","topic":"Be · past","prompt":"My manager and the HR director ___ (be) in Hanoi for a conference last week.","choices":[],"answer":"were","accept":[],"explain":"Hai người nối bằng “and” = số nhiều, “last week” → were."},
+    {"kind":"tenseChoice","level":"easy","topic":"Be · auxiliary","prompt":"Look at the dashboard! The build ___ failing again.","choices":["is","are","were"],"answer":"is","accept":[],"explain":"“Look!” → đang xảy ra; “the build” số ít → is failing."},
+    {"kind":"tense","level":"medium","topic":"Be · auxiliary","prompt":"The login bug ___ (be) fixed by Minh yesterday afternoon.","choices":[],"answer":"was","accept":[],"explain":"Bị động quá khứ, chủ ngữ số ít → was fixed."},
+    {"kind":"tenseChoice","level":"medium","topic":"Be · auxiliary","prompt":"All the test cases ___ updated during the last sprint.","choices":["was","were","are"],"answer":"were","accept":[],"explain":"Bị động quá khứ, “test cases” số nhiều → were updated."},
+    {"kind":"tense","level":"easy","topic":"Be · negative","prompt":"Lan ___ (not / be) at work yesterday because she was sick.","choices":[],"answer":"wasn't","accept":["was not"],"explain":"Chủ ngữ số ít, “yesterday” → wasn't."},
+    {"kind":"tense","level":"medium","topic":"Be · negative","prompt":"Don't worry. We ___ (not / be) late for the client call tomorrow.","choices":[],"answer":"won't be","accept":["will not be","aren't going to be","are not going to be","'re not going to be"],"explain":"Lời hứa cho “tomorrow” → won't be (cũng có thể: aren't going to be)."},
+    {"kind":"tenseChoice","level":"medium","topic":"Be · short answer","prompt":"A: Were the testers in the meeting? B: No, they ___.","choices":["weren't","didn't","wasn't","aren't"],"answer":"weren't","accept":[],"explain":"Hỏi bằng “Were” thì trả lời ngắn bằng “were / weren't”."},
+    {"kind":"tenseChoice","level":"hard","topic":"Be · short answer","prompt":"A: Are you free after lunch? B: Yes, I ___.","choices":["am","'m","do","are"],"answer":"am","accept":[],"explain":"Trả lời ngắn khẳng định không viết tắt: “Yes, I am”."},
+    {"kind":"tense","level":"medium","topic":"There was/were","prompt":"There ___ (be) a lot of traffic on the way to the office this morning, so I arrived late.","choices":[],"answer":"was","accept":[],"explain":"“Traffic” không đếm được, chuyện đã xảy ra (arrived) → there was."},
+    {"kind":"tenseChoice","level":"medium","topic":"There is/are","prompt":"There ___ a lot of users online right now, so the server is slow.","choices":["is","are","was"],"answer":"are","accept":[],"explain":"“A lot of users” số nhiều, “right now” → there are."},
+    {"kind":"tense","level":"hard","topic":"Be · age","prompt":"I ___ (be) 26 years old, and I have three years of experience in software testing.","choices":[],"answer":"am","accept":["'m"],"explain":"Nói tuổi dùng be (I am 26), không dùng have như tiếng Việt “có 26 tuổi”."},
+    {"kind":"tenseChoice","level":"hard","topic":"Imperative · be","prompt":"___ careful when you run scripts on the production database.","choices":["Be","Are","Being","Is"],"answer":"Be","accept":[],"explain":"Câu mệnh lệnh dùng be nguyên mẫu ở đầu câu: Be careful."},
+    {"kind":"tense","level":"medium","topic":"There is/are","prompt":"___ (be) there any questions before we finish the meeting?","choices":[],"answer":"Are","accept":[],"explain":"“Any questions” số nhiều, hiện tại → Are there…?"},
+    {"kind":"tense","level":"easy","topic":"Be · negative","prompt":"I ___ (not / be) sure about the new requirements yet, so I'll ask the BA.","choices":[],"answer":"am not","accept":["'m not"],"explain":"Chủ ngữ “I”, hiện tại → am not."},
+    {"kind":"tenseChoice","level":"medium","topic":"Dummy it","prompt":"___ very hot in the server room today. Is the air conditioner broken?","choices":["It is","Is","There is"],"answer":"It is","accept":[],"explain":"Nói về thời tiết / nhiệt độ cần chủ ngữ giả “it”: It is very hot; không bỏ chủ ngữ."},
+    {"kind":"tense","level":"easy","topic":"Dummy it","prompt":"Hurry up! It ___ (be) already 9 a.m., and the stand-up is starting.","choices":[],"answer":"is","accept":["'s"],"explain":"Nói giờ dùng chủ ngữ giả “it” + is: It is 9 a.m."},
+    {"kind":"tense","level":"easy","topic":"Was/were born","prompt":"I ___ (be) born in Can Tho, but I have lived in Ho Chi Minh City for ten years.","choices":[],"answer":"was","accept":[],"explain":"“Sinh ra” là be born ở quá khứ; chủ ngữ “I” → was born."},
+    {"kind":"tenseChoice","level":"medium","topic":"Was/were born","prompt":"Where ___ you born? — In Da Lat.","choices":["were","did","are","was"],"answer":"were","accept":[],"explain":"Hỏi nơi sinh: Where were you born? (không dùng did / are)."},
+    {"kind":"tense","level":"easy","topic":"Is there…?","prompt":"___ (be) there a meeting room free at 2 p.m.? I need one for an interview.","choices":[],"answer":"Is","accept":[],"explain":"“A meeting room” số ít, hiện tại → Is there…?"},
+    {"kind":"tense","level":"medium","topic":"Is there…? short answer","prompt":"A: Are there any open tickets for the mobile app? B: Yes, there ___ (be). Three, I think.","choices":[],"answer":"are","accept":[],"explain":"Hỏi “Are there…?” thì trả lời ngắn “Yes, there are” (không viết tắt)."},
+    {"kind":"tense","level":"medium","topic":"Imperative · don't be","prompt":"Please ___ (not / be) afraid to ask questions during your first week.","choices":[],"answer":"don't be","accept":["do not be"],"explain":"Mệnh lệnh phủ định với be: Don't be + tính từ (afraid)."},
+    {"kind":"tense","level":"medium","topic":"Be · Wh- question","prompt":"Who ___ (be) your team leader at your last company?","choices":[],"answer":"was","accept":[],"explain":"Hỏi về công ty cũ (quá khứ), “your team leader” số ít → Who was…?"},
+    {"kind":"tense","level":"hard","topic":"Been vs being","prompt":"The meeting room ___ (be) cleaned right now, so let's wait in the lobby.","choices":[],"answer":"is being","accept":["'s being"],"explain":"Bị động đang diễn ra (right now): is being + V3 → is being cleaned."},
+    {"kind":"tense","level":"hard","topic":"Been vs being","prompt":"Mr. Hung ___ (be) our CTO since 2021.","choices":[],"answer":"has been","accept":["'s been"],"explain":"“Since 2021” → hiện tại hoàn thành: has been (been là V3 của be)."},
+    {"kind":"tenseChoice","level":"easy","topic":"Be · negative","prompt":"I'm afraid Mr. Long ___ available this afternoon. Can I take a message?","choices":["isn't","doesn't","not","don't"],"answer":"isn't","accept":[],"explain":"Be + tính từ (available) phủ định bằng isn't, không dùng doesn't / don't."},
+    {"kind":"tenseChoice","level":"hard","topic":"Be vs ordinary verb","prompt":"I ___ with your proposal, so let's start next week.","choices":["agree","am agree","am agreeing"],"answer":"agree","accept":[],"explain":"“Agree” là động từ thường, không đi với am: I agree (không nói “I am agree”)."},
+    {"kind":"tenseChoice","level":"medium","topic":"Be · question","prompt":"___ you sure the backup finished last night?","choices":["Are","Do","Is"],"answer":"Are","accept":[],"explain":"“Sure” là tính từ nên hỏi bằng be: Are you sure…?"},
+    {"kind":"tenseChoice","level":"hard","topic":"Dummy it","prompt":"How far ___ from the hotel to the conference center? — About 2 km.","choices":["is it","it is","has it","is"],"answer":"is it","accept":[],"explain":"Hỏi khoảng cách dùng chủ ngữ giả “it” và đảo be: How far is it…?"}
   ]
 }

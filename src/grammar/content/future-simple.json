@@ -2,7 +2,7 @@
  "id": "future-simple",
  "name": "Future simple (will)",
  "vi": "Tương lai đơn",
- "summary": "Thì tương lai đơn (will + động từ nguyên mẫu) dùng để nói về quyết định đưa ra ngay lúc nói, lời hứa, lời đề nghị giúp đỡ, lời nhờ vả và dự đoán dựa trên ý kiến cá nhân.",
+ "summary": "Thì tương lai đơn (will + động từ nguyên mẫu) dùng để nói về quyết định đưa ra ngay lúc nói, lời hứa, lời đề nghị giúp đỡ, lời nhờ vả, lời mời và dự đoán dựa trên ý kiến cá nhân. Shall I / Shall we…? dùng để đề nghị và gợi ý.",
  "formula": {
   "affirmative": {
    "pattern": "S + will ('ll) + V",
@@ -16,13 +16,25 @@
   },
   "question": {
    "pattern": "Will + S + V ...?",
-   "example": "Will you review my pull request before lunch?",
-   "vi": "Bạn xem giúp pull request của tôi trước giờ ăn trưa được không?"
+   "example": "Will the new system be ready by Monday?",
+   "vi": "Hệ thống mới sẽ sẵn sàng trước thứ Hai chứ?"
   },
   "persons": [
    {
-    "subject": "every subject",
-    "affirmative": "will work",
+    "subject": "I",
+    "affirmative": "will work · I'll work",
+    "negative": "won't work (= will not)",
+    "question": "Will I need a pass?"
+   },
+   {
+    "subject": "he / she / it",
+    "affirmative": "will work · she'll / it'll work",
+    "negative": "won't work",
+    "question": "Will it work?"
+   },
+   {
+    "subject": "you / we / they",
+    "affirmative": "will work · we'll / they'll work",
     "negative": "won't work",
     "question": "Will they work?"
    }
@@ -59,7 +71,7 @@
   },
   {
    "title": "Dự đoán theo ý kiến cá nhân",
-   "explain": "Dùng will để dự đoán dựa trên suy nghĩ, cảm nhận của mình, thường đi với I think, probably, I'm sure, maybe.",
+   "explain": "Dùng will để dự đoán dựa trên suy nghĩ, cảm nhận của mình, thường đi với I think, probably, I'm sure, maybe. Người bản xứ hay nói I don't think … will hơn là I think … won't.",
    "examples": [
     {
      "en": "I think the client will accept our new price.",
@@ -72,33 +84,74 @@
    ]
   },
   {
-   "title": "Lời nhờ vả, yêu cầu lịch sự",
-   "explain": "Dùng câu hỏi Will you ...? để nhờ ai đó làm việc gì, thường kèm please.",
+   "title": "Lời nhờ vả và lời mời (Will you…?)",
+   "explain": "Dùng Will you …? để nhờ đồng nghiệp làm gì hoặc để mời (Will you join us?). Lưu ý: với sếp hoặc khách hàng, Will you…? có thể nghe như ra lệnh; nên dùng Could you / Would you …, please? cho lịch sự.",
    "examples": [
-    {
-     "en": "Will you send me the latest sales report, please?",
-     "vi": "Bạn gửi giúp tôi báo cáo doanh số mới nhất nhé?"
-    },
     {
      "en": "Will you check the server logs for me?",
      "vi": "Bạn kiểm tra giúp tôi log của server được không?"
+    },
+    {
+     "en": "Will you join us for lunch today?",
+     "vi": "Hôm nay bạn đi ăn trưa với bọn mình nhé?"
+    }
+   ]
+  },
+  {
+   "title": "Shall I / Shall we…? – đề nghị và gợi ý",
+   "explain": "Shall I…? dùng để đề nghị giúp, Shall we…? để gợi ý cùng làm; chỉ dùng với I và we, sau shall là động từ nguyên mẫu. Trả lời: Yes, please / No, thanks; Yes, let's / Good idea.",
+   "examples": [
+    {
+     "en": "Shall I send the meeting minutes to everyone?",
+     "vi": "Để tôi gửi biên bản cuộc họp cho mọi người nhé?"
+    },
+    {
+     "en": "It's 9 o'clock. Shall we start the meeting?",
+     "vi": "Chín giờ rồi. Chúng ta bắt đầu họp nhé?"
+    }
+   ]
+  },
+  {
+   "title": "Không dùng will sau when / if / as soon as / until / before / after",
+   "explain": "Trong mệnh đề thời gian và điều kiện (sau when, if, as soon as, until, before, after, once) nói về tương lai, dùng hiện tại đơn; will chỉ đứng ở mệnh đề chính.",
+   "examples": [
+    {
+     "en": "I'll call you when I finish the meeting.",
+     "vi": "Tôi sẽ gọi cho bạn khi tôi họp xong."
+    },
+    {
+     "en": "If the client agrees, we'll sign the contract on Friday.",
+     "vi": "Nếu khách hàng đồng ý, chúng ta sẽ ký hợp đồng vào thứ Sáu."
+    }
+   ]
+  },
+  {
+   "title": "Won't: không chịu, không chạy",
+   "explain": "Won't còn dùng để nói ai đó nhất quyết không chịu làm gì, hoặc máy móc không hoạt động, kể cả khi nói về hiện tại.",
+   "examples": [
+    {
+     "en": "My laptop won't turn on.",
+     "vi": "Laptop của tôi không chịu lên nguồn."
+    },
+    {
+     "en": "The supplier won't lower the price, no matter how often we ask.",
+     "vi": "Nhà cung cấp nhất quyết không giảm giá, dù chúng tôi hỏi bao nhiêu lần."
     }
    ]
   }
  ],
  "signals": [
-  "I think",
+  "I think / I don't think",
   "probably",
   "I'm sure",
   "maybe / perhaps",
-  "I promise",
-  "Don't worry",
-  "tomorrow",
-  "next week",
-  "soon",
-  "in the future",
   "I expect",
-  "I hope"
+  "I promise",
+  "Don't worry, I'll…",
+  "OK / Sure, I'll…",
+  "Oh, really? (vừa biết tin)",
+  "Shall I / Shall we…?",
+  "Will you…, please?"
  ],
  "mistakes": [
   {
@@ -120,6 +173,26 @@
    "wrong": "Will you can help me with this bug?",
    "right": "Will you be able to help me with this bug?",
    "explain": "Không dùng hai động từ khuyết thiếu liền nhau (will + can); hãy dùng will be able to hoặc Can you ...?"
+  },
+  {
+   "wrong": "I will busy tomorrow, so let's meet on Friday.",
+   "right": "I will be busy tomorrow, so let's meet on Friday.",
+   "explain": "Trước tính từ (busy, late, ready, sure) phải có be: will be + tính từ. Tiếng Việt nói “tôi sẽ bận” nhưng tiếng Anh cần be."
+  },
+  {
+   "wrong": "'Will you join the call?' 'Yes, I'll.'",
+   "right": "'Will you join the call?' 'Yes, I will.'",
+   "explain": "Câu trả lời ngắn không viết tắt ở cuối câu: Yes, I will / No, I won't."
+  },
+  {
+   "wrong": "'Shall I book the meeting room?' 'Yes, you shall.'",
+   "right": "'Shall I book the meeting room?' 'Yes, please.'",
+   "explain": "Shall I…? là lời đề nghị giúp; trả lời Yes, please hoặc No, thanks, không nói Yes, you shall."
+  },
+  {
+   "wrong": "Don't worry, I willn't forget.",
+   "right": "Don't worry, I won't forget.",
+   "explain": "Dạng rút gọn của will not là won't (không có willn't hay wo'nt)."
   }
  ],
  "compare": {
@@ -240,9 +313,7 @@
    "prompt": "___ (you / close) the door, please? It's noisy in the corridor.",
    "choices": [],
    "answer": "Will you close",
-   "accept": [
-    "will you close"
-   ],
+   "accept": [],
    "explain": "Câu nhờ vả lịch sự với please dùng Will you + V?"
   },
   {
@@ -266,7 +337,9 @@
    "answer": "get",
    "accept": [
     "have got",
-    "have gotten"
+    "have gotten",
+    "'ve got",
+    "'ve gotten"
    ],
    "explain": "Sau as soon as dùng hiện tại đơn dù hành động xảy ra trong tương lai."
   },
@@ -334,7 +407,7 @@
    "kind": "tense",
    "level": "easy",
    "tense": "future-simple",
-   "prompt": "My laptop won't turn on! — Don't panic, I ___ (lend) you mine for the presentation.",
+   "prompt": "My laptop is dead! — Don't panic, I ___ (lend) you mine for the presentation.",
    "choices": [],
    "answer": "will lend",
    "accept": [
@@ -484,7 +557,7 @@
    "kind": "tenseChoice",
    "level": "easy",
    "tense": "future-simple",
-   "prompt": "'It's freezing in here.' 'Wait a second, I ___ the air conditioner down.'",
+   "prompt": "'It's freezing in here.' 'Wait a second, I ___ the air conditioner off.'",
    "choices": [
     "will turn",
     "turned",
@@ -514,7 +587,7 @@
    "kind": "tenseChoice",
    "level": "medium",
    "tense": "future-simple",
-   "prompt": "Our team is behind schedule, so I think we probably ___ the deadline next Monday.",
+   "prompt": "To be honest, we probably ___ the deadline next Monday.",
    "choices": [
     "won't meet",
     "didn't meet",
@@ -523,7 +596,7 @@
    ],
    "answer": "won't meet",
    "accept": [],
-   "explain": "\"I think ... probably\" + \"next Monday\" là dự đoán về tương lai nên dùng won't."
+   "explain": "\"probably\" + \"next Monday\" là dự đoán theo ý kiến cá nhân về tương lai nên dùng won't."
   },
   {
    "kind": "tenseChoice",
@@ -649,7 +722,7 @@
    "kind": "tenseChoice",
    "level": "medium",
    "tense": "future-simple",
-   "prompt": "By the way, ___ at the conference next month, or will Mai go instead?",
+   "prompt": "'Mai is sick and can't give her talk at the conference tomorrow.' 'Oh no. ___ instead of her, then?'",
    "choices": [
     "will you speak",
     "did you speak",
@@ -658,7 +731,7 @@
    ],
    "answer": "will you speak",
    "accept": [],
-   "explain": "\"next month\" và vế \"or will Mai go\" cho thấy câu hỏi về tương lai nên dùng will you + V?"
+   "explain": "Câu hỏi về việc tương lai, vừa nảy ra ngay lúc nói (\"Oh no ... then?\") nên dùng will you + V?"
   },
   {
    "kind": "tenseChoice",
@@ -689,6 +762,258 @@
    "answer": "arrives",
    "accept": [],
    "explain": "Trong mệnh đề If của câu điều kiện loại 1 dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "Don't worry, the meeting ___ (be) short today, I promise.",
+   "choices": [],
+   "answer": "will be",
+   "accept": [
+    "'ll be"
+   ],
+   "explain": "Trước tính từ short phải có be: will be + tính từ, không nói \"will short\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "I think the new office ___ (be) ready by the end of March.",
+   "choices": [],
+   "answer": "will be",
+   "accept": [
+    "'ll be"
+   ],
+   "explain": "\"I think\" là dự đoán cá nhân; trước tính từ ready phải dùng will be."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Don't worry about the slides. They ___ ready before the meeting, I promise.",
+   "choices": [
+    "will be",
+    "will",
+    "will are",
+    "be"
+   ],
+   "answer": "will be",
+   "accept": [],
+   "explain": "Trước tính từ ready cần be: will be + tính từ; sau will luôn là nguyên mẫu nên không dùng \"will are\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "'Will you be at the stand-up meeting tomorrow?' 'Yes, I ___.'",
+   "choices": [
+    "will",
+    "'ll",
+    "do",
+    "be"
+   ],
+   "answer": "will",
+   "accept": [],
+   "explain": "Trả lời ngắn cho câu hỏi Will…? là Yes, I will; không viết tắt 'll ở cuối câu."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "'Will the client sign the contract this week?' 'No, she ___. She wants to wait for the board meeting.'",
+   "choices": [
+    "won't",
+    "willn't",
+    "doesn't",
+    "isn't"
+   ],
+   "answer": "won't",
+   "accept": [],
+   "explain": "Trả lời ngắn phủ định cho câu hỏi Will…? là No, she won't (won't = will not, không có willn't)."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "The meeting room is a mess. ___ I tidy it up before the client arrives?",
+   "choices": [
+    "Shall",
+    "Did",
+    "Am",
+    "Have"
+   ],
+   "answer": "Shall",
+   "accept": [],
+   "explain": "Shall I + V…? dùng để đề nghị giúp đỡ người khác."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Everyone is here now. ___ the meeting?",
+   "choices": [
+    "Shall we start",
+    "Shall we starting",
+    "Shall we to start",
+    "Shall we started"
+   ],
+   "answer": "Shall we start",
+   "accept": [],
+   "explain": "Shall we…? dùng để gợi ý cùng làm, sau shall là động từ nguyên mẫu không to."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Don't worry, your data ___ (be) safe during the system migration next weekend.",
+   "choices": [],
+   "answer": "will be",
+   "accept": [
+    "'ll be"
+   ],
+   "explain": "Lời trấn an về tương lai (\"Don't worry\", \"next weekend\") với tính từ safe nên dùng will be."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "future-simple",
+   "prompt": "I've tried three times, but the printer ___ my file. Can you take a look?",
+   "choices": [
+    "won't print",
+    "willn't print",
+    "not prints",
+    "don't print"
+   ],
+   "answer": "won't print",
+   "accept": [],
+   "explain": "Won't còn diễn tả máy móc \"không chịu\" hoạt động; won't = will not."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "We'll start the demo as soon as the projector ___ (be) ready.",
+   "choices": [],
+   "answer": "is",
+   "accept": [],
+   "explain": "Sau as soon as dùng hiện tại đơn (is ready), không dùng will be."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Thanks for the invitation! I ___ (join) you for lunch — just give me five minutes.",
+   "choices": [],
+   "answer": "will join",
+   "accept": [
+    "'ll join"
+   ],
+   "explain": "Nhận lời mời và quyết định ngay lúc nói nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "If the client ___ (not / reply) by Friday, I'll call her on Monday.",
+   "choices": [],
+   "answer": "doesn't reply",
+   "accept": [
+    "does not reply"
+   ],
+   "explain": "Trong mệnh đề if nói về tương lai dùng hiện tại đơn (doesn't reply), không dùng won't."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "'Will you be in the office on Saturday?' 'No, I won't. But I ___ (check) my email at home, I promise.'",
+   "choices": [],
+   "answer": "will check",
+   "accept": [
+    "'ll check"
+   ],
+   "explain": "\"I promise\" là lời hứa nên dùng will + V."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "I'm sure the client ___ (love) the new dashboard when she sees it next week.",
+   "choices": [],
+   "answer": "will love",
+   "accept": [
+    "'ll love"
+   ],
+   "explain": "\"I'm sure\" là dự đoán theo ý kiến cá nhân nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "I'm sorry, but the final report ___ ready until Thursday.",
+   "choices": [
+    "won't be",
+    "won't",
+    "isn't being",
+    "doesn't be"
+   ],
+   "answer": "won't be",
+   "accept": [],
+   "explain": "Phủ định với tính từ ready cần be: won't be + tính từ."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Short answers",
+   "columns": [
+    "Question",
+    "Yes",
+    "No"
+   ],
+   "rows": [
+    {
+     "label": "Will you…?",
+     "cells": [
+      "Will you…?",
+      "Yes, I will.",
+      "No, I won't."
+     ]
+    },
+    {
+     "label": "Will she…?",
+     "cells": [
+      "Will she…?",
+      "Yes, she will.",
+      "No, she won't."
+     ]
+    },
+    {
+     "label": "Will they…?",
+     "cells": [
+      "Will they…?",
+      "Yes, they will.",
+      "No, they won't."
+     ]
+    },
+    {
+     "label": "Shall I…?",
+     "cells": [
+      "Shall I…?",
+      "Yes, please.",
+      "No, thanks. / No, it's OK."
+     ]
+    },
+    {
+     "label": "Shall we…?",
+     "cells": [
+      "Shall we…?",
+      "Yes, let's. / Good idea.",
+      "No, let's not."
+     ]
+    }
+   ],
+   "note": "Không viết tắt ở cuối câu: “Yes, I will” (không phải “Yes, I'll”). Trả lời Shall I…? bằng “Yes, please”, không nói “Yes, you shall”."
   }
  ]
 }

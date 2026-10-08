@@ -91,6 +91,48 @@
      "vi": "Doanh số của chúng tôi đã tăng gấp đôi trong quý này."
     }
    ]
+  },
+  {
+   "title": "since và for",
+   "explain": "Since + mốc thời điểm hoặc mệnh đề quá khứ (since 2020, since Monday, since I joined); for + khoảng thời gian (for three years, for two weeks). Không dùng since với khoảng thời gian.",
+   "examples": [
+    {
+     "en": "We have used this CRM since January.",
+     "vi": "Chúng tôi dùng hệ thống CRM này từ tháng Một (đến nay)."
+    },
+    {
+     "en": "She has led the QA team for two years.",
+     "vi": "Cô ấy dẫn dắt nhóm QA được hai năm rồi."
+    }
+   ]
+  },
+  {
+   "title": "Vị trí ever, never, just, already, yet",
+   "explain": "Ever, never, just, already đứng giữa have/has và V3 (I have just sent it). Yet đứng cuối câu phủ định và câu hỏi (I haven't finished yet). Ever chủ yếu dùng trong câu hỏi; already ở cuối câu thường là văn nói.",
+   "examples": [
+    {
+     "en": "Has the client ever complained about our delivery time?",
+     "vi": "Khách hàng đã bao giờ phàn nàn về thời gian giao hàng của chúng ta chưa?"
+    },
+    {
+     "en": "We haven't received the signed contract yet.",
+     "vi": "Chúng tôi vẫn chưa nhận được hợp đồng đã ký."
+    }
+   ]
+  },
+  {
+   "title": "been và gone",
+   "explain": "Has been to = đã đến và đã quay về (trải nghiệm, có thể đếm số lần); has gone to = đã đi và hiện vẫn đang ở đó (chưa về).",
+   "examples": [
+    {
+     "en": "Ms. Hoa has been to Seoul three times for client meetings.",
+     "vi": "Chị Hoa đã đến Seoul ba lần để gặp khách hàng."
+    },
+    {
+     "en": "Mr. Phong isn't at his desk — he has gone to the bank.",
+     "vi": "Anh Phong không có ở bàn — anh ấy đã ra ngân hàng (chưa về)."
+    }
+   ]
   }
  ],
  "signals": [
@@ -105,7 +147,9 @@
   "up to now",
   "recently",
   "before",
-  "how long"
+  "how long",
+  "lately",
+  "this is the first time"
  ],
  "mistakes": [
   {
@@ -126,7 +170,27 @@
   {
    "wrong": "He has gone to Singapore twice.",
    "right": "He has been to Singapore twice.",
-   "explain": "Has been to = đã từng đến và đã quay về; has gone to = đã đi và hiện vẫn đang ở đó, nên không dùng với số lần."
+   "explain": "Has been to = đã đến và đã quay về nên đếm được số lần; has gone to = đã đi và hiện vẫn ở đó, nên không thể đếm số lần đi-về."
+  },
+  {
+   "wrong": "I have worked here since three years.",
+   "right": "I have worked here for three years.",
+   "explain": "Since đi với mốc thời điểm (since 2022); khoảng thời gian (three years) phải dùng for."
+  },
+  {
+   "wrong": "I have finished yet.",
+   "right": "I haven't finished yet. / I have already finished.",
+   "explain": "Yet chỉ dùng trong câu phủ định và câu hỏi; câu khẳng định dùng already."
+  },
+  {
+   "wrong": "I have ever been to Japan.",
+   "right": "I have been to Japan. / Have you ever been to Japan?",
+   "explain": "Ever dùng trong câu hỏi (hoặc với “the first time”), không dùng trong câu khẳng định thông thường."
+  },
+  {
+   "wrong": "He have finished the task.",
+   "right": "He has finished the task.",
+   "explain": "Chủ ngữ he/she/it dùng has, không dùng have."
   }
  ],
  "compare": {
@@ -152,6 +216,16 @@
     "en": "Did you read the security policy last week?",
     "vi": "Tuần trước bạn có đọc chính sách bảo mật không?",
     "tense": "past-simple"
+   },
+   {
+    "en": "Have you ever been to Japan?",
+    "vi": "Bạn đã bao giờ đến Nhật chưa? (hỏi trải nghiệm)",
+    "tense": "present-perfect"
+   },
+   {
+    "en": "Yes, I went there for a client meeting in 2022.",
+    "vi": "Có, tôi đã đến đó gặp khách hàng vào năm 2022. (nói chi tiết → quá khứ đơn)",
+    "tense": "past-simple"
    }
   ]
  },
@@ -162,7 +236,9 @@
    "prompt": "Our team ___ (be) in this office since 2020.",
    "choices": [],
    "answer": "has been",
-   "accept": [],
+   "accept": [
+    "'s been"
+   ],
    "explain": "\"since 2020\" chỉ việc kéo dài từ quá khứ đến nay nên dùng hiện tại hoàn thành.",
    "tense": "present-perfect"
   },
@@ -215,7 +291,8 @@
    "choices": [],
    "answer": "hasn't used",
    "accept": [
-    "has not used"
+    "has not used",
+    "'s not used"
    ],
    "explain": "\"since March\" cho biết từ tháng Ba đến nay cô ấy không dùng, nên dùng hasn't used.",
    "tense": "present-perfect"
@@ -259,7 +336,7 @@
    ],
    "answer": "has worked",
    "accept": [],
-   "explain": "\"for two years now\" chỉ việc bắt đầu từ hai năm trước và vẫn tiếp tục nên dùng has worked.",
+   "explain": "“for two years now” chỉ việc bắt đầu từ hai năm trước và vẫn tiếp tục nên dùng has worked (hoặc has been working).",
    "tense": "present-perfect"
   },
   {
@@ -268,7 +345,9 @@
    "prompt": "The server ___ (be) down since 8 a.m., so nobody can log in.",
    "choices": [],
    "answer": "has been",
-   "accept": [],
+   "accept": [
+    "'s been"
+   ],
    "explain": "\"since 8 a.m.\" và tình trạng vẫn còn bây giờ nên dùng has been.",
    "tense": "present-perfect"
   },
@@ -320,7 +399,9 @@
    "prompt": "So far, the committee ___ (choose) two of the five finalists.",
    "choices": [],
    "answer": "has chosen",
-   "accept": [],
+   "accept": [
+    "'s chosen"
+   ],
    "explain": "\"So far\" (tính đến nay) đi với hiện tại hoàn thành; choose – chose – chosen.",
    "tense": "present-perfect"
   },
@@ -376,7 +457,7 @@
    ],
    "answer": "has organized",
    "accept": [],
-   "explain": "Cấu trúc \"This is the first time\" luôn đi với hiện tại hoàn thành.",
+   "explain": "Cấu trúc “This is the first time” (nói về hiện tại) đi với hiện tại hoàn thành.",
    "tense": "present-perfect"
   },
   {
@@ -385,7 +466,9 @@
    "prompt": "Our department ___ (hire) five new developers so far this year.",
    "choices": [],
    "answer": "has hired",
-   "accept": [],
+   "accept": [
+    "'s hired"
+   ],
    "explain": "\"so far this year\" là khoảng thời gian chưa kết thúc nên dùng has hired.",
    "tense": "present-perfect"
   },
@@ -413,7 +496,7 @@
    "accept": [
     "'ve given"
    ],
-   "explain": "\"This is the first time\" đi với hiện tại hoàn thành; give – gave – given.",
+   "explain": "“This is the first time” (nói về hiện tại) đi với hiện tại hoàn thành; give – gave – given.",
    "tense": "present-perfect"
   },
   {
@@ -489,7 +572,9 @@
    "prompt": "Mr. Hung ___ (write) three blog posts about cloud security so far this month.",
    "choices": [],
    "answer": "has written",
-   "accept": [],
+   "accept": [
+    "'s written"
+   ],
    "explain": "\"so far this month\" là khoảng thời gian chưa kết thúc; write – wrote – written.",
    "tense": "present-perfect"
   },
@@ -573,16 +658,16 @@
   {
    "kind": "tenseChoice",
    "level": "hard",
-   "prompt": "Since the update ___ last month, users have reported fewer bugs.",
+   "prompt": "Since we ___ the update last month, users have reported fewer bugs.",
    "choices": [
-    "was released",
-    "has been released",
-    "is released",
-    "will be released"
+    "released",
+    "have released",
+    "release",
+    "will release"
    ],
-   "answer": "was released",
+   "answer": "released",
    "accept": [],
-   "explain": "Mệnh đề sau \"since\" chỉ mốc thời gian đã qua (last month) nên dùng quá khứ đơn was released.",
+   "explain": "Mệnh đề sau “since” nêu mốc đã qua (last month) nên dùng quá khứ đơn released.",
    "tense": "past-simple"
   },
   {
@@ -591,7 +676,9 @@
    "prompt": "Thanh ___ (lose) his access card twice since he joined the company.",
    "choices": [],
    "answer": "has lost",
-   "accept": [],
+   "accept": [
+    "'s lost"
+   ],
    "explain": "\"twice since he joined\" là số lần tính đến nay nên dùng has lost; lose – lost – lost.",
    "tense": "present-perfect"
   },
@@ -641,7 +728,9 @@
    "prompt": "The share price of our company ___ (rise) by 15% since January.",
    "choices": [],
    "answer": "has risen",
-   "accept": [],
+   "accept": [
+    "'s risen"
+   ],
    "explain": "\"since January\" chỉ thay đổi từ tháng Một đến nay; rise – rose – risen.",
    "tense": "present-perfect"
   },
@@ -669,6 +758,572 @@
    "accept": [],
    "explain": "\"Two years ago\" là mốc quá khứ xác định nên dùng quá khứ đơn built.",
    "tense": "past-simple"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-perfect",
+   "prompt": "Have you ever ___ (eat) phở bò at the canteen near our office?",
+   "choices": [],
+   "answer": "eaten",
+   "accept": [],
+   "explain": "Hỏi trải nghiệm với ever → Have + S + ever + V3; eat – ate – eaten."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-perfect",
+   "prompt": "I've never ___ (be) to Japan, so I'm excited about next month's business trip.",
+   "choices": [],
+   "answer": "been",
+   "accept": [],
+   "explain": "Trải nghiệm chưa từng có (never) → have + never + V3; be – was/were – been."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-perfect",
+   "prompt": "The client has just ___ (call) — she wants to move the meeting to 3 p.m.",
+   "choices": [],
+   "answer": "called",
+   "accept": [],
+   "explain": "Just (vừa mới) đứng giữa has và V3; call là động từ có quy tắc: called."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-perfect",
+   "prompt": "Have you ___ (finish) the test report yet? The manager is asking for it.",
+   "choices": [],
+   "answer": "finished",
+   "accept": [],
+   "explain": "Câu hỏi với yet → Have + S + V3 … yet?; finish – finished."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "Don't worry — Ngoc has already ___ (send) the invoice to the customer.",
+   "choices": [],
+   "answer": "sent",
+   "accept": [],
+   "explain": "Already đứng giữa has và V3; send – sent – sent."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "Mr. Phong isn't here — he has ___ (go) to the bank. He'll be back in an hour.",
+   "choices": [],
+   "answer": "gone",
+   "accept": [],
+   "explain": "Anh ấy đã đi và chưa quay về (“isn't here”) → has gone, không dùng has been."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "We ___ (not / receive) the payment yet, so please send the customer a reminder.",
+   "choices": [],
+   "answer": "haven't received",
+   "accept": [
+    "have not received",
+    "'ve not received"
+   ],
+   "explain": "Yet trong câu phủ định, hậu quả ở hiện tại → haven't + V3: haven't received."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-perfect",
+   "prompt": "Our new intern ___ (never / work) with Git before, so please help him set it up.",
+   "choices": [],
+   "answer": "has never worked",
+   "accept": [
+    "'s never worked"
+   ],
+   "explain": "Trải nghiệm chưa từng có tính đến nay → has + never + V3; chủ ngữ số ít dùng has."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-perfect",
+   "prompt": "The CEO ___ (just / announce) a new bonus policy, and everyone is talking about it.",
+   "choices": [],
+   "answer": "has just announced",
+   "accept": [
+    "'s just announced"
+   ],
+   "explain": "Việc vừa xảy ra, còn ảnh hưởng hiện tại → has + just + V3: has just announced."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-perfect",
+   "prompt": "I have worked in this team ___ three years.",
+   "choices": [
+    "for",
+    "since",
+    "ago",
+    "from"
+   ],
+   "answer": "for",
+   "accept": [],
+   "explain": "Three years là khoảng thời gian → dùng for; since chỉ đi với mốc thời điểm."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "The office has been closed ___ Monday because of the flooding.",
+   "choices": [
+    "since",
+    "for",
+    "ago",
+    "from"
+   ],
+   "answer": "since",
+   "accept": [],
+   "explain": "Monday là mốc thời điểm bắt đầu và tình trạng vẫn còn → dùng since."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "Has the client signed the contract? — No, she ___.",
+   "choices": [
+    "hasn't",
+    "didn't",
+    "doesn't",
+    "isn't"
+   ],
+   "answer": "hasn't",
+   "accept": [],
+   "explain": "Câu hỏi bắt đầu bằng Has → trả lời ngắn bằng has/hasn't."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-perfect",
+   "prompt": "Have you updated the password policy? — Yes, we ___.",
+   "choices": [
+    "have",
+    "'ve",
+    "did",
+    "do"
+   ],
+   "answer": "have",
+   "accept": [],
+   "explain": "Hỏi bằng Have → trả lời ngắn “Yes, we have”; câu khẳng định ngắn không viết tắt thành “we've”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "Where is Ms. Lan? — She ___ to the airport to meet the Korean partners.",
+   "choices": [
+    "has gone",
+    "has been",
+    "goes",
+    "had gone"
+   ],
+   "answer": "has gone",
+   "accept": [],
+   "explain": "Cô ấy đã đi và hiện vẫn đang ở đó (không có mặt ở văn phòng) → has gone."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-perfect",
+   "prompt": "We haven't decided on the new vendor ___.",
+   "choices": [
+    "yet",
+    "already",
+    "just",
+    "ever"
+   ],
+   "answer": "yet",
+   "accept": [],
+   "explain": "Câu phủ định ở hiện tại hoàn thành → yet đứng cuối câu."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-perfect",
+   "prompt": "I ___ seen such a fast database before — it's amazing!",
+   "choices": [
+    "have never",
+    "have ever",
+    "never have",
+    "ever have"
+   ],
+   "answer": "have never",
+   "accept": [],
+   "explain": "Never đứng giữa have và V3; ever không dùng trong câu khẳng định này."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-perfect",
+   "prompt": "Duc ___ the bug, so you can test it again now.",
+   "choices": [
+    "has already fixed",
+    "has already fix",
+    "have already fixed",
+    "has fixed yet"
+   ],
+   "answer": "has already fixed",
+   "accept": [],
+   "explain": "Already đứng giữa has và V3, chủ ngữ số ít dùng has; yet không dùng trong câu khẳng định."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Common irregular verbs (V3)",
+   "columns": [
+    "Base verb",
+    "Past (V2)",
+    "Past participle (V3)"
+   ],
+   "rows": [
+    {
+     "label": "be",
+     "cells": [
+      "be",
+      "was / were",
+      "been"
+     ]
+    },
+    {
+     "label": "go",
+     "cells": [
+      "go",
+      "went",
+      "gone"
+     ]
+    },
+    {
+     "label": "do",
+     "cells": [
+      "do",
+      "did",
+      "done"
+     ]
+    },
+    {
+     "label": "have",
+     "cells": [
+      "have",
+      "had",
+      "had"
+     ]
+    },
+    {
+     "label": "see",
+     "cells": [
+      "see",
+      "saw",
+      "seen"
+     ]
+    },
+    {
+     "label": "write",
+     "cells": [
+      "write",
+      "wrote",
+      "written"
+     ]
+    },
+    {
+     "label": "send",
+     "cells": [
+      "send",
+      "sent",
+      "sent"
+     ]
+    },
+    {
+     "label": "take",
+     "cells": [
+      "take",
+      "took",
+      "taken"
+     ]
+    },
+    {
+     "label": "give",
+     "cells": [
+      "give",
+      "gave",
+      "given"
+     ]
+    },
+    {
+     "label": "make",
+     "cells": [
+      "make",
+      "made",
+      "made"
+     ]
+    },
+    {
+     "label": "buy",
+     "cells": [
+      "buy",
+      "bought",
+      "bought"
+     ]
+    },
+    {
+     "label": "read",
+     "cells": [
+      "read",
+      "read",
+      "read"
+     ]
+    },
+    {
+     "label": "meet",
+     "cells": [
+      "meet",
+      "met",
+      "met"
+     ]
+    },
+    {
+     "label": "choose",
+     "cells": [
+      "choose",
+      "chose",
+      "chosen"
+     ]
+    },
+    {
+     "label": "forget",
+     "cells": [
+      "forget",
+      "forgot",
+      "forgotten"
+     ]
+    },
+    {
+     "label": "speak",
+     "cells": [
+      "speak",
+      "spoke",
+      "spoken"
+     ]
+    },
+    {
+     "label": "know",
+     "cells": [
+      "know",
+      "knew",
+      "known"
+     ]
+    },
+    {
+     "label": "get",
+     "cells": [
+      "get",
+      "got",
+      "got (BrE) / gotten (AmE)"
+     ]
+    },
+    {
+     "label": "lose",
+     "cells": [
+      "lose",
+      "lost",
+      "lost"
+     ]
+    },
+    {
+     "label": "build",
+     "cells": [
+      "build",
+      "built",
+      "built"
+     ]
+    },
+    {
+     "label": "begin",
+     "cells": [
+      "begin",
+      "began",
+      "begun"
+     ]
+    },
+    {
+     "label": "break",
+     "cells": [
+      "break",
+      "broke",
+      "broken"
+     ]
+    },
+    {
+     "label": "pay",
+     "cells": [
+      "pay",
+      "paid",
+      "paid"
+     ]
+    },
+    {
+     "label": "tell",
+     "cells": [
+      "tell",
+      "told",
+      "told"
+     ]
+    }
+   ],
+   "note": "Read (V2, V3) viết giống nguyên mẫu nhưng đọc là /red/. Động từ có quy tắc chỉ thêm -ed: worked, called, finished."
+  },
+  {
+   "title": "Short answers & contractions",
+   "columns": [
+    "Form",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "Yes, I / you / we / they have.",
+     "cells": [
+      "Yes, I / you / we / they have.",
+      "Have you sent the file? — Yes, I have."
+     ]
+    },
+    {
+     "label": "No, I / you / we / they haven't.",
+     "cells": [
+      "No, I / you / we / they haven't.",
+      "Have they paid? — No, they haven't."
+     ]
+    },
+    {
+     "label": "Yes, he / she / it has.",
+     "cells": [
+      "Yes, he / she / it has.",
+      "Has she replied? — Yes, she has."
+     ]
+    },
+    {
+     "label": "No, he / she / it hasn't.",
+     "cells": [
+      "No, he / she / it hasn't.",
+      "Has the build passed? — No, it hasn't."
+     ]
+    },
+    {
+     "label": "'ve = have",
+     "cells": [
+      "'ve = have",
+      "I've finished. We've sent it."
+     ]
+    },
+    {
+     "label": "'s + V3 = has",
+     "cells": [
+      "'s + V3 = has",
+      "She's finished the report. (= has finished)"
+     ]
+    },
+    {
+     "label": "'s + V-ing = is",
+     "cells": [
+      "'s + V-ing = is",
+      "She's working now. (= is working)"
+     ]
+    }
+   ],
+   "note": "Câu khẳng định ngắn không viết tắt: nói “Yes, I have”, không nói “Yes, I've”."
+  },
+  {
+   "title": "since / for / ago",
+   "columns": [
+    "Word",
+    "Use with",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "since",
+     "cells": [
+      "since",
+      "mốc thời điểm / mệnh đề quá khứ",
+      "since 2020, since Monday, since I joined"
+     ]
+    },
+    {
+     "label": "for",
+     "cells": [
+      "for",
+      "khoảng thời gian",
+      "for three years, for two weeks, for a long time"
+     ]
+    },
+    {
+     "label": "ago",
+     "cells": [
+      "ago",
+      "quá khứ đơn (không dùng với have + V3)",
+      "I joined the company two years ago."
+     ]
+    }
+   ],
+   "note": "Sai: “since three years”; đúng: “for three years”."
+  },
+  {
+   "title": "Position of ever / never / just / already / yet",
+   "columns": [
+    "Word",
+    "Position",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "ever",
+     "cells": [
+      "ever",
+      "giữa have/has và V3 (chủ yếu trong câu hỏi)",
+      "Have you ever worked with Docker?"
+     ]
+    },
+    {
+     "label": "never",
+     "cells": [
+      "never",
+      "giữa have/has và V3",
+      "I have never been to Japan."
+     ]
+    },
+    {
+     "label": "just",
+     "cells": [
+      "just",
+      "giữa have/has và V3",
+      "The client has just called."
+     ]
+    },
+    {
+     "label": "already",
+     "cells": [
+      "already",
+      "giữa have/has và V3 (cuối câu: văn nói)",
+      "She has already sent the invoice."
+     ]
+    },
+    {
+     "label": "yet",
+     "cells": [
+      "yet",
+      "cuối câu phủ định / câu hỏi",
+      "Have you finished yet? / We haven't paid yet."
+     ]
+    }
+   ]
   }
  ]
 }

@@ -5,7 +5,7 @@
  "summary": "Thì hiện tại đơn dùng để nói về thói quen, việc lặp lại thường xuyên, sự thật hiển nhiên và những lịch trình cố định. Đây là thì cơ bản nhất, xuất hiện rất nhiều trong email, quy định công ty và bài thi TOEIC.",
  "formula": {
   "affirmative": {
-   "pattern": "S + V(s/es)",
+   "pattern": "S + V / V-s/es (he/she/it)",
    "example": "Our team holds a stand-up meeting every morning.",
    "vi": "Nhóm của chúng tôi họp đứng mỗi buổi sáng."
   },
@@ -15,7 +15,7 @@
    "vi": "Cô ấy không làm việc vào thứ Bảy."
   },
   "question": {
-   "pattern": "Do/Does + S + V (nguyên mẫu)?",
+   "pattern": "(Wh-) + do/does + S + V (nguyên mẫu)?",
    "example": "Does the company offer health insurance?",
    "vi": "Công ty có cung cấp bảo hiểm sức khỏe không?"
   },
@@ -98,7 +98,7 @@
   },
   {
    "title": "Động từ chỉ trạng thái",
-   "explain": "Các động từ chỉ suy nghĩ, cảm xúc, sở hữu (know, understand, want, need, believe, belong…) thường dùng ở hiện tại đơn, kể cả khi nói về lúc này.",
+   "explain": "Động từ chỉ suy nghĩ, cảm xúc, sở hữu (know, understand, want, need, believe, belong…) dùng hiện tại đơn, kể cả khi nói về lúc này. Động từ hai nghĩa: have (sở hữu) ≠ have a meeting; think (cho rằng) ≠ think about; see (hiểu) ≠ see a client.",
    "examples": [
     {
      "en": "I don't understand this error message.",
@@ -123,6 +123,48 @@
      "vi": "Bạn có rảnh cho một cuộc gọi nhanh lúc 3 giờ chiều không?"
     }
    ]
+  },
+  {
+   "title": "Vị trí trạng từ tần suất",
+   "explain": "Always, usually, often, sometimes, rarely, never đứng trước động từ thường (I usually check…), sau động từ be (She is always on time) và giữa trợ động từ với động từ chính (I don't usually work late).",
+   "examples": [
+    {
+     "en": "Our manager rarely sends emails after 6 p.m.",
+     "vi": "Quản lý của chúng tôi hiếm khi gửi email sau 6 giờ tối."
+    },
+    {
+     "en": "The servers are usually quiet on Sunday mornings.",
+     "vi": "Các máy chủ thường ít tải vào sáng Chủ nhật."
+    }
+   ]
+  },
+  {
+   "title": "Câu hỏi Wh- và câu hỏi chủ ngữ",
+   "explain": "Câu hỏi Wh- thường: Wh- + do/does + S + V nguyên mẫu (Where does she work?). Khi Who/What làm chủ ngữ (hỏi ai/cái gì làm việc đó) thì không dùng do/does và động từ chia số ít (Who works in HR?).",
+   "examples": [
+    {
+     "en": "What time does the canteen open?",
+     "vi": "Căng tin mở cửa lúc mấy giờ?"
+    },
+    {
+     "en": "Who handles customer complaints in your team?",
+     "vi": "Ai xử lý khiếu nại của khách hàng trong nhóm bạn?"
+    }
+   ]
+  },
+  {
+   "title": "Sau when / as soon as / if khi nói về tương lai",
+   "explain": "Trong mệnh đề thời gian (when, as soon as, before, after, until) và mệnh đề if, dùng hiện tại đơn dù ý nói về tương lai; không dùng will trong mệnh đề này.",
+   "examples": [
+    {
+     "en": "I'll call you as soon as the client replies.",
+     "vi": "Tôi sẽ gọi bạn ngay khi khách hàng trả lời."
+    },
+    {
+     "en": "If the build fails again, we will roll back the release.",
+     "vi": "Nếu bản build lại lỗi, chúng tôi sẽ quay lui bản phát hành."
+    }
+   ]
   }
  ],
  "signals": [
@@ -137,7 +179,7 @@
   "once a month",
   "twice a year",
   "on Mondays",
-  "in the morning"
+  "every morning"
  ],
  "mistakes": [
   {
@@ -164,6 +206,26 @@
    "wrong": "She doesn't be at the office on Fridays.",
    "right": "She isn't at the office on Fridays.",
    "explain": "Với động từ be, phủ định dùng am not / isn't / aren't, không dùng don't / doesn't."
+  },
+  {
+   "wrong": "I am work at TMA.",
+   "right": "I work at TMA.",
+   "explain": "Người Việt hay thêm am/is/are trước động từ thường; câu khẳng định hiện tại đơn chỉ cần S + V(s/es), không cần be."
+  },
+  {
+   "wrong": "Does she works in HR? / Do she work in HR?",
+   "right": "Does she work in HR?",
+   "explain": "Chủ ngữ he/she/it dùng does; sau does động từ giữ nguyên mẫu, không thêm -s."
+  },
+  {
+   "wrong": "He don't like long meetings.",
+   "right": "He doesn't like long meetings.",
+   "explain": "Chủ ngữ ngôi thứ ba số ít (he/she/it) dùng doesn't, không dùng don't."
+  },
+  {
+   "wrong": "She always is late. / I check usually my email first.",
+   "right": "She is always late. / I usually check my email first.",
+   "explain": "Trạng từ tần suất đứng sau be nhưng đứng trước động từ thường."
   }
  ],
  "compare": {
@@ -249,7 +311,7 @@
    "kind": "tense",
    "level": "easy",
    "tense": "present-simple",
-   "prompt": "Water ___ (boil) at 100 degrees Celsius, so be careful with the office kettle.",
+   "prompt": "Water ___ (boil) at 100 degrees Celsius at sea level.",
    "choices": [],
    "answer": "boils",
    "accept": [],
@@ -733,7 +795,8 @@
    "choices": [],
    "answer": "aren't",
    "accept": [
-    "are not"
+    "are not",
+    "'re not"
    ],
    "explain": "Phủ định của be ở hiện tại, chủ ngữ số nhiều → aren't (không dùng don't)."
   },
@@ -780,7 +843,460 @@
    ],
    "answer": "are",
    "accept": [],
-   "explain": "Chủ ngữ số nhiều (the new laptops), sự thật ở hiện tại (wants) → are."
+   "explain": "Chủ ngữ số nhiều (the new laptops) → are; so sánh đặc điểm ở hiện tại."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "She ___ (stay) late on Fridays to finish the weekly sales report.",
+   "choices": [],
+   "answer": "stays",
+   "accept": [],
+   "explain": "Thói quen (“on Fridays”) → hiện tại đơn; nguyên âm + y (stay) chỉ thêm -s: stays."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "The monitoring tool ___ (fix) broken links on our website automatically every night.",
+   "choices": [],
+   "answer": "fixes",
+   "accept": [],
+   "explain": "Việc lặp lại (“every night”) → hiện tại đơn; động từ tận cùng -x thêm -es: fixes."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "Mr. Quang ___ (do) the server backups every Friday afternoon.",
+   "choices": [],
+   "answer": "does",
+   "accept": [],
+   "explain": "Việc lặp lại (“every Friday”) → hiện tại đơn; do với chủ ngữ số ít thành does."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "Our accountant ___ (finish) work at 5:30 p.m. on weekdays.",
+   "choices": [],
+   "answer": "finishes",
+   "accept": [],
+   "explain": "Giờ giấc cố định → hiện tại đơn; động từ tận cùng -sh thêm -es: finishes."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "Ms. Thu ___ (study) Japanese two evenings a week because our company has many clients in Osaka.",
+   "choices": [],
+   "answer": "studies",
+   "accept": [],
+   "explain": "Thói quen (“two evenings a week”) → hiện tại đơn; phụ âm + y đổi thành -ies: studies."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "The night-shift security guard ___ the CCTV screens from 10 p.m. to 6 a.m.",
+   "choices": [
+    "watches",
+    "watchs",
+    "watch",
+    "watchies"
+   ],
+   "answer": "watches",
+   "accept": [],
+   "explain": "Lịch làm việc cố định → hiện tại đơn; tận cùng -ch thêm -es: watches."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "Mr. Khoa ___ office supplies online for the whole floor every month.",
+   "choices": [
+    "buys",
+    "buies",
+    "buy",
+    "buyes"
+   ],
+   "answer": "buys",
+   "accept": [],
+   "explain": "Việc lặp lại (“every month”) → hiện tại đơn; nguyên âm + y chỉ thêm -s: buys."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "Does the canteen open on Saturdays? — No, it ___.",
+   "choices": [
+    "doesn't",
+    "isn't",
+    "don't",
+    "does"
+   ],
+   "answer": "doesn't",
+   "accept": [],
+   "explain": "Câu hỏi bắt đầu bằng Does → trả lời ngắn bằng does/doesn't; câu phủ định với it là doesn't."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "Is the IT helpdesk open at lunchtime? — Yes, it ___.",
+   "choices": [
+    "is",
+    "'s",
+    "does",
+    "are"
+   ],
+   "answer": "is",
+   "accept": [],
+   "explain": "Câu hỏi với Is → trả lời ngắn “Yes, it is”; câu khẳng định ngắn không viết tắt thành “it's”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "Do your developers work on weekends? — No, they ___.",
+   "choices": [
+    "don't",
+    "doesn't",
+    "aren't",
+    "isn't"
+   ],
+   "answer": "don't",
+   "accept": [],
+   "explain": "Câu hỏi với Do, chủ ngữ they → trả lời ngắn “No, they don't”."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "Our team leader ___ on time for the stand-up meeting, so please don't be late.",
+   "choices": [
+    "is always",
+    "always is",
+    "always be",
+    "does always"
+   ],
+   "answer": "is always",
+   "accept": [],
+   "explain": "Trạng từ tần suất đứng sau động từ be: is always."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "I ___ my email before 9 a.m., so please send urgent requests early.",
+   "choices": [
+    "usually check",
+    "check usually",
+    "am usually check",
+    "usually checks"
+   ],
+   "answer": "usually check",
+   "accept": [],
+   "explain": "Trạng từ tần suất đứng trước động từ thường; chủ ngữ I dùng nguyên mẫu: usually check."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "present-simple",
+   "prompt": "What time ___ (the canteen / open) on weekdays? — At 11 a.m.",
+   "choices": [],
+   "answer": "does the canteen open",
+   "accept": [],
+   "explain": "Câu hỏi Wh- về giờ cố định → What time + does + chủ ngữ số ít + V nguyên mẫu."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "present-simple",
+   "prompt": "I ___ at TMA as a software tester.",
+   "choices": [
+    "work",
+    "am work",
+    "works",
+    "working"
+   ],
+   "answer": "work",
+   "accept": [],
+   "explain": "Câu khẳng định hiện tại đơn chỉ cần S + V; không thêm am trước động từ thường (lỗi “I am work”)."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Spelling: he / she / it + -s / -es / -ies",
+   "columns": [
+    "Base verb",
+    "he / she / it",
+    "Rule"
+   ],
+   "rows": [
+    {
+     "label": "work",
+     "cells": [
+      "work",
+      "works",
+      "most verbs: + s"
+     ]
+    },
+    {
+     "label": "check",
+     "cells": [
+      "check",
+      "checks",
+      "most verbs: + s"
+     ]
+    },
+    {
+     "label": "pass",
+     "cells": [
+      "pass",
+      "passes",
+      "-s / -ss: + es"
+     ]
+    },
+    {
+     "label": "finish",
+     "cells": [
+      "finish",
+      "finishes",
+      "-sh: + es"
+     ]
+    },
+    {
+     "label": "watch",
+     "cells": [
+      "watch",
+      "watches",
+      "-ch: + es"
+     ]
+    },
+    {
+     "label": "fix",
+     "cells": [
+      "fix",
+      "fixes",
+      "-x: + es"
+     ]
+    },
+    {
+     "label": "go",
+     "cells": [
+      "go",
+      "goes",
+      "-o: + es"
+     ]
+    },
+    {
+     "label": "do",
+     "cells": [
+      "do",
+      "does",
+      "-o: + es"
+     ]
+    },
+    {
+     "label": "study",
+     "cells": [
+      "study",
+      "studies",
+      "consonant + y → -ies"
+     ]
+    },
+    {
+     "label": "reply",
+     "cells": [
+      "reply",
+      "replies",
+      "consonant + y → -ies"
+     ]
+    },
+    {
+     "label": "play",
+     "cells": [
+      "play",
+      "plays",
+      "vowel + y: + s"
+     ]
+    },
+    {
+     "label": "stay",
+     "cells": [
+      "stay",
+      "stays",
+      "vowel + y: + s"
+     ]
+    },
+    {
+     "label": "buy",
+     "cells": [
+      "buy",
+      "buys",
+      "vowel + y: + s"
+     ]
+    },
+    {
+     "label": "have",
+     "cells": [
+      "have",
+      "has",
+      "irregular"
+     ]
+    }
+   ],
+   "note": "Nguyên âm + y (play, stay, buy) chỉ thêm -s; phụ âm + y (study, fly, reply) đổi y thành -ies. Have → has, do → does, go → goes."
+  },
+  {
+   "title": "Short answers",
+   "columns": [
+    "Question",
+    "Yes",
+    "No"
+   ],
+   "rows": [
+    {
+     "label": "Do you work on Saturdays?",
+     "cells": [
+      "Do you work on Saturdays?",
+      "Yes, I do.",
+      "No, I don't."
+     ]
+    },
+    {
+     "label": "Does she use Jira?",
+     "cells": [
+      "Does she use Jira?",
+      "Yes, she does.",
+      "No, she doesn't."
+     ]
+    },
+    {
+     "label": "Do they need a visa?",
+     "cells": [
+      "Do they need a visa?",
+      "Yes, they do.",
+      "No, they don't."
+     ]
+    },
+    {
+     "label": "Am I late?",
+     "cells": [
+      "Am I late?",
+      "Yes, you are.",
+      "No, you aren't."
+     ]
+    },
+    {
+     "label": "Is the canteen open?",
+     "cells": [
+      "Is the canteen open?",
+      "Yes, it is.",
+      "No, it isn't."
+     ]
+    },
+    {
+     "label": "Are you free at 3?",
+     "cells": [
+      "Are you free at 3?",
+      "Yes, I am.",
+      "No, I'm not."
+     ]
+    },
+    {
+     "label": "Are the reports ready?",
+     "cells": [
+      "Are the reports ready?",
+      "Yes, they are.",
+      "No, they aren't."
+     ]
+    }
+   ],
+   "note": "Câu trả lời ngắn lặp lại trợ động từ của câu hỏi (do/does/am/is/are). Câu khẳng định ngắn không viết tắt: nói “Yes, I am / Yes, it is”, không nói “Yes, I'm / Yes, it's”."
+  },
+  {
+   "title": "Questions: Wh- vs subject questions",
+   "columns": [
+    "Type",
+    "Pattern",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "Yes/No",
+     "cells": [
+      "Yes/No",
+      "Do/Does + S + V?",
+      "Does she work in HR?"
+     ]
+    },
+    {
+     "label": "Wh- (place, time, reason…)",
+     "cells": [
+      "Wh- (place, time, reason…)",
+      "Wh- + do/does + S + V?",
+      "Where does she work?"
+     ]
+    },
+    {
+     "label": "Wh- with be",
+     "cells": [
+      "Wh- with be",
+      "Wh- + am/is/are + S?",
+      "Where is the meeting room?"
+     ]
+    },
+    {
+     "label": "Subject question",
+     "cells": [
+      "Subject question",
+      "Who/What + V-s …?",
+      "Who works in HR? — Lan does."
+     ]
+    }
+   ],
+   "note": "Khi Who/What là chủ ngữ thì không dùng do/does: Who approves leave? (không nói “Who does approve…?”)."
+  },
+  {
+   "title": "Frequency adverbs: position",
+   "columns": [
+    "Position",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "before a main verb",
+     "cells": [
+      "before a main verb",
+      "I usually check my email first."
+     ]
+    },
+    {
+     "label": "after am / is / are",
+     "cells": [
+      "after am / is / are",
+      "She is always on time."
+     ]
+    },
+    {
+     "label": "between don't/doesn't and the verb",
+     "cells": [
+      "between don't/doesn't and the verb",
+      "I don't usually work late."
+     ]
+    },
+    {
+     "label": "questions: after the subject",
+     "cells": [
+      "questions: after the subject",
+      "Do you often travel for work?"
+     ]
+    }
+   ],
+   "note": "Sai: “She always is late”, “I check usually my email”."
   }
  ]
 }

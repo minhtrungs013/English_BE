@@ -3,35 +3,61 @@
   "group": "foundations",
   "name": "Subject–verb agreement",
   "vi": "Hòa hợp chủ ngữ – động từ",
-  "summary": "Động từ phải hợp với chủ ngữ: chủ ngữ số ít đi với is/was/does/has/works, chủ ngữ số nhiều đi với are/were/do/have/work. Khó nhất là tìm đúng chủ ngữ thật khi câu dài, khi có everyone, danh từ không đếm được, one of…, there is/are hay neither…nor.",
+  "summary": "Động từ phải hợp với chủ ngữ: chủ ngữ số ít đi với is/was/does/has/works, chủ ngữ số nhiều đi với are/were/do/have/work. Khó nhất là tìm đúng chủ ngữ thật khi câu dài, và các trường hợp dễ nhầm: everyone, danh từ không đếm được, people / police (số nhiều), a lot of + danh từ, thời gian / tiền (số ít), one of…, there is/are, neither…nor.",
   "tables": [
     {
       "title": "Loại chủ ngữ → số ít hay số nhiều",
-      "columns": ["Chủ ngữ", "Động từ", "Ví dụ"],
+      "columns": ["Chủ ngữ","Động từ","Ví dụ"],
       "rows": [
-        { "label": "he / she / it, một danh từ số ít", "cells": ["he / she / it, the server", "số ít: is, was, does, has, works", "The server is down. He works in IT."] },
-        { "label": "Danh từ số nhiều", "cells": ["the developers, my emails", "số nhiều: are, were, do, have, work", "The developers are in a meeting."] },
-        { "label": "A and B", "cells": ["Tom and Linh, the CPU and the RAM", "số nhiều", "Tom and Linh work on the same project."] },
-        { "label": "everyone / nobody / each / every", "cells": ["everyone, somebody, nobody, each user", "số ít", "Everyone is here. Each user has a password."] },
-        { "label": "Danh từ không đếm được", "cells": ["information, software, news, advice, equipment", "số ít (không thêm -s)", "The information is correct. The news was good."] },
-        { "label": "Tên công ty, tổ chức", "cells": ["the company, our company, Microsoft", "số ít (chuẩn trong tiếng Anh công sở)", "Our company has 500 employees."] },
-        { "label": "one of the + danh từ số nhiều", "cells": ["one of the servers", "số ít (chủ ngữ là one)", "One of the servers is down."] },
-        { "label": "there is / there are", "cells": ["there + danh từ đứng sau", "theo danh từ đứng sau", "There is a bug. There are two bugs."] },
-        { "label": "neither…nor / either…or", "cells": ["neither A nor B, either A or B", "theo chủ ngữ GẦN động từ nhất", "Neither the boss nor the testers are happy."] },
-        { "label": "the number of / a number of", "cells": ["the number of = con số; a number of = nhiều", "the number of → số ít; a number of → số nhiều", "The number of users is growing. A number of users are angry."] }
+        {"label":"he / she / it, một danh từ số ít","cells":["he / she / it, the server","số ít: is, was, does, has, works","The server is down. He works in IT."]},
+        {"label":"Danh từ số nhiều","cells":["the developers, my emails","số nhiều: are, were, do, have, work","The developers are in a meeting."]},
+        {"label":"A and B / both A and B","cells":["Tom and Linh, both the CPU and the RAM","số nhiều","Tom and Linh work on the same project."]},
+        {"label":"everyone / nobody / each / every","cells":["everyone, somebody, nobody, each user, every employee","số ít","Everyone is here. Every employee has a badge."]},
+        {"label":"Danh từ không đếm được","cells":["information, software, news, advice, equipment","số ít (không thêm -s)","The information is correct. The news was good."]},
+        {"label":"Công ty / tổ chức / team (tập hợp)","cells":["the company, our team, Microsoft","số ít (Mỹ, công sở); Anh-Anh đôi khi số nhiều với team / staff","Our company has 500 employees."]},
+        {"label":"one of the + danh từ số nhiều","cells":["one of the servers","số ít (chủ ngữ là one)","One of the servers is down."]},
+        {"label":"there is / there are","cells":["there + danh từ đứng sau","theo danh từ đứng sau","There is a bug. There are two bugs."]},
+        {"label":"neither…nor / either…or","cells":["neither A nor B, either A or B","theo chủ ngữ GẦN động từ nhất","Neither the boss nor the testers are happy."]},
+        {"label":"the number of / a number of","cells":["the number of users / a number of users","the number of (con số) → số ít; a number of (nhiều) → số nhiều","The number of users is growing. A number of users are angry."]}
       ],
       "note": "Bỏ qua cụm chen giữa (of open bugs, together with…, who…) để tìm chủ ngữ thật: The list of open bugs IS long."
     },
     {
       "title": "Dạng be / do / have / động từ thường",
-      "columns": ["Chủ ngữ", "be (hiện tại)", "be (quá khứ)", "do / have", "Động từ thường"],
+      "columns": ["Chủ ngữ","be (hiện tại)","be (quá khứ)","do / have","Động từ thường"],
       "rows": [
-        { "label": "I", "cells": ["I", "am", "was", "do / have", "work"] },
-        { "label": "he / she / it, số ít", "cells": ["he, she, it, the app, everyone", "is", "was", "does / has", "works"] },
-        { "label": "you / we / they, số nhiều", "cells": ["you, we, they, the users", "are", "were", "do / have", "work"] },
-        { "label": "Câu giả định với if", "cells": ["If I / he / she / it", "—", "were (If I were you…)", "—", "—"] }
+        {"label":"I","cells":["I","am","was","do / have","work"]},
+        {"label":"he / she / it, số ít","cells":["he, she, it, the app, everyone","is","was","does / has","works"]},
+        {"label":"you (1 hoặc nhiều người) / we / they / số nhiều","cells":["you, we, they, the users","are","were","do / have","work"]}
       ],
-      "note": "Sau does/doesn't/did, động từ chính về nguyên mẫu: He doesn't work (không phải doesn't works)."
+      "note": "Sau does / doesn't / did, động từ chính về nguyên mẫu: He doesn't work (không phải doesn't works). You luôn đi với are / were, kể cả khi chỉ một người. Giả định (không có thật): If + mọi chủ ngữ + were (If I were you…); văn nói có người dùng If I was, nhưng khi viết dùng were."
+    },
+    {
+      "title": "Nhóm chủ ngữ dễ nhầm",
+      "columns": ["Chủ ngữ","Động từ","Ví dụ"],
+      "rows": [
+        {"label":"people / children / men / women","cells":["people, children, men, women","số nhiều (dù không có -s)","People are waiting in the lobby."]},
+        {"label":"police / staff","cells":["the police, our staff","police luôn số nhiều; staff thường số nhiều","The police are here. Two of our staff are on leave."]},
+        {"label":"a lot of / most of / some of + danh từ","cells":["a lot of, lots of, most of, some of, all of, half of","theo danh từ sau of","A lot of information is old. A lot of users are online."]},
+        {"label":"Thời gian / tiền / khoảng cách","cells":["two hours, ten dollars, five kilometers","số ít (một khối)","Two hours is enough. Ten dollars is too much."]},
+        {"label":"neither of / either of / none of + danh từ số nhiều","cells":["neither of the servers, none of the files","số ít (trang trọng); văn nói hay dùng số nhiều","Neither of the servers is working."]},
+        {"label":"V-ing / mệnh đề làm chủ ngữ","cells":["testing all the APIs, what we need","số ít","Testing all the APIs takes two days."]},
+        {"label":"A as well as B / A along with B","cells":["the manager, as well as the developers","theo A (chủ ngữ đầu)","The manager, as well as the developers, is here."]},
+        {"label":"data","cells":["data","data is (IT, công sở) hoặc data are (khoa học)","The data is ready for the report."]}
+      ],
+      "note": "Khi viết văn công sở với team / staff / management, hãy chọn một cách (số ít hoặc số nhiều) rồi dùng nhất quán trong cả văn bản."
+    },
+    {
+      "title": "-s / -es / -ies (he / she / it)",
+      "columns": ["Động từ tận cùng","Quy tắc","Ví dụ"],
+      "rows": [
+        {"label":"Hầu hết động từ","cells":["Hầu hết động từ","+ s","work → works, need → needs"]},
+        {"label":"-s, -sh, -ch, -x, -o","cells":["-s, -sh, -ch, -x, -o","+ es","fix → fixes, push → pushes, watch → watches, go → goes, do → does"]},
+        {"label":"phụ âm + y","cells":["phụ âm + y","y → ies","try → tries, copy → copies, reply → replies"]},
+        {"label":"nguyên âm + y","cells":["nguyên âm + y","+ s","play → plays, pay → pays, stay → stays"]},
+        {"label":"have","cells":["have","bất quy tắc","have → has"]}
+      ],
+      "note": "Chỉ thêm -s / -es ở hiện tại đơn với he / she / it và danh từ số ít; quá khứ không thêm."
     }
   ],
   "uses": [
@@ -39,98 +65,146 @@
       "title": "Chủ ngữ số ít → động từ thêm -s / is / was / has / does",
       "explain": "Với he, she, it và một danh từ số ít, động từ hiện tại thêm -s/-es; be dùng is/was; have thành has; do thành does.",
       "examples": [
-        { "en": "My manager checks the report every Monday.", "vi": "Quản lý của tôi kiểm tra báo cáo mỗi thứ Hai." },
-        { "en": "The app has a new login page.", "vi": "Ứng dụng có trang đăng nhập mới." },
-        { "en": "Does the printer work now?", "vi": "Máy in giờ chạy được chưa?" }
+        {"en":"My manager checks the report every Monday.","vi":"Quản lý của tôi kiểm tra báo cáo mỗi thứ Hai."},
+        {"en":"The app has a new login page.","vi":"Ứng dụng có trang đăng nhập mới."},
+        {"en":"Does the printer work now?","vi":"Máy in giờ chạy được chưa?"}
       ]
     },
     {
       "title": "Everyone, nobody, each và danh từ không đếm được → số ít",
       "explain": "Everyone, somebody, nobody, each, every… luôn đi với động từ số ít. Information, software, news, advice, equipment không có dạng số nhiều và cũng đi với động từ số ít.",
       "examples": [
-        { "en": "Everyone in the team is ready for the demo.", "vi": "Mọi người trong nhóm đều sẵn sàng cho buổi demo." },
-        { "en": "The new equipment was delivered yesterday.", "vi": "Thiết bị mới đã được giao hôm qua." },
-        { "en": "This software needs a license key.", "vi": "Phần mềm này cần khóa bản quyền." }
+        {"en":"Everyone in the team is ready for the demo.","vi":"Mọi người trong nhóm đều sẵn sàng cho buổi demo."},
+        {"en":"The new equipment was delivered yesterday.","vi":"Thiết bị mới đã được giao hôm qua."},
+        {"en":"This software needs a license key.","vi":"Phần mềm này cần khóa bản quyền."}
       ]
     },
     {
       "title": "Tìm chủ ngữ thật trong câu dài",
       "explain": "Động từ hợp với danh từ chính, không hợp với danh từ trong cụm of…, with…, together with… hay mệnh đề who/that.",
       "examples": [
-        { "en": "The list of open bugs is very long.", "vi": "Danh sách các lỗi chưa xử lý rất dài." },
-        { "en": "One of the servers is down.", "vi": "Một trong các máy chủ đang bị sập." },
-        { "en": "The manager, together with two engineers, visits the client every month.", "vi": "Quản lý cùng hai kỹ sư đến gặp khách hàng mỗi tháng." }
+        {"en":"The list of open bugs is very long.","vi":"Danh sách các lỗi chưa xử lý rất dài."},
+        {"en":"One of the servers is down.","vi":"Một trong các máy chủ đang bị sập."},
+        {"en":"The manager, together with two engineers, visits the client every month.","vi":"Quản lý cùng hai kỹ sư đến gặp khách hàng mỗi tháng."}
       ]
     },
     {
       "title": "There is/are, neither…nor, either…or: nhìn danh từ gần nhất",
       "explain": "Với there is/are, động từ hợp với danh từ đứng sau nó. Với neither…nor và either…or, động từ hợp với chủ ngữ gần động từ nhất.",
       "examples": [
-        { "en": "There are three new tickets in the queue.", "vi": "Có ba ticket mới trong hàng đợi." },
-        { "en": "Neither the CEO nor the managers are attending.", "vi": "Cả CEO lẫn các quản lý đều không tham dự." },
-        { "en": "Either the testers or the team lead checks the notes.", "vi": "Hoặc các tester hoặc trưởng nhóm sẽ kiểm tra ghi chú." }
+        {"en":"There are three new tickets in the queue.","vi":"Có ba ticket mới trong hàng đợi."},
+        {"en":"Neither the CEO nor the managers are attending.","vi":"Cả CEO lẫn các quản lý đều không tham dự."},
+        {"en":"Either the testers or the team lead checks the notes.","vi":"Hoặc các tester hoặc trưởng nhóm kiểm tra ghi chú."}
       ]
     },
     {
       "title": "A and B, a number of → số nhiều; the number of → số ít",
       "explain": "Hai chủ ngữ nối bằng and là số nhiều. A number of (= nhiều) đi với số nhiều, còn the number of (= con số) đi với số ít.",
       "examples": [
-        { "en": "Mai and her manager were at the client's office.", "vi": "Mai và quản lý của cô ấy đã ở văn phòng khách hàng." },
-        { "en": "A number of employees work from home on Fridays.", "vi": "Nhiều nhân viên làm việc ở nhà vào thứ Sáu." },
-        { "en": "The number of users is growing.", "vi": "Số lượng người dùng đang tăng." }
+        {"en":"Mai and her manager were at the client's office.","vi":"Mai và quản lý của cô ấy đã ở văn phòng khách hàng."},
+        {"en":"A number of employees work from home on Fridays.","vi":"Nhiều nhân viên làm việc ở nhà vào thứ Sáu."},
+        {"en":"The number of users is growing.","vi":"Số lượng người dùng đang tăng."}
+      ]
+    },
+    {
+      "title": "People, police, staff → số nhiều; thời gian, tiền, khoảng cách → số ít",
+      "explain": "People, children, police không có -s nhưng là số nhiều. Một khoảng thời gian, số tiền hay khoảng cách được xem là một khối nên đi với động từ số ít.",
+      "examples": [
+        {"en":"People in the sales team are very busy this week.","vi":"Mọi người trong nhóm kinh doanh tuần này rất bận."},
+        {"en":"The police are checking the cameras.","vi":"Cảnh sát đang kiểm tra camera."},
+        {"en":"Two weeks is enough for testing.","vi":"Hai tuần là đủ để kiểm thử."}
+      ]
+    },
+    {
+      "title": "A lot of / most of / some of + danh từ: chia theo danh từ",
+      "explain": "Với a lot of, lots of, most of, some of, all of, half of, động từ hợp với danh từ đứng sau of: không đếm được → số ít; số nhiều → số nhiều.",
+      "examples": [
+        {"en":"A lot of information on the wiki is out of date.","vi":"Nhiều thông tin trên wiki đã cũ."},
+        {"en":"A lot of users are online now.","vi":"Bây giờ có nhiều người dùng đang trực tuyến."},
+        {"en":"Most of the budget has been spent.","vi":"Phần lớn ngân sách đã được chi."}
+      ]
+    },
+    {
+      "title": "Neither of, V-ing, both…and, as well as",
+      "explain": "Neither of / either of / none of + danh từ số nhiều: số ít trong văn trang trọng (văn nói hay dùng số nhiều). V-ing làm chủ ngữ → số ít. Both A and B → số nhiều. A as well as / along with B → theo A.",
+      "examples": [
+        {"en":"Neither of the backup servers is working.","vi":"Cả hai máy chủ sao lưu đều không hoạt động."},
+        {"en":"Testing all the APIs takes two days.","vi":"Kiểm thử tất cả API mất hai ngày."},
+        {"en":"Both the CEO and the CTO are at the conference.","vi":"Cả CEO và CTO đều đang ở hội nghị."}
       ]
     }
   ],
   "mistakes": [
-    { "wrong": "Everyone are here.", "right": "Everyone is here.", "explain": "Everyone mang nghĩa 'mọi người' nhưng về ngữ pháp là số ít, nên dùng is." },
-    { "wrong": "The informations is in the email.", "right": "The information is in the email.", "explain": "Information là danh từ không đếm được, không thêm -s và đi với động từ số ít." },
-    { "wrong": "One of the servers are down.", "right": "One of the servers is down.", "explain": "Chủ ngữ thật là one (một cái), không phải servers, nên dùng is." },
-    { "wrong": "The list of bugs are long.", "right": "The list of bugs is long.", "explain": "Chủ ngữ thật là the list (số ít); of bugs chỉ là cụm bổ nghĩa." },
-    { "wrong": "He work here.", "right": "He works here.", "explain": "Với he/she/it ở thì hiện tại đơn, động từ phải thêm -s." },
-    { "wrong": "Does he works on Saturdays?", "right": "Does he work on Saturdays?", "explain": "Does đã mang -s rồi, nên động từ chính giữ nguyên mẫu." }
+    {"wrong":"Everyone are here.","right":"Everyone is here.","explain":"Everyone mang nghĩa 'mọi người' nhưng về ngữ pháp là số ít, nên dùng is."},
+    {"wrong":"The informations is in the email.","right":"The information is in the email.","explain":"Information là danh từ không đếm được, không thêm -s và đi với động từ số ít."},
+    {"wrong":"One of the servers are down.","right":"One of the servers is down.","explain":"Chủ ngữ thật là one (một cái), không phải servers, nên dùng is."},
+    {"wrong":"The list of bugs are long.","right":"The list of bugs is long.","explain":"Chủ ngữ thật là the list (số ít); of bugs chỉ là cụm bổ nghĩa."},
+    {"wrong":"He work here.","right":"He works here.","explain":"Với he/she/it ở thì hiện tại đơn, động từ phải thêm -s."},
+    {"wrong":"People is waiting in the lobby.","right":"People are waiting in the lobby.","explain":"People là số nhiều (một người = a person), nên dùng are."},
+    {"wrong":"There is a lot of users online.","right":"There are a lot of users online.","explain":"Sau a lot of là users (số nhiều) nên dùng there are."},
+    {"wrong":"He fixs the bug. / She trys again.","right":"He fixes the bug. / She tries again.","explain":"Động từ tận cùng -s, -sh, -ch, -x, -o thêm -es; phụ âm + y đổi thành -ies."},
+    {"wrong":"The police is coming.","right":"The police are coming.","explain":"Police luôn là danh từ số nhiều nên dùng are."}
   ],
   "drills": [
-    { "kind": "tense", "level": "easy", "topic": "-s verb", "prompt": "He currently ___ (work) in the IT department.", "choices": [], "answer": "works", "accept": [], "explain": "He là số ít, động từ hiện tại thêm -s." },
-    { "kind": "tense", "level": "easy", "topic": "Singular noun", "prompt": "The server ___ (be) down right now, so please wait.", "choices": [], "answer": "is", "accept": [], "explain": "The server là một danh từ số ít, hiện tại dùng is." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "-s verb", "prompt": "My manager ___ coffee every morning.", "choices": ["drink", "drinks", "drinking"], "answer": "drinks", "accept": [], "explain": "My manager là số ít, động từ thêm -s." },
-    { "kind": "tense", "level": "easy", "topic": "Plural noun", "prompt": "The developers ___ (be) in a meeting right now.", "choices": [], "answer": "are", "accept": [], "explain": "The developers là số nhiều, dùng are." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Does/do", "prompt": "Our tester ___ not like long test cases.", "choices": ["do", "does", "is"], "answer": "does", "accept": [], "explain": "Our tester là số ít, phủ định dùng does not + động từ nguyên mẫu." },
-    { "kind": "tense", "level": "easy", "topic": "Does/do", "prompt": "When ___ (do) the daily stand-up usually start?", "choices": [], "answer": "does", "accept": [], "explain": "The daily stand-up là số ít, câu hỏi hiện tại dùng does." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Plural noun", "prompt": "The new laptops ___ really fast.", "choices": ["is", "are", "was"], "answer": "are", "accept": [], "explain": "The new laptops là số nhiều, dùng are." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Has/have", "prompt": "She ___ two monitors on her desk.", "choices": ["have", "has", "having"], "answer": "has", "accept": [], "explain": "She là số ít, have chuyển thành has." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "A and B", "prompt": "Tom and Linh ___ on the same project.", "choices": ["works", "work", "is working"], "answer": "work", "accept": [], "explain": "Hai người nối bằng and là số nhiều, động từ không thêm -s." },
-    { "kind": "tense", "level": "easy", "topic": "Was/were", "prompt": "The meeting ___ (be) very long yesterday.", "choices": [], "answer": "was", "accept": [], "explain": "The meeting là số ít, quá khứ dùng was." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "Was/were", "prompt": "The printers on the second floor ___ broken last week.", "choices": ["was", "were", "is"], "answer": "were", "accept": [], "explain": "Chủ ngữ là the printers (số nhiều), quá khứ dùng were." },
-    { "kind": "tense", "level": "easy", "topic": "-s verb", "prompt": "My computer is very slow today. It ___ (need) an update.", "choices": [], "answer": "needs", "accept": [], "explain": "It là số ít, động từ hiện tại thêm -s." },
-    { "kind": "tenseChoice", "level": "easy", "topic": "There is/are", "prompt": "There ___ a problem with the login page.", "choices": ["is", "are", "be"], "answer": "is", "accept": [], "explain": "Danh từ sau there là a problem (số ít), dùng there is." },
-    { "kind": "tense", "level": "easy", "topic": "There is/are", "prompt": "Look! There ___ (be) three new emails in your inbox.", "choices": [], "answer": "are", "accept": [], "explain": "Danh từ sau there là three new emails (số nhiều), dùng there are." },
-
-    { "kind": "tense", "level": "medium", "topic": "Everyone/nobody", "prompt": "Everyone in the team ___ (be) ready for tomorrow's demo.", "choices": [], "answer": "is", "accept": [], "explain": "Everyone luôn là số ít, dùng is." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Everyone/nobody", "prompt": "Nobody ___ the password for the old server.", "choices": ["know", "knows", "are knowing"], "answer": "knows", "accept": [], "explain": "Nobody là số ít, động từ thêm -s." },
-    { "kind": "tense", "level": "medium", "topic": "Each/every", "prompt": "Each developer currently ___ (have) a personal test account.", "choices": [], "answer": "has", "accept": [], "explain": "Each + danh từ số ít là số ít, dùng has." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Uncountable", "prompt": "The information in this report ___ correct.", "choices": ["is", "are", "were"], "answer": "is", "accept": [], "explain": "Information là danh từ không đếm được, dùng động từ số ít." },
-    { "kind": "tense", "level": "medium", "topic": "Uncountable", "prompt": "The news about the merger ___ (be) a big surprise to everyone last week.", "choices": [], "answer": "was", "accept": [], "explain": "News trông như số nhiều nhưng là danh từ không đếm được, quá khứ dùng was." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Uncountable", "prompt": "This software ___ a lot of memory.", "choices": ["use", "uses", "are using"], "answer": "uses", "accept": [], "explain": "Software là danh từ không đếm được, động từ thêm -s." },
-    { "kind": "tense", "level": "medium", "topic": "Uncountable", "prompt": "Your advice in yesterday's meeting ___ (be) very helpful.", "choices": [], "answer": "was", "accept": [], "explain": "Advice là danh từ không đếm được, quá khứ dùng was." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Uncountable", "prompt": "The new equipment ___ arrived, so we can set up the meeting room.", "choices": ["has", "have", "are"], "answer": "has", "accept": [], "explain": "Equipment là danh từ không đếm được, dùng has arrived." },
-    { "kind": "tense", "level": "medium", "topic": "Everyone/nobody", "prompt": "Somebody ___ (leave) the meeting room door open every evening.", "choices": [], "answer": "leaves", "accept": [], "explain": "Somebody là số ít, động từ hiện tại thêm -s." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "There is/are", "prompt": "There ___ some important information in the attachment.", "choices": ["is", "are", "have"], "answer": "is", "accept": [], "explain": "Information không đếm được nên dùng there is, dù có some." },
-    { "kind": "tense", "level": "medium", "topic": "There is/are", "prompt": "There ___ (be) a lot of complaints from customers last month.", "choices": [], "answer": "were", "accept": [], "explain": "Complaints là số nhiều và có last month, nên dùng there were." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "A and B", "prompt": "Mai and her manager ___ at the client's office yesterday.", "choices": ["was", "were", "is"], "answer": "were", "accept": [], "explain": "Hai người nối bằng and là số nhiều, quá khứ dùng were." },
-    { "kind": "tense", "level": "medium", "topic": "Collective noun", "prompt": "Our company currently ___ (have) more than 500 employees in Vietnam.", "choices": [], "answer": "has", "accept": [], "explain": "Tên công ty/tổ chức dùng động từ số ít là chuẩn trong tiếng Anh công sở, nên dùng has." },
-    { "kind": "tenseChoice", "level": "medium", "topic": "Does/do", "prompt": "What ___ the error messages in the log say?", "choices": ["does", "do", "is"], "answer": "do", "accept": [], "explain": "Chủ ngữ là the error messages (số nhiều), câu hỏi dùng do." },
-
-    { "kind": "tense", "level": "hard", "topic": "Long subject", "prompt": "The list of open bugs ___ (be) much longer this week than last week.", "choices": [], "answer": "is", "accept": [], "explain": "Chủ ngữ thật là the list (số ít), không phải bugs." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "One of…", "prompt": "One of the servers ___ down since 2 a.m.", "choices": ["has been", "have been", "were"], "answer": "has been", "accept": [], "explain": "Chủ ngữ thật là one (số ít), nên dùng has been." },
-    { "kind": "tense", "level": "hard", "topic": "One of…", "prompt": "One of the test cases ___ (be) still failing on the build server right now.", "choices": [], "answer": "is", "accept": [], "explain": "One of + danh từ số nhiều vẫn là số ít, dùng is." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "The number of", "prompt": "The number of active users ___ growing every month.", "choices": ["is", "are", "have"], "answer": "is", "accept": [], "explain": "The number of (= con số) là số ít, dùng is." },
-    { "kind": "tense", "level": "hard", "topic": "A number of", "prompt": "A number of employees ___ (work) from home every Friday.", "choices": [], "answer": "work", "accept": [], "explain": "A number of (= nhiều) đi với động từ số nhiều, không thêm -s." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Long subject", "prompt": "The quality of the new monitors ___ excellent.", "choices": ["is", "are", "be"], "answer": "is", "accept": [], "explain": "Chủ ngữ thật là the quality (số ít), không phải monitors." },
-    { "kind": "tense", "level": "hard", "topic": "If I were", "prompt": "If I ___ (be) you, I would back up the database first.", "choices": [], "answer": "were", "accept": [], "explain": "Trong câu khuyên If I … you, chuẩn là were cho mọi chủ ngữ." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Neither…nor", "prompt": "Neither the CEO nor the managers ___ attending the training today.", "choices": ["is", "are", "was"], "answer": "are", "accept": [], "explain": "Động từ hợp với chủ ngữ gần nhất là the managers (số nhiều)." },
-    { "kind": "tenseChoice", "level": "hard", "topic": "Either…or", "prompt": "Either John or Lan ___ going to present the results tomorrow.", "choices": ["is", "are", "were"], "answer": "is", "accept": [], "explain": "Động từ hợp với chủ ngữ gần nhất là Lan (số ít), dùng is." },
-    { "kind": "tense", "level": "hard", "topic": "Long subject", "prompt": "The manager, together with two engineers, ___ (visit) the client every month.", "choices": [], "answer": "visits", "accept": [], "explain": "Together with… không làm chủ ngữ thành số nhiều; chủ ngữ thật là the manager." },
-    { "kind": "tense", "level": "hard", "topic": "Each/every", "prompt": "Each of the team members currently ___ (have) access to the shared drive.", "choices": [], "answer": "has", "accept": [], "explain": "Each of + danh từ số nhiều vẫn là số ít, dùng has." },
-    { "kind": "tense", "level": "hard", "topic": "Long subject", "prompt": "The engineer who manages our servers ___ (live) in Da Nang, so he works remotely.", "choices": [], "answer": "lives", "accept": [], "explain": "Chủ ngữ thật là the engineer (số ít); mệnh đề who… không thay đổi điều đó." }
+    {"kind":"tense","level":"easy","topic":"-s verb","prompt":"He ___ (work) in the IT department.","choices":[],"answer":"works","accept":["is working","'s working"],"explain":"He là số ít, động từ hiện tại thêm -s (works)."},
+    {"kind":"tense","level":"easy","topic":"Singular noun","prompt":"The server ___ (be) down right now, so please wait.","choices":[],"answer":"is","accept":[],"explain":"The server là một danh từ số ít, hiện tại dùng is."},
+    {"kind":"tenseChoice","level":"easy","topic":"-s verb","prompt":"My manager ___ coffee every morning.","choices":["drink","drinks","drinking"],"answer":"drinks","accept":[],"explain":"My manager là số ít, động từ thêm -s."},
+    {"kind":"tense","level":"easy","topic":"Plural noun","prompt":"The developers ___ (be) in a meeting right now.","choices":[],"answer":"are","accept":[],"explain":"The developers là số nhiều, dùng are."},
+    {"kind":"tenseChoice","level":"easy","topic":"Does/do","prompt":"Our tester ___ like long test cases.","choices":["don't","doesn't","isn't"],"answer":"doesn't","accept":[],"explain":"Our tester là số ít, phủ định dùng doesn't + động từ nguyên mẫu."},
+    {"kind":"tense","level":"easy","topic":"-es verb","prompt":"Our system ___ (do) a full backup every night at 2 a.m.","choices":[],"answer":"does","accept":[],"explain":"Our system là số ít; do thêm -es thành does."},
+    {"kind":"tenseChoice","level":"easy","topic":"Plural noun","prompt":"The new laptops ___ really fast.","choices":["is","are","was"],"answer":"are","accept":[],"explain":"The new laptops là số nhiều, dùng are."},
+    {"kind":"tenseChoice","level":"easy","topic":"Has/have","prompt":"She ___ two monitors on her desk.","choices":["have","has","having"],"answer":"has","accept":[],"explain":"She là số ít, have chuyển thành has."},
+    {"kind":"tenseChoice","level":"easy","topic":"A and B","prompt":"Tom and Linh ___ on the same project.","choices":["works","work","is working"],"answer":"work","accept":[],"explain":"Hai người nối bằng and là số nhiều, động từ không thêm -s."},
+    {"kind":"tense","level":"easy","topic":"Was/were","prompt":"The meeting ___ (be) very long yesterday.","choices":[],"answer":"was","accept":[],"explain":"The meeting là số ít, quá khứ dùng was."},
+    {"kind":"tenseChoice","level":"easy","topic":"Was/were","prompt":"The printers on the second floor ___ broken last week.","choices":["was","were","is"],"answer":"were","accept":[],"explain":"Chủ ngữ là the printers (số nhiều), quá khứ dùng were."},
+    {"kind":"tense","level":"easy","topic":"-s verb","prompt":"My computer is very slow today. It ___ (need) an update.","choices":[],"answer":"needs","accept":[],"explain":"It là số ít, động từ hiện tại thêm -s."},
+    {"kind":"tenseChoice","level":"easy","topic":"There is/are","prompt":"There ___ a problem with the login page.","choices":["is","are","be"],"answer":"is","accept":[],"explain":"Danh từ sau there là a problem (số ít), dùng there is."},
+    {"kind":"tense","level":"easy","topic":"There is/are","prompt":"Look! There ___ (be) three new emails in your inbox.","choices":[],"answer":"are","accept":[],"explain":"Danh từ sau there là three new emails (số nhiều), dùng there are."},
+    {"kind":"tense","level":"medium","topic":"Everyone/nobody","prompt":"Everyone in the team ___ (be) ready for tomorrow's demo.","choices":[],"answer":"is","accept":[],"explain":"Everyone luôn là số ít, dùng is."},
+    {"kind":"tenseChoice","level":"medium","topic":"Everyone/nobody","prompt":"Nobody ___ the password for the old server.","choices":["know","knows","are knowing"],"answer":"knows","accept":[],"explain":"Nobody là số ít, động từ thêm -s."},
+    {"kind":"tense","level":"medium","topic":"Each/every","prompt":"Each developer currently ___ (have) a personal test account.","choices":[],"answer":"has","accept":[],"explain":"Each + danh từ số ít là số ít, dùng has."},
+    {"kind":"tenseChoice","level":"medium","topic":"Uncountable","prompt":"The information in this report ___ correct.","choices":["is","are","were"],"answer":"is","accept":[],"explain":"Information là danh từ không đếm được, dùng động từ số ít."},
+    {"kind":"tense","level":"medium","topic":"Uncountable","prompt":"The news about the merger ___ (be) a big surprise to everyone last week.","choices":[],"answer":"was","accept":[],"explain":"News trông như số nhiều nhưng là danh từ không đếm được, quá khứ dùng was."},
+    {"kind":"tenseChoice","level":"medium","topic":"Uncountable","prompt":"This software ___ a lot of memory.","choices":["use","uses","are using"],"answer":"uses","accept":[],"explain":"Software là danh từ không đếm được, động từ thêm -s."},
+    {"kind":"tense","level":"medium","topic":"Uncountable","prompt":"Your advice in yesterday's meeting ___ (be) very helpful.","choices":[],"answer":"was","accept":[],"explain":"Advice là danh từ không đếm được, quá khứ dùng was."},
+    {"kind":"tenseChoice","level":"medium","topic":"Uncountable","prompt":"The new equipment ___ arrived, so we can set up the meeting room.","choices":["has","have","are"],"answer":"has","accept":[],"explain":"Equipment là danh từ không đếm được, dùng has arrived."},
+    {"kind":"tense","level":"medium","topic":"Everyone/nobody","prompt":"Somebody ___ (leave) the meeting room door open every evening.","choices":[],"answer":"leaves","accept":[],"explain":"Somebody là số ít, động từ hiện tại thêm -s."},
+    {"kind":"tenseChoice","level":"medium","topic":"There is/are","prompt":"There ___ some important information in the attachment.","choices":["is","are","have"],"answer":"is","accept":[],"explain":"Information không đếm được nên dùng there is, dù có some."},
+    {"kind":"tense","level":"medium","topic":"There is/are","prompt":"There ___ (be) a lot of complaints from customers last month.","choices":[],"answer":"were","accept":[],"explain":"Complaints là số nhiều và có last month, nên dùng there were."},
+    {"kind":"tenseChoice","level":"medium","topic":"A and B","prompt":"Mai and her manager ___ at the client's office yesterday.","choices":["was","were","is"],"answer":"were","accept":[],"explain":"Hai người nối bằng and là số nhiều, quá khứ dùng were."},
+    {"kind":"tense","level":"medium","topic":"Collective noun","prompt":"Our company currently ___ (have) more than 500 employees in Vietnam.","choices":[],"answer":"has","accept":[],"explain":"Công ty / tổ chức dùng động từ số ít là chuẩn trong tiếng Anh Mỹ và văn công sở, nên dùng has."},
+    {"kind":"tenseChoice","level":"medium","topic":"Does/do","prompt":"What ___ the error messages in the log say?","choices":["does","do","is"],"answer":"do","accept":[],"explain":"Chủ ngữ là the error messages (số nhiều), câu hỏi dùng do."},
+    {"kind":"tense","level":"hard","topic":"Long subject","prompt":"The list of open bugs ___ (be) much longer this week than last week.","choices":[],"answer":"is","accept":[],"explain":"Chủ ngữ thật là the list (số ít), không phải bugs."},
+    {"kind":"tenseChoice","level":"hard","topic":"One of…","prompt":"One of the servers ___ down since 2 a.m.","choices":["has been","have been","were"],"answer":"has been","accept":[],"explain":"Chủ ngữ thật là one (số ít), nên dùng has been."},
+    {"kind":"tense","level":"hard","topic":"One of…","prompt":"One of the test cases ___ (be) still failing on the build server right now.","choices":[],"answer":"is","accept":[],"explain":"One of + danh từ số nhiều vẫn là số ít, dùng is."},
+    {"kind":"tenseChoice","level":"hard","topic":"The number of","prompt":"The number of active users ___ growing every month.","choices":["is","are","have"],"answer":"is","accept":[],"explain":"The number of (= con số) là số ít, dùng is."},
+    {"kind":"tense","level":"hard","topic":"A number of","prompt":"A number of employees ___ (work) from home every Friday.","choices":[],"answer":"work","accept":[],"explain":"A number of (= nhiều) đi với động từ số nhiều, không thêm -s."},
+    {"kind":"tenseChoice","level":"hard","topic":"Long subject","prompt":"The quality of the new monitors ___ excellent.","choices":["is","are","be"],"answer":"is","accept":[],"explain":"Chủ ngữ thật là the quality (số ít), không phải monitors."},
+    {"kind":"tense","level":"hard","topic":"If I were","prompt":"If I ___ (be) you, I would back up the database first.","choices":[],"answer":"were","accept":[],"explain":"Trong câu khuyên If I … you, chuẩn là were cho mọi chủ ngữ (văn nói vẫn gặp If I was you, nhưng khi viết dùng were)."},
+    {"kind":"tenseChoice","level":"hard","topic":"Neither…nor","prompt":"Neither the CEO nor the managers ___ attending the training today.","choices":["is","are","was"],"answer":"are","accept":[],"explain":"Động từ hợp với chủ ngữ gần nhất là the managers (số nhiều)."},
+    {"kind":"tenseChoice","level":"hard","topic":"Either…or","prompt":"Either the testers or the team lead ___ going to present the results tomorrow.","choices":["is","are","were"],"answer":"is","accept":[],"explain":"Động từ hợp với chủ ngữ gần nhất là the team lead (số ít), dùng is."},
+    {"kind":"tense","level":"hard","topic":"Long subject","prompt":"The manager, together with two engineers, ___ (visit) the client every month.","choices":[],"answer":"visits","accept":[],"explain":"Together with… không làm chủ ngữ thành số nhiều; chủ ngữ thật là the manager."},
+    {"kind":"tense","level":"hard","topic":"Each/every","prompt":"Each of the team members currently ___ (have) access to the shared drive.","choices":[],"answer":"has","accept":[],"explain":"Each of + danh từ số nhiều vẫn là số ít, dùng has."},
+    {"kind":"tense","level":"hard","topic":"Long subject","prompt":"The engineer who manages our servers ___ (live) in Da Nang, so he works remotely.","choices":[],"answer":"lives","accept":[],"explain":"Chủ ngữ thật là the engineer (số ít); mệnh đề who… không thay đổi điều đó."},
+    {"kind":"tense","level":"easy","topic":"People","prompt":"People in the sales team ___ (be) very busy right now because of the year-end campaign.","choices":[],"answer":"are","accept":[],"explain":"People là số nhiều (dù không có -s), hiện tại dùng are."},
+    {"kind":"tenseChoice","level":"medium","topic":"People","prompt":"A lot of people ___ asking about the new pricing plan.","choices":["are","is","has"],"answer":"are","accept":[],"explain":"People là số nhiều nên dùng are (are asking)."},
+    {"kind":"tenseChoice","level":"medium","topic":"A lot of + noun","prompt":"A lot of the information on our website ___ out of date.","choices":["is","are","were"],"answer":"is","accept":[],"explain":"Sau a lot of là information (không đếm được) nên dùng động từ số ít."},
+    {"kind":"tense","level":"medium","topic":"A lot of + noun","prompt":"Lots of customers ___ (be) unhappy with the slow checkout page right now.","choices":[],"answer":"are","accept":[],"explain":"Sau lots of là customers (số nhiều) nên dùng are."},
+    {"kind":"tenseChoice","level":"hard","topic":"Most of + noun","prompt":"Most of the budget ___ already been spent on cloud servers.","choices":["has","have","are"],"answer":"has","accept":[],"explain":"Most of the budget: budget là danh từ số ít nên dùng has been spent."},
+    {"kind":"tense","level":"hard","topic":"Some of + noun","prompt":"Some of the test results in this report ___ (be) wrong, so please check them again before you send it.","choices":[],"answer":"are","accept":["were"],"explain":"Some of + danh từ số nhiều (results) → động từ số nhiều: are."},
+    {"kind":"tenseChoice","level":"medium","topic":"Time as singular","prompt":"Two weeks ___ enough time to test the new module.","choices":["is","are","have"],"answer":"is","accept":[],"explain":"Một khoảng thời gian (two weeks) được xem là một khối nên dùng is."},
+    {"kind":"tense","level":"hard","topic":"Money as singular","prompt":"In my opinion, ten million dong ___ (be) too much for a two-hour training session.","choices":[],"answer":"is","accept":[],"explain":"Một số tiền được xem là một khối nên dùng động từ số ít: is."},
+    {"kind":"tenseChoice","level":"hard","topic":"Distance as singular","prompt":"Five kilometers ___ a long way to walk to the client's office.","choices":["is","are","have"],"answer":"is","accept":[],"explain":"Một khoảng cách (five kilometers) được xem là một khối nên dùng is."},
+    {"kind":"tenseChoice","level":"medium","topic":"Police / staff","prompt":"The police ___ checking the security cameras in our building now.","choices":["are","is","has"],"answer":"are","accept":[],"explain":"Police luôn là số nhiều nên dùng are."},
+    {"kind":"tense","level":"medium","topic":"Police / staff","prompt":"Two of our staff ___ (be) on sick leave today, so the helpdesk is slow.","choices":[],"answer":"are","accept":[],"explain":"Two of our staff = hai nhân viên (số nhiều) nên dùng are."},
+    {"kind":"tenseChoice","level":"hard","topic":"Neither of","prompt":"Neither of the backup servers ___ working at the moment.","choices":["is","be","have"],"answer":"is","accept":[],"explain":"Neither of + danh từ số nhiều: văn trang trọng dùng số ít (is); văn nói đôi khi dùng are."},
+    {"kind":"tense","level":"easy","topic":"-es spelling","prompt":"The team lead ___ (fix) urgent bugs himself when the developers are busy.","choices":[],"answer":"fixes","accept":[],"explain":"Động từ tận cùng -x thêm -es: fix → fixes."},
+    {"kind":"tense","level":"easy","topic":"-ies spelling","prompt":"Our chatbot ___ (try) to answer simple questions before it calls a human agent.","choices":[],"answer":"tries","accept":[],"explain":"Phụ âm + y đổi thành -ies: try → tries."},
+    {"kind":"tense","level":"medium","topic":"-es spelling","prompt":"Lan always ___ (watch) the monitoring dashboard during the night shift.","choices":[],"answer":"watches","accept":[],"explain":"Động từ tận cùng -ch thêm -es: watch → watches."},
+    {"kind":"tenseChoice","level":"easy","topic":"-s spelling","prompt":"The client usually ___ the invoice within 30 days.","choices":["pays","paies","payes"],"answer":"pays","accept":[],"explain":"Nguyên âm + y chỉ thêm -s: pay → pays."},
+    {"kind":"tenseChoice","level":"medium","topic":"-es spelling","prompt":"My manager ___ to Hanoi twice a month for meetings.","choices":["goes","gos","go"],"answer":"goes","accept":[],"explain":"Động từ tận cùng -o thêm -es: go → goes."},
+    {"kind":"tenseChoice","level":"hard","topic":"V-ing subject","prompt":"Testing all the APIs manually ___ about two days.","choices":["takes","take","are taking"],"answer":"takes","accept":[],"explain":"Chủ ngữ là cụm V-ing (testing…) nên là số ít: takes."},
+    {"kind":"tense","level":"hard","topic":"Both A and B","prompt":"Both the CEO and the CTO ___ (be) at the conference in Singapore right now.","choices":[],"answer":"are","accept":[],"explain":"Both A and B là số nhiều nên dùng are."},
+    {"kind":"tenseChoice","level":"hard","topic":"A as well as B","prompt":"The project manager, as well as the developers, ___ going to join the retrospective.","choices":["is","are","be"],"answer":"is","accept":[],"explain":"A as well as B: động từ hợp với A (the project manager, số ít) nên dùng is."}
   ]
 }

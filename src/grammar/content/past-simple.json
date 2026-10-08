@@ -15,7 +15,7 @@
    "vi": "Khách hàng đã không trả lời email của chúng tôi hôm qua."
   },
   "question": {
-   "pattern": "(Wh-) + Did + S + V (nguyên mẫu)?",
+   "pattern": "(Wh-) + did + S + V (nguyên mẫu)? · be: (Wh-) + was/were + S …?",
    "example": "Did you attend the training session last week?",
    "vi": "Tuần trước bạn có tham dự buổi đào tạo không?"
   },
@@ -58,7 +58,7 @@
   },
   {
    "title": "Chuỗi hành động nối tiếp nhau",
-   "explain": "Dùng để kể lại nhiều hành động xảy ra lần lượt trong quá khứ, ví dụ khi báo cáo sự cố hoặc tường thuật một buổi làm việc.",
+   "explain": "Dùng để kể lại nhiều hành động xảy ra lần lượt trong quá khứ, ví dụ khi báo cáo sự cố hoặc tường thuật một buổi làm việc. Hay đi với từ nối first, then, after that, finally.",
    "examples": [
     {
      "en": "The server went down, so the engineers restarted it and checked the logs.",
@@ -111,6 +111,34 @@
      "vi": "Hôm qua bạn có ở cuộc họp với khách hàng không?"
     }
    ]
+  },
+  {
+   "title": "Câu hỏi chủ ngữ: Who / What / Which + V2 (không dùng did)",
+   "explain": "Khi Who / What / Which là chủ ngữ (người hoặc vật làm hành động), động từ chia V2 và không dùng did: Who approved the budget? Khi từ để hỏi là tân ngữ thì vẫn cần did: What did she approve? Không nói \"Who did approve…?\".",
+   "examples": [
+    {
+     "en": "Who approved the travel budget? – Mr. Long did.",
+     "vi": "Ai đã duyệt ngân sách công tác? – Anh Long."
+    },
+    {
+     "en": "What did Mr. Long approve? – He approved the travel budget.",
+     "vi": "Anh Long đã duyệt cái gì? – Anh ấy duyệt ngân sách công tác."
+    }
+   ]
+  },
+  {
+   "title": "Thói quen trong quá khứ (used to)",
+   "explain": "Việc lặp lại thường xuyên trong quá khứ mà nay không còn: dùng quá khứ đơn (+ every day, often…) hoặc used to + V. Phủ định và câu hỏi bỏ -d: didn't use to, Did you use to…? Không nói \"I use to work…\" khi kể về quá khứ.",
+   "examples": [
+    {
+     "en": "When I worked in Hanoi, I took the bus to work every day.",
+     "vi": "Hồi làm việc ở Hà Nội, ngày nào tôi cũng đi xe buýt đi làm."
+    },
+    {
+     "en": "We used to send reports by fax, but now we use email.",
+     "vi": "Trước đây chúng tôi thường gửi báo cáo bằng fax, nhưng giờ dùng email."
+    }
+   ]
   }
  ],
  "signals": [
@@ -125,7 +153,8 @@
   "when I was …",
   "from 2018 to 2022",
   "How long ago …?",
-  "When …?"
+  "When …?",
+  "first / then / after that / finally"
  ],
  "mistakes": [
   {
@@ -157,6 +186,21 @@
    "wrong": "They was late for the demo.",
    "right": "They were late for the demo.",
    "explain": "Chủ ngữ số nhiều (they) đi với were."
+  },
+  {
+   "wrong": "Where you went yesterday? / Did you sent the file?",
+   "right": "Where did you go yesterday? / Did you send the file?",
+   "explain": "Câu hỏi cần did trước chủ ngữ, và sau did động từ chính về nguyên mẫu (go, send), không dùng V2."
+  },
+  {
+   "wrong": "I was go to Hanoi last week.",
+   "right": "I went to Hanoi last week.",
+   "explain": "\"Đã\" không phải là was. Với động từ thường chỉ cần đổi sang V2 (go → went); was / were chỉ dùng cho động từ be hoặc thì tiếp diễn."
+  },
+  {
+   "wrong": "We stoped the test and studyed the logs.",
+   "right": "We stopped the test and studied the logs.",
+   "explain": "Chính tả -ed: gấp đôi phụ âm cuối với từ ngắn dạng phụ âm–nguyên âm–phụ âm (stop → stopped), phụ âm + y → ied (study → studied)."
   }
  ],
  "compare": {
@@ -417,14 +461,14 @@
    "tense": "past-simple",
    "prompt": "The printer on the third floor ___ yesterday morning.",
    "choices": [
-    "broke",
-    "has broken",
-    "breaks",
-    "is breaking"
+    "broke down",
+    "has broken down",
+    "breaks down",
+    "is breaking down"
    ],
-   "answer": "broke",
+   "answer": "broke down",
    "accept": [],
-   "explain": "Có \"yesterday morning\"; \"break\" là bất quy tắc: break – broke."
+   "explain": "Có \"yesterday morning\" nên dùng quá khứ đơn; máy móc bị hỏng dùng break down – broke down."
   },
   {
    "kind": "tenseChoice",
@@ -640,7 +684,7 @@
    "kind": "tenseChoice",
    "level": "hard",
    "tense": "present-perfect",
-   "prompt": "I ___ Mr. Kim for five years now; we first met at a tech conference in 2021.",
+   "prompt": "I ___ Mr. Kim for five years now; we first met at a tech conference in Singapore.",
    "choices": [
     "have known",
     "knew",
@@ -649,7 +693,7 @@
    ],
    "answer": "have known",
    "accept": [],
-   "explain": "\"For five years now\" kéo dài đến hiện tại nên dùng hiện tại hoàn thành; \"met ... in 2021\" mới dùng quá khứ đơn."
+   "explain": "\"For five years now\" kéo dài đến hiện tại nên dùng hiện tại hoàn thành; việc gặp lần đầu (met) đã xong nên mới dùng quá khứ đơn."
   },
   {
    "kind": "tenseChoice",
@@ -772,6 +816,555 @@
    "answer": "were",
    "accept": [],
    "explain": "Câu hỏi với be ở quá khứ (this morning đã qua), chủ ngữ you → were."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "past-simple",
+   "prompt": "Yesterday the QA team ___ (stop) the test run because the server was too slow.",
+   "choices": [],
+   "answer": "stopped",
+   "accept": [],
+   "explain": "Có \"yesterday\" nên dùng quá khứ đơn; stop kết thúc bằng phụ âm–nguyên âm–phụ âm nên gấp đôi p: stopped."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "Last month Hanh ___ (study) for the TOEIC test every evening after work.",
+   "choices": [],
+   "answer": "studied",
+   "accept": [],
+   "explain": "Thói quen trong khoảng thời gian đã qua (last month) dùng quá khứ đơn; phụ âm + y → ied: studied."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "We ___ (plan) the whole product launch in two meetings last week.",
+   "choices": [],
+   "answer": "planned",
+   "accept": [],
+   "explain": "Có \"last week\" nên dùng quá khứ đơn; plan gấp đôi n: planned."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "Three candidates ___ (apply) for the senior tester position last month.",
+   "choices": [],
+   "answer": "applied",
+   "accept": [],
+   "explain": "Có \"last month\" nên dùng quá khứ đơn; phụ âm + y → ied: applied."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "past-simple",
+   "prompt": "___ (you / attend) the workshop last Friday?",
+   "choices": [],
+   "answer": "Did you attend",
+   "accept": [],
+   "explain": "Câu hỏi với \"last Friday\": Did + S + động từ nguyên mẫu."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "___ (the client / sign) the contract yesterday?",
+   "choices": [],
+   "answer": "Did the client sign",
+   "accept": [],
+   "explain": "Câu hỏi quá khứ đơn với \"yesterday\": Did + S + V nguyên mẫu (sign, không phải signed)."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "Why ___ (the build / fail) on the test server last night?",
+   "choices": [],
+   "answer": "did the build fail",
+   "accept": [],
+   "explain": "Câu hỏi Wh- với \"last night\": Why + did + S + V nguyên mẫu."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "Ten years ago, our company ___ (use) to send invoices by fax, but now everything is online.",
+   "choices": [],
+   "answer": "used",
+   "accept": [],
+   "explain": "Thói quen trong quá khứ nay không còn: used to + V; câu khẳng định viết \"used\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "I ___ (learn) a lot about cloud security at last month's training course.",
+   "choices": [],
+   "answer": "learned",
+   "accept": [
+    "learnt"
+   ],
+   "explain": "Có \"last month's\" nên dùng quá khứ đơn; learn có hai dạng V2: learned hoặc learnt."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "At my old company, I ___ work on Saturdays, but now I have weekends off.",
+   "choices": [
+    "used to",
+    "use to",
+    "was used to",
+    "am used to"
+   ],
+   "answer": "used to",
+   "accept": [],
+   "explain": "Thói quen trong quá khứ nay không còn: used to + V nguyên mẫu."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "Our team ___ have daily stand-ups, but we started them last year.",
+   "choices": [
+    "didn't use to",
+    "don't use to",
+    "doesn't use to",
+    "wasn't used to"
+   ],
+   "answer": "didn't use to",
+   "accept": [],
+   "explain": "Phủ định của used to là didn't use to (bỏ -d vì đã có did)."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "past-simple",
+   "prompt": "\"Did you send the invoice to the client?\" – \"Yes, I ___.\"",
+   "choices": [
+    "did",
+    "sent",
+    "do",
+    "have"
+   ],
+   "answer": "did",
+   "accept": [],
+   "explain": "Câu trả lời ngắn lặp lại trợ động từ của câu hỏi: Did…? → Yes, I did."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "past-simple",
+   "prompt": "\"Were the developers at the client meeting?\" – \"No, they ___.\"",
+   "choices": [
+    "weren't",
+    "didn't",
+    "wasn't",
+    "aren't"
+   ],
+   "answer": "weren't",
+   "accept": [],
+   "explain": "Câu hỏi với Were + they → trả lời ngắn No, they weren't."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "past-simple",
+   "prompt": "\"What ___ at yesterday's meeting?\" – \"She approved the new budget.\"",
+   "choices": [
+    "did the director approve",
+    "the director approved",
+    "did the director approved",
+    "approved the director"
+   ],
+   "answer": "did the director approve",
+   "accept": [],
+   "explain": "What là tân ngữ (cái được duyệt) nên cần did + S + V nguyên mẫu."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Chính tả -ed (động từ có quy tắc)",
+   "columns": [
+    "Quy tắc",
+    "Nguyên mẫu",
+    "Quá khứ (V-ed)"
+   ],
+   "rows": [
+    {
+     "label": "Thường: + ed",
+     "cells": [
+      "Thường: + ed",
+      "work, check, visit, open",
+      "worked, checked, visited, opened"
+     ]
+    },
+    {
+     "label": "Tận cùng -e: + d",
+     "cells": [
+      "Tận cùng -e: + d",
+      "hire, approve, update",
+      "hired, approved, updated"
+     ]
+    },
+    {
+     "label": "Phụ âm + y: y → ied",
+     "cells": [
+      "Phụ âm + y: y → ied",
+      "study, apply, copy",
+      "studied, applied, copied"
+     ]
+    },
+    {
+     "label": "Nguyên âm + y: + ed",
+     "cells": [
+      "Nguyên âm + y: + ed",
+      "play, stay, delay",
+      "played, stayed, delayed"
+     ]
+    },
+    {
+     "label": "Phụ âm–nguyên âm–phụ âm, nhấn âm cuối",
+     "cells": [
+      "Phụ âm–nguyên âm–phụ âm, nhấn âm cuối: gấp đôi phụ âm",
+      "stop, plan, ship, prefer",
+      "stopped, planned, shipped, preferred"
+     ]
+    }
+   ],
+   "note": "Không gấp đôi khi trọng âm không rơi vào âm tiết cuối (visit → visited, open → opened, offer → offered) hoặc khi tận cùng là w, x (fix → fixed, allow → allowed). Anh-Anh: cancel → cancelled; Anh-Mỹ: canceled."
+  },
+  {
+   "title": "Cách đọc đuôi -ed",
+   "columns": [
+    "Âm cuối của động từ",
+    "Đọc -ed là",
+    "Ví dụ"
+   ],
+   "rows": [
+    {
+     "label": "/t/, /d/",
+     "cells": [
+      "/t/, /d/",
+      "/ɪd/ (thêm một âm tiết)",
+      "started, needed, updated, attended"
+     ]
+    },
+    {
+     "label": "Âm vô thanh",
+     "cells": [
+      "Âm vô thanh: /p/, /k/, /s/, /ʃ/, /tʃ/, /f/",
+      "/t/",
+      "stopped, worked, fixed, finished, watched"
+     ]
+    },
+    {
+     "label": "Các âm còn lại",
+     "cells": [
+      "Nguyên âm và các phụ âm hữu thanh khác",
+      "/d/",
+      "called, planned, played, signed"
+     ]
+    }
+   ],
+   "note": "Người Việt hay đọc mọi đuôi -ed thành \"ét\" hoặc bỏ hẳn. Chỉ /ɪd/ mới thêm âm tiết: worked đọc một âm tiết /wɜːkt/, started hai âm tiết."
+  },
+  {
+   "title": "Động từ bất quy tắc thường gặp ở văn phòng",
+   "columns": [
+    "Nguyên mẫu (V1)",
+    "Quá khứ (V2)",
+    "Quá khứ phân từ (V3)"
+   ],
+   "rows": [
+    {
+     "label": "be",
+     "cells": [
+      "be",
+      "was / were",
+      "been"
+     ]
+    },
+    {
+     "label": "have",
+     "cells": [
+      "have",
+      "had",
+      "had"
+     ]
+    },
+    {
+     "label": "do",
+     "cells": [
+      "do",
+      "did",
+      "done"
+     ]
+    },
+    {
+     "label": "go",
+     "cells": [
+      "go",
+      "went",
+      "gone"
+     ]
+    },
+    {
+     "label": "get",
+     "cells": [
+      "get",
+      "got",
+      "got (Mỹ: gotten)"
+     ]
+    },
+    {
+     "label": "make",
+     "cells": [
+      "make",
+      "made",
+      "made"
+     ]
+    },
+    {
+     "label": "send",
+     "cells": [
+      "send",
+      "sent",
+      "sent"
+     ]
+    },
+    {
+     "label": "take",
+     "cells": [
+      "take",
+      "took",
+      "taken"
+     ]
+    },
+    {
+     "label": "give",
+     "cells": [
+      "give",
+      "gave",
+      "given"
+     ]
+    },
+    {
+     "label": "find",
+     "cells": [
+      "find",
+      "found",
+      "found"
+     ]
+    },
+    {
+     "label": "leave",
+     "cells": [
+      "leave",
+      "left",
+      "left"
+     ]
+    },
+    {
+     "label": "meet",
+     "cells": [
+      "meet",
+      "met",
+      "met"
+     ]
+    },
+    {
+     "label": "write",
+     "cells": [
+      "write",
+      "wrote",
+      "written"
+     ]
+    },
+    {
+     "label": "read",
+     "cells": [
+      "read",
+      "read",
+      "read"
+     ]
+    },
+    {
+     "label": "speak",
+     "cells": [
+      "speak",
+      "spoke",
+      "spoken"
+     ]
+    },
+    {
+     "label": "tell",
+     "cells": [
+      "tell",
+      "told",
+      "told"
+     ]
+    },
+    {
+     "label": "say",
+     "cells": [
+      "say",
+      "said",
+      "said"
+     ]
+    },
+    {
+     "label": "know",
+     "cells": [
+      "know",
+      "knew",
+      "known"
+     ]
+    },
+    {
+     "label": "think",
+     "cells": [
+      "think",
+      "thought",
+      "thought"
+     ]
+    },
+    {
+     "label": "buy",
+     "cells": [
+      "buy",
+      "bought",
+      "bought"
+     ]
+    },
+    {
+     "label": "pay",
+     "cells": [
+      "pay",
+      "paid",
+      "paid"
+     ]
+    },
+    {
+     "label": "bring",
+     "cells": [
+      "bring",
+      "brought",
+      "brought"
+     ]
+    },
+    {
+     "label": "begin",
+     "cells": [
+      "begin",
+      "began",
+      "begun"
+     ]
+    },
+    {
+     "label": "choose",
+     "cells": [
+      "choose",
+      "chose",
+      "chosen"
+     ]
+    },
+    {
+     "label": "lead",
+     "cells": [
+      "lead",
+      "led",
+      "led"
+     ]
+    },
+    {
+     "label": "break",
+     "cells": [
+      "break",
+      "broke",
+      "broken"
+     ]
+    },
+    {
+     "label": "spend",
+     "cells": [
+      "spend",
+      "spent",
+      "spent"
+     ]
+    },
+    {
+     "label": "lose",
+     "cells": [
+      "lose",
+      "lost",
+      "lost"
+     ]
+    },
+    {
+     "label": "put",
+     "cells": [
+      "put",
+      "put",
+      "put"
+     ]
+    },
+    {
+     "label": "learn",
+     "cells": [
+      "learn",
+      "learned / learnt",
+      "learned / learnt"
+     ]
+    }
+   ],
+   "note": "Một số động từ có hai dạng: learned / learnt, dreamed / dreamt, spelled / spelt, burned / burnt (dạng -ed phổ biến hơn, nhất là Anh-Mỹ). read – read – read viết giống nhau nhưng V2, V3 đọc là /red/."
+  },
+  {
+   "title": "Câu trả lời ngắn",
+   "columns": [
+    "Câu hỏi",
+    "Yes",
+    "No"
+   ],
+   "rows": [
+    {
+     "label": "Did you send it?",
+     "cells": [
+      "Did you send it?",
+      "Yes, I did.",
+      "No, I didn't."
+     ]
+    },
+    {
+     "label": "Did they approve the plan?",
+     "cells": [
+      "Did they approve the plan?",
+      "Yes, they did.",
+      "No, they didn't."
+     ]
+    },
+    {
+     "label": "Was she at the meeting?",
+     "cells": [
+      "Was she at the meeting?",
+      "Yes, she was.",
+      "No, she wasn't."
+     ]
+    },
+    {
+     "label": "Were they late?",
+     "cells": [
+      "Were they late?",
+      "Yes, they were.",
+      "No, they weren't."
+     ]
+    }
+   ],
+   "note": "Câu trả lời ngắn lặp lại trợ động từ của câu hỏi (did / was / were), không lặp lại động từ chính: không nói \"Yes, I sent.\""
   }
  ]
 }

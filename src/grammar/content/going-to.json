@@ -5,8 +5,8 @@
  "summary": "Dùng \"be going to\" để nói về kế hoạch, dự định đã quyết định từ trước, hoặc để dự đoán điều sắp xảy ra dựa trên dấu hiệu nhìn thấy ở hiện tại.",
  "formula": {
   "affirmative": {
-   "pattern": "S + am/is/are + going to + V",
-   "example": "We are going to migrate the database to the cloud next quarter.",
+   "pattern": "S + am/is/are ('m/'s/'re) + going to + V",
+   "example": "We're going to migrate the database to the cloud next quarter.",
    "vi": "Chúng tôi sẽ chuyển cơ sở dữ liệu lên đám mây vào quý tới."
   },
   "negative": {
@@ -22,20 +22,20 @@
   "persons": [
    {
     "subject": "I",
-    "affirmative": "am going to work",
-    "negative": "am not going to work",
+    "affirmative": "am going to work · I'm going to",
+    "negative": "am not going to work · I'm not",
     "question": "Am I going to work?"
    },
    {
     "subject": "he / she / it",
-    "affirmative": "is going to work",
-    "negative": "isn't going to work",
+    "affirmative": "is going to work · she's going to",
+    "negative": "isn't / 's not going to work",
     "question": "Is she going to work?"
    },
    {
     "subject": "you / we / they",
-    "affirmative": "are going to work",
-    "negative": "aren't going to work",
+    "affirmative": "are going to work · we're going to",
+    "negative": "aren't / 're not going to work",
     "question": "Are they going to work?"
    }
   ],
@@ -44,15 +44,15 @@
  "uses": [
   {
    "title": "Kế hoạch, dự định đã quyết định trước",
-   "explain": "Dùng khi người nói đã quyết định làm gì đó trước thời điểm nói, không phải quyết định tức thời.",
+   "explain": "Dùng khi người nói đã quyết định làm gì đó trước thời điểm nói, không phải quyết định tức thời. Hỏi về dự định của người khác: Are you going to…? / What are you going to…?",
    "examples": [
     {
      "en": "I've bought the books — I'm going to take the TOEIC test in December.",
      "vi": "Tôi đã mua sách rồi — tôi định thi TOEIC vào tháng Mười Hai."
     },
     {
-     "en": "Our team is going to switch to two-week sprints next month.",
-     "vi": "Nhóm chúng tôi sẽ chuyển sang sprint hai tuần từ tháng sau."
+     "en": "What are you going to do with the old laptops?",
+     "vi": "Bạn định làm gì với mấy cái laptop cũ?"
     }
    ]
   },
@@ -71,31 +71,44 @@
    ]
   },
   {
-   "title": "Hỏi về dự định của người khác",
-   "explain": "Dùng câu hỏi với \"be going to\" để hỏi ai đó đã có kế hoạch gì hoặc định làm gì.",
+   "title": "Lịch hẹn cố định: hiện tại tiếp diễn",
+   "explain": "Khi đã hẹn giờ, địa điểm với người khác, người bản xứ hay dùng hiện tại tiếp diễn (I'm meeting the client at 3); going to nhấn mạnh ý định. Chú ý: I'm going to the office là hiện tại tiếp diễn của go (đi đến đâu), không phải going to + V.",
    "examples": [
     {
-     "en": "What are you going to do with the old laptops?",
-     "vi": "Bạn định làm gì với mấy cái laptop cũ?"
+     "en": "I'm meeting the client at 3 p.m. tomorrow — it's in both our calendars.",
+     "vi": "Tôi gặp khách hàng lúc 3 giờ chiều mai — lịch đã có trong lịch của cả hai bên."
     },
     {
-     "en": "Is the company going to hire more testers this year?",
-     "vi": "Năm nay công ty có định tuyển thêm tester không?"
+     "en": "I'm going to the office now — I'm going to finish the report there.",
+     "vi": "Giờ tôi đang đến văn phòng — tôi định hoàn thành báo cáo ở đó."
+    }
+   ]
+  },
+  {
+   "title": "was / were going to: dự định không thành",
+   "explain": "Dùng was / were going to + V để nói về việc đã định làm trong quá khứ nhưng rồi không làm, thường đi với but.",
+   "examples": [
+    {
+     "en": "I was going to call you, but the meeting ran late.",
+     "vi": "Tôi đã định gọi cho bạn, nhưng cuộc họp kéo dài quá."
+    },
+    {
+     "en": "We were going to launch the app in May, but the tests failed.",
+     "vi": "Chúng tôi đã định ra mắt ứng dụng vào tháng Năm, nhưng kiểm thử không đạt."
     }
    ]
   }
  ],
  "signals": [
   "Look!",
-  "Watch out!",
-  "We've decided...",
-  "The plan is...",
+  "Watch out! / Be careful!",
+  "We've decided… / I've decided…",
+  "The plan is…",
   "I've made up my mind",
   "at this rate",
-  "next week / next month",
-  "tomorrow",
-  "soon",
-  "this weekend"
+  "already bought / booked / told…",
+  "Are you going to…?",
+  "was / were going to…, but…"
  ],
  "mistakes": [
   {
@@ -117,6 +130,26 @@
    "wrong": "He not going to attend the meeting.",
    "right": "He is not going to attend the meeting.",
    "explain": "Câu phủ định phải có \"be + not\": is not (isn't) going to."
+  },
+  {
+   "wrong": "'Are you going to join the call?' 'Yes, I'm.'",
+   "right": "'Are you going to join the call?' 'Yes, I am.'",
+   "explain": "Câu trả lời ngắn không viết tắt ở cuối câu: Yes, I am / No, I'm not."
+  },
+  {
+   "wrong": "I will going to call him after lunch.",
+   "right": "I'm going to call him after lunch.",
+   "explain": "Không dùng will và going to cùng lúc; chọn một: am/is/are going to + V hoặc will + V."
+  },
+  {
+   "wrong": "I'm gonna send you the report today. (trong email)",
+   "right": "I'm going to send you the report today.",
+   "explain": "“gonna” chỉ dùng khi nói chuyện thân mật; trong email, báo cáo hãy viết going to."
+  },
+  {
+   "wrong": "I amn't going to work this weekend.",
+   "right": "I'm not going to work this weekend.",
+   "explain": "Không có dạng amn't; phủ định của I am là I'm not."
   }
  ],
  "compare": {
@@ -226,7 +259,9 @@
    "prompt": "The progress bar has barely moved in an hour. This update ___ (take) all night.",
    "choices": [],
    "answer": "is going to take",
-   "accept": [],
+   "accept": [
+    "'s going to take"
+   ],
    "explain": "Thanh tiến trình gần như không chạy là dấu hiệu hiện tại, nên dự đoán bằng \"be going to\"."
   },
   {
@@ -299,20 +334,22 @@
    "prompt": "Look at the sky over there. ___ (it / rain) before the outdoor team-building activity starts?",
    "choices": [],
    "answer": "Is it going to rain",
-   "accept": [],
-   "explain": "Câu hỏi dự đoán dựa trên bầu trời đang thấy (\"Look at the sky\"), nên dùng \"Is it going to\"."
+   "accept": [
+    "Will it rain"
+   ],
+   "explain": "Câu hỏi dự đoán dựa trên bầu trời đang thấy (\"Look at the sky\") nên dùng \"Is it going to\"; \"Will it rain\" cũng chấp nhận được."
   },
   {
    "kind": "tense",
    "level": "medium",
    "tense": "going-to",
-   "prompt": "I lost a week of work when my hard drive failed. I've made up my mind: I ___ (be) more careful with backups from now on.",
+   "prompt": "My hard drive failed last month, so I've already bought an external drive. I ___ (back up) my files on it every Friday, starting next week.",
    "choices": [],
-   "answer": "am going to be",
+   "answer": "am going to back up",
    "accept": [
-    "'m going to be"
+    "'m going to back up"
    ],
-   "explain": "\"I've made up my mind\" cho thấy quyết định đã có từ trước, nên dùng \"be going to\" chứ không dùng \"will\"."
+   "explain": "Đã mua ổ cứng sẵn là dấu hiệu kế hoạch có từ trước, nên dùng \"be going to\"."
   },
   {
    "kind": "tense",
@@ -342,26 +379,26 @@
    "kind": "tense",
    "level": "hard",
    "tense": "going-to",
-   "prompt": "We've already spent 90% of the budget and it's only July. We ___ (need) extra funding for Q4.",
+   "prompt": "We've already spent 90% of the budget and it's only July. At this rate, we ___ (need) extra funding for Q4.",
    "choices": [],
    "answer": "are going to need",
    "accept": [
     "'re going to need"
    ],
-   "explain": "Đã tiêu 90% ngân sách vào tháng Bảy là bằng chứng hiện tại, nên dự đoán bằng \"be going to\"."
+   "explain": "Đã tiêu 90% ngân sách vào tháng Bảy và \"at this rate\" là bằng chứng hiện tại, nên dự đoán bằng \"be going to\"."
   },
   {
    "kind": "tense",
    "level": "hard",
    "tense": "going-to",
-   "prompt": "The client has already rejected two designs, and this one is even more colourful. I'm afraid they ___ (not / like) it.",
+   "prompt": "The client has rejected two designs already. Now look at their faces while we show the third one — they ___ (not / like) it either.",
    "choices": [],
    "answer": "are not going to like",
    "accept": [
     "aren't going to like",
     "'re not going to like"
    ],
-   "explain": "Khách đã từ chối hai bản và bản này còn sặc sỡ hơn là bằng chứng, nên dùng \"be not going to\"."
+   "explain": "Khách đã từ chối hai bản và nét mặt đang thấy (\"look at their faces\") là bằng chứng, nên dùng \"be not going to\"."
   },
   {
    "kind": "tense",
@@ -514,7 +551,7 @@
    "prompt": "We've discussed it for weeks and the plan is clear: we ___ the old database to the cloud in Q3.",
    "choices": [
     "are going to move",
-    "will move",
+    "were moving",
     "moved",
     "have moved"
    ],
@@ -526,7 +563,7 @@
    "kind": "tenseChoice",
    "level": "medium",
    "tense": "going-to",
-   "prompt": "The manager has told us her decision: next week she ___ the deadline, so we must finish by Friday.",
+   "prompt": "The manager has told us her decision: she ___ the deadline, so we must finish by Friday.",
    "choices": [
     "isn't going to extend",
     "doesn't extend",
@@ -535,7 +572,7 @@
    ],
    "answer": "isn't going to extend",
    "accept": [],
-   "explain": "\"Her decision\" và \"next week\" chỉ dự định tương lai đã quyết, nên dùng \"isn't going to\"."
+   "explain": "\"Her decision\" cho thấy quyết định đã có từ trước, nên dùng \"isn't going to\"."
   },
   {
    "kind": "tenseChoice",
@@ -686,6 +723,287 @@
    "answer": "are not going to renew",
    "accept": [],
    "explain": "\"We've decided\" là quyết định từ trước về việc tháng Năm, nên dùng \"are not going to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "going-to",
+   "prompt": "I ___ (call) you yesterday, but the meeting ran late.",
+   "choices": [],
+   "answer": "was going to call",
+   "accept": [],
+   "explain": "Việc đã định làm hôm qua nhưng không làm được (\"but the meeting ran late\") dùng was going to + V."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "going-to",
+   "prompt": "We ___ the new app in May, but the security tests failed, so it's now planned for July.",
+   "choices": [
+    "were going to launch",
+    "are going to launch",
+    "have launched",
+    "launch"
+   ],
+   "answer": "were going to launch",
+   "accept": [],
+   "explain": "Kế hoạch tháng Năm đã không thành (giờ dời sang tháng Bảy) nên dùng were going to + V."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "going-to",
+   "prompt": "'Are you going to join the training on Friday?' 'Yes, I ___.'",
+   "choices": [
+    "am",
+    "'m",
+    "do",
+    "will"
+   ],
+   "answer": "am",
+   "accept": [],
+   "explain": "Trả lời ngắn cho câu hỏi Are you going to…? là Yes, I am; không viết tắt ở cuối câu."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "going-to",
+   "prompt": "'Is Minh going to present the demo?' 'No, he ___. Lan is doing it.'",
+   "choices": [
+    "isn't",
+    "doesn't",
+    "won't",
+    "not"
+   ],
+   "answer": "isn't",
+   "accept": [],
+   "explain": "Trả lời ngắn lặp lại trợ động từ của câu hỏi (is) nên dùng No, he isn't."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "going-to",
+   "prompt": "Look at the traffic on the bridge! We ___ (miss) the 10 a.m. meeting.",
+   "choices": [],
+   "answer": "are going to miss",
+   "accept": [
+    "'re going to miss"
+   ],
+   "explain": "\"Look at the traffic\" là bằng chứng trước mắt nên dự đoán bằng \"be going to\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "I can't join the 3 p.m. call — I ___ the client at 3. We booked it last week.",
+   "choices": [
+    "am meeting",
+    "was meeting",
+    "met",
+    "have met"
+   ],
+   "answer": "am meeting",
+   "accept": [],
+   "explain": "Lịch hẹn đã sắp xếp với người khác (giờ cụ thể, đã đặt) thường dùng hiện tại tiếp diễn."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "present-continuous",
+   "prompt": "'Where are you off to?' 'I ___ to the bank to pay the office electricity bill.'",
+   "choices": [
+    "am going",
+    "am go",
+    "going",
+    "goes"
+   ],
+   "answer": "am going",
+   "accept": [],
+   "explain": "\"I'm going to the bank\" là hiện tại tiếp diễn của go (đang đi đến đâu), không phải going to + V."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "going-to",
+   "prompt": "Sorry, I ___ (send) you the slides last night, but my internet went down.",
+   "choices": [],
+   "answer": "was going to send",
+   "accept": [],
+   "explain": "Dự định tối qua không thực hiện được (\"but my internet went down\") dùng was going to + V."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "going-to",
+   "prompt": "We ___ anyone this year, but then two developers resigned, so now we need two replacements.",
+   "choices": [
+    "weren't going to hire",
+    "aren't going to hire",
+    "haven't hired",
+    "don't hire"
+   ],
+   "answer": "weren't going to hire",
+   "accept": [],
+   "explain": "Dự định trong quá khứ đã thay đổi (\"but then\") nên dùng weren't going to + V."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "going-to",
+   "prompt": "Be careful — that ladder is wobbling. You ___ (fall)!",
+   "choices": [],
+   "answer": "are going to fall",
+   "accept": [
+    "'re going to fall"
+   ],
+   "explain": "Cái thang đang lung lay là dấu hiệu trước mắt nên dùng \"be going to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "going-to",
+   "prompt": "The test server only has 2 GB of memory. It ___ (not / handle) 500 users at once.",
+   "choices": [],
+   "answer": "is not going to handle",
+   "accept": [
+    "isn't going to handle",
+    "'s not going to handle"
+   ],
+   "explain": "Server chỉ có 2 GB bộ nhớ là bằng chứng hiện tại nên dự đoán bằng \"be not going to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "going-to",
+   "prompt": "The power is still out and the backup generator is almost out of fuel. The servers ___ (shut) down soon.",
+   "choices": [],
+   "answer": "are going to shut",
+   "accept": [
+    "'re going to shut"
+   ],
+   "explain": "Mất điện và máy phát gần hết dầu là bằng chứng hiện tại nên dùng \"be going to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "going-to",
+   "prompt": "I ___ (reply) to your email, but I forgot. Sorry!",
+   "choices": [],
+   "answer": "was going to reply",
+   "accept": [],
+   "explain": "Việc đã định làm nhưng quên (\"but I forgot\") dùng was going to + V."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "going-to",
+   "prompt": "In an email to a client: \"We ___ update the price list next month.\"",
+   "choices": [
+    "are going to",
+    "gonna",
+    "are gonna",
+    "going to"
+   ],
+   "answer": "are going to",
+   "accept": [],
+   "explain": "\"gonna\" chỉ dùng khi nói thân mật; trong email viết đầy đủ \"are going to\"."
+  }
+ ],
+ "tables": [
+  {
+   "title": "Short answers",
+   "columns": [
+    "Question",
+    "Yes",
+    "No"
+   ],
+   "rows": [
+    {
+     "label": "Are you going to…?",
+     "cells": [
+      "Are you going to…?",
+      "Yes, I am.",
+      "No, I'm not."
+     ]
+    },
+    {
+     "label": "Is she going to…?",
+     "cells": [
+      "Is she going to…?",
+      "Yes, she is.",
+      "No, she isn't."
+     ]
+    },
+    {
+     "label": "Is it going to…?",
+     "cells": [
+      "Is it going to…?",
+      "Yes, it is.",
+      "No, it isn't."
+     ]
+    },
+    {
+     "label": "Are they going to…?",
+     "cells": [
+      "Are they going to…?",
+      "Yes, they are.",
+      "No, they aren't."
+     ]
+    }
+   ],
+   "note": "Không viết tắt ở cuối câu: “Yes, I am” (không phải “Yes, I'm”). Muốn nói dài hơn: “Yes, I'm going to.”"
+  },
+  {
+   "title": "Short forms",
+   "columns": [
+    "Full form",
+    "Short form"
+   ],
+   "rows": [
+    {
+     "label": "I am going to",
+     "cells": [
+      "I am going to",
+      "I'm going to"
+     ]
+    },
+    {
+     "label": "he / she / it is going to",
+     "cells": [
+      "he / she / it is going to",
+      "he's / she's / it's going to"
+     ]
+    },
+    {
+     "label": "you / we / they are going to",
+     "cells": [
+      "you / we / they are going to",
+      "you're / we're / they're going to"
+     ]
+    },
+    {
+     "label": "I am not",
+     "cells": [
+      "I am not going to",
+      "I'm not going to (không có amn't)"
+     ]
+    },
+    {
+     "label": "is not",
+     "cells": [
+      "she is not going to",
+      "she isn't / she's not going to"
+     ]
+    },
+    {
+     "label": "are not",
+     "cells": [
+      "we are not going to",
+      "we aren't / we're not going to"
+     ]
+    }
+   ],
+   "note": "“gonna” = going to, chỉ dùng khi nói chuyện thân mật; không viết “gonna” trong email, báo cáo hay bài thi."
   }
  ]
 }
