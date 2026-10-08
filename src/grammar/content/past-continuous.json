@@ -1,0 +1,143 @@
+{
+  "id": "past-continuous",
+  "name": "Past continuous",
+  "vi": "Quá khứ tiếp diễn",
+  "summary": "Thì quá khứ tiếp diễn diễn tả một hành động đang xảy ra tại một thời điểm cụ thể trong quá khứ, hoặc đang diễn ra thì bị một hành động khác xen vào.",
+  "formula": {
+    "affirmative": {
+      "pattern": "S + was/were + V-ing",
+      "example": "I was preparing the slides when the projector broke.",
+      "vi": "Tôi đang chuẩn bị slide thì máy chiếu bị hỏng."
+    },
+    "negative": {
+      "pattern": "S + was/were + not + V-ing (wasn't / weren't)",
+      "example": "We weren't using the database when it crashed.",
+      "vi": "Chúng tôi không đang dùng cơ sở dữ liệu khi nó bị sập."
+    },
+    "question": {
+      "pattern": "(Wh-) + was/were + S + V-ing?",
+      "example": "What were you doing at 4 p.m. yesterday?",
+      "vi": "Lúc 4 giờ chiều hôm qua bạn đang làm gì?"
+    }
+  },
+  "uses": [
+    {
+      "title": "Hành động đang xảy ra tại một thời điểm trong quá khứ",
+      "explain": "Dùng khi muốn nói tại một mốc giờ cụ thể trong quá khứ, hành động đang diễn ra (chưa kết thúc).",
+      "examples": [
+        { "en": "At 10 a.m. yesterday, I was having a call with a client in Japan.", "vi": "Lúc 10 giờ sáng hôm qua, tôi đang gọi điện với một khách hàng ở Nhật." },
+        { "en": "This time last week, our team was flying to Singapore for the conference.", "vi": "Giờ này tuần trước, nhóm chúng tôi đang bay sang Singapore dự hội nghị." }
+      ]
+    },
+    {
+      "title": "Hành động đang diễn ra thì bị hành động khác xen vào",
+      "explain": "Hành động dài, đang diễn ra dùng quá khứ tiếp diễn; hành động ngắn xen vào dùng quá khứ đơn (thường đi với when).",
+      "examples": [
+        { "en": "The developers were fixing a bug when the power went out.", "vi": "Các lập trình viên đang sửa lỗi thì mất điện." },
+        { "en": "She was talking to a customer when her laptop shut down.", "vi": "Cô ấy đang nói chuyện với khách hàng thì laptop tắt nguồn." }
+      ]
+    },
+    {
+      "title": "Hai hành động xảy ra song song",
+      "explain": "Dùng với while để diễn tả hai hành động cùng đang diễn ra trong một khoảng thời gian ở quá khứ.",
+      "examples": [
+        { "en": "While I was writing the report, my colleague was checking the figures.", "vi": "Trong khi tôi đang viết báo cáo thì đồng nghiệp đang kiểm tra số liệu." },
+        { "en": "The testers were running tests while the developers were updating the code.", "vi": "Nhóm kiểm thử đang chạy test trong khi lập trình viên đang cập nhật mã nguồn." }
+      ]
+    },
+    {
+      "title": "Bối cảnh cho một câu chuyện hoặc sự việc",
+      "explain": "Dùng để mô tả khung cảnh, tình huống đang diễn ra trước khi kể sự việc chính.",
+      "examples": [
+        { "en": "It was raining and everyone was working late when the director announced the merger.", "vi": "Trời đang mưa và mọi người đang làm muộn thì giám đốc thông báo việc sáp nhập." },
+        { "en": "The office was getting busy when the first customers arrived.", "vi": "Văn phòng đang bắt đầu đông đúc thì những khách hàng đầu tiên đến." }
+      ]
+    }
+  ],
+  "signals": [
+    "while",
+    "when + past simple",
+    "at 3 p.m. yesterday",
+    "at that time",
+    "at this time yesterday",
+    "this time last week",
+    "at the moment (in the past)",
+    "all day yesterday",
+    "at midnight last night"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I was prepare the slides when the projector broke.",
+      "right": "I was preparing the slides when the projector broke.",
+      "explain": "Sau was/were phải dùng động từ thêm -ing, không dùng động từ nguyên mẫu."
+    },
+    {
+      "wrong": "They was testing the app at 10 a.m. yesterday.",
+      "right": "They were testing the app at 10 a.m. yesterday.",
+      "explain": "Chủ ngữ số nhiều và you dùng were; I/he/she/it dùng was."
+    },
+    {
+      "wrong": "While I was presenting, the phone was ringing suddenly.",
+      "right": "While I was presenting, the phone rang suddenly.",
+      "explain": "Hành động ngắn, đột ngột xen vào dùng quá khứ đơn, không dùng quá khứ tiếp diễn."
+    },
+    {
+      "wrong": "I was knowing the answer during the meeting.",
+      "right": "I knew the answer during the meeting.",
+      "explain": "Động từ chỉ trạng thái (know, want, need, like...) thường không dùng ở dạng tiếp diễn."
+    }
+  ],
+  "compare": {
+    "with": "past-simple",
+    "explain": "Quá khứ đơn diễn tả hành động đã hoàn tất, thường ngắn hoặc nối tiếp nhau. Quá khứ tiếp diễn diễn tả hành động đang diễn ra, chưa kết thúc tại một thời điểm. Khi hai hành động gặp nhau, hành động dài đang diễn ra dùng quá khứ tiếp diễn, hành động ngắn xen vào dùng quá khứ đơn: \"I was coding when the boss called.\"",
+    "examples": [
+      { "en": "I was coding when the boss called.", "vi": "Tôi đang viết code thì sếp gọi.", "tense": "past-continuous" },
+      { "en": "The boss called, and I stopped coding.", "vi": "Sếp gọi, và tôi ngừng viết code.", "tense": "past-simple" },
+      { "en": "At 9 a.m. yesterday, we were discussing the budget.", "vi": "Lúc 9 giờ sáng hôm qua, chúng tôi đang thảo luận ngân sách.", "tense": "past-continuous" },
+      { "en": "We discussed the budget yesterday and approved it.", "vi": "Hôm qua chúng tôi đã thảo luận ngân sách và phê duyệt nó.", "tense": "past-simple" }
+    ]
+  },
+  "drills": [
+    { "kind": "tense", "tense": "past-continuous", "level": "easy", "prompt": "I ___ (prepare) the slides when the projector broke.", "choices": [], "answer": "was preparing", "accept": [], "explain": "Hành động đang diễn ra thì bị 'when the projector broke' xen vào nên dùng quá khứ tiếp diễn." },
+    { "kind": "tense", "tense": "past-continuous", "level": "easy", "prompt": "This time yesterday, the QA team ___ (test) the new release.", "choices": [], "answer": "was testing", "accept": ["were testing"], "explain": "'This time yesterday' chỉ hành động đang diễn ra tại một thời điểm trong quá khứ." },
+    { "kind": "tense", "tense": "past-continuous", "level": "easy", "prompt": "She ___ (talk) to a client on the phone when her laptop shut down.", "choices": [], "answer": "was talking", "accept": [], "explain": "Cuộc gọi đang diễn ra thì laptop tắt ('when her laptop shut down') xen vào." },
+    { "kind": "tense", "tense": "past-continuous", "level": "easy", "prompt": "We ___ (have) lunch in the canteen when the fire alarm went off.", "choices": [], "answer": "were having", "accept": [], "explain": "Bữa trưa đang diễn ra thì chuông báo cháy reo; chủ ngữ 'we' dùng were." },
+    { "kind": "tense", "tense": "past-continuous", "level": "easy", "prompt": "Minh ___ (write) the weekly report when his manager came into the room.", "choices": [], "answer": "was writing", "accept": [], "explain": "Hành động viết báo cáo đang diễn ra thì quản lý bước vào ('when... came')." },
+    { "kind": "tense", "tense": "past-continuous", "level": "easy", "prompt": "The developers ___ (fix) a bug when the power went out.", "choices": [], "answer": "were fixing", "accept": [], "explain": "Đang sửa lỗi thì mất điện ('when the power went out') xen vào; chủ ngữ số nhiều dùng were." },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "Luckily, we ___ (not use) the database when it crashed at 2 a.m.", "choices": [], "answer": "were not using", "accept": ["weren't using"], "explain": "Phủ định của hành động đang diễn ra lúc database sập ('when it crashed')." },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "What ___ (you / do) at 4 p.m. yesterday? I called you three times.", "choices": [], "answer": "were you doing", "accept": [], "explain": "Hỏi về hành động đang diễn ra tại mốc 'at 4 p.m. yesterday': What + were + you + V-ing." },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "While Lan ___ (check) her emails, she found a message from an angry customer.", "choices": [], "answer": "was checking", "accept": [], "explain": "'While' + hành động đang diễn ra, bị sự việc 'found a message' xen vào." },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "Hung ___ (not wear) his staff badge when the security guard stopped him at the gate.", "choices": [], "answer": "was not wearing", "accept": ["wasn't wearing"], "explain": "Tại thời điểm bị bảo vệ chặn lại ('when... stopped him'), anh ấy không đang đeo thẻ." },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "I'm sorry I missed your call. I ___ (drive) to the client's office at the time.", "choices": [], "answer": "was driving", "accept": [], "explain": "'At the time' chỉ hành động đang diễn ra lúc cuộc gọi đến." },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "___ (Tom / attend) the online training when the Internet connection dropped?", "choices": [], "answer": "Was Tom attending", "accept": ["was Tom attending"], "explain": "Câu hỏi về hành động đang diễn ra khi mất mạng ('when... dropped'): Was + S + V-ing?" },
+    { "kind": "tense", "tense": "past-continuous", "level": "medium", "prompt": "The interns ___ (play) games on their phones when the manager walked in.", "choices": [], "answer": "were playing", "accept": [], "explain": "Đang chơi game thì quản lý bước vào ('when the manager walked in')." },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "While the IT team ___ (upgrade) the system, one of the servers suddenly overheated.", "choices": [], "answer": "were upgrading", "accept": [], "explain": "'While' + hành động kéo dài, bị sự cố đột ngột 'suddenly overheated' xen vào." },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "When I opened the meeting room door, Anna and Ben ___ (argue) about the budget, so I closed it quietly.", "choices": [], "answer": "were arguing", "accept": [], "explain": "Cuộc tranh luận đã đang diễn ra lúc tôi mở cửa ('when I opened'), nên tôi lặng lẽ đóng cửa." },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "At midnight last night, the backup script ___ (still / run), so I couldn't shut down the server.", "choices": [], "answer": "was still running", "accept": [], "explain": "'At midnight last night' + 'still' cho thấy hành động vẫn đang diễn ra tại thời điểm đó." },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "I ___ (not sit) at my desk when the error message appeared, so I didn't see it.", "choices": [], "answer": "was not sitting", "accept": ["wasn't sitting"], "explain": "Tại lúc thông báo lỗi hiện lên ('when... appeared'), tôi không đang ngồi ở bàn." },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "How many people ___ (work) on the project when it was cancelled?", "choices": [], "answer": "were working", "accept": [], "explain": "Hỏi số người đang làm dự án vào lúc dự án bị hủy ('when it was cancelled')." },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "Where ___ (Linh / go) when you saw her in the lobby this morning?", "choices": [], "answer": "was Linh going", "accept": [], "explain": "Hỏi về hành động đang diễn ra lúc bạn nhìn thấy cô ấy ('when you saw her'): Where + was + S + V-ing?" },
+    { "kind": "tense", "tense": "past-continuous", "level": "hard", "prompt": "The phone rang twice while I ___ (present) the quarterly results to the board.", "choices": [], "answer": "was presenting", "accept": [], "explain": "Mệnh đề 'while' chứa hành động dài đang diễn ra; 'rang' là hành động ngắn xen vào." },
+
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "I ___ a presentation when the screen went black.", "choices": ["was giving", "gave", "am giving", "give"], "answer": "was giving", "accept": [], "explain": "Đang thuyết trình thì màn hình tắt ('when the screen went black') xen vào." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "At this time yesterday, Nam ___ with the Japanese client.", "choices": ["was meeting", "met", "meets", "is meeting"], "answer": "was meeting", "accept": [], "explain": "'At this time yesterday' là dấu hiệu của hành động đang diễn ra trong quá khứ." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "The developers ___ the new feature when the client changed the requirements.", "choices": ["were developing", "developed", "develop", "are developing"], "answer": "were developing", "accept": [], "explain": "Đang phát triển tính năng thì khách hàng đổi yêu cầu ('when the client changed')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "My colleague ___ coffee in the pantry when the fire drill started.", "choices": ["was making", "made", "makes", "is making"], "answer": "was making", "accept": [], "explain": "Đang pha cà phê thì buổi diễn tập cháy bắt đầu ('when the fire drill started')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "While I ___ the documents, the scanner jammed.", "choices": ["was scanning", "scanned", "scan", "am scanning"], "answer": "was scanning", "accept": [], "explain": "'While' + hành động đang diễn ra, bị sự cố 'the scanner jammed' xen vào." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "It ___ heavily when we left the office yesterday evening, so we waited inside.", "choices": ["was raining", "rained", "rains", "is raining"], "answer": "was raining", "accept": [], "explain": "Trời đang mưa vào lúc chúng tôi rời văn phòng ('when we left') nên phải đợi." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "easy", "prompt": "Mai ___ her desk when she found the missing USB drive.", "choices": ["was cleaning", "cleaned", "cleans", "is cleaning"], "answer": "was cleaning", "accept": [], "explain": "Đang dọn bàn thì tìm thấy USB ('when she found'), hành động ngắn xen vào." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "The customers ___ for the system to come back online when the manager made an announcement.", "choices": ["were waiting", "waited", "wait", "have waited"], "answer": "were waiting", "accept": [], "explain": "Khách hàng đang chờ thì quản lý thông báo ('when the manager made')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "Sorry, I ___ when you mentioned the deadline. Could you repeat it?", "choices": ["wasn't listening", "didn't listen", "am not listening", "don't listen"], "answer": "wasn't listening", "accept": [], "explain": "Tại lúc bạn nhắc hạn chót ('when you mentioned'), tôi không đang nghe." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "Who ___ in the server room when the alarm went off?", "choices": ["was working", "worked", "works", "is working"], "answer": "was working", "accept": [], "explain": "Hỏi ai đang làm việc trong phòng máy chủ vào lúc chuông báo động reo ('when the alarm went off')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "When the auditor arrived, the accountants ___ the invoices, so he waited outside.", "choices": ["were checking", "checked", "check", "have checked"], "answer": "were checking", "accept": [], "explain": "Kế toán đang kiểm tra hóa đơn lúc kiểm toán viên đến nên ông ấy phải chờ." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "We ___ the contract with the supplier when they suddenly raised the price.", "choices": ["were negotiating", "negotiated", "negotiate", "are negotiating"], "answer": "were negotiating", "accept": [], "explain": "Đang đàm phán thì nhà cung cấp đột ngột tăng giá ('when they suddenly raised')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "This time last week, our team ___ to Da Nang for the conference.", "choices": ["was flying", "flew", "flies", "is flying"], "answer": "was flying", "accept": [], "explain": "'This time last week' chỉ hành động đang diễn ra tại thời điểm đó trong quá khứ." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "medium", "prompt": "The phone in the meeting room ___ when I came in, but nobody answered it.", "choices": ["was ringing", "rang", "rings", "is ringing"], "answer": "was ringing", "accept": [], "explain": "Điện thoại đã đang reo lúc tôi bước vào ('when I came in')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "hard", "prompt": "While the manager ___ the new policy, someone's phone started ringing loudly.", "choices": ["was explaining", "explained", "explains", "has explained"], "answer": "was explaining", "accept": [], "explain": "'While' + hành động dài đang diễn ra, bị tiếng chuông điện thoại xen vào." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "hard", "prompt": "Which file ___ when the program froze?", "choices": ["were you editing", "did you edit", "are you editing", "have you edited"], "answer": "were you editing", "accept": [], "explain": "Hỏi về hành động đang diễn ra lúc chương trình bị treo ('when the program froze')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "hard", "prompt": "Unfortunately, we ___ the meeting when the CEO made the key announcement, so there is no video of it.", "choices": ["weren't recording", "didn't record", "aren't recording", "don't record"], "answer": "weren't recording", "accept": [], "explain": "Vào lúc CEO thông báo ('when the CEO made'), chúng tôi không đang ghi hình." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "hard", "prompt": "When the client called, ___ on the proposal or on the budget?", "choices": ["were you working", "did you work", "are you working", "have you worked"], "answer": "were you working", "accept": [], "explain": "Câu hỏi về việc đang làm dở vào lúc khách hàng gọi ('when the client called')." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "hard", "prompt": "At the moment the hackers attacked, nobody ___ the network logs.", "choices": ["was monitoring", "monitored", "monitors", "is monitoring"], "answer": "was monitoring", "accept": [], "explain": "'At the moment the hackers attacked' chỉ một thời điểm cụ thể; 'nobody' đi với was." },
+    { "kind": "tenseChoice", "tense": "past-continuous", "level": "hard", "prompt": "Two of our engineers ___ in Singapore when the contract was signed, so they joined by video.", "choices": ["were staying", "stayed", "stay", "are staying"], "answer": "were staying", "accept": [], "explain": "Lúc hợp đồng được ký ('when the contract was signed'), họ đang ở Singapore nên phải tham gia qua video." }
+  ]
+}

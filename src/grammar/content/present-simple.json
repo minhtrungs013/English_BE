@@ -1,0 +1,653 @@
+{
+  "id": "present-simple",
+  "name": "Present simple",
+  "vi": "Hiện tại đơn",
+  "summary": "Thì hiện tại đơn dùng để nói về thói quen, việc lặp lại thường xuyên, sự thật hiển nhiên và những lịch trình cố định. Đây là thì cơ bản nhất, xuất hiện rất nhiều trong email, quy định công ty và bài thi TOEIC.",
+  "formula": {
+    "affirmative": {
+      "pattern": "S + V(s/es)",
+      "example": "Our team holds a stand-up meeting every morning.",
+      "vi": "Nhóm của chúng tôi họp đứng mỗi buổi sáng."
+    },
+    "negative": {
+      "pattern": "S + do/does + not + V (nguyên mẫu)",
+      "example": "She doesn't work on Saturdays.",
+      "vi": "Cô ấy không làm việc vào thứ Bảy."
+    },
+    "question": {
+      "pattern": "Do/Does + S + V (nguyên mẫu)?",
+      "example": "Does the company offer health insurance?",
+      "vi": "Công ty có cung cấp bảo hiểm sức khỏe không?"
+    }
+  },
+  "uses": [
+    {
+      "title": "Thói quen, hành động lặp lại",
+      "explain": "Dùng cho việc làm thường xuyên, theo thói quen; thường đi với trạng từ tần suất như always, usually, often, every day.",
+      "examples": [
+        {
+          "en": "I usually check my email before the daily meeting.",
+          "vi": "Tôi thường kiểm tra email trước cuộc họp hằng ngày."
+        },
+        {
+          "en": "He works from home every Friday.",
+          "vi": "Anh ấy làm việc ở nhà vào mỗi thứ Sáu."
+        }
+      ]
+    },
+    {
+      "title": "Sự thật, điều luôn đúng",
+      "explain": "Dùng cho sự thật hiển nhiên, đặc điểm cố định hoặc quy định chung của công ty.",
+      "examples": [
+        {
+          "en": "The company has offices in Hanoi and Ho Chi Minh City.",
+          "vi": "Công ty có văn phòng ở Hà Nội và Thành phố Hồ Chí Minh."
+        },
+        {
+          "en": "Employees don't need a visa to travel to Singapore for short business trips.",
+          "vi": "Nhân viên không cần thị thực khi đi công tác ngắn ngày ở Singapore."
+        }
+      ]
+    },
+    {
+      "title": "Lịch trình, thời gian biểu cố định",
+      "explain": "Dùng cho giờ tàu xe, giờ mở cửa, lịch họp đã cố định – kể cả khi nói về tương lai.",
+      "examples": [
+        {
+          "en": "The flight to Tokyo leaves at 9:40 p.m.",
+          "vi": "Chuyến bay đi Tokyo khởi hành lúc 9 giờ 40 tối."
+        },
+        {
+          "en": "The store opens at 8 a.m. and closes at 10 p.m.",
+          "vi": "Cửa hàng mở cửa lúc 8 giờ sáng và đóng cửa lúc 10 giờ tối."
+        }
+      ]
+    },
+    {
+      "title": "Động từ chỉ trạng thái",
+      "explain": "Các động từ chỉ suy nghĩ, cảm xúc, sở hữu (know, understand, want, need, believe, belong…) thường dùng ở hiện tại đơn, kể cả khi nói về lúc này.",
+      "examples": [
+        {
+          "en": "I don't understand this error message.",
+          "vi": "Tôi không hiểu thông báo lỗi này."
+        },
+        {
+          "en": "The client wants a final quote by Friday.",
+          "vi": "Khách hàng muốn có báo giá cuối cùng trước thứ Sáu."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "always",
+    "usually",
+    "often",
+    "sometimes",
+    "rarely",
+    "never",
+    "every day",
+    "every week",
+    "once a month",
+    "twice a year",
+    "on Mondays",
+    "in the morning"
+  ],
+  "mistakes": [
+    {
+      "wrong": "My manager check the reports every Monday.",
+      "right": "My manager checks the reports every Monday.",
+      "explain": "Chủ ngữ ngôi thứ ba số ít (he/she/it, my manager) thì động từ phải thêm -s/-es; người Việt hay quên vì tiếng Việt không chia động từ."
+    },
+    {
+      "wrong": "She doesn't works on Saturdays.",
+      "right": "She doesn't work on Saturdays.",
+      "explain": "Sau does/doesn't, động từ quay về dạng nguyên mẫu, không thêm -s nữa."
+    },
+    {
+      "wrong": "I am knowing the answer.",
+      "right": "I know the answer.",
+      "explain": "Know là động từ chỉ trạng thái nên không dùng ở dạng tiếp diễn; dùng hiện tại đơn."
+    },
+    {
+      "wrong": "Where you work?",
+      "right": "Where do you work?",
+      "explain": "Câu hỏi ở hiện tại đơn cần trợ động từ do/does đứng trước chủ ngữ, không chỉ đổi ngữ điệu như tiếng Việt."
+    }
+  ],
+  "compare": {
+    "with": "present-continuous",
+    "explain": "Hiện tại đơn nói về thói quen, sự thật, lịch cố định (every day, usually). Hiện tại tiếp diễn nói về việc đang xảy ra ngay lúc nói hoặc chỉ tạm thời trong giai đoạn này (now, at the moment, this week). Ví dụ: “I work in Hanoi” là công việc lâu dài; “I am working in Da Nang this month” là tạm thời. Động từ trạng thái (know, want, need) thường chỉ dùng hiện tại đơn.",
+    "examples": [
+      {
+        "en": "She usually takes the bus to work.",
+        "vi": "Cô ấy thường đi xe buýt đi làm.",
+        "tense": "present-simple"
+      },
+      {
+        "en": "She is taking a taxi today because it is raining.",
+        "vi": "Hôm nay cô ấy đi taxi vì trời đang mưa.",
+        "tense": "present-continuous"
+      },
+      {
+        "en": "Our team develops mobile apps for banks.",
+        "vi": "Nhóm chúng tôi phát triển ứng dụng di động cho ngân hàng.",
+        "tense": "present-simple"
+      },
+      {
+        "en": "Our team is fixing a critical bug right now.",
+        "vi": "Nhóm chúng tôi đang sửa một lỗi nghiêm trọng ngay lúc này.",
+        "tense": "present-continuous"
+      }
+    ]
+  },
+  "drills": [
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "Linh usually ___ (check) her email as soon as she arrives at the office.",
+      "choices": [],
+      "answer": "checks",
+      "accept": [],
+      "explain": "Thói quen (“usually”) → hiện tại đơn, chủ ngữ số ít Linh nên thêm -s."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "The team leader ___ (have) a one-on-one meeting with each developer every Monday.",
+      "choices": [],
+      "answer": "has",
+      "accept": [],
+      "explain": "Việc lặp lại (“every Monday”) → hiện tại đơn; have với chủ ngữ số ít thành has."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "The office ___ (open) at 8:30 a.m. from Monday to Friday.",
+      "choices": [],
+      "answer": "opens",
+      "accept": [],
+      "explain": "Giờ giấc cố định (“from Monday to Friday”) → hiện tại đơn, chủ ngữ số ít thêm -s."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "I ___ (take) the bus to work every day because parking is expensive.",
+      "choices": [],
+      "answer": "take",
+      "accept": [],
+      "explain": "Thói quen (“every day”) → hiện tại đơn, chủ ngữ I dùng động từ nguyên mẫu."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "He ___ (not / drink) coffee in the afternoon because it keeps him awake at night.",
+      "choices": [],
+      "answer": "doesn't drink",
+      "accept": [
+        "does not drink"
+      ],
+      "explain": "Thói quen chung (“in the afternoon”) → hiện tại đơn phủ định, chủ ngữ he dùng doesn't + V nguyên mẫu."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "Water ___ (boil) at 100 degrees Celsius, so be careful with the office kettle.",
+      "choices": [],
+      "answer": "boils",
+      "accept": [],
+      "explain": "Sự thật hiển nhiên → hiện tại đơn, chủ ngữ số ít thêm -s."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "Mr. Nam ___ (teach) a short Excel workshop for new staff every quarter.",
+      "choices": [],
+      "answer": "teaches",
+      "accept": [],
+      "explain": "Việc lặp lại (“every quarter”) → hiện tại đơn; động từ tận cùng -ch thêm -es."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "The server ___ (back up) the database automatically at midnight every night.",
+      "choices": [],
+      "answer": "backs up",
+      "accept": [],
+      "explain": "Việc lặp lại theo lịch (“every night”) → hiện tại đơn, thêm -s vào back."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "According to our policy, customers ___ (not / pay) any delivery fee for orders over $50.",
+      "choices": [],
+      "answer": "don't pay",
+      "accept": [
+        "do not pay"
+      ],
+      "explain": "Quy định chung (“according to our policy”) → hiện tại đơn phủ định, chủ ngữ số nhiều dùng don't."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "How often ___ (your team / release) a new version of the app? — About once a month.",
+      "choices": [],
+      "answer": "does your team release",
+      "accept": [],
+      "explain": "Hỏi về tần suất (“how often”, “once a month”) → câu hỏi hiện tại đơn: does + S + V nguyên mẫu."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "My manager ___ (fly) to Singapore for the regional meeting twice a year.",
+      "choices": [],
+      "answer": "flies",
+      "accept": [],
+      "explain": "Tần suất (“twice a year”) → hiện tại đơn; phụ âm + y đổi thành -ies."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "The printer on the third floor ___ (not / work) properly whenever many people use it at the same time.",
+      "choices": [],
+      "answer": "doesn't work",
+      "accept": [
+        "does not work"
+      ],
+      "explain": "Tình huống lặp lại (“whenever”) → hiện tại đơn phủ định, chủ ngữ số ít dùng doesn't."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "Where ___ (your sister / work)? — She works at a bank in District 1.",
+      "choices": [],
+      "answer": "does your sister work",
+      "accept": [],
+      "explain": "Hỏi về công việc lâu dài (câu trả lời “She works”) → câu hỏi hiện tại đơn: does + S + V."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "I'm sorry, but I ___ (not / understand) what this error message means.",
+      "choices": [],
+      "answer": "don't understand",
+      "accept": [
+        "do not understand"
+      ],
+      "explain": "Understand là động từ trạng thái, không dùng tiếp diễn → hiện tại đơn phủ định với don't."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "This laptop ___ (belong) to the IT department, so please return it after the training.",
+      "choices": [],
+      "answer": "belongs",
+      "accept": [],
+      "explain": "Belong (sở hữu) là động từ trạng thái → hiện tại đơn, chủ ngữ số ít thêm -s."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "Right now the client ___ (want) a bigger discount, but our sales manager is still thinking about it.",
+      "choices": [],
+      "answer": "wants",
+      "accept": [],
+      "explain": "Dù có “right now”, want là động từ trạng thái nên vẫn dùng hiện tại đơn: wants."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "Each of the new interns ___ (receive) a laptop and an access card on their first day.",
+      "choices": [],
+      "answer": "receives",
+      "accept": [],
+      "explain": "Quy trình lặp lại → hiện tại đơn; chủ ngữ “Each of …” luôn là số ít nên thêm -s."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "Neither the manager nor the developers ___ (like) long meetings on Monday mornings.",
+      "choices": [],
+      "answer": "like",
+      "accept": [],
+      "explain": "Sở thích chung → hiện tại đơn; với “neither … nor”, động từ chia theo chủ ngữ gần nhất (the developers, số nhiều)."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "This sales report ___ (seem) incomplete because the figures for June are missing.",
+      "choices": [],
+      "answer": "seems",
+      "accept": [],
+      "explain": "Seem là động từ trạng thái → hiện tại đơn, chủ ngữ số ít thêm -s."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "Who ___ (approve) annual leave requests in your department? — Our HR manager does.",
+      "choices": [],
+      "answer": "approves",
+      "accept": [],
+      "explain": "Who làm chủ ngữ nên không dùng do/does; việc thường xuyên → hiện tại đơn, động từ chia số ít."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "Mai ___ to the gym after work three times a week.",
+      "choices": [
+        "goes",
+        "go",
+        "is going",
+        "are going"
+      ],
+      "answer": "goes",
+      "accept": [],
+      "explain": "Tần suất (“three times a week”) → hiện tại đơn, chủ ngữ số ít thêm -es."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "present-continuous",
+      "prompt": "Please be quiet — the director ___ to a client on the phone right now.",
+      "choices": [
+        "talks",
+        "is talking",
+        "talk",
+        "are talking"
+      ],
+      "answer": "is talking",
+      "accept": [],
+      "explain": "Đang diễn ra ngay lúc nói (“right now”) → hiện tại tiếp diễn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "We ___ overtime on weekends because the company policy doesn't allow it.",
+      "choices": [
+        "don't work",
+        "doesn't work",
+        "aren't working",
+        "isn't working"
+      ],
+      "answer": "don't work",
+      "accept": [],
+      "explain": "Quy định chung, lặp lại (“on weekends”) → hiện tại đơn phủ định, chủ ngữ we dùng don't."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "How ___ to work every day? — By motorbike.",
+      "choices": [
+        "do you get",
+        "does you get",
+        "are you getting",
+        "you get"
+      ],
+      "answer": "do you get",
+      "accept": [],
+      "explain": "Hỏi về thói quen (“every day”) → câu hỏi hiện tại đơn: do + you + V nguyên mẫu."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "present-simple",
+      "prompt": "My colleague Tuan ___ English very well because he lived in Australia for five years.",
+      "choices": [
+        "speaks",
+        "is speaking",
+        "speak",
+        "are speaking"
+      ],
+      "answer": "speaks",
+      "accept": [],
+      "explain": "Khả năng, đặc điểm lâu dài → hiện tại đơn, chủ ngữ số ít thêm -s."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "present-continuous",
+      "prompt": "Shh! Ms. Lan ___ a video call with the Japanese client at the moment.",
+      "choices": [
+        "has",
+        "is having",
+        "have",
+        "are having"
+      ],
+      "answer": "is having",
+      "accept": [],
+      "explain": "Đang diễn ra (“Shh!”, “at the moment”) → hiện tại tiếp diễn; have a call là hành động nên được dùng tiếp diễn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-continuous",
+      "prompt": "I ___ on the new payment module this week, so I can't help with the bug reports.",
+      "choices": [
+        "work",
+        "am working",
+        "works",
+        "is working"
+      ],
+      "answer": "am working",
+      "accept": [],
+      "explain": "Việc tạm thời trong giai đoạn này (“this week”) → hiện tại tiếp diễn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "Excuse me, ___ a pen? I need to sign this contract.",
+      "choices": [
+        "do you have",
+        "are you having",
+        "does you have",
+        "you have"
+      ],
+      "answer": "do you have",
+      "accept": [],
+      "explain": "Have mang nghĩa sở hữu là động từ trạng thái → câu hỏi hiện tại đơn: do you have."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "The customer ___ the price is too high, so she wants to speak to a manager.",
+      "choices": [
+        "thinks",
+        "is thinking",
+        "think",
+        "are thinking"
+      ],
+      "answer": "thinks",
+      "accept": [],
+      "explain": "Think mang nghĩa “cho rằng” (ý kiến) là động từ trạng thái → hiện tại đơn, thêm -s."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-continuous",
+      "prompt": "Office rents in the city center ___ quickly this year, so many companies are moving to the suburbs.",
+      "choices": [
+        "rise",
+        "are rising",
+        "rises",
+        "is rising"
+      ],
+      "answer": "are rising",
+      "accept": [],
+      "explain": "Xu hướng đang thay đổi trong giai đoạn này (“this year”) → hiện tại tiếp diễn, chủ ngữ số nhiều dùng are."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "Mr. Hung is a vegetarian, so he ___ meat. Please order a vegetarian meal for him at the conference dinner.",
+      "choices": [
+        "doesn't eat",
+        "isn't eating",
+        "don't eat",
+        "aren't eating"
+      ],
+      "answer": "doesn't eat",
+      "accept": [],
+      "explain": "Đặc điểm lâu dài (“is a vegetarian”) → hiện tại đơn phủ định, chủ ngữ he dùng doesn't."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "How often ___ the system logs? — Every Sunday night.",
+      "choices": [
+        "does the admin check",
+        "is the admin checking",
+        "do the admin check",
+        "the admin checks"
+      ],
+      "answer": "does the admin check",
+      "accept": [],
+      "explain": "Hỏi tần suất (“how often”, “every Sunday night”) → câu hỏi hiện tại đơn: does + S số ít + V."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-continuous",
+      "prompt": "Our sales staff usually work in the office, but this month they ___ from home because of the renovation.",
+      "choices": [
+        "work",
+        "are working",
+        "works",
+        "is working"
+      ],
+      "answer": "are working",
+      "accept": [],
+      "explain": "Tình huống tạm thời (“but this month”) khác với thói quen → hiện tại tiếp diễn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-continuous",
+      "prompt": "At the moment, we ___ for a senior Java developer to join our Hanoi office.",
+      "choices": [
+        "look",
+        "are looking",
+        "looks",
+        "is looking"
+      ],
+      "answer": "are looking",
+      "accept": [],
+      "explain": "Đang diễn ra trong thời điểm hiện tại (“at the moment”) → hiện tại tiếp diễn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-simple",
+      "prompt": "The train to Hai Phong ___ at 7:15 every morning, so I always leave home by 6:30.",
+      "choices": [
+        "leaves",
+        "is leaving",
+        "leave",
+        "are leaving"
+      ],
+      "answer": "leaves",
+      "accept": [],
+      "explain": "Lịch trình cố định (“every morning”) → hiện tại đơn, chủ ngữ số ít thêm -s."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "This software package ___ three modules: HR, payroll and accounting.",
+      "choices": [
+        "contains",
+        "is containing",
+        "contain",
+        "are containing"
+      ],
+      "answer": "contains",
+      "accept": [],
+      "explain": "Contain là động từ trạng thái (mô tả đặc điểm) → hiện tại đơn, không dùng tiếp diễn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "I ___ what you mean, but I still think we should test the update before we deploy it.",
+      "choices": [
+        "see",
+        "am seeing",
+        "sees",
+        "is seeing"
+      ],
+      "answer": "see",
+      "accept": [],
+      "explain": "See mang nghĩa “hiểu” là động từ trạng thái → hiện tại đơn, chủ ngữ I dùng nguyên mẫu."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "Who ___ the keys to the server room? — Mr. Phong does.",
+      "choices": [
+        "has",
+        "is having",
+        "have",
+        "are having"
+      ],
+      "answer": "has",
+      "accept": [],
+      "explain": "Have chỉ sở hữu → hiện tại đơn; Who làm chủ ngữ nên động từ chia số ít: has."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "As soon as the project manager ___ the budget, the team can order the new servers.",
+      "choices": [
+        "approves",
+        "will approve",
+        "is approving",
+        "approve"
+      ],
+      "answer": "approves",
+      "accept": [],
+      "explain": "Sau liên từ thời gian “as soon as” nói về tương lai, dùng hiện tại đơn chứ không dùng will."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "present-simple",
+      "prompt": "If a customer ___ a complaint, our support team always replies within 24 hours.",
+      "choices": [
+        "sends",
+        "will send",
+        "is sending",
+        "send"
+      ],
+      "answer": "sends",
+      "accept": [],
+      "explain": "Câu điều kiện loại 0 nói về quy trình luôn đúng (“always”) → mệnh đề if dùng hiện tại đơn, chủ ngữ số ít thêm -s."
+    }
+  ]
+}

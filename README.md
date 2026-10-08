@@ -145,6 +145,21 @@ you were removed from a course, someone saved your shared library word (grouped 
 | POST | `/notifications/read` | `{ ids }` or `{ all: true }` → `{ unread }` |
 | DELETE | `/notifications/:id` | |
 
+## Grammar: the 7 core tenses
+
+Lessons for present simple / continuous / perfect, past simple / continuous, will and going to: formula, uses with
+examples, signal words, common mistakes of Vietnamese learners and a comparison with a neighbouring tense (theory in
+Vietnamese, examples in English). Each has 40 drills (typed and multiple choice, easy / medium / hard; a few contrast it
+with the neighbouring tense). Content lives in `src/grammar/content/<tense>.json`. Practice is graded on the server;
+mastery per tense (0–100) comes from the last 20 answers (at least 10 needed for 100%).
+
+| Method | Path | |
+|---|---|---|
+| GET | `/grammar` | The tenses with my mastery |
+| GET | `/grammar/:tense` | One lesson (no drills) |
+| GET | `/grammar/practice?mode=<tense>\|mix&n=10` | Questions (no answers). One tense: easier first while mastery is low; mix: weaker tenses more often; recent drills avoided |
+| POST | `/grammar/practice` | `{ answers: [{ id, answer }] }` → results (answer, explanation, tense), score, new mastery |
+
 ## Vocabulary library
 
 A shared collection every user can browse. On first start it is filled with 500 built-in

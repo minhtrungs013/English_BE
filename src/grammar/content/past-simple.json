@@ -1,0 +1,655 @@
+{
+  "id": "past-simple",
+  "name": "Past simple",
+  "vi": "Quá khứ đơn",
+  "summary": "Thì quá khứ đơn dùng để nói về hành động hoặc sự việc đã xảy ra và kết thúc tại một thời điểm xác định trong quá khứ. Đây là thì thường gặp nhất khi kể lại công việc, báo cáo kết quả hay mô tả sự cố đã qua.",
+  "formula": {
+    "affirmative": {
+      "pattern": "S + V2/V-ed",
+      "example": "Our team released the new version last Friday.",
+      "vi": "Nhóm chúng tôi đã phát hành phiên bản mới vào thứ Sáu tuần trước."
+    },
+    "negative": {
+      "pattern": "S + did not (didn't) + V (nguyên mẫu)",
+      "example": "The client didn't reply to our email yesterday.",
+      "vi": "Khách hàng đã không trả lời email của chúng tôi hôm qua."
+    },
+    "question": {
+      "pattern": "(Wh-) + Did + S + V (nguyên mẫu)?",
+      "example": "Did you attend the training session last week?",
+      "vi": "Tuần trước bạn có tham dự buổi đào tạo không?"
+    }
+  },
+  "uses": [
+    {
+      "title": "Hành động đã xong tại thời điểm xác định",
+      "explain": "Dùng khi hành động đã kết thúc và ta biết (hoặc nói rõ) nó xảy ra lúc nào trong quá khứ.",
+      "examples": [
+        {
+          "en": "The client called us two hours ago.",
+          "vi": "Khách hàng đã gọi cho chúng tôi hai tiếng trước."
+        },
+        {
+          "en": "We signed the contract with ABC Corp in March 2024.",
+          "vi": "Chúng tôi đã ký hợp đồng với công ty ABC vào tháng 3 năm 2024."
+        }
+      ]
+    },
+    {
+      "title": "Chuỗi hành động nối tiếp nhau",
+      "explain": "Dùng để kể lại nhiều hành động xảy ra lần lượt trong quá khứ, ví dụ khi báo cáo sự cố hoặc tường thuật một buổi làm việc.",
+      "examples": [
+        {
+          "en": "The server went down, so the engineers restarted it and checked the logs.",
+          "vi": "Máy chủ bị sập, nên các kỹ sư đã khởi động lại và kiểm tra nhật ký hệ thống."
+        },
+        {
+          "en": "She opened the file, fixed the formula and sent it back to the manager.",
+          "vi": "Cô ấy mở tệp, sửa công thức rồi gửi lại cho quản lý."
+        }
+      ]
+    },
+    {
+      "title": "Sự việc kéo dài trong quá khứ nhưng đã chấm dứt",
+      "explain": "Dùng cho tình trạng hoặc công việc kéo dài một khoảng thời gian trong quá khứ và nay không còn đúng nữa.",
+      "examples": [
+        {
+          "en": "Tuan worked in the Hanoi branch from 2018 to 2022.",
+          "vi": "Tuấn đã làm việc ở chi nhánh Hà Nội từ năm 2018 đến năm 2022."
+        },
+        {
+          "en": "Our company used an old billing system for ten years before we switched to the cloud.",
+          "vi": "Công ty chúng tôi đã dùng một hệ thống tính phí cũ suốt mười năm trước khi chuyển sang điện toán đám mây."
+        }
+      ]
+    },
+    {
+      "title": "Hỏi về thời điểm với When / What time / How long ago",
+      "explain": "Câu hỏi về thời điểm cụ thể của sự việc đã xong luôn dùng quá khứ đơn, không dùng hiện tại hoàn thành.",
+      "examples": [
+        {
+          "en": "When did you upload the new design files?",
+          "vi": "Bạn đã tải các tệp thiết kế mới lên khi nào?"
+        },
+        {
+          "en": "How long ago did the supplier deliver the laptops?",
+          "vi": "Nhà cung cấp đã giao máy tính xách tay cách đây bao lâu?"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "yesterday",
+    "last week / last month / last year",
+    "ago (two days ago, an hour ago)",
+    "in 2020 / in March",
+    "on Monday",
+    "at 9 a.m. yesterday",
+    "this morning (khi buổi sáng đã qua)",
+    "the other day",
+    "when I was …",
+    "from 2018 to 2022",
+    "How long ago …?",
+    "When …?"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I didn't went to the meeting yesterday.",
+      "right": "I didn't go to the meeting yesterday.",
+      "explain": "Sau did/didn't, động từ chính luôn ở dạng nguyên mẫu; dấu hiệu quá khứ đã nằm ở \"did\"."
+    },
+    {
+      "wrong": "Our sales falled by 8% last year.",
+      "right": "Our sales fell by 8% last year.",
+      "explain": "\"Fall\" là động từ bất quy tắc (fall – fell – fallen), không thêm -ed; cần học thuộc các động từ bất quy tắc thường gặp."
+    },
+    {
+      "wrong": "I have sent the report yesterday.",
+      "right": "I sent the report yesterday.",
+      "explain": "Khi có mốc thời gian đã kết thúc như yesterday, last week, ago thì không dùng hiện tại hoàn thành mà dùng quá khứ đơn."
+    },
+    {
+      "wrong": "Yesterday I check the logs and find the bug.",
+      "right": "Yesterday I checked the logs and found the bug.",
+      "explain": "Tiếng Việt không chia động từ theo thời gian nên người học hay quên đổi động từ sang dạng quá khứ khi đã có \"yesterday\"."
+    }
+  ],
+  "compare": {
+    "with": "present-perfect",
+    "explain": "Quá khứ đơn nói về việc đã xong tại một thời điểm xác định, đã qua (yesterday, last week, in 2020, ago); người nghe quan tâm \"khi nào\". Hiện tại hoàn thành nối quá khứ với hiện tại: không nêu thời điểm cụ thể, hoặc dùng với khoảng thời gian chưa kết thúc (since, for, so far, this year, yet, already, ever); người nghe quan tâm kết quả hiện tại. Có mốc thời gian đã kết thúc thì dùng quá khứ đơn.",
+    "examples": [
+      {
+        "en": "I sent the proposal to the client yesterday.",
+        "vi": "Tôi đã gửi bản đề xuất cho khách hàng hôm qua.",
+        "tense": "past-simple"
+      },
+      {
+        "en": "I have already sent the proposal, so the client can review it now.",
+        "vi": "Tôi đã gửi bản đề xuất rồi, nên khách hàng có thể xem ngay bây giờ.",
+        "tense": "present-perfect"
+      },
+      {
+        "en": "Linh worked at FPT from 2019 to 2021.",
+        "vi": "Linh đã làm việc ở FPT từ năm 2019 đến năm 2021.",
+        "tense": "past-simple"
+      },
+      {
+        "en": "Linh has worked at our company since 2022.",
+        "vi": "Linh làm việc ở công ty chúng tôi từ năm 2022 đến nay.",
+        "tense": "present-perfect"
+      }
+    ]
+  },
+  "drills": [
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "The client ___ (call) us two hours ago to confirm the order.",
+      "choices": [],
+      "answer": "called",
+      "accept": [],
+      "explain": "Có \"two hours ago\" – thời điểm đã qua nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "Our team ___ (release) version 2.3 last Friday.",
+      "choices": [],
+      "answer": "released",
+      "accept": [],
+      "explain": "\"Last Friday\" là mốc thời gian đã kết thúc nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "I ___ (send) the meeting minutes to everyone yesterday afternoon.",
+      "choices": [],
+      "answer": "sent",
+      "accept": [],
+      "explain": "Có \"yesterday afternoon\"; \"send\" là động từ bất quy tắc: send – sent."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "Ms. Lan ___ (go) to the Da Nang office last week for a training course.",
+      "choices": [],
+      "answer": "went",
+      "accept": [],
+      "explain": "Có \"last week\"; \"go\" là động từ bất quy tắc: go – went."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "We ___ (not / receive) your invoice last month.",
+      "choices": [],
+      "answer": "didn't receive",
+      "accept": [
+        "did not receive"
+      ],
+      "explain": "Câu phủ định với \"last month\": didn't + động từ nguyên mẫu."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "The new intern ___ (start) work three days ago.",
+      "choices": [],
+      "answer": "started",
+      "accept": [],
+      "explain": "\"Three days ago\" chỉ thời điểm đã qua nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Who ___ (approve) the travel budget last Tuesday?",
+      "choices": [],
+      "answer": "approved",
+      "accept": [],
+      "explain": "Câu hỏi với \"Who\" làm chủ ngữ không cần \"did\"; có \"last Tuesday\" nên dùng V-ed."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "The developers ___ (find) three critical bugs during yesterday's code review.",
+      "choices": [],
+      "answer": "found",
+      "accept": [],
+      "explain": "Có \"yesterday's code review\"; \"find\" là động từ bất quy tắc: find – found."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Mr. Huy ___ (not / come) to the stand-up meeting yesterday because he was sick.",
+      "choices": [],
+      "answer": "didn't come",
+      "accept": [
+        "did not come"
+      ],
+      "explain": "Có \"yesterday\" và \"was sick\" nên dùng phủ định quá khứ đơn: didn't + come."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "The company ___ (hire) twenty new engineers in 2023.",
+      "choices": [],
+      "answer": "hired",
+      "accept": [],
+      "explain": "\"In 2023\" là năm đã qua nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Our main server ___ (go) down for two hours last night.",
+      "choices": [],
+      "answer": "went",
+      "accept": [],
+      "explain": "Có \"last night\"; \"go down\" chia quá khứ là \"went down\"."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "She ___ (leave) the office at 6 p.m. yesterday and took a taxi home.",
+      "choices": [],
+      "answer": "left",
+      "accept": [],
+      "explain": "Có \"yesterday\" và \"took\" đi kèm; \"leave\" là bất quy tắc: leave – left."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "The IT manager ___ (choose) a new cloud provider at the end of last quarter.",
+      "choices": [],
+      "answer": "chose",
+      "accept": [],
+      "explain": "\"At the end of last quarter\" là thời điểm đã qua; choose – chose – chosen."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "Last year our sales ___ (fall) by 8% because of strong competition.",
+      "choices": [],
+      "answer": "fell",
+      "accept": [],
+      "explain": "Có \"last year\"; \"fall\" là bất quy tắc: fall – fell, không phải \"falled\"."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "Nam ___ (join) the company in 2019 and has worked in the QA team ever since.",
+      "choices": [],
+      "answer": "joined",
+      "accept": [],
+      "explain": "Việc gia nhập xảy ra một lần \"in 2019\" nên dùng quá khứ đơn; phần sau mới dùng hiện tại hoàn thành."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "The vendor ___ (not / meet) the deadline last sprint, so we cancelled the contract.",
+      "choices": [],
+      "answer": "didn't meet",
+      "accept": [
+        "did not meet"
+      ],
+      "explain": "Có \"last sprint\" và \"cancelled\" nên dùng phủ định quá khứ đơn: didn't + meet."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "Our CEO ___ (lead) the negotiation with the Japanese partner two weeks ago.",
+      "choices": [],
+      "answer": "led",
+      "accept": [],
+      "explain": "Có \"two weeks ago\"; \"lead\" là bất quy tắc: lead – led."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-perfect",
+      "prompt": "Linh ___ (be) our team leader since January.",
+      "choices": [],
+      "answer": "has been",
+      "accept": [
+        "'s been"
+      ],
+      "explain": "\"Since January\" nối từ quá khứ đến hiện tại nên dùng hiện tại hoàn thành, không dùng quá khứ đơn."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "present-perfect",
+      "prompt": "So far this month, we ___ (sign) five new contracts.",
+      "choices": [],
+      "answer": "have signed",
+      "accept": [
+        "'ve signed"
+      ],
+      "explain": "\"So far this month\" là khoảng thời gian chưa kết thúc nên dùng hiện tại hoàn thành."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "Which candidate ___ (get) the highest score in last week's TOEIC test?",
+      "choices": [],
+      "answer": "got",
+      "accept": [],
+      "explain": "\"Which candidate\" là chủ ngữ nên không cần \"did\"; có \"last week's\" và get – got."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "We ___ the contract with ABC Corp last Monday.",
+      "choices": [
+        "signed",
+        "have signed",
+        "sign",
+        "are signing"
+      ],
+      "answer": "signed",
+      "accept": [],
+      "explain": "\"Last Monday\" là mốc đã qua nên dùng quá khứ đơn, không dùng \"have signed\"."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "The printer on the third floor ___ yesterday morning.",
+      "choices": [
+        "broke",
+        "has broken",
+        "breaks",
+        "is breaking"
+      ],
+      "answer": "broke",
+      "accept": [],
+      "explain": "Có \"yesterday morning\"; \"break\" là bất quy tắc: break – broke."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "I ___ the safety training video two days ago.",
+      "choices": [
+        "watched",
+        "have watched",
+        "watch",
+        "am watching"
+      ],
+      "answer": "watched",
+      "accept": [],
+      "explain": "\"Two days ago\" chỉ thời điểm đã qua nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "___ the invoice to ABC Corp last Friday?",
+      "choices": [
+        "Did you send",
+        "Have you sent",
+        "Do you send",
+        "Are you sending"
+      ],
+      "answer": "Did you send",
+      "accept": [],
+      "explain": "Câu hỏi có \"last Friday\" nên dùng Did + S + động từ nguyên mẫu."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "They ___ the quarterly meeting last week because the director was abroad.",
+      "choices": [
+        "didn't hold",
+        "haven't held",
+        "don't hold",
+        "aren't holding"
+      ],
+      "answer": "didn't hold",
+      "accept": [],
+      "explain": "Có \"last week\" và \"was abroad\" nên dùng phủ định quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "The marketing team ___ a new online campaign in March 2024.",
+      "choices": [
+        "launched",
+        "has launched",
+        "launches",
+        "will launch"
+      ],
+      "answer": "launched",
+      "accept": [],
+      "explain": "\"In March 2024\" là thời điểm đã qua nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "Mr. Tan ___ our Singapore office in 2022.",
+      "choices": [
+        "visited",
+        "has visited",
+        "visits",
+        "is visiting"
+      ],
+      "answer": "visited",
+      "accept": [],
+      "explain": "Có năm đã qua \"in 2022\" nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "tense": "past-simple",
+      "prompt": "My laptop ___ last night, so I lost some unsaved work.",
+      "choices": [
+        "crashed",
+        "has crashed",
+        "crashes",
+        "will crash"
+      ],
+      "answer": "crashed",
+      "accept": [],
+      "explain": "Có \"last night\" và \"lost\" nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-perfect",
+      "prompt": "We ___ this CRM system since 2021.",
+      "choices": [
+        "have used",
+        "used",
+        "use",
+        "were using"
+      ],
+      "answer": "have used",
+      "accept": [],
+      "explain": "\"Since 2021\" nối quá khứ với hiện tại nên dùng hiện tại hoàn thành."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "How many support tickets ___ last sprint?",
+      "choices": [
+        "did the team close",
+        "has the team closed",
+        "does the team close",
+        "was the team closing"
+      ],
+      "answer": "did the team close",
+      "accept": [],
+      "explain": "\"Last sprint\" đã kết thúc nên câu hỏi dùng did + S + động từ nguyên mẫu."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "present-perfect",
+      "prompt": "Our sales ___ by 15% so far this year, and we expect more growth in Q4.",
+      "choices": [
+        "have risen",
+        "rose",
+        "rise",
+        "were rising"
+      ],
+      "answer": "have risen",
+      "accept": [],
+      "explain": "\"So far this year\" là khoảng thời gian chưa kết thúc nên dùng hiện tại hoàn thành."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Ten minutes ago, the system ___ an error message and stopped.",
+      "choices": [
+        "showed",
+        "has shown",
+        "shows",
+        "had shown"
+      ],
+      "answer": "showed",
+      "accept": [],
+      "explain": "\"Ten minutes ago\" và \"stopped\" là chuỗi hành động đã xong nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Hoa ___ a promotion at last year's performance review.",
+      "choices": [
+        "got",
+        "has got",
+        "gets",
+        "was getting"
+      ],
+      "answer": "got",
+      "accept": [],
+      "explain": "Có \"last year's\" – sự kiện đã qua nên dùng quá khứ đơn: get – got."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Our office ___ to a new building in District 7 in 2021.",
+      "choices": [
+        "moved",
+        "has moved",
+        "moves",
+        "is moving"
+      ],
+      "answer": "moved",
+      "accept": [],
+      "explain": "\"In 2021\" là năm đã qua nên dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Last night the automatic backup ___ because the disk was full.",
+      "choices": [
+        "didn't run",
+        "hasn't run",
+        "doesn't run",
+        "won't run"
+      ],
+      "answer": "didn't run",
+      "accept": [],
+      "explain": "Có \"last night\" và \"was full\" nên dùng phủ định quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "tense": "past-simple",
+      "prompt": "Where ___ the company year-end party last December?",
+      "choices": [
+        "did they hold",
+        "have they held",
+        "do they hold",
+        "are they holding"
+      ],
+      "answer": "did they hold",
+      "accept": [],
+      "explain": "Câu hỏi Wh- với \"last December\" dùng did + S + động từ nguyên mẫu."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "present-perfect",
+      "prompt": "I ___ Mr. Kim for five years now; we first met at a tech conference in 2021.",
+      "choices": [
+        "have known",
+        "knew",
+        "know",
+        "had known"
+      ],
+      "answer": "have known",
+      "accept": [],
+      "explain": "\"For five years now\" kéo dài đến hiện tại nên dùng hiện tại hoàn thành; \"met ... in 2021\" mới dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "The last time we ___ the firewall rules was three months ago.",
+      "choices": [
+        "updated",
+        "have updated",
+        "update",
+        "had updated"
+      ],
+      "answer": "updated",
+      "accept": [],
+      "explain": "Cấu trúc \"The last time + S + V2 + was ... ago\" luôn dùng quá khứ đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "How long ago ___ the data migration?",
+      "choices": [
+        "did they complete",
+        "have they completed",
+        "do they complete",
+        "had they completed"
+      ],
+      "answer": "did they complete",
+      "accept": [],
+      "explain": "\"How long ago\" hỏi về thời điểm đã qua nên dùng did + S + động từ nguyên mẫu."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "tense": "past-simple",
+      "prompt": "Tuan ___ in the Hanoi branch from 2018 to 2022; now he works in Ho Chi Minh City.",
+      "choices": [
+        "worked",
+        "has worked",
+        "works",
+        "has been working"
+      ],
+      "answer": "worked",
+      "accept": [],
+      "explain": "\"From 2018 to 2022\" là khoảng thời gian đã chấm dứt nên dùng quá khứ đơn."
+    }
+  ]
+}

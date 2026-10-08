@@ -1,0 +1,659 @@
+{
+  "id": "present-perfect",
+  "name": "Present perfect",
+  "vi": "Hiện tại hoàn thành",
+  "summary": "Thì hiện tại hoàn thành diễn tả hành động đã xảy ra nhưng còn liên quan đến hiện tại: kéo dài đến bây giờ, vừa mới xong, hoặc là trải nghiệm tính đến nay. Không nói rõ thời điểm cụ thể trong quá khứ.",
+  "formula": {
+    "affirmative": {
+      "pattern": "S + have/has + V3 (past participle)",
+      "example": "Our team has finished the test plan for the new release.",
+      "vi": "Nhóm chúng tôi đã hoàn thành kế hoạch kiểm thử cho bản phát hành mới."
+    },
+    "negative": {
+      "pattern": "S + have/has + not + V3 (haven't/hasn't)",
+      "example": "The client hasn't signed the contract yet.",
+      "vi": "Khách hàng vẫn chưa ký hợp đồng."
+    },
+    "question": {
+      "pattern": "Have/Has + S + V3 …? / Wh- + have/has + S + V3 …?",
+      "example": "Have you ever worked with a Japanese customer?",
+      "vi": "Bạn đã bao giờ làm việc với khách hàng Nhật Bản chưa?"
+    }
+  },
+  "uses": [
+    {
+      "title": "Hành động kéo dài từ quá khứ đến hiện tại",
+      "explain": "Dùng với since (mốc thời gian) hoặc for (khoảng thời gian) cho tình huống bắt đầu trong quá khứ và vẫn còn đúng bây giờ.",
+      "examples": [
+        {
+          "en": "I have worked at this company since 2019.",
+          "vi": "Tôi làm việc ở công ty này từ năm 2019 (đến nay)."
+        },
+        {
+          "en": "Ms. Hoa has been our team leader for three years.",
+          "vi": "Chị Hoa làm trưởng nhóm của chúng tôi được ba năm rồi."
+        }
+      ]
+    },
+    {
+      "title": "Trải nghiệm tính đến hiện tại",
+      "explain": "Nói về việc đã từng/chưa từng làm, không quan trọng khi nào; hay đi với ever, never, before, … times.",
+      "examples": [
+        {
+          "en": "Have you ever presented to the board of directors?",
+          "vi": "Bạn đã bao giờ thuyết trình trước ban giám đốc chưa?"
+        },
+        {
+          "en": "Tuan has never used Kubernetes before.",
+          "vi": "Tuấn chưa từng dùng Kubernetes trước đây."
+        }
+      ]
+    },
+    {
+      "title": "Hành động vừa xong, kết quả còn ở hiện tại",
+      "explain": "Hành động đã hoàn tất và kết quả của nó quan trọng ngay lúc nói; thường đi với just, already, yet.",
+      "examples": [
+        {
+          "en": "The developers have just fixed the login bug.",
+          "vi": "Các lập trình viên vừa sửa xong lỗi đăng nhập."
+        },
+        {
+          "en": "Have you sent the meeting minutes yet?",
+          "vi": "Bạn đã gửi biên bản cuộc họp chưa?"
+        }
+      ]
+    },
+    {
+      "title": "Kết quả trong khoảng thời gian chưa kết thúc",
+      "explain": "Dùng với this week, this month, so far, up to now khi khoảng thời gian đó vẫn đang tiếp diễn.",
+      "examples": [
+        {
+          "en": "We have closed 45 support tickets so far this week.",
+          "vi": "Tính đến giờ trong tuần này, chúng tôi đã xử lý xong 45 phiếu hỗ trợ."
+        },
+        {
+          "en": "Our sales have doubled this quarter.",
+          "vi": "Doanh số của chúng tôi đã tăng gấp đôi trong quý này."
+        }
+      ]
+    }
+  ],
+  "signals": [
+    "already",
+    "yet",
+    "just",
+    "ever",
+    "never",
+    "since",
+    "for",
+    "so far",
+    "up to now",
+    "recently",
+    "before",
+    "how long"
+  ],
+  "mistakes": [
+    {
+      "wrong": "I have sent the report yesterday.",
+      "right": "I sent the report yesterday.",
+      "explain": "Khi có thời điểm cụ thể đã kết thúc (yesterday, last week, in 2020, ago) phải dùng quá khứ đơn, không dùng hiện tại hoàn thành."
+    },
+    {
+      "wrong": "I work here since 2020.",
+      "right": "I have worked here since 2020.",
+      "explain": "Tiếng Việt không chia thì nên người học hay dùng hiện tại đơn; với since/for chỉ việc kéo dài đến nay phải dùng have/has + V3."
+    },
+    {
+      "wrong": "She has wrote three emails this morning.",
+      "right": "She has written three emails this morning.",
+      "explain": "Sau have/has phải dùng quá khứ phân từ (V3), không dùng V2; cần học thuộc động từ bất quy tắc như write – wrote – written."
+    },
+    {
+      "wrong": "He has gone to Singapore twice.",
+      "right": "He has been to Singapore twice.",
+      "explain": "Has been to = đã từng đến và đã quay về; has gone to = đã đi và hiện vẫn đang ở đó, nên không dùng với số lần."
+    }
+  ],
+  "compare": {
+    "with": "past-simple",
+    "explain": "Quá khứ đơn dùng cho hành động đã kết thúc tại một thời điểm xác định trong quá khứ (yesterday, last month, in 2021, two days ago, when…). Hiện tại hoàn thành không nêu thời điểm cụ thể, nhấn mạnh sự liên quan đến hiện tại: kéo dài đến nay (since, for), trải nghiệm (ever, never) hoặc kết quả còn tác động bây giờ. Mẹo: nếu câu có mốc thời gian đã qua thì dùng quá khứ đơn; nếu khoảng thời gian chưa kết thúc hoặc không nêu thời gian thì dùng hiện tại hoàn thành.",
+    "examples": [
+      {
+        "en": "I have worked at TMA for five years.",
+        "vi": "Tôi làm ở TMA được năm năm rồi (vẫn đang làm).",
+        "tense": "present-perfect"
+      },
+      {
+        "en": "I worked at FPT for five years before I joined TMA.",
+        "vi": "Tôi đã làm ở FPT năm năm trước khi vào TMA (đã kết thúc).",
+        "tense": "past-simple"
+      },
+      {
+        "en": "Have you read the new security policy?",
+        "vi": "Bạn đã đọc chính sách bảo mật mới chưa?",
+        "tense": "present-perfect"
+      },
+      {
+        "en": "Did you read the security policy last week?",
+        "vi": "Tuần trước bạn có đọc chính sách bảo mật không?",
+        "tense": "past-simple"
+      }
+    ]
+  },
+  "drills": [
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "Our team ___ (be) in this office since 2020.",
+      "choices": [],
+      "answer": "has been",
+      "accept": [],
+      "explain": "\"since 2020\" chỉ việc kéo dài từ quá khứ đến nay nên dùng hiện tại hoàn thành.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "Our manager ___ in Hanoi since last week for a training course.",
+      "choices": [
+        "has been",
+        "was",
+        "is",
+        "will be"
+      ],
+      "answer": "has been",
+      "accept": [],
+      "explain": "\"since last week\" cho biết anh ấy ở Hà Nội từ tuần trước đến nay nên dùng has been.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "I ___ (know) Minh for five years — we joined the company together.",
+      "choices": [],
+      "answer": "have known",
+      "accept": [
+        "'ve known"
+      ],
+      "explain": "\"for five years\" + know (động từ trạng thái) vẫn đúng đến nay nên dùng have known.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "I ___ the TOEIC test three times so far.",
+      "choices": [
+        "have taken",
+        "took",
+        "take",
+        "am taking"
+      ],
+      "answer": "have taken",
+      "accept": [],
+      "explain": "\"so far\" (tính đến nay) đi với hiện tại hoàn thành; take – took – taken.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "She ___ (not use) the old CRM system since March.",
+      "choices": [],
+      "answer": "hasn't used",
+      "accept": [
+        "has not used"
+      ],
+      "explain": "\"since March\" cho biết từ tháng Ba đến nay cô ấy không dùng, nên dùng hasn't used.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "They ___ two new offices since 2024.",
+      "choices": [
+        "have opened",
+        "opened",
+        "open",
+        "will open"
+      ],
+      "answer": "have opened",
+      "accept": [],
+      "explain": "\"since 2024\" chỉ khoảng thời gian từ năm 2024 đến nay nên dùng have opened.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "We ___ (meet) the new client twice since the project started.",
+      "choices": [],
+      "answer": "have met",
+      "accept": [
+        "'ve met"
+      ],
+      "explain": "\"twice since the project started\" là số lần tính đến nay nên dùng have met; meet – met – met.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "She ___ in the marketing department for two years now.",
+      "choices": [
+        "has worked",
+        "worked",
+        "works",
+        "is working"
+      ],
+      "answer": "has worked",
+      "accept": [],
+      "explain": "\"for two years now\" chỉ việc bắt đầu từ hai năm trước và vẫn tiếp tục nên dùng has worked.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "The server ___ (be) down since 8 a.m., so nobody can log in.",
+      "choices": [],
+      "answer": "has been",
+      "accept": [],
+      "explain": "\"since 8 a.m.\" và tình trạng vẫn còn bây giờ nên dùng has been.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "The team ___ the report already, so you can send it to the client now.",
+      "choices": [
+        "has finished",
+        "finishes",
+        "had finished",
+        "will finish"
+      ],
+      "answer": "has finished",
+      "accept": [],
+      "explain": "\"already\" + kết quả dùng được ngay bây giờ (\"now\") nên dùng has finished.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "I ___ (have) this laptop for three years, and it still runs fast.",
+      "choices": [],
+      "answer": "have had",
+      "accept": [
+        "'ve had"
+      ],
+      "explain": "\"for three years\" và vẫn còn sở hữu đến nay nên dùng have had.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "___ to your email yet?",
+      "choices": [
+        "Has the client replied",
+        "Does the client reply",
+        "Will the client reply",
+        "Had the client replied"
+      ],
+      "answer": "Has the client replied",
+      "accept": [],
+      "explain": "\"yet\" trong câu hỏi về việc tính đến lúc này đã xảy ra chưa nên dùng Has … replied.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "prompt": "So far, the committee ___ (choose) two of the five finalists.",
+      "choices": [],
+      "answer": "has chosen",
+      "accept": [],
+      "explain": "\"So far\" (tính đến nay) đi với hiện tại hoàn thành; choose – chose – chosen.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "We ___ any complaints about the new app since it launched.",
+      "choices": [
+        "haven't received",
+        "didn't receive",
+        "don't receive",
+        "won't receive"
+      ],
+      "answer": "haven't received",
+      "accept": [],
+      "explain": "\"since it launched\" chỉ khoảng thời gian từ lúc ra mắt đến nay nên dùng haven't received.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "prompt": "I ___ Mr. Tanaka at a conference in Tokyo in 2019.",
+      "choices": [
+        "met",
+        "have met",
+        "meet",
+        "am meeting"
+      ],
+      "answer": "met",
+      "accept": [],
+      "explain": "\"in 2019\" là thời điểm cụ thể trong quá khứ nên dùng quá khứ đơn met.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "How long ___ (you/know) the new project manager?",
+      "choices": [],
+      "answer": "have you known",
+      "accept": [],
+      "explain": "\"How long\" hỏi về khoảng thời gian kéo dài đến nay nên dùng have you known.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "This is the first time our company ___ a hackathon.",
+      "choices": [
+        "has organized",
+        "organized",
+        "organizes",
+        "had organized"
+      ],
+      "answer": "has organized",
+      "accept": [],
+      "explain": "Cấu trúc \"This is the first time\" luôn đi với hiện tại hoàn thành.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "Our department ___ (hire) five new developers so far this year.",
+      "choices": [],
+      "answer": "has hired",
+      "accept": [],
+      "explain": "\"so far this year\" là khoảng thời gian chưa kết thúc nên dùng has hired.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "How long ___ in the IT industry? — Since 2015.",
+      "choices": [
+        "have you been",
+        "were you",
+        "are you",
+        "will you be"
+      ],
+      "answer": "have you been",
+      "accept": [],
+      "explain": "Câu trả lời \"Since 2015\" cho biết việc kéo dài đến nay nên hỏi bằng have you been.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "This is the first time I ___ (give) a presentation in English.",
+      "choices": [],
+      "answer": "have given",
+      "accept": [
+        "'ve given"
+      ],
+      "explain": "\"This is the first time\" đi với hiện tại hoàn thành; give – gave – given.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "Sales ___ by 20% since the new website went live.",
+      "choices": [
+        "have grown",
+        "grew",
+        "grow",
+        "will grow"
+      ],
+      "answer": "have grown",
+      "accept": [],
+      "explain": "\"since the new website went live\" chỉ thay đổi từ mốc đó đến nay nên dùng have grown.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "The company ___ (move) to its new office in District 7 two years ago.",
+      "choices": [],
+      "answer": "moved",
+      "accept": [],
+      "explain": "\"two years ago\" là mốc quá khứ xác định nên dùng quá khứ đơn moved.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "The IT team ___ the firewall settings twice so far this week.",
+      "choices": [
+        "has updated",
+        "updated",
+        "updates",
+        "is updating"
+      ],
+      "answer": "has updated",
+      "accept": [],
+      "explain": "\"twice so far this week\" là số lần trong khoảng thời gian chưa kết thúc nên dùng has updated.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "I ___ (not hear) from the supplier since last Friday.",
+      "choices": [],
+      "answer": "haven't heard",
+      "accept": [
+        "have not heard"
+      ],
+      "explain": "\"since last Friday\" chỉ từ thứ Sáu đến nay chưa nhận tin nên dùng haven't heard.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "The manager ___ the budget proposal yet, so we can't start the project.",
+      "choices": [
+        "hasn't approved",
+        "doesn't approve",
+        "hadn't approved",
+        "wasn't approving"
+      ],
+      "answer": "hasn't approved",
+      "accept": [],
+      "explain": "\"yet\" trong câu phủ định và hậu quả ở hiện tại (\"can't start\") nên dùng hasn't approved.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "Mr. Hung ___ (write) three blog posts about cloud security so far this month.",
+      "choices": [],
+      "answer": "has written",
+      "accept": [],
+      "explain": "\"so far this month\" là khoảng thời gian chưa kết thúc; write – wrote – written.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "Our website ___ more than 10,000 visitors so far this week.",
+      "choices": [
+        "has had",
+        "had",
+        "has",
+        "is having"
+      ],
+      "answer": "has had",
+      "accept": [],
+      "explain": "\"so far this week\" (tính đến nay trong tuần) đi với hiện tại hoàn thành has had.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "prompt": "The two companies ___ (not sign) a new contract since the old one ended in 2023.",
+      "choices": [],
+      "answer": "haven't signed",
+      "accept": [
+        "have not signed"
+      ],
+      "explain": "\"since the old one ended in 2023\" chỉ khoảng thời gian đến nay nên dùng haven't signed.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "prompt": "Lan ___ to Japan three times since she joined the project.",
+      "choices": [
+        "has been",
+        "has gone",
+        "went",
+        "goes"
+      ],
+      "answer": "has been",
+      "accept": [],
+      "explain": "\"three times since…\" là trải nghiệm đến nay; has been to = đã đến và quay về, còn has gone to = đi và chưa về.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "prompt": "How many tickets ___ (your team/close) so far this sprint?",
+      "choices": [],
+      "answer": "has your team closed",
+      "accept": [],
+      "explain": "\"so far this sprint\" là khoảng thời gian chưa kết thúc nên hỏi bằng has your team closed.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "prompt": "When ___ the contract with the new vendor — last Monday or last Tuesday?",
+      "choices": [
+        "did you sign",
+        "have you signed",
+        "do you sign",
+        "had you signed"
+      ],
+      "answer": "did you sign",
+      "accept": [],
+      "explain": "Câu hỏi \"When\" về thời điểm đã qua (last Monday/Tuesday) dùng quá khứ đơn, không dùng hiện tại hoàn thành.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "prompt": "When ___ (you/send) the invoice to the customer?",
+      "choices": [],
+      "answer": "did you send",
+      "accept": [],
+      "explain": "Câu hỏi \"When\" hỏi thời điểm cụ thể trong quá khứ nên dùng quá khứ đơn did you send.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "prompt": "Since the update ___ last month, users have reported fewer bugs.",
+      "choices": [
+        "was released",
+        "has been released",
+        "is released",
+        "will be released"
+      ],
+      "answer": "was released",
+      "accept": [],
+      "explain": "Mệnh đề sau \"since\" chỉ mốc thời gian đã qua (last month) nên dùng quá khứ đơn was released.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "prompt": "Thanh ___ (lose) his access card twice since he joined the company.",
+      "choices": [],
+      "answer": "has lost",
+      "accept": [],
+      "explain": "\"twice since he joined\" là số lần tính đến nay nên dùng has lost; lose – lost – lost.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "prompt": "I ___ my password three times so far this morning.",
+      "choices": [
+        "have changed",
+        "changed",
+        "change",
+        "had changed"
+      ],
+      "answer": "have changed",
+      "accept": [],
+      "explain": "\"so far this morning\" cho biết buổi sáng chưa kết thúc nên dùng have changed.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "prompt": "Since she ___ (join) the team in 2022, Linh has fixed over 300 bugs.",
+      "choices": [],
+      "answer": "joined",
+      "accept": [],
+      "explain": "Mệnh đề sau \"since\" nêu mốc quá khứ (in 2022) nên dùng quá khứ đơn joined.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "prompt": "Nam ___ for TMA from 2015 to 2019, and then he moved to Singapore.",
+      "choices": [
+        "worked",
+        "has worked",
+        "works",
+        "will work"
+      ],
+      "answer": "worked",
+      "accept": [],
+      "explain": "\"from 2015 to 2019\" là khoảng thời gian đã kết thúc nên dùng quá khứ đơn worked.",
+      "tense": "past-simple"
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "prompt": "The share price of our company ___ (rise) by 15% since January.",
+      "choices": [],
+      "answer": "has risen",
+      "accept": [],
+      "explain": "\"since January\" chỉ thay đổi từ tháng Một đến nay; rise – rose – risen.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "prompt": "Up to now, no one in our team ___ a serious security incident.",
+      "choices": [
+        "has caused",
+        "caused",
+        "causes",
+        "will cause"
+      ],
+      "answer": "has caused",
+      "accept": [],
+      "explain": "\"Up to now\" (tính đến nay) là dấu hiệu của hiện tại hoàn thành; chủ ngữ no one đi với has.",
+      "tense": "present-perfect"
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "prompt": "Two years ago, our team ___ (build) the first version of the mobile app.",
+      "choices": [],
+      "answer": "built",
+      "accept": [],
+      "explain": "\"Two years ago\" là mốc quá khứ xác định nên dùng quá khứ đơn built.",
+      "tense": "past-simple"
+    }
+  ]
+}
