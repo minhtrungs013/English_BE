@@ -8,8 +8,8 @@ import { UserId } from '../auth/auth.decorators';
 import { GrammarProgress, GrammarProgressSchema, GrammarService } from './grammar.service';
 
 export class PracticeQuery {
-  /** A tense id, or "mix". */
-  @IsString() @Matches(/^(mix|[a-z-]{3,30})$/) mode: string;
+  /** A lesson id, or mix / mix-tenses / mix-foundations. */
+  @IsString() @Matches(/^[a-z-]{2,30}$/) mode: string;
   @IsOptional() @Type(() => Number) @IsInt() @Min(5) @Max(20) n?: number;
 }
 

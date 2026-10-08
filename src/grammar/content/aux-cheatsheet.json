@@ -1,0 +1,36 @@
+{
+ "id": "aux-cheatsheet",
+ "group": "foundations",
+ "name": "Cheat sheet: helping verbs in each tense",
+ "vi": "Bảng trợ động từ theo thì",
+ "summary": "Mỗi thì dùng một trợ động từ riêng để tạo câu phủ định và câu hỏi. Tra nhanh ở đây, bấm vào tên thì để mở bài học.",
+ "tables": [
+  {
+   "title": "Helping verbs in the 7 tenses",
+   "columns": ["Tense", "Helping verb", "Negative", "Question"],
+   "rows": [
+    { "label": "Present simple", "link": "present-simple", "cells": ["Present simple", "do / does", "She doesn't work here.", "Does she work here?"] },
+    { "label": "Present continuous", "link": "present-continuous", "cells": ["Present continuous", "am / is / are + V-ing", "They aren't working now.", "Are they working now?"] },
+    { "label": "Present perfect", "link": "present-perfect", "cells": ["Present perfect", "have / has + V3", "He hasn't finished yet.", "Has he finished yet?"] },
+    { "label": "Past simple", "link": "past-simple", "cells": ["Past simple", "did", "We didn't call them.", "Did you call them?"] },
+    { "label": "Past continuous", "link": "past-continuous", "cells": ["Past continuous", "was / were + V-ing", "I wasn't listening.", "Were you listening?"] },
+    { "label": "Future simple", "link": "future-simple", "cells": ["Future simple", "will", "I won't forget.", "Will you send it?"] },
+    { "label": "Going to", "link": "going-to", "cells": ["Going to", "am / is / are + going to", "We aren't going to wait.", "Are you going to join?"] }
+   ],
+   "note": "Câu phủ định và câu hỏi luôn mượn trợ động từ; động từ chính sau do / does / did / will trở về nguyên mẫu."
+  },
+  {
+   "title": "Which form for which subject?",
+   "columns": ["Subject", "Be (now / past)", "Do (now / past)", "Have (now / past)"],
+   "rows": [
+    { "label": "I", "link": "be", "cells": ["I", "am / was", "do / did", "have / had"] },
+    { "label": "he / she / it", "link": "agreement", "cells": ["he / she / it", "is / was", "does / did", "has / had"] },
+    { "label": "you / we / they", "link": "agreement", "cells": ["you / we / they", "are / were", "do / did", "have / had"] }
+   ],
+   "note": "Tương lai thì mọi chủ ngữ đều dùng will (will be, will have…)."
+  }
+ ],
+ "uses": [],
+ "mistakes": [],
+ "drills": []
+}

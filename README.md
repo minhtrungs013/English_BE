@@ -145,19 +145,24 @@ you were removed from a course, someone saved your shared library word (grouped 
 | POST | `/notifications/read` | `{ ids }` or `{ all: true }` → `{ unread }` |
 | DELETE | `/notifications/:id` | |
 
-## Grammar: the 7 core tenses
+## Grammar
 
-Lessons for present simple / continuous / perfect, past simple / continuous, will and going to: formula, uses with
-examples, signal words, common mistakes of Vietnamese learners and a comparison with a neighbouring tense (theory in
-Vietnamese, examples in English). Each has 40 drills (typed and multiple choice, easy / medium / hard; a few contrast it
-with the neighbouring tense). Content lives in `src/grammar/content/<tense>.json`. Practice is graded on the server;
-mastery per tense (0–100) comes from the last 20 answers (at least 10 needed for 100%).
+Two groups of lessons (theory in Vietnamese, examples and drills in English; content in `src/grammar/content/<id>.json`):
+
+- **Foundations: helping verbs** — `be`, `do`, `have`, `agreement` (subject–verb agreement): conjugation tables by
+  subject × present / past / future, uses, common mistakes, 40 drills each; plus `aux-cheatsheet` (helping verbs in each
+  tense, no drills).
+- **Tenses** — present simple / continuous / perfect, past simple / continuous, will, going to: formula (with the helping
+  verb by subject and a link to its Foundations lesson), uses, signal words, common mistakes, a comparison with a
+  neighbouring tense, 40 drills each (a few contrast it with the neighbouring tense).
+
+Practice is graded on the server; mastery per lesson (0–100) comes from the last 20 answers (at least 10 needed for 100%).
 
 | Method | Path | |
 |---|---|---|
-| GET | `/grammar` | The tenses with my mastery |
-| GET | `/grammar/:tense` | One lesson (no drills) |
-| GET | `/grammar/practice?mode=<tense>\|mix&n=10` | Questions (no answers). One tense: easier first while mastery is low; mix: weaker tenses more often; recent drills avoided |
+| GET | `/grammar` | The lessons (with `group`) and my mastery |
+| GET | `/grammar/:id` | One lesson (no drills) |
+| GET | `/grammar/practice?mode=<lesson>\|mix\|mix-tenses\|mix-foundations&n=10` | Questions (no answers). One lesson: easier first while mastery is low; mixes: weaker lessons more often; recent drills avoided |
 | POST | `/grammar/practice` | `{ answers: [{ id, answer }] }` → results (answer, explanation, tense), score, new mastery |
 
 ## Vocabulary library

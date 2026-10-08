@@ -3,7 +3,13 @@ import { InjectModel, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model } from 'mongoose';
 import { normalizeAnswer } from '../courses/homework.service';
 import { TENSE_LABEL, type Tense } from '../courses/tense';
-import { Drill, LESSONS, LESSON_BY_ID } from './grammar.content';
+import { Drill, Group, LESSONS, LESSON_BY_ID, Lesson } from './grammar.content';
+
+/** Practice modes besides a single lesson: mixed sets over everything or over one group. */
+const MIX_MODES: Record<string, Group | null> = { mix: null, 'mix-tenses': 'tenses', 'mix-foundations': 'foundations' };
+
+/** What a drill's result is called: its topic (Foundations) or the tense of its answer (Tenses). */
+const drillLabel = (l: Lesson, d: Drill) => d.topic ?? (d.tense ? TENSE_LABEL[d.tense] : TENSE_LABEL[l.id as Tense] ?? l.name);
 
 /** Mastery looks at this many recent answers per tense. */
 const RECENT = 20;
@@ -45,11 +51,11 @@ function shuffle<T>(a: T[]): T[] {
 const drillId = (tense: string, i: number) => tense + ':' + i;
 
 /** A drill by its id ("present-perfect:12"). */
-function findDrill(id: string): { tense: Tense; drill: Drill } | null {
+function findDrill(id: string): { lesson: Lesson; drill: Drill } | null {
   const k = id.lastIndexOf(':');
-  const lesson = LESSON_BY_ID.get(id.slice(0, k) as Tense);
+  const lesson = LESSON_BY_ID.get(id.slice(0, k));
   const drill = lesson?.drills[Number(id.slice(k + 1))];
-  return lesson && drill ? { tense: lesson.id, drill } : null;
+  return lesson && drill ? { lesson, drill } : null;
 }
 
 @Injectable()
@@ -67,7 +73,7 @@ export class GrammarService {
       tenses: LESSONS.map((l) => {
         const p = mine.get(l.id);
         return {
-          id: l.id, name: l.name, vi: l.vi, summary: l.summary, drills: l.drills.length,
+          id: l.id, group: l.group, name: l.name, vi: l.vi, summary: l.summary, drills: l.drills.length,
           mastery: mastery(p), attempts: p?.attempts ?? 0, lastAt: p?.lastAt ? new Date(p.lastAt).getTime() : null
         };
       })
@@ -76,12 +82,12 @@ export class GrammarService {
 
   /** One lesson (without its drills) and my mastery of it. */
   async lesson(user: string, tense: string) {
-    const l = LESSON_BY_ID.get(tense as Tense);
+    const l = LESSON_BY_ID.get(tense);
     if (!l) throw new NotFoundException('No lesson for “' + tense + '”.');
     const p = await this.progress.findOne({ user, tense }).lean();
     const { drills, ...rest } = l;
     return {
-      ...rest, compareName: LESSON_BY_ID.get(l.compare.with)?.name ?? '', drillCount: drills.length,
+      ...rest, compareName: l.compare ? LESSON_BY_ID.get(l.compare.with)?.name ?? '' : '', drillCount: drills.length,
       mastery: mastery(p), attempts: p?.attempts ?? 0
     };
   }
@@ -93,17 +99,18 @@ export class GrammarService {
   async practice(user: string, mode: string, n = PRACTICE_SIZE) {
     const mine = await this.mine(user);
     const recentIds = new Set([...mine.values()].flatMap((p) => p.recent.map((r) => r.id)));
-    const pickFrom = (tense: Tense, taken: Set<string>) => {
-      const l = LESSON_BY_ID.get(tense)!;
-      const all = l.drills.map((_, i) => drillId(tense, i)).filter((id) => !taken.has(id));
+    const pickFrom = (lessonId: string, taken: Set<string>) => {
+      const l = LESSON_BY_ID.get(lessonId)!;
+      const all = l.drills.map((_, i) => drillId(lessonId, i)).filter((id) => !taken.has(id));
       const fresh = all.filter((id) => !recentIds.has(id));
       return shuffle(fresh.length ? fresh : all)[0];
     };
     const ids: string[] = [];
     const taken = new Set<string>();
-    if (mode === 'mix') {
-      // Weight = 110 − mastery: a tense at 0% comes up about 11 times as often as one at 100%.
-      const weights = LESSONS.map((l) => ({ id: l.id, w: 110 - mastery(mine.get(l.id)) }));
+    if (mode in MIX_MODES) {
+      // Weight = 110 − mastery: a lesson at 0% comes up about 11 times as often as one at 100%.
+      const group = MIX_MODES[mode];
+      const weights = LESSONS.filter((l) => l.drills.length && (!group || l.group === group)).map((l) => ({ id: l.id, w: 110 - mastery(mine.get(l.id)) }));
       const total = weights.reduce((a, b) => a + b.w, 0);
       while (ids.length < n) {
         let r = Math.random() * total;
@@ -112,11 +119,11 @@ export class GrammarService {
         if (id) { ids.push(id); taken.add(id); }
       }
     } else {
-      if (!LESSON_BY_ID.has(mode as Tense)) throw new BadRequestException('Unknown tense “' + mode + '”.');
+      if (!LESSON_BY_ID.get(mode)?.drills.length) throw new BadRequestException('There is no practice for “' + mode + '”.');
       // Easier drills first while the tense is new; harder ones once it's going well.
       const m = mastery(mine.get(mode));
       const order: Drill['level'][] = m < 40 ? ['easy', 'medium', 'hard'] : m < 75 ? ['medium', 'easy', 'hard'] : ['hard', 'medium', 'easy'];
-      const l = LESSON_BY_ID.get(mode as Tense)!;
+      const l = LESSON_BY_ID.get(mode)!;
       const all = l.drills.map((d, i) => ({ id: drillId(mode, i), level: d.level }));
       const fresh = all.filter((x) => !recentIds.has(x.id));
       const pool = [...shuffle(fresh), ...shuffle(all.filter((x) => recentIds.has(x.id)))]
@@ -141,9 +148,10 @@ export class GrammarService {
       if (!f) throw new BadRequestException('Unknown question “' + a.id + '”.');
       const given = normalizeAnswer(a.answer ?? '');
       const correct = !!given && [f.drill.answer, ...(f.drill.accept ?? [])].some((x) => normalizeAnswer(x) === given);
-      // Mastery goes to the lesson the drill belongs to; the label names the tense of the answer.
-      const answerTense = f.drill.tense ?? f.tense;
-      return { id: a.id, lesson: f.tense, tense: answerTense, tenseLabel: TENSE_LABEL[answerTense], prompt: f.drill.prompt, yourAnswer: a.answer ?? '', answer: f.drill.answer, correct, explain: f.drill.explain };
+      // Mastery goes to the lesson the drill belongs to; `tense` is the lesson to review for it (the tense of the
+      // answer on tense drills, the lesson itself on Foundations drills) and `tenseLabel` names it.
+      const review = f.drill.tense ?? f.lesson.id;
+      return { id: a.id, lesson: f.lesson.id, tense: review, tenseLabel: drillLabel(f.lesson, f.drill), prompt: f.drill.prompt, yourAnswer: a.answer ?? '', answer: f.drill.answer, correct, explain: f.drill.explain };
     });
     const byTense = new Map<string, { id: string; ok: boolean }[]>();
     for (const r of results) byTense.set(r.lesson, [...(byTense.get(r.lesson) ?? []), { id: r.id, ok: r.correct }]);

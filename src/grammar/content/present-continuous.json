@@ -1,678 +1,699 @@
 {
-  "id": "present-continuous",
-  "name": "Present continuous",
-  "vi": "Hiện tại tiếp diễn",
-  "summary": "Thì hiện tại tiếp diễn diễn tả hành động đang xảy ra ngay lúc nói hoặc trong giai đoạn hiện tại (tạm thời). Thì này cũng dùng cho kế hoạch đã sắp xếp chắc chắn trong tương lai gần.",
-  "formula": {
-    "affirmative": {
-      "pattern": "S + am/is/are + V-ing",
-      "example": "The IT team is updating the server right now.",
-      "vi": "Đội IT đang cập nhật máy chủ ngay lúc này."
-    },
-    "negative": {
-      "pattern": "S + am/is/are + not + V-ing",
-      "example": "I am not using the meeting room at the moment.",
-      "vi": "Hiện tại tôi không dùng phòng họp."
-    },
-    "question": {
-      "pattern": "(Wh-) + Am/Is/Are + S + V-ing?",
-      "example": "Are you working on the monthly report now?",
-      "vi": "Bây giờ bạn có đang làm báo cáo tháng không?"
-    }
+ "id": "present-continuous",
+ "name": "Present continuous",
+ "vi": "Hiện tại tiếp diễn",
+ "summary": "Thì hiện tại tiếp diễn diễn tả hành động đang xảy ra ngay lúc nói hoặc trong giai đoạn hiện tại (tạm thời). Thì này cũng dùng cho kế hoạch đã sắp xếp chắc chắn trong tương lai gần.",
+ "formula": {
+  "affirmative": {
+   "pattern": "S + am/is/are + V-ing",
+   "example": "The IT team is updating the server right now.",
+   "vi": "Đội IT đang cập nhật máy chủ ngay lúc này."
   },
-  "uses": [
-    {
-      "title": "Hành động đang xảy ra lúc nói",
-      "explain": "Dùng khi hành động đang diễn ra ngay tại thời điểm nói, thường đi với now, right now, at the moment, Look!, Listen!.",
-      "examples": [
-        {
-          "en": "Please wait a moment, Ms. Lan is talking to a customer.",
-          "vi": "Vui lòng đợi một chút, chị Lan đang nói chuyện với khách hàng."
-        },
-        {
-          "en": "Look! The printer is jamming again.",
-          "vi": "Nhìn kìa! Máy in lại bị kẹt giấy rồi."
-        }
-      ]
-    },
-    {
-      "title": "Hành động tạm thời trong giai đoạn hiện tại",
-      "explain": "Dùng cho việc đang diễn ra trong khoảng thời gian này (tuần này, tháng này, dạo này), không nhất thiết đúng lúc nói và không kéo dài mãi.",
-      "examples": [
-        {
-          "en": "Minh is working from home this week because his office is being renovated.",
-          "vi": "Tuần này Minh làm việc ở nhà vì văn phòng của anh ấy đang được sửa chữa."
-        },
-        {
-          "en": "Our company is currently looking for a senior tester.",
-          "vi": "Công ty chúng tôi hiện đang tìm một kiểm thử viên cấp cao."
-        }
-      ]
-    },
-    {
-      "title": "Xu hướng đang thay đổi",
-      "explain": "Dùng để nói về tình hình đang thay đổi, phát triển dần, thường với các động từ như grow, increase, rise, change, get.",
-      "examples": [
-        {
-          "en": "Online sales are growing quickly these days.",
-          "vi": "Dạo này doanh số bán hàng trực tuyến đang tăng nhanh."
-        },
-        {
-          "en": "Cloud services are getting cheaper every year.",
-          "vi": "Dịch vụ đám mây đang ngày càng rẻ hơn mỗi năm."
-        }
-      ]
-    },
-    {
-      "title": "Kế hoạch đã sắp xếp trong tương lai gần",
-      "explain": "Dùng cho lịch hẹn, kế hoạch cá nhân đã được sắp xếp chắc chắn, luôn kèm mốc thời gian tương lai (tomorrow, next week, at 3 p.m.).",
-      "examples": [
-        {
-          "en": "I am meeting the supplier at 10 a.m. tomorrow.",
-          "vi": "Tôi sẽ gặp nhà cung cấp lúc 10 giờ sáng mai (đã hẹn trước)."
-        },
-        {
-          "en": "We are launching the new app next Monday.",
-          "vi": "Chúng tôi sẽ ra mắt ứng dụng mới vào thứ Hai tới."
-        }
-      ]
-    }
-  ],
-  "signals": [
-    "now",
-    "right now",
-    "at the moment",
-    "at present",
-    "currently",
-    "Look!",
-    "Listen!",
-    "this week",
-    "this month",
-    "these days",
-    "today",
-    "still"
-  ],
-  "mistakes": [
-    {
-      "wrong": "I am knowing the answer to this ticket.",
-      "right": "I know the answer to this ticket.",
-      "explain": "Động từ chỉ trạng thái (know, understand, want, need, like, belong…) thường không dùng ở dạng V-ing, kể cả khi có \"now\"."
-    },
-    {
-      "wrong": "She working on the report now.",
-      "right": "She is working on the report now.",
-      "explain": "Tiếng Việt chỉ cần thêm \"đang\", nhưng tiếng Anh bắt buộc phải có am/is/are trước V-ing."
-    },
-    {
-      "wrong": "Are you work on the project now?",
-      "right": "Are you working on the project now?",
-      "explain": "Trong câu hỏi, sau Am/Is/Are + chủ ngữ phải là V-ing, không dùng động từ nguyên mẫu."
-    },
-    {
-      "wrong": "Look! The manager comes to our desk.",
-      "right": "Look! The manager is coming to our desk.",
-      "explain": "Hành động đang diễn ra trước mắt (Look!) phải dùng hiện tại tiếp diễn, không dùng hiện tại đơn."
-    }
-  ],
-  "compare": {
-    "with": "present-simple",
-    "explain": "Hiện tại đơn nói về thói quen, lịch trình cố định, sự thật lâu dài (every day, usually, always). Hiện tại tiếp diễn nói về việc đang xảy ra lúc nói hoặc tạm thời trong giai đoạn này (now, at the moment, this week). Ví dụ: \"I usually take the bus\" (thói quen) khác với \"This week I am driving to work\" (tạm thời). Động từ trạng thái (know, want, need, belong) thường chỉ dùng hiện tại đơn.",
-    "examples": [
-      {
-        "en": "Linh usually works in the Hanoi office.",
-        "vi": "Linh thường làm việc ở văn phòng Hà Nội.",
-        "tense": "present-simple"
-      },
-      {
-        "en": "Linh is working in the Da Nang office this month.",
-        "vi": "Tháng này Linh đang làm việc ở văn phòng Đà Nẵng.",
-        "tense": "present-continuous"
-      },
-      {
-        "en": "Our team has a stand-up meeting every morning.",
-        "vi": "Nhóm chúng tôi họp nhanh mỗi sáng.",
-        "tense": "present-simple"
-      },
-      {
-        "en": "Sorry, the team is having its stand-up meeting right now.",
-        "vi": "Xin lỗi, nhóm đang họp nhanh ngay lúc này.",
-        "tense": "present-continuous"
-      }
-    ]
+  "negative": {
+   "pattern": "S + am/is/are + not + V-ing",
+   "example": "I am not using the meeting room at the moment.",
+   "vi": "Hiện tại tôi không dùng phòng họp."
   },
-  "drills": [
+  "question": {
+   "pattern": "(Wh-) + Am/Is/Are + S + V-ing?",
+   "example": "Are you working on the monthly report now?",
+   "vi": "Bây giờ bạn có đang làm báo cáo tháng không?"
+  },
+  "persons": [
+   {
+    "subject": "I",
+    "affirmative": "am working",
+    "negative": "am not working",
+    "question": "Am I working?"
+   },
+   {
+    "subject": "he / she / it",
+    "affirmative": "is working",
+    "negative": "isn't working",
+    "question": "Is she working?"
+   },
+   {
+    "subject": "you / we / they",
+    "affirmative": "are working",
+    "negative": "aren't working",
+    "question": "Are they working?"
+   }
+  ],
+  "foundation": "be"
+ },
+ "uses": [
+  {
+   "title": "Hành động đang xảy ra lúc nói",
+   "explain": "Dùng khi hành động đang diễn ra ngay tại thời điểm nói, thường đi với now, right now, at the moment, Look!, Listen!.",
+   "examples": [
     {
-      "kind": "tense",
-      "level": "easy",
-      "prompt": "Please be quiet, the manager ___ (talk) to a client right now.",
-      "choices": [],
-      "answer": "is talking",
-      "accept": [
-        "'s talking"
-      ],
-      "explain": "\"right now\" cho biết hành động đang diễn ra nên dùng is + V-ing.",
-      "tense": "present-continuous"
+     "en": "Please wait a moment, Ms. Lan is talking to a customer.",
+     "vi": "Vui lòng đợi một chút, chị Lan đang nói chuyện với khách hàng."
     },
     {
-      "kind": "tense",
-      "level": "easy",
-      "prompt": "Look! The printer ___ (print) the wrong report again.",
-      "choices": [],
-      "answer": "is printing",
-      "accept": [
-        "'s printing"
-      ],
-      "explain": "\"Look!\" báo hiệu việc đang xảy ra trước mắt nên dùng hiện tại tiếp diễn.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "prompt": "I ___ (write) the meeting minutes at the moment, so I can't answer the phone.",
-      "choices": [],
-      "answer": "am writing",
-      "accept": [
-        "'m writing"
-      ],
-      "explain": "\"at the moment\" chỉ hành động đang diễn ra; chủ ngữ I đi với am.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "prompt": "Listen! Someone ___ (knock) on the meeting room door.",
-      "choices": [],
-      "answer": "is knocking",
-      "accept": [
-        "'s knocking"
-      ],
-      "explain": "\"Listen!\" báo hiệu âm thanh đang xảy ra ngay lúc nói.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "prompt": "We ___ (test) the new login feature right now.",
-      "choices": [],
-      "answer": "are testing",
-      "accept": [
-        "'re testing"
-      ],
-      "explain": "\"right now\" là dấu hiệu hiện tại tiếp diễn; chủ ngữ We đi với are.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "prompt": "Lan ___ (not / work) from home today; she is sitting at her desk in the office.",
-      "choices": [],
-      "answer": "is not working",
-      "accept": [
-        "isn't working",
-        "'s not working"
-      ],
-      "explain": "\"today\" và vế sau \"is sitting\" cho thấy tình huống hiện tại, phủ định là is not + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "___ (you / use) the projector right now? I need it for a demo.",
-      "choices": [],
-      "answer": "Are you using",
-      "accept": [],
-      "explain": "Câu hỏi về việc đang làm \"right now\" nên dùng Are + you + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "The developers ___ (fix) a critical bug at the moment, so the release is on hold.",
-      "choices": [],
-      "answer": "are fixing",
-      "accept": [
-        "'re fixing"
-      ],
-      "explain": "\"at the moment\" chỉ việc đang diễn ra; chủ ngữ số nhiều đi với are.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "At the moment, Minh ___ (cover) for the team leader, who is on leave this week.",
-      "choices": [],
-      "answer": "is covering",
-      "accept": [
-        "'s covering"
-      ],
-      "explain": "\"At the moment\" và việc thay tạm thời cho trưởng nhóm nghỉ phép nên dùng hiện tại tiếp diễn.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "The server ___ (not / respond) right now. Can you check it?",
-      "choices": [],
-      "answer": "is not responding",
-      "accept": [
-        "isn't responding",
-        "'s not responding"
-      ],
-      "explain": "\"right now\" chỉ tình trạng đang xảy ra, phủ định dùng is not + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "Currently, our company ___ (look) for two experienced Java developers.",
-      "choices": [],
-      "answer": "is looking",
-      "accept": [
-        "'s looking"
-      ],
-      "explain": "\"Currently\" chỉ việc đang diễn ra trong giai đoạn hiện tại.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "prompt": "Sorry to interrupt, but right now I ___ (need) your signature on this form.",
-      "choices": [],
-      "answer": "need",
-      "accept": [],
-      "explain": "\"need\" là động từ trạng thái nên dùng hiện tại đơn dù có \"right now\".",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "What ___ (Nam / do) at the moment? His chat status says \"busy\".",
-      "choices": [],
-      "answer": "is Nam doing",
-      "accept": [],
-      "explain": "Câu hỏi Wh- về việc đang làm \"at the moment\": What + is + S + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "prompt": "I usually take the bus, but at the moment I ___ (drive) to work because the bus route is closed for road works.",
-      "choices": [],
-      "answer": "am driving",
-      "accept": [
-        "'m driving"
-      ],
-      "explain": "\"usually\" là thói quen, còn \"at the moment\" chỉ việc tạm thời nên dùng am + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "prompt": "Hurry up! The clients ___ (wait) for us in the lobby.",
-      "choices": [],
-      "answer": "are waiting",
-      "accept": [
-        "'re waiting"
-      ],
-      "explain": "\"Hurry up!\" cho thấy khách đang chờ ngay lúc này nên dùng are + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "Our team ___ (migrate) the database to the cloud at the moment, so some reports are temporarily unavailable.",
-      "choices": [],
-      "answer": "is migrating",
-      "accept": [
-        "'s migrating"
-      ],
-      "explain": "\"at the moment\" và \"temporarily\" chỉ việc đang diễn ra tạm thời.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "prompt": "Don't call Mai now — she ___ (present) the quarterly results to the board.",
-      "choices": [],
-      "answer": "is presenting",
-      "accept": [
-        "'s presenting"
-      ],
-      "explain": "\"now\" cho biết Mai đang thuyết trình ngay lúc nói.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "prompt": "We ___ (not / hire) any new staff at the moment because of budget cuts.",
-      "choices": [],
-      "answer": "are not hiring",
-      "accept": [
-        "aren't hiring",
-        "'re not hiring"
-      ],
-      "explain": "\"at the moment\" chỉ tình hình tạm thời hiện nay, phủ định là are not + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "prompt": "Why ___ (the build / fail) right now? It passed this morning.",
-      "choices": [],
-      "answer": "is the build failing",
-      "accept": [],
-      "explain": "\"right now\" chỉ tình trạng đang xảy ra, câu hỏi Wh- dùng is + S + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "prompt": "Right now, the client ___ (want) a cheaper solution, not a faster one.",
-      "choices": [],
-      "answer": "wants",
-      "accept": [],
-      "explain": "\"want\" là động từ trạng thái nên dùng hiện tại đơn \"wants\" dù có \"Right now\".",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "Look! It ___ outside, so take an umbrella when you go to the client's office.",
-      "choices": [
-        "is raining",
-        "rains",
-        "rained",
-        "was raining"
-      ],
-      "answer": "is raining",
-      "accept": [],
-      "explain": "\"Look!\" cho thấy trời đang mưa ngay lúc nói.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "Now that we use Scrum, the team ___ a stand-up meeting every morning at 9:00.",
-      "choices": [
-        "has",
-        "is having",
-        "had",
-        "was having"
-      ],
-      "answer": "has",
-      "accept": [],
-      "explain": "\"every morning\" chỉ thói quen lặp lại nên dùng hiện tại đơn.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "Sorry, I can't talk now — I ___ to a customer on the other line.",
-      "choices": [
-        "am talking",
-        "talk",
-        "talked",
-        "have talked"
-      ],
-      "answer": "am talking",
-      "accept": [],
-      "explain": "\"now\" và \"can't talk\" cho thấy tôi đang nói chuyện với khách ngay lúc này.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "At the moment, Hoa ___ the monthly sales report.",
-      "choices": [
-        "is preparing",
-        "prepares",
-        "prepared",
-        "has prepared"
-      ],
-      "answer": "is preparing",
-      "accept": [],
-      "explain": "\"At the moment\" là dấu hiệu của hiện tại tiếp diễn.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "Linh usually ___ to work by motorbike, but today she is taking a taxi.",
-      "choices": [
-        "goes",
-        "is going",
-        "went",
-        "was going"
-      ],
-      "answer": "goes",
-      "accept": [],
-      "explain": "\"usually\" chỉ thói quen nên dùng hiện tại đơn, còn \"today\" mới là việc tạm thời.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "Tuan ___ lunch right now; he's still answering emails.",
-      "choices": [
-        "isn't having",
-        "doesn't have",
-        "didn't have",
-        "wasn't having"
-      ],
-      "answer": "isn't having",
-      "accept": [],
-      "explain": "\"right now\" và \"still answering\" cho thấy tình huống đang diễn ra, phủ định dùng isn't + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "What ___ right now? You look really stressed.",
-      "choices": [
-        "are you doing",
-        "do you do",
-        "did you do",
-        "have you done"
-      ],
-      "answer": "are you doing",
-      "accept": [],
-      "explain": "\"right now\" hỏi về việc đang làm nên dùng are you + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "prompt": "Be careful — the cleaners ___ the floor in the corridor right now.",
-      "choices": [
-        "are mopping",
-        "mop",
-        "mopped",
-        "were mopping"
-      ],
-      "answer": "are mopping",
-      "accept": [],
-      "explain": "\"right now\" cho biết hành động đang diễn ra nên dùng are + V-ing.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "Please don't turn off that computer. It ___ an important update.",
-      "choices": [
-        "is installing",
-        "installs",
-        "installed",
-        "was installing"
-      ],
-      "answer": "is installing",
-      "accept": [],
-      "explain": "Lời dặn \"don't turn off\" cho thấy máy đang cài cập nhật ngay lúc này.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "I ___ what you mean, but I don't agree with the plan.",
-      "choices": [
-        "understand",
-        "am understanding",
-        "will understand",
-        "was understanding"
-      ],
-      "answer": "understand",
-      "accept": [],
-      "explain": "\"understand\" là động từ trạng thái nên dùng hiện tại đơn, không dùng V-ing.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "prompt": "This laptop ___ to the company, so please return it when you leave.",
-      "choices": [
-        "belongs",
-        "is belonging",
-        "belonged",
-        "was belonging"
-      ],
-      "answer": "belongs",
-      "accept": [],
-      "explain": "\"belong\" là động từ trạng thái chỉ sự sở hữu nên dùng hiện tại đơn.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "How often ___ the database? Our policy says it must be daily.",
-      "choices": [
-        "do you back up",
-        "are you backing up",
-        "were you backing up",
-        "had you backed up"
-      ],
-      "answer": "do you back up",
-      "accept": [],
-      "explain": "\"How often\" hỏi về tần suất, thói quen nên dùng hiện tại đơn.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "Mr. Long ___ in the Da Nang branch this month while his office is being renovated.",
-      "choices": [
-        "is working",
-        "works",
-        "worked",
-        "was working"
-      ],
-      "answer": "is working",
-      "accept": [],
-      "explain": "\"this month\" và lý do tạm thời (văn phòng đang sửa) nên dùng hiện tại tiếp diễn.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "The new intern ___ three languages, so he can help with foreign clients.",
-      "choices": [
-        "speaks",
-        "is speaking",
-        "spoke",
-        "was speaking"
-      ],
-      "answer": "speaks",
-      "accept": [],
-      "explain": "Khả năng nói ba thứ tiếng là sự thật lâu dài nên dùng hiện tại đơn.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "prompt": "I can't join the training tomorrow afternoon because I ___ the supplier at 2 p.m.; it's already in my calendar.",
-      "choices": [
-        "am meeting",
-        "meet",
-        "met",
-        "was meeting"
-      ],
-      "answer": "am meeting",
-      "accept": [],
-      "explain": "\"tomorrow\" và \"already in my calendar\" chỉ cuộc hẹn đã sắp xếp nên dùng hiện tại tiếp diễn cho tương lai.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "prompt": "I ___ your proposal is interesting, but it's too expensive for us.",
-      "choices": [
-        "think",
-        "am thinking",
-        "thought",
-        "was thinking"
-      ],
-      "answer": "think",
-      "accept": [],
-      "explain": "\"think\" mang nghĩa \"cho rằng\" (ý kiến) là trạng thái nên dùng hiện tại đơn.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "prompt": "Can you call back later? Mr. Duc ___ an interview with a candidate in Room 3.",
-      "choices": [
-        "is conducting",
-        "conducts",
-        "conducted",
-        "has conducted"
-      ],
-      "answer": "is conducting",
-      "accept": [],
-      "explain": "\"call back later\" cho thấy ông Đức đang phỏng vấn ngay lúc này.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "prompt": "The project ___ well this quarter; we are ahead of schedule.",
-      "choices": [
-        "is going",
-        "goes",
-        "went",
-        "was going"
-      ],
-      "answer": "is going",
-      "accept": [],
-      "explain": "\"this quarter\" chưa kết thúc và \"we are ahead\" chỉ tình hình hiện tại nên dùng hiện tại tiếp diễn.",
-      "tense": "present-continuous"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "prompt": "___ who is responsible for the server room? I need the key.",
-      "choices": [
-        "Do you know",
-        "Are you knowing",
-        "Did you know",
-        "Were you knowing"
-      ],
-      "answer": "Do you know",
-      "accept": [],
-      "explain": "\"know\" là động từ trạng thái nên câu hỏi dùng hiện tại đơn Do you know.",
-      "tense": "present-simple"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "prompt": "Every Friday our manager sends a report, but this Friday she ___ a presentation to the directors instead.",
-      "choices": [
-        "is giving",
-        "gives",
-        "gave",
-        "was giving"
-      ],
-      "answer": "is giving",
-      "accept": [],
-      "explain": "\"this Friday… instead\" là kế hoạch đã sắp xếp khác thói quen nên dùng hiện tại tiếp diễn.",
-      "tense": "present-continuous"
+     "en": "Look! The printer is jamming again.",
+     "vi": "Nhìn kìa! Máy in lại bị kẹt giấy rồi."
     }
+   ]
+  },
+  {
+   "title": "Hành động tạm thời trong giai đoạn hiện tại",
+   "explain": "Dùng cho việc đang diễn ra trong khoảng thời gian này (tuần này, tháng này, dạo này), không nhất thiết đúng lúc nói và không kéo dài mãi.",
+   "examples": [
+    {
+     "en": "Minh is working from home this week because his office is being renovated.",
+     "vi": "Tuần này Minh làm việc ở nhà vì văn phòng của anh ấy đang được sửa chữa."
+    },
+    {
+     "en": "Our company is currently looking for a senior tester.",
+     "vi": "Công ty chúng tôi hiện đang tìm một kiểm thử viên cấp cao."
+    }
+   ]
+  },
+  {
+   "title": "Xu hướng đang thay đổi",
+   "explain": "Dùng để nói về tình hình đang thay đổi, phát triển dần, thường với các động từ như grow, increase, rise, change, get.",
+   "examples": [
+    {
+     "en": "Online sales are growing quickly these days.",
+     "vi": "Dạo này doanh số bán hàng trực tuyến đang tăng nhanh."
+    },
+    {
+     "en": "Cloud services are getting cheaper every year.",
+     "vi": "Dịch vụ đám mây đang ngày càng rẻ hơn mỗi năm."
+    }
+   ]
+  },
+  {
+   "title": "Kế hoạch đã sắp xếp trong tương lai gần",
+   "explain": "Dùng cho lịch hẹn, kế hoạch cá nhân đã được sắp xếp chắc chắn, luôn kèm mốc thời gian tương lai (tomorrow, next week, at 3 p.m.).",
+   "examples": [
+    {
+     "en": "I am meeting the supplier at 10 a.m. tomorrow.",
+     "vi": "Tôi sẽ gặp nhà cung cấp lúc 10 giờ sáng mai (đã hẹn trước)."
+    },
+    {
+     "en": "We are launching the new app next Monday.",
+     "vi": "Chúng tôi sẽ ra mắt ứng dụng mới vào thứ Hai tới."
+    }
+   ]
+  }
+ ],
+ "signals": [
+  "now",
+  "right now",
+  "at the moment",
+  "at present",
+  "currently",
+  "Look!",
+  "Listen!",
+  "this week",
+  "this month",
+  "these days",
+  "today",
+  "still"
+ ],
+ "mistakes": [
+  {
+   "wrong": "I am knowing the answer to this ticket.",
+   "right": "I know the answer to this ticket.",
+   "explain": "Động từ chỉ trạng thái (know, understand, want, need, like, belong…) thường không dùng ở dạng V-ing, kể cả khi có \"now\"."
+  },
+  {
+   "wrong": "She working on the report now.",
+   "right": "She is working on the report now.",
+   "explain": "Tiếng Việt chỉ cần thêm \"đang\", nhưng tiếng Anh bắt buộc phải có am/is/are trước V-ing."
+  },
+  {
+   "wrong": "Are you work on the project now?",
+   "right": "Are you working on the project now?",
+   "explain": "Trong câu hỏi, sau Am/Is/Are + chủ ngữ phải là V-ing, không dùng động từ nguyên mẫu."
+  },
+  {
+   "wrong": "Look! The manager comes to our desk.",
+   "right": "Look! The manager is coming to our desk.",
+   "explain": "Hành động đang diễn ra trước mắt (Look!) phải dùng hiện tại tiếp diễn, không dùng hiện tại đơn."
+  }
+ ],
+ "compare": {
+  "with": "present-simple",
+  "explain": "Hiện tại đơn nói về thói quen, lịch trình cố định, sự thật lâu dài (every day, usually, always). Hiện tại tiếp diễn nói về việc đang xảy ra lúc nói hoặc tạm thời trong giai đoạn này (now, at the moment, this week). Ví dụ: \"I usually take the bus\" (thói quen) khác với \"This week I am driving to work\" (tạm thời). Động từ trạng thái (know, want, need, belong) thường chỉ dùng hiện tại đơn.",
+  "examples": [
+   {
+    "en": "Linh usually works in the Hanoi office.",
+    "vi": "Linh thường làm việc ở văn phòng Hà Nội.",
+    "tense": "present-simple"
+   },
+   {
+    "en": "Linh is working in the Da Nang office this month.",
+    "vi": "Tháng này Linh đang làm việc ở văn phòng Đà Nẵng.",
+    "tense": "present-continuous"
+   },
+   {
+    "en": "Our team has a stand-up meeting every morning.",
+    "vi": "Nhóm chúng tôi họp nhanh mỗi sáng.",
+    "tense": "present-simple"
+   },
+   {
+    "en": "Sorry, the team is having its stand-up meeting right now.",
+    "vi": "Xin lỗi, nhóm đang họp nhanh ngay lúc này.",
+    "tense": "present-continuous"
+   }
   ]
+ },
+ "drills": [
+  {
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "Please be quiet, the manager ___ (talk) to a client right now.",
+   "choices": [],
+   "answer": "is talking",
+   "accept": [
+    "'s talking"
+   ],
+   "explain": "\"right now\" cho biết hành động đang diễn ra nên dùng is + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "Look! The printer ___ (print) the wrong report again.",
+   "choices": [],
+   "answer": "is printing",
+   "accept": [
+    "'s printing"
+   ],
+   "explain": "\"Look!\" báo hiệu việc đang xảy ra trước mắt nên dùng hiện tại tiếp diễn.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "I ___ (write) the meeting minutes at the moment, so I can't answer the phone.",
+   "choices": [],
+   "answer": "am writing",
+   "accept": [
+    "'m writing"
+   ],
+   "explain": "\"at the moment\" chỉ hành động đang diễn ra; chủ ngữ I đi với am.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "Listen! Someone ___ (knock) on the meeting room door.",
+   "choices": [],
+   "answer": "is knocking",
+   "accept": [
+    "'s knocking"
+   ],
+   "explain": "\"Listen!\" báo hiệu âm thanh đang xảy ra ngay lúc nói.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "We ___ (test) the new login feature right now.",
+   "choices": [],
+   "answer": "are testing",
+   "accept": [
+    "'re testing"
+   ],
+   "explain": "\"right now\" là dấu hiệu hiện tại tiếp diễn; chủ ngữ We đi với are.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "Lan ___ (not / work) from home today; she is sitting at her desk in the office.",
+   "choices": [],
+   "answer": "is not working",
+   "accept": [
+    "isn't working",
+    "'s not working"
+   ],
+   "explain": "\"today\" và vế sau \"is sitting\" cho thấy tình huống hiện tại, phủ định là is not + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "___ (you / use) the projector right now? I need it for a demo.",
+   "choices": [],
+   "answer": "Are you using",
+   "accept": [],
+   "explain": "Câu hỏi về việc đang làm \"right now\" nên dùng Are + you + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "The developers ___ (fix) a critical bug at the moment, so the release is on hold.",
+   "choices": [],
+   "answer": "are fixing",
+   "accept": [
+    "'re fixing"
+   ],
+   "explain": "\"at the moment\" chỉ việc đang diễn ra; chủ ngữ số nhiều đi với are.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "At the moment, Minh ___ (cover) for the team leader, who is on leave this week.",
+   "choices": [],
+   "answer": "is covering",
+   "accept": [
+    "'s covering"
+   ],
+   "explain": "\"At the moment\" và việc thay tạm thời cho trưởng nhóm nghỉ phép nên dùng hiện tại tiếp diễn.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "The server ___ (not / respond) right now. Can you check it?",
+   "choices": [],
+   "answer": "is not responding",
+   "accept": [
+    "isn't responding",
+    "'s not responding"
+   ],
+   "explain": "\"right now\" chỉ tình trạng đang xảy ra, phủ định dùng is not + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "Currently, our company ___ (look) for two experienced Java developers.",
+   "choices": [],
+   "answer": "is looking",
+   "accept": [
+    "'s looking"
+   ],
+   "explain": "\"Currently\" chỉ việc đang diễn ra trong giai đoạn hiện tại.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "prompt": "Sorry to interrupt, but right now I ___ (need) your signature on this form.",
+   "choices": [],
+   "answer": "need",
+   "accept": [],
+   "explain": "\"need\" là động từ trạng thái nên dùng hiện tại đơn dù có \"right now\".",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "What ___ (Nam / do) at the moment? His chat status says \"busy\".",
+   "choices": [],
+   "answer": "is Nam doing",
+   "accept": [],
+   "explain": "Câu hỏi Wh- về việc đang làm \"at the moment\": What + is + S + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "prompt": "I usually take the bus, but at the moment I ___ (drive) to work because the bus route is closed for road works.",
+   "choices": [],
+   "answer": "am driving",
+   "accept": [
+    "'m driving"
+   ],
+   "explain": "\"usually\" là thói quen, còn \"at the moment\" chỉ việc tạm thời nên dùng am + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "prompt": "Hurry up! The clients ___ (wait) for us in the lobby.",
+   "choices": [],
+   "answer": "are waiting",
+   "accept": [
+    "'re waiting"
+   ],
+   "explain": "\"Hurry up!\" cho thấy khách đang chờ ngay lúc này nên dùng are + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "Our team ___ (migrate) the database to the cloud at the moment, so some reports are temporarily unavailable.",
+   "choices": [],
+   "answer": "is migrating",
+   "accept": [
+    "'s migrating"
+   ],
+   "explain": "\"at the moment\" và \"temporarily\" chỉ việc đang diễn ra tạm thời.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "Don't call Mai now — she ___ (present) the quarterly results to the board.",
+   "choices": [],
+   "answer": "is presenting",
+   "accept": [
+    "'s presenting"
+   ],
+   "explain": "\"now\" cho biết Mai đang thuyết trình ngay lúc nói.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "prompt": "We ___ (not / hire) any new staff at the moment because of budget cuts.",
+   "choices": [],
+   "answer": "are not hiring",
+   "accept": [
+    "aren't hiring",
+    "'re not hiring"
+   ],
+   "explain": "\"at the moment\" chỉ tình hình tạm thời hiện nay, phủ định là are not + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "prompt": "Why ___ (the build / fail) right now? It passed this morning.",
+   "choices": [],
+   "answer": "is the build failing",
+   "accept": [],
+   "explain": "\"right now\" chỉ tình trạng đang xảy ra, câu hỏi Wh- dùng is + S + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "prompt": "Right now, the client ___ (want) a cheaper solution, not a faster one.",
+   "choices": [],
+   "answer": "wants",
+   "accept": [],
+   "explain": "\"want\" là động từ trạng thái nên dùng hiện tại đơn \"wants\" dù có \"Right now\".",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "Look! It ___ outside, so take an umbrella when you go to the client's office.",
+   "choices": [
+    "is raining",
+    "rains",
+    "rained",
+    "was raining"
+   ],
+   "answer": "is raining",
+   "accept": [],
+   "explain": "\"Look!\" cho thấy trời đang mưa ngay lúc nói.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "Now that we use Scrum, the team ___ a stand-up meeting every morning at 9:00.",
+   "choices": [
+    "has",
+    "is having",
+    "had",
+    "was having"
+   ],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"every morning\" chỉ thói quen lặp lại nên dùng hiện tại đơn.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "Sorry, I can't talk now — I ___ to a customer on the other line.",
+   "choices": [
+    "am talking",
+    "talk",
+    "talked",
+    "have talked"
+   ],
+   "answer": "am talking",
+   "accept": [],
+   "explain": "\"now\" và \"can't talk\" cho thấy tôi đang nói chuyện với khách ngay lúc này.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "At the moment, Hoa ___ the monthly sales report.",
+   "choices": [
+    "is preparing",
+    "prepares",
+    "prepared",
+    "has prepared"
+   ],
+   "answer": "is preparing",
+   "accept": [],
+   "explain": "\"At the moment\" là dấu hiệu của hiện tại tiếp diễn.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "Linh usually ___ to work by motorbike, but today she is taking a taxi.",
+   "choices": [
+    "goes",
+    "is going",
+    "went",
+    "was going"
+   ],
+   "answer": "goes",
+   "accept": [],
+   "explain": "\"usually\" chỉ thói quen nên dùng hiện tại đơn, còn \"today\" mới là việc tạm thời.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "Tuan ___ lunch right now; he's still answering emails.",
+   "choices": [
+    "isn't having",
+    "doesn't have",
+    "didn't have",
+    "wasn't having"
+   ],
+   "answer": "isn't having",
+   "accept": [],
+   "explain": "\"right now\" và \"still answering\" cho thấy tình huống đang diễn ra, phủ định dùng isn't + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "What ___ right now? You look really stressed.",
+   "choices": [
+    "are you doing",
+    "do you do",
+    "did you do",
+    "have you done"
+   ],
+   "answer": "are you doing",
+   "accept": [],
+   "explain": "\"right now\" hỏi về việc đang làm nên dùng are you + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "prompt": "Be careful — the cleaners ___ the floor in the corridor right now.",
+   "choices": [
+    "are mopping",
+    "mop",
+    "mopped",
+    "were mopping"
+   ],
+   "answer": "are mopping",
+   "accept": [],
+   "explain": "\"right now\" cho biết hành động đang diễn ra nên dùng are + V-ing.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "Please don't turn off that computer. It ___ an important update.",
+   "choices": [
+    "is installing",
+    "installs",
+    "installed",
+    "was installing"
+   ],
+   "answer": "is installing",
+   "accept": [],
+   "explain": "Lời dặn \"don't turn off\" cho thấy máy đang cài cập nhật ngay lúc này.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "I ___ what you mean, but I don't agree with the plan.",
+   "choices": [
+    "understand",
+    "am understanding",
+    "will understand",
+    "was understanding"
+   ],
+   "answer": "understand",
+   "accept": [],
+   "explain": "\"understand\" là động từ trạng thái nên dùng hiện tại đơn, không dùng V-ing.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "This laptop ___ to the company, so please return it when you leave.",
+   "choices": [
+    "belongs",
+    "is belonging",
+    "belonged",
+    "was belonging"
+   ],
+   "answer": "belongs",
+   "accept": [],
+   "explain": "\"belong\" là động từ trạng thái chỉ sự sở hữu nên dùng hiện tại đơn.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "How often ___ the database? Our policy says it must be daily.",
+   "choices": [
+    "do you back up",
+    "are you backing up",
+    "were you backing up",
+    "had you backed up"
+   ],
+   "answer": "do you back up",
+   "accept": [],
+   "explain": "\"How often\" hỏi về tần suất, thói quen nên dùng hiện tại đơn.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "Mr. Long ___ in the Da Nang branch this month while his office is being renovated.",
+   "choices": [
+    "is working",
+    "works",
+    "worked",
+    "was working"
+   ],
+   "answer": "is working",
+   "accept": [],
+   "explain": "\"this month\" và lý do tạm thời (văn phòng đang sửa) nên dùng hiện tại tiếp diễn.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "The new intern ___ three languages, so he can help with foreign clients.",
+   "choices": [
+    "speaks",
+    "is speaking",
+    "spoke",
+    "was speaking"
+   ],
+   "answer": "speaks",
+   "accept": [],
+   "explain": "Khả năng nói ba thứ tiếng là sự thật lâu dài nên dùng hiện tại đơn.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "I can't join the training tomorrow afternoon because I ___ the supplier at 2 p.m.; it's already in my calendar.",
+   "choices": [
+    "am meeting",
+    "meet",
+    "met",
+    "was meeting"
+   ],
+   "answer": "am meeting",
+   "accept": [],
+   "explain": "\"tomorrow\" và \"already in my calendar\" chỉ cuộc hẹn đã sắp xếp nên dùng hiện tại tiếp diễn cho tương lai.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "I ___ your proposal is interesting, but it's too expensive for us.",
+   "choices": [
+    "think",
+    "am thinking",
+    "thought",
+    "was thinking"
+   ],
+   "answer": "think",
+   "accept": [],
+   "explain": "\"think\" mang nghĩa \"cho rằng\" (ý kiến) là trạng thái nên dùng hiện tại đơn.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "Can you call back later? Mr. Duc ___ an interview with a candidate in Room 3.",
+   "choices": [
+    "is conducting",
+    "conducts",
+    "conducted",
+    "has conducted"
+   ],
+   "answer": "is conducting",
+   "accept": [],
+   "explain": "\"call back later\" cho thấy ông Đức đang phỏng vấn ngay lúc này.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "The project ___ well this quarter; we are ahead of schedule.",
+   "choices": [
+    "is going",
+    "goes",
+    "went",
+    "was going"
+   ],
+   "answer": "is going",
+   "accept": [],
+   "explain": "\"this quarter\" chưa kết thúc và \"we are ahead\" chỉ tình hình hiện tại nên dùng hiện tại tiếp diễn.",
+   "tense": "present-continuous"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "___ who is responsible for the server room? I need the key.",
+   "choices": [
+    "Do you know",
+    "Are you knowing",
+    "Did you know",
+    "Were you knowing"
+   ],
+   "answer": "Do you know",
+   "accept": [],
+   "explain": "\"know\" là động từ trạng thái nên câu hỏi dùng hiện tại đơn Do you know.",
+   "tense": "present-simple"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "Every Friday our manager sends a report, but this Friday she ___ a presentation to the directors instead.",
+   "choices": [
+    "is giving",
+    "gives",
+    "gave",
+    "was giving"
+   ],
+   "answer": "is giving",
+   "accept": [],
+   "explain": "\"this Friday… instead\" là kế hoạch đã sắp xếp khác thói quen nên dùng hiện tại tiếp diễn.",
+   "tense": "present-continuous"
+  }
+ ]
 }

@@ -1,686 +1,694 @@
 {
-  "id": "future-simple",
-  "name": "Future simple (will)",
-  "vi": "Tương lai đơn",
-  "summary": "Thì tương lai đơn (will + động từ nguyên mẫu) dùng để nói về quyết định đưa ra ngay lúc nói, lời hứa, lời đề nghị giúp đỡ, lời nhờ vả và dự đoán dựa trên ý kiến cá nhân.",
-  "formula": {
-    "affirmative": {
-      "pattern": "S + will ('ll) + V",
-      "example": "I'll send you the meeting agenda this afternoon.",
-      "vi": "Chiều nay tôi sẽ gửi bạn chương trình cuộc họp."
-    },
-    "negative": {
-      "pattern": "S + will not (won't) + V",
-      "example": "Don't worry, the system won't delete your old files.",
-      "vi": "Đừng lo, hệ thống sẽ không xóa các tệp cũ của bạn."
-    },
-    "question": {
-      "pattern": "Will + S + V ...?",
-      "example": "Will you review my pull request before lunch?",
-      "vi": "Bạn xem giúp pull request của tôi trước giờ ăn trưa được không?"
-    }
+ "id": "future-simple",
+ "name": "Future simple (will)",
+ "vi": "Tương lai đơn",
+ "summary": "Thì tương lai đơn (will + động từ nguyên mẫu) dùng để nói về quyết định đưa ra ngay lúc nói, lời hứa, lời đề nghị giúp đỡ, lời nhờ vả và dự đoán dựa trên ý kiến cá nhân.",
+ "formula": {
+  "affirmative": {
+   "pattern": "S + will ('ll) + V",
+   "example": "I'll send you the meeting agenda this afternoon.",
+   "vi": "Chiều nay tôi sẽ gửi bạn chương trình cuộc họp."
   },
-  "uses": [
-    {
-      "title": "Quyết định ngay lúc nói",
-      "explain": "Dùng will khi bạn vừa nảy ra quyết định ngay tại thời điểm nói, không có kế hoạch từ trước.",
-      "examples": [
-        {
-          "en": "The phone is ringing. I'll answer it.",
-          "vi": "Điện thoại đang reo. Để tôi nghe."
-        },
-        {
-          "en": "Oh, the printer is out of toner? I'll order some now.",
-          "vi": "Ồ, máy in hết mực à? Tôi sẽ đặt mua ngay."
-        }
-      ]
-    },
-    {
-      "title": "Lời hứa và lời đề nghị giúp đỡ",
-      "explain": "Dùng will để hứa làm gì đó hoặc chủ động đề nghị giúp người khác.",
-      "examples": [
-        {
-          "en": "I promise I'll finish the test cases by Friday.",
-          "vi": "Tôi hứa sẽ viết xong các test case trước thứ Sáu."
-        },
-        {
-          "en": "Those boxes look heavy. I'll help you carry them.",
-          "vi": "Mấy cái thùng đó trông nặng quá. Để tôi giúp bạn khiêng."
-        }
-      ]
-    },
-    {
-      "title": "Dự đoán theo ý kiến cá nhân",
-      "explain": "Dùng will để dự đoán dựa trên suy nghĩ, cảm nhận của mình, thường đi với I think, probably, I'm sure, maybe.",
-      "examples": [
-        {
-          "en": "I think the client will accept our new price.",
-          "vi": "Tôi nghĩ khách hàng sẽ chấp nhận mức giá mới của chúng ta."
-        },
-        {
-          "en": "The project will probably take another two months.",
-          "vi": "Dự án có lẽ sẽ mất thêm hai tháng nữa."
-        }
-      ]
-    },
-    {
-      "title": "Lời nhờ vả, yêu cầu lịch sự",
-      "explain": "Dùng câu hỏi Will you ...? để nhờ ai đó làm việc gì, thường kèm please.",
-      "examples": [
-        {
-          "en": "Will you send me the latest sales report, please?",
-          "vi": "Bạn gửi giúp tôi báo cáo doanh số mới nhất nhé?"
-        },
-        {
-          "en": "Will you check the server logs for me?",
-          "vi": "Bạn kiểm tra giúp tôi log của server được không?"
-        }
-      ]
-    }
-  ],
-  "signals": [
-    "I think",
-    "probably",
-    "I'm sure",
-    "maybe / perhaps",
-    "I promise",
-    "Don't worry",
-    "tomorrow",
-    "next week",
-    "soon",
-    "in the future",
-    "I expect",
-    "I hope"
-  ],
-  "mistakes": [
-    {
-      "wrong": "I will to send you the invoice tomorrow.",
-      "right": "I will send you the invoice tomorrow.",
-      "explain": "Sau will luôn là động từ nguyên mẫu không có to."
-    },
-    {
-      "wrong": "She will sends the report later.",
-      "right": "She will send the report later.",
-      "explain": "Sau will, động từ không chia theo ngôi, không thêm -s/-es dù chủ ngữ là she/he/it."
-    },
-    {
-      "wrong": "I'll call you when I will finish the meeting.",
-      "right": "I'll call you when I finish the meeting.",
-      "explain": "Sau when, as soon as, until, before, after, if (mệnh đề thời gian/điều kiện), dùng hiện tại đơn chứ không dùng will."
-    },
-    {
-      "wrong": "Will you can help me with this bug?",
-      "right": "Will you be able to help me with this bug?",
-      "explain": "Không dùng hai động từ khuyết thiếu liền nhau (will + can); hãy dùng will be able to hoặc Can you ...?"
-    }
-  ],
-  "compare": {
-    "with": "going-to",
-    "explain": "Will dùng cho quyết định nảy ra ngay lúc nói, lời hứa, lời đề nghị và dự đoán theo ý kiến cá nhân (I think, probably). Be going to dùng cho kế hoạch, dự định đã quyết từ trước, hoặc dự đoán dựa trên dấu hiệu, bằng chứng đang thấy trước mắt. Mẹo: nếu vừa mới biết thông tin và quyết định luôn thì dùng will; nếu đã lên kế hoạch hoặc nhìn thấy dấu hiệu rõ ràng thì dùng going to.",
-    "examples": [
-      {
-        "en": "The server is down? OK, I'll restart it now.",
-        "vi": "Server bị sập à? Được, tôi sẽ khởi động lại ngay.",
-        "tense": "future-simple"
-      },
-      {
-        "en": "We're going to upgrade the server next weekend; it's in the plan.",
-        "vi": "Cuối tuần sau chúng tôi sẽ nâng cấp server; việc này đã có trong kế hoạch.",
-        "tense": "going-to"
-      },
-      {
-        "en": "I think the new app will be popular with young users.",
-        "vi": "Tôi nghĩ ứng dụng mới sẽ được người dùng trẻ ưa chuộng.",
-        "tense": "future-simple"
-      },
-      {
-        "en": "Look at the error count! The system is going to crash.",
-        "vi": "Nhìn số lỗi kìa! Hệ thống sắp sập rồi.",
-        "tense": "going-to"
-      }
-    ]
+  "negative": {
+   "pattern": "S + will not (won't) + V",
+   "example": "Don't worry, the system won't delete your old files.",
+   "vi": "Đừng lo, hệ thống sẽ không xóa các tệp cũ của bạn."
   },
-  "drills": [
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "Don't worry, I ___ (send) you the file right now.",
-      "choices": [],
-      "answer": "will send",
-      "accept": [
-        "'ll send"
-      ],
-      "explain": "\"Don't worry\" + \"right now\" cho thấy lời đề nghị, quyết định ngay lúc nói nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "The phone is ringing — I ___ (get) it.",
-      "choices": [],
-      "answer": "will get",
-      "accept": [
-        "'ll get"
-      ],
-      "explain": "Điện thoại reo và người nói quyết định ngay lúc đó nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "I promise I ___ (not / be) late for the client meeting again.",
-      "choices": [],
-      "answer": "won't be",
-      "accept": [
-        "will not be"
-      ],
-      "explain": "\"I promise\" là dấu hiệu của lời hứa, dạng phủ định là won't + V."
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "That box looks heavy. I ___ (help) you carry it to the meeting room.",
-      "choices": [],
-      "answer": "will help",
-      "accept": [
-        "'ll help"
-      ],
-      "explain": "Người nói chủ động đề nghị giúp đỡ nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "A: We've run out of printer paper. B: Oh, really? I ___ (order) some more this afternoon.",
-      "choices": [],
-      "answer": "will order",
-      "accept": [
-        "'ll order"
-      ],
-      "explain": "\"Oh, really?\" cho thấy B vừa mới biết và quyết định ngay nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "I promise I ___ (fix) the login bug before the demo tomorrow.",
-      "choices": [],
-      "answer": "will fix",
-      "accept": [
-        "'ll fix"
-      ],
-      "explain": "\"I promise\" báo hiệu lời hứa nên dùng will + V."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "Thanks for the reminder! I ___ (not / forget) to submit my timesheet.",
-      "choices": [],
-      "answer": "won't forget",
-      "accept": [
-        "will not forget"
-      ],
-      "explain": "Lời cảm ơn kèm lời hứa không quên, dùng won't + V."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "___ (you / close) the door, please? It's noisy in the corridor.",
-      "choices": [],
-      "answer": "Will you close",
-      "accept": [
-        "will you close"
-      ],
-      "explain": "Câu nhờ vả lịch sự với please dùng Will you + V?"
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "When the update ___ (finish), I'll restart the server.",
-      "choices": [],
-      "answer": "finishes",
-      "accept": [
-        "has finished"
-      ],
-      "explain": "Sau when trong mệnh đề thời gian dùng hiện tại đơn, không dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "I'll call you as soon as I ___ (get) the test results.",
-      "choices": [],
-      "answer": "get",
-      "accept": [
-        "have got",
-        "have gotten"
-      ],
-      "explain": "Sau as soon as dùng hiện tại đơn dù hành động xảy ra trong tương lai."
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "We won't start the deployment until the manager ___ (approve) the change request.",
-      "choices": [],
-      "answer": "approves",
-      "accept": [
-        "has approved"
-      ],
-      "explain": "Sau until (mệnh đề thời gian) dùng hiện tại đơn, không dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "Don't worry — if the client calls while you're out, I ___ (tell) her you'll call back after lunch.",
-      "choices": [],
-      "answer": "will tell",
-      "accept": [
-        "'ll tell"
-      ],
-      "explain": "\"Don't worry\" là lời đề nghị giúp, mệnh đề chính của câu điều kiện dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "Hold on, I ___ (check) the schedule for you.",
-      "choices": [],
-      "answer": "will check",
-      "accept": [
-        "'ll check"
-      ],
-      "explain": "\"Hold on ... for you\" là lời đề nghị giúp ngay lúc nói nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "The customer is angry? OK, I ___ (talk) to him myself.",
-      "choices": [],
-      "answer": "will talk",
-      "accept": [
-        "'ll talk"
-      ],
-      "explain": "Người nói vừa nghe tin và quyết định ngay (\"OK\") nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "I'm sorry about the error in the invoice. It ___ (not / happen) again, I promise.",
-      "choices": [],
-      "answer": "won't happen",
-      "accept": [
-        "will not happen"
-      ],
-      "explain": "\"I promise\" báo hiệu lời hứa, dạng phủ định dùng won't + V."
-    },
-    {
-      "kind": "tense",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "My laptop won't turn on! — Don't panic, I ___ (lend) you mine for the presentation.",
-      "choices": [],
-      "answer": "will lend",
-      "accept": [
-        "'ll lend"
-      ],
-      "explain": "\"Don't panic\" + đề nghị cho mượn máy là quyết định ngay lúc nói nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "'The coffee machine is broken again.' 'Really? I ___ (call) the technician right away.'",
-      "choices": [],
-      "answer": "will call",
-      "accept": [
-        "'ll call"
-      ],
-      "explain": "\"Really?\" cho thấy người nói vừa biết và quyết định ngay nên dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "I'll let you know once the build ___ (pass) all the tests.",
-      "choices": [],
-      "answer": "passes",
-      "accept": [
-        "has passed"
-      ],
-      "explain": "Sau once (mệnh đề thời gian) dùng hiện tại đơn, không dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "Please don't close the ticket until the customer ___ (confirm) the fix.",
-      "choices": [],
-      "answer": "confirms",
-      "accept": [
-        "has confirmed"
-      ],
-      "explain": "Sau until dùng hiện tại đơn để nói về tương lai, không dùng will."
-    },
-    {
-      "kind": "tense",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "'Sorry, I can't make it at 3.' 'No problem, I ___ (move) the meeting to 4 p.m. then.'",
-      "choices": [],
-      "answer": "will move",
-      "accept": [
-        "'ll move"
-      ],
-      "explain": "\"No problem ... then\" cho thấy quyết định đưa ra ngay lúc nói nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "I think the client ___ our new proposal when she sees it on Monday.",
-      "choices": [
-        "will like",
-        "liked",
-        "has liked",
-        "was liking"
-      ],
-      "answer": "will like",
-      "accept": [],
-      "explain": "\"I think\" + \"on Monday\" là dự đoán về tương lai nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "___ me with these slides, please? I have a meeting in ten minutes.",
-      "choices": [
-        "Will you help",
-        "Did you help",
-        "Have you helped",
-        "Were you helping"
-      ],
-      "answer": "Will you help",
-      "accept": [],
-      "explain": "Câu nhờ vả với please dùng Will you + V?"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "The printer is jammed again. Don't worry, I ___ it.",
-      "choices": [
-        "will fix",
-        "fixed",
-        "have fixed",
-        "was fixing"
-      ],
-      "answer": "will fix",
-      "accept": [],
-      "explain": "Máy in vẫn đang kẹt và \"Don't worry\" là lời đề nghị giúp nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "'I'm starving, but I can't leave my desk.' 'No problem. I'm heading to the canteen now, so I ___ you a sandwich.'",
-      "choices": [
-        "will bring",
-        "brought",
-        "have brought",
-        "was bringing"
-      ],
-      "answer": "will bring",
-      "accept": [],
-      "explain": "Người nói đề nghị giúp ngay lúc đó (\"No problem\") nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "I promise I ___ the signed contract to you by Friday.",
-      "choices": [
-        "will email",
-        "emailed",
-        "have emailed",
-        "was emailing"
-      ],
-      "answer": "will email",
-      "accept": [],
-      "explain": "\"I promise\" + \"by Friday\" là lời hứa về tương lai nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "Next year, perhaps, the new HR system ___ us save hours of paperwork.",
-      "choices": [
-        "will help",
-        "helped",
-        "has helped",
-        "was helping"
-      ],
-      "answer": "will help",
-      "accept": [],
-      "explain": "\"Next year, perhaps\" là dự đoán không chắc chắn về tương lai nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "easy",
-      "tense": "future-simple",
-      "prompt": "'It's freezing in here.' 'Wait a second, I ___ the air conditioner down.'",
-      "choices": [
-        "will turn",
-        "turned",
-        "had turned",
-        "was turning"
-      ],
-      "answer": "will turn",
-      "accept": [],
-      "explain": "\"Wait a second\" cho thấy quyết định giúp ngay lúc nói nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "The news is confidential. I promise I ___ anyone until the CEO announces it tomorrow.",
-      "choices": [
-        "won't tell",
-        "didn't tell",
-        "haven't told",
-        "wasn't telling"
-      ],
-      "answer": "won't tell",
-      "accept": [],
-      "explain": "\"I promise\" + \"tomorrow\" là lời hứa về tương lai, phủ định dùng won't + V."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "Our team is behind schedule, so I think we probably ___ the deadline next Monday.",
-      "choices": [
-        "won't meet",
-        "didn't meet",
-        "don't meet",
-        "haven't met"
-      ],
-      "answer": "won't meet",
-      "accept": [],
-      "explain": "\"I think ... probably\" + \"next Monday\" là dự đoán về tương lai nên dùng won't."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "If the training room is free tomorrow, I ___ the workshop there.",
-      "choices": [
-        "will hold",
-        "held",
-        "have held",
-        "was holding"
-      ],
-      "answer": "will hold",
-      "accept": [],
-      "explain": "Mệnh đề chính của câu điều kiện loại 1 (If + hiện tại đơn) dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "Don't email Mr. Lee yet. Wait until he ___ back from Singapore.",
-      "choices": [
-        "comes",
-        "will come",
-        "came",
-        "was coming"
-      ],
-      "answer": "comes",
-      "accept": [],
-      "explain": "Sau until (mệnh đề thời gian) dùng hiện tại đơn, không dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "I'll send you the meeting notes as soon as I ___ them.",
-      "choices": [
-        "finish",
-        "will finish",
-        "finished",
-        "was finishing"
-      ],
-      "answer": "finish",
-      "accept": [],
-      "explain": "Sau as soon as dùng hiện tại đơn dù nói về tương lai."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "The director is sure that the new branch in Da Nang ___ a profit next year.",
-      "choices": [
-        "will make",
-        "made",
-        "has made",
-        "was making"
-      ],
-      "answer": "will make",
-      "accept": [],
-      "explain": "\"is sure\" + \"next year\" là dự đoán theo ý kiến cá nhân nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "Excuse me, ___ the report to the finance team when you finish? Thanks!",
-      "choices": [
-        "will you send",
-        "did you send",
-        "have you sent",
-        "were you sending"
-      ],
-      "answer": "will you send",
-      "accept": [],
-      "explain": "Lời nhờ vả về việc sau này (\"when you finish\", \"Thanks!\") dùng will you + V?"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "tense": "future-simple",
-      "prompt": "'The server room key is with the security guard.' 'Oh, I didn't know that. In that case, I ___ him for it.'",
-      "choices": [
-        "will ask",
-        "am going to ask",
-        "asked",
-        "have asked"
-      ],
-      "answer": "will ask",
-      "accept": [],
-      "explain": "\"I didn't know that. In that case\" cho thấy quyết định vừa đưa ra, không phải kế hoạch có sẵn nên dùng will, không dùng going to."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "'Could somebody turn on the projector?' 'Sure, I ___ it on.'",
-      "choices": [
-        "will turn",
-        "am going to turn",
-        "turned",
-        "was turning"
-      ],
-      "answer": "will turn",
-      "accept": [],
-      "explain": "Đáp lại lời nhờ bằng \"Sure\" là quyết định ngay lúc nói nên dùng will, không dùng going to."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "tense": "future-simple",
-      "prompt": "I'm not sure, but I don't think the price of the new laptops ___ next quarter.",
-      "choices": [
-        "will drop",
-        "dropped",
-        "has dropped",
-        "was dropping"
-      ],
-      "answer": "will drop",
-      "accept": [],
-      "explain": "\"I don't think\" + \"next quarter\" là dự đoán cá nhân về tương lai nên dùng will."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "medium",
-      "tense": "future-simple",
-      "prompt": "By the way, ___ at the conference next month, or will Mai go instead?",
-      "choices": [
-        "will you speak",
-        "did you speak",
-        "have you spoken",
-        "were you speaking"
-      ],
-      "answer": "will you speak",
-      "accept": [],
-      "explain": "\"next month\" và vế \"or will Mai go\" cho thấy câu hỏi về tương lai nên dùng will you + V?"
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "After you ___ the form, HR will contact you within two working days.",
-      "choices": [
-        "submit",
-        "will submit",
-        "submitted",
-        "were submitting"
-      ],
-      "answer": "submit",
-      "accept": [],
-      "explain": "Sau after (mệnh đề thời gian) dùng hiện tại đơn, will chỉ dùng ở mệnh đề chính."
-    },
-    {
-      "kind": "tenseChoice",
-      "level": "hard",
-      "tense": "present-simple",
-      "prompt": "If the shipment ___ late again, we'll look for a new supplier.",
-      "choices": [
-        "arrives",
-        "will arrive",
-        "arrived",
-        "was arriving"
-      ],
-      "answer": "arrives",
-      "accept": [],
-      "explain": "Trong mệnh đề If của câu điều kiện loại 1 dùng hiện tại đơn, không dùng will."
-    }
+  "question": {
+   "pattern": "Will + S + V ...?",
+   "example": "Will you review my pull request before lunch?",
+   "vi": "Bạn xem giúp pull request của tôi trước giờ ăn trưa được không?"
+  },
+  "persons": [
+   {
+    "subject": "every subject",
+    "affirmative": "will work",
+    "negative": "won't work",
+    "question": "Will they work?"
+   }
   ]
+ },
+ "uses": [
+  {
+   "title": "Quyết định ngay lúc nói",
+   "explain": "Dùng will khi bạn vừa nảy ra quyết định ngay tại thời điểm nói, không có kế hoạch từ trước.",
+   "examples": [
+    {
+     "en": "The phone is ringing. I'll answer it.",
+     "vi": "Điện thoại đang reo. Để tôi nghe."
+    },
+    {
+     "en": "Oh, the printer is out of toner? I'll order some now.",
+     "vi": "Ồ, máy in hết mực à? Tôi sẽ đặt mua ngay."
+    }
+   ]
+  },
+  {
+   "title": "Lời hứa và lời đề nghị giúp đỡ",
+   "explain": "Dùng will để hứa làm gì đó hoặc chủ động đề nghị giúp người khác.",
+   "examples": [
+    {
+     "en": "I promise I'll finish the test cases by Friday.",
+     "vi": "Tôi hứa sẽ viết xong các test case trước thứ Sáu."
+    },
+    {
+     "en": "Those boxes look heavy. I'll help you carry them.",
+     "vi": "Mấy cái thùng đó trông nặng quá. Để tôi giúp bạn khiêng."
+    }
+   ]
+  },
+  {
+   "title": "Dự đoán theo ý kiến cá nhân",
+   "explain": "Dùng will để dự đoán dựa trên suy nghĩ, cảm nhận của mình, thường đi với I think, probably, I'm sure, maybe.",
+   "examples": [
+    {
+     "en": "I think the client will accept our new price.",
+     "vi": "Tôi nghĩ khách hàng sẽ chấp nhận mức giá mới của chúng ta."
+    },
+    {
+     "en": "The project will probably take another two months.",
+     "vi": "Dự án có lẽ sẽ mất thêm hai tháng nữa."
+    }
+   ]
+  },
+  {
+   "title": "Lời nhờ vả, yêu cầu lịch sự",
+   "explain": "Dùng câu hỏi Will you ...? để nhờ ai đó làm việc gì, thường kèm please.",
+   "examples": [
+    {
+     "en": "Will you send me the latest sales report, please?",
+     "vi": "Bạn gửi giúp tôi báo cáo doanh số mới nhất nhé?"
+    },
+    {
+     "en": "Will you check the server logs for me?",
+     "vi": "Bạn kiểm tra giúp tôi log của server được không?"
+    }
+   ]
+  }
+ ],
+ "signals": [
+  "I think",
+  "probably",
+  "I'm sure",
+  "maybe / perhaps",
+  "I promise",
+  "Don't worry",
+  "tomorrow",
+  "next week",
+  "soon",
+  "in the future",
+  "I expect",
+  "I hope"
+ ],
+ "mistakes": [
+  {
+   "wrong": "I will to send you the invoice tomorrow.",
+   "right": "I will send you the invoice tomorrow.",
+   "explain": "Sau will luôn là động từ nguyên mẫu không có to."
+  },
+  {
+   "wrong": "She will sends the report later.",
+   "right": "She will send the report later.",
+   "explain": "Sau will, động từ không chia theo ngôi, không thêm -s/-es dù chủ ngữ là she/he/it."
+  },
+  {
+   "wrong": "I'll call you when I will finish the meeting.",
+   "right": "I'll call you when I finish the meeting.",
+   "explain": "Sau when, as soon as, until, before, after, if (mệnh đề thời gian/điều kiện), dùng hiện tại đơn chứ không dùng will."
+  },
+  {
+   "wrong": "Will you can help me with this bug?",
+   "right": "Will you be able to help me with this bug?",
+   "explain": "Không dùng hai động từ khuyết thiếu liền nhau (will + can); hãy dùng will be able to hoặc Can you ...?"
+  }
+ ],
+ "compare": {
+  "with": "going-to",
+  "explain": "Will dùng cho quyết định nảy ra ngay lúc nói, lời hứa, lời đề nghị và dự đoán theo ý kiến cá nhân (I think, probably). Be going to dùng cho kế hoạch, dự định đã quyết từ trước, hoặc dự đoán dựa trên dấu hiệu, bằng chứng đang thấy trước mắt. Mẹo: nếu vừa mới biết thông tin và quyết định luôn thì dùng will; nếu đã lên kế hoạch hoặc nhìn thấy dấu hiệu rõ ràng thì dùng going to.",
+  "examples": [
+   {
+    "en": "The server is down? OK, I'll restart it now.",
+    "vi": "Server bị sập à? Được, tôi sẽ khởi động lại ngay.",
+    "tense": "future-simple"
+   },
+   {
+    "en": "We're going to upgrade the server next weekend; it's in the plan.",
+    "vi": "Cuối tuần sau chúng tôi sẽ nâng cấp server; việc này đã có trong kế hoạch.",
+    "tense": "going-to"
+   },
+   {
+    "en": "I think the new app will be popular with young users.",
+    "vi": "Tôi nghĩ ứng dụng mới sẽ được người dùng trẻ ưa chuộng.",
+    "tense": "future-simple"
+   },
+   {
+    "en": "Look at the error count! The system is going to crash.",
+    "vi": "Nhìn số lỗi kìa! Hệ thống sắp sập rồi.",
+    "tense": "going-to"
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "Don't worry, I ___ (send) you the file right now.",
+   "choices": [],
+   "answer": "will send",
+   "accept": [
+    "'ll send"
+   ],
+   "explain": "\"Don't worry\" + \"right now\" cho thấy lời đề nghị, quyết định ngay lúc nói nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "The phone is ringing — I ___ (get) it.",
+   "choices": [],
+   "answer": "will get",
+   "accept": [
+    "'ll get"
+   ],
+   "explain": "Điện thoại reo và người nói quyết định ngay lúc đó nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "I promise I ___ (not / be) late for the client meeting again.",
+   "choices": [],
+   "answer": "won't be",
+   "accept": [
+    "will not be"
+   ],
+   "explain": "\"I promise\" là dấu hiệu của lời hứa, dạng phủ định là won't + V."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "That box looks heavy. I ___ (help) you carry it to the meeting room.",
+   "choices": [],
+   "answer": "will help",
+   "accept": [
+    "'ll help"
+   ],
+   "explain": "Người nói chủ động đề nghị giúp đỡ nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "A: We've run out of printer paper. B: Oh, really? I ___ (order) some more this afternoon.",
+   "choices": [],
+   "answer": "will order",
+   "accept": [
+    "'ll order"
+   ],
+   "explain": "\"Oh, really?\" cho thấy B vừa mới biết và quyết định ngay nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "I promise I ___ (fix) the login bug before the demo tomorrow.",
+   "choices": [],
+   "answer": "will fix",
+   "accept": [
+    "'ll fix"
+   ],
+   "explain": "\"I promise\" báo hiệu lời hứa nên dùng will + V."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Thanks for the reminder! I ___ (not / forget) to submit my timesheet.",
+   "choices": [],
+   "answer": "won't forget",
+   "accept": [
+    "will not forget"
+   ],
+   "explain": "Lời cảm ơn kèm lời hứa không quên, dùng won't + V."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "___ (you / close) the door, please? It's noisy in the corridor.",
+   "choices": [],
+   "answer": "Will you close",
+   "accept": [
+    "will you close"
+   ],
+   "explain": "Câu nhờ vả lịch sự với please dùng Will you + V?"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "When the update ___ (finish), I'll restart the server.",
+   "choices": [],
+   "answer": "finishes",
+   "accept": [
+    "has finished"
+   ],
+   "explain": "Sau when trong mệnh đề thời gian dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "I'll call you as soon as I ___ (get) the test results.",
+   "choices": [],
+   "answer": "get",
+   "accept": [
+    "have got",
+    "have gotten"
+   ],
+   "explain": "Sau as soon as dùng hiện tại đơn dù hành động xảy ra trong tương lai."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "We won't start the deployment until the manager ___ (approve) the change request.",
+   "choices": [],
+   "answer": "approves",
+   "accept": [
+    "has approved"
+   ],
+   "explain": "Sau until (mệnh đề thời gian) dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Don't worry — if the client calls while you're out, I ___ (tell) her you'll call back after lunch.",
+   "choices": [],
+   "answer": "will tell",
+   "accept": [
+    "'ll tell"
+   ],
+   "explain": "\"Don't worry\" là lời đề nghị giúp, mệnh đề chính của câu điều kiện dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "Hold on, I ___ (check) the schedule for you.",
+   "choices": [],
+   "answer": "will check",
+   "accept": [
+    "'ll check"
+   ],
+   "explain": "\"Hold on ... for you\" là lời đề nghị giúp ngay lúc nói nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "The customer is angry? OK, I ___ (talk) to him myself.",
+   "choices": [],
+   "answer": "will talk",
+   "accept": [
+    "'ll talk"
+   ],
+   "explain": "Người nói vừa nghe tin và quyết định ngay (\"OK\") nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "I'm sorry about the error in the invoice. It ___ (not / happen) again, I promise.",
+   "choices": [],
+   "answer": "won't happen",
+   "accept": [
+    "will not happen"
+   ],
+   "explain": "\"I promise\" báo hiệu lời hứa, dạng phủ định dùng won't + V."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "My laptop won't turn on! — Don't panic, I ___ (lend) you mine for the presentation.",
+   "choices": [],
+   "answer": "will lend",
+   "accept": [
+    "'ll lend"
+   ],
+   "explain": "\"Don't panic\" + đề nghị cho mượn máy là quyết định ngay lúc nói nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "'The coffee machine is broken again.' 'Really? I ___ (call) the technician right away.'",
+   "choices": [],
+   "answer": "will call",
+   "accept": [
+    "'ll call"
+   ],
+   "explain": "\"Really?\" cho thấy người nói vừa biết và quyết định ngay nên dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "I'll let you know once the build ___ (pass) all the tests.",
+   "choices": [],
+   "answer": "passes",
+   "accept": [
+    "has passed"
+   ],
+   "explain": "Sau once (mệnh đề thời gian) dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "Please don't close the ticket until the customer ___ (confirm) the fix.",
+   "choices": [],
+   "answer": "confirms",
+   "accept": [
+    "has confirmed"
+   ],
+   "explain": "Sau until dùng hiện tại đơn để nói về tương lai, không dùng will."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "'Sorry, I can't make it at 3.' 'No problem, I ___ (move) the meeting to 4 p.m. then.'",
+   "choices": [],
+   "answer": "will move",
+   "accept": [
+    "'ll move"
+   ],
+   "explain": "\"No problem ... then\" cho thấy quyết định đưa ra ngay lúc nói nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "I think the client ___ our new proposal when she sees it on Monday.",
+   "choices": [
+    "will like",
+    "liked",
+    "has liked",
+    "was liking"
+   ],
+   "answer": "will like",
+   "accept": [],
+   "explain": "\"I think\" + \"on Monday\" là dự đoán về tương lai nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "___ me with these slides, please? I have a meeting in ten minutes.",
+   "choices": [
+    "Will you help",
+    "Did you help",
+    "Have you helped",
+    "Were you helping"
+   ],
+   "answer": "Will you help",
+   "accept": [],
+   "explain": "Câu nhờ vả với please dùng Will you + V?"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "The printer is jammed again. Don't worry, I ___ it.",
+   "choices": [
+    "will fix",
+    "fixed",
+    "have fixed",
+    "was fixing"
+   ],
+   "answer": "will fix",
+   "accept": [],
+   "explain": "Máy in vẫn đang kẹt và \"Don't worry\" là lời đề nghị giúp nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "'I'm starving, but I can't leave my desk.' 'No problem. I'm heading to the canteen now, so I ___ you a sandwich.'",
+   "choices": [
+    "will bring",
+    "brought",
+    "have brought",
+    "was bringing"
+   ],
+   "answer": "will bring",
+   "accept": [],
+   "explain": "Người nói đề nghị giúp ngay lúc đó (\"No problem\") nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "I promise I ___ the signed contract to you by Friday.",
+   "choices": [
+    "will email",
+    "emailed",
+    "have emailed",
+    "was emailing"
+   ],
+   "answer": "will email",
+   "accept": [],
+   "explain": "\"I promise\" + \"by Friday\" là lời hứa về tương lai nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "Next year, perhaps, the new HR system ___ us save hours of paperwork.",
+   "choices": [
+    "will help",
+    "helped",
+    "has helped",
+    "was helping"
+   ],
+   "answer": "will help",
+   "accept": [],
+   "explain": "\"Next year, perhaps\" là dự đoán không chắc chắn về tương lai nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "tense": "future-simple",
+   "prompt": "'It's freezing in here.' 'Wait a second, I ___ the air conditioner down.'",
+   "choices": [
+    "will turn",
+    "turned",
+    "had turned",
+    "was turning"
+   ],
+   "answer": "will turn",
+   "accept": [],
+   "explain": "\"Wait a second\" cho thấy quyết định giúp ngay lúc nói nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "The news is confidential. I promise I ___ anyone until the CEO announces it tomorrow.",
+   "choices": [
+    "won't tell",
+    "didn't tell",
+    "haven't told",
+    "wasn't telling"
+   ],
+   "answer": "won't tell",
+   "accept": [],
+   "explain": "\"I promise\" + \"tomorrow\" là lời hứa về tương lai, phủ định dùng won't + V."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Our team is behind schedule, so I think we probably ___ the deadline next Monday.",
+   "choices": [
+    "won't meet",
+    "didn't meet",
+    "don't meet",
+    "haven't met"
+   ],
+   "answer": "won't meet",
+   "accept": [],
+   "explain": "\"I think ... probably\" + \"next Monday\" là dự đoán về tương lai nên dùng won't."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "If the training room is free tomorrow, I ___ the workshop there.",
+   "choices": [
+    "will hold",
+    "held",
+    "have held",
+    "was holding"
+   ],
+   "answer": "will hold",
+   "accept": [],
+   "explain": "Mệnh đề chính của câu điều kiện loại 1 (If + hiện tại đơn) dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "Don't email Mr. Lee yet. Wait until he ___ back from Singapore.",
+   "choices": [
+    "comes",
+    "will come",
+    "came",
+    "was coming"
+   ],
+   "answer": "comes",
+   "accept": [],
+   "explain": "Sau until (mệnh đề thời gian) dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "I'll send you the meeting notes as soon as I ___ them.",
+   "choices": [
+    "finish",
+    "will finish",
+    "finished",
+    "was finishing"
+   ],
+   "answer": "finish",
+   "accept": [],
+   "explain": "Sau as soon as dùng hiện tại đơn dù nói về tương lai."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "The director is sure that the new branch in Da Nang ___ a profit next year.",
+   "choices": [
+    "will make",
+    "made",
+    "has made",
+    "was making"
+   ],
+   "answer": "will make",
+   "accept": [],
+   "explain": "\"is sure\" + \"next year\" là dự đoán theo ý kiến cá nhân nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "Excuse me, ___ the report to the finance team when you finish? Thanks!",
+   "choices": [
+    "will you send",
+    "did you send",
+    "have you sent",
+    "were you sending"
+   ],
+   "answer": "will you send",
+   "accept": [],
+   "explain": "Lời nhờ vả về việc sau này (\"when you finish\", \"Thanks!\") dùng will you + V?"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "future-simple",
+   "prompt": "'The server room key is with the security guard.' 'Oh, I didn't know that. In that case, I ___ him for it.'",
+   "choices": [
+    "will ask",
+    "am going to ask",
+    "asked",
+    "have asked"
+   ],
+   "answer": "will ask",
+   "accept": [],
+   "explain": "\"I didn't know that. In that case\" cho thấy quyết định vừa đưa ra, không phải kế hoạch có sẵn nên dùng will, không dùng going to."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "'Could somebody turn on the projector?' 'Sure, I ___ it on.'",
+   "choices": [
+    "will turn",
+    "am going to turn",
+    "turned",
+    "was turning"
+   ],
+   "answer": "will turn",
+   "accept": [],
+   "explain": "Đáp lại lời nhờ bằng \"Sure\" là quyết định ngay lúc nói nên dùng will, không dùng going to."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "future-simple",
+   "prompt": "I'm not sure, but I don't think the price of the new laptops ___ next quarter.",
+   "choices": [
+    "will drop",
+    "dropped",
+    "has dropped",
+    "was dropping"
+   ],
+   "answer": "will drop",
+   "accept": [],
+   "explain": "\"I don't think\" + \"next quarter\" là dự đoán cá nhân về tương lai nên dùng will."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "tense": "future-simple",
+   "prompt": "By the way, ___ at the conference next month, or will Mai go instead?",
+   "choices": [
+    "will you speak",
+    "did you speak",
+    "have you spoken",
+    "were you speaking"
+   ],
+   "answer": "will you speak",
+   "accept": [],
+   "explain": "\"next month\" và vế \"or will Mai go\" cho thấy câu hỏi về tương lai nên dùng will you + V?"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "After you ___ the form, HR will contact you within two working days.",
+   "choices": [
+    "submit",
+    "will submit",
+    "submitted",
+    "were submitting"
+   ],
+   "answer": "submit",
+   "accept": [],
+   "explain": "Sau after (mệnh đề thời gian) dùng hiện tại đơn, will chỉ dùng ở mệnh đề chính."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "tense": "present-simple",
+   "prompt": "If the shipment ___ late again, we'll look for a new supplier.",
+   "choices": [
+    "arrives",
+    "will arrive",
+    "arrived",
+    "was arriving"
+   ],
+   "answer": "arrives",
+   "accept": [],
+   "explain": "Trong mệnh đề If của câu điều kiện loại 1 dùng hiện tại đơn, không dùng will."
+  }
+ ]
 }

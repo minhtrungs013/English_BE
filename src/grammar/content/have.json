@@ -1,0 +1,741 @@
+{
+ "id": "have",
+ "group": "foundations",
+ "name": "Have (have / has / had)",
+ "vi": "Động từ / trợ động từ “have”",
+ "summary": "\"Have\" vừa là động từ chính (có, sở hữu, ăn/uống, tham gia) vừa là trợ động từ tạo thì hoàn thành (have/has/had + V3). Hai vai trò này có cách phủ định và đặt câu hỏi khác nhau.",
+ "tables": [
+  {
+   "title": "Forms by subject",
+   "columns": [
+    "Subject",
+    "Present",
+    "Past",
+    "Future"
+   ],
+   "rows": [
+    {
+     "label": "I / you / we / they",
+     "cells": [
+      "I / you / we / they",
+      "have",
+      "had",
+      "will have"
+     ]
+    },
+    {
+     "label": "he / she / it",
+     "cells": [
+      "he / she / it",
+      "has",
+      "had",
+      "will have"
+     ]
+    },
+    {
+     "label": "the team / everyone",
+     "cells": [
+      "the team / everyone",
+      "has",
+      "had",
+      "will have"
+     ]
+    }
+   ],
+   "note": "Chỉ ngôi thứ ba số ít ở hiện tại dùng \"has\"; quá khứ luôn là \"had\"."
+  },
+  {
+   "title": "Helping verb: negatives & questions (+ V3)",
+   "columns": [
+    "Form",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "haven't",
+     "cells": [
+      "haven't + V3",
+      "We haven't tested it yet."
+     ]
+    },
+    {
+     "label": "hasn't",
+     "cells": [
+      "hasn't + V3",
+      "She hasn't replied."
+     ]
+    },
+    {
+     "label": "hadn't",
+     "cells": [
+      "hadn't + V3",
+      "I hadn't seen the bug before."
+     ]
+    },
+    {
+     "label": "Have/Has …?",
+     "cells": [
+      "Have/Has + S + V3?",
+      "Has he sent the file?"
+     ]
+    }
+   ],
+   "note": "Khi có V3 phía sau, \"have\" là trợ động từ: thêm \"not\" hoặc đảo lên đầu câu."
+  },
+  {
+   "title": "Main verb (own/possess): negatives & questions",
+   "columns": [
+    "Form",
+    "Example"
+   ],
+   "rows": [
+    {
+     "label": "don't have",
+     "cells": [
+      "don't have",
+      "I don't have a laptop."
+     ]
+    },
+    {
+     "label": "doesn't have",
+     "cells": [
+      "doesn't have",
+      "He doesn't have access."
+     ]
+    },
+    {
+     "label": "didn't have",
+     "cells": [
+      "didn't have",
+      "We didn't have time."
+     ]
+    },
+    {
+     "label": "Do/Does … have?",
+     "cells": [
+      "Do/Does + S + have?",
+      "Does she have a badge?"
+     ]
+    }
+   ],
+   "note": "\"have\" là động từ chính thì cần do/does/did; sau đó luôn là \"have\" (không \"has\")."
+  }
+ ],
+ "uses": [
+  {
+   "title": "Sở hữu, có",
+   "explain": "\"Have/has\" là động từ chính nghĩa là có, sở hữu (đồ vật, kinh nghiệm, quyền truy cập).",
+   "examples": [
+    {
+     "en": "I have two monitors at work.",
+     "vi": "Tôi có hai màn hình ở chỗ làm."
+    },
+    {
+     "en": "Our company has 300 employees.",
+     "vi": "Công ty chúng tôi có 300 nhân viên."
+    }
+   ]
+  },
+  {
+   "title": "Have/has + V3: hiện tại hoàn thành",
+   "explain": "Dùng làm trợ động từ để nói việc đã xong và còn liên quan đến hiện tại.",
+   "examples": [
+    {
+     "en": "I have finished the code review.",
+     "vi": "Tôi đã xem xong code."
+    },
+    {
+     "en": "She has just sent the invoice.",
+     "vi": "Cô ấy vừa gửi hoá đơn."
+    }
+   ]
+  },
+  {
+   "title": "Had + V3: quá khứ hoàn thành",
+   "explain": "Việc xảy ra trước một thời điểm hoặc sự việc khác trong quá khứ.",
+   "examples": [
+    {
+     "en": "The meeting had started when I arrived.",
+     "vi": "Cuộc họp đã bắt đầu khi tôi đến."
+    },
+    {
+     "en": "We had never used Docker before that project.",
+     "vi": "Trước dự án đó chúng tôi chưa từng dùng Docker."
+    }
+   ]
+  },
+  {
+   "title": "Have to: phải (nghĩa vụ)",
+   "explain": "\"have to / has to / had to\" + nguyên mẫu diễn tả việc bắt buộc; phủ định \"don't have to\" nghĩa là không cần.",
+   "examples": [
+    {
+     "en": "Everyone has to wear a badge.",
+     "vi": "Mọi người phải đeo thẻ."
+    },
+    {
+     "en": "You don't have to come in on Saturday.",
+     "vi": "Bạn không cần đến công ty vào thứ Bảy."
+    },
+    {
+     "en": "I had to restart the server twice.",
+     "vi": "Tôi đã phải khởi động lại máy chủ hai lần."
+    }
+   ]
+  },
+  {
+   "title": "Cụm từ thông dụng",
+   "explain": "\"have\" + danh từ chỉ hoạt động: have a meeting, have lunch, have a look, have a break. Nghĩa này có thể dùng thì tiếp diễn.",
+   "examples": [
+    {
+     "en": "We have a meeting at 10.",
+     "vi": "Chúng tôi có cuộc họp lúc 10 giờ."
+    },
+    {
+     "en": "Let's have a look at the logs.",
+     "vi": "Hãy xem log một chút."
+    },
+    {
+     "en": "She is having lunch with a client.",
+     "vi": "Cô ấy đang ăn trưa với khách hàng."
+    }
+   ]
+  }
+ ],
+ "mistakes": [
+  {
+   "wrong": "She have finished the report.",
+   "right": "She has finished the report.",
+   "explain": "Ngôi thứ ba số ít dùng \"has\"."
+  },
+  {
+   "wrong": "He doesn't has a laptop.",
+   "right": "He doesn't have a laptop.",
+   "explain": "Sau \"doesn't\" động từ luôn ở nguyên mẫu \"have\"."
+  },
+  {
+   "wrong": "I haven't a laptop.",
+   "right": "I don't have a laptop.",
+   "explain": "\"have\" chỉ sở hữu là động từ chính → phủ định bằng \"don't have\"."
+  },
+  {
+   "wrong": "Have you a pen?",
+   "right": "Do you have a pen?",
+   "explain": "Câu hỏi về sở hữu dùng \"Do/Does ... have?\"."
+  },
+  {
+   "wrong": "We have meeting at 3.",
+   "right": "We have a meeting at 3.",
+   "explain": "\"meeting\" là danh từ đếm được số ít, cần mạo từ \"a\"."
+  },
+  {
+   "wrong": "Does she has a badge?",
+   "right": "Does she have a badge?",
+   "explain": "\"Does\" đã chia ngôi, động từ chính giữ nguyên \"have\"."
+  }
+ ],
+ "drills": [
+  {
+   "kind": "tense",
+   "level": "easy",
+   "topic": "Has · present",
+   "prompt": "The team ___ (have) a stand-up meeting every morning.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"The team\" là ngôi thứ ba số ít nên dùng \"has\"."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "topic": "Have · present",
+   "prompt": "At the moment I ___ (have) two monitors on my desk.",
+   "choices": [],
+   "answer": "have",
+   "accept": [],
+   "explain": "Chủ ngữ \"I\" dùng \"have\" ở hiện tại."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "topic": "Has · present",
+   "prompt": "Our office now ___ (have) a small kitchen on the third floor.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"Our office\" là số ít, \"now\" chỉ hiện tại → \"has\"."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "topic": "Had · past",
+   "prompt": "We ___ (have) a client meeting yesterday afternoon.",
+   "choices": [],
+   "answer": "had",
+   "accept": [],
+   "explain": "\"yesterday\" chỉ quá khứ → \"had\" cho mọi chủ ngữ."
+  },
+  {
+   "kind": "tense",
+   "level": "easy",
+   "topic": "Has · perfect",
+   "prompt": "She ___ (have) just finished the monthly report, so you can review it now.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "Hiện tại hoàn thành với \"she\": has + V3."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Will have",
+   "prompt": "Don't worry — you ___ (have) your new laptop by Friday.",
+   "choices": [],
+   "answer": "will have",
+   "accept": [
+    "'ll have"
+   ],
+   "explain": "Nói về tương lai (by Friday) → \"will have\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Don't have",
+   "prompt": "I ___ (not have) access to the production server, so I can't check the logs.",
+   "choices": [],
+   "answer": "don't have",
+   "accept": [
+    "do not have",
+    "haven't got"
+   ],
+   "explain": "\"have\" là động từ chính (sở hữu) nên phủ định bằng \"don't have\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Doesn't have",
+   "prompt": "Tom ___ (not have) a company email address yet, so please send it to his Gmail.",
+   "choices": [],
+   "answer": "doesn't have",
+   "accept": [
+    "does not have",
+    "hasn't got"
+   ],
+   "explain": "Động từ chính \"have\" với \"Tom\" → \"doesn't have\" (không phải \"doesn't has\")."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Didn't have",
+   "prompt": "We ___ (not have) enough time to test everything last sprint.",
+   "choices": [],
+   "answer": "didn't have",
+   "accept": [
+    "did not have"
+   ],
+   "explain": "\"last sprint\" là quá khứ, \"have\" là động từ chính → \"didn't have\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Haven't · perfect",
+   "prompt": "The developers ___ (not have) fixed the login bug yet, so we can't release today.",
+   "choices": [],
+   "answer": "haven't",
+   "accept": [
+    "have not"
+   ],
+   "explain": "Trợ động từ trong hiện tại hoàn thành: haven't + V3."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Hasn't · perfect",
+   "prompt": "My manager ___ (not have) replied to my email yet, so I'm still waiting.",
+   "choices": [],
+   "answer": "hasn't",
+   "accept": [
+    "has not"
+   ],
+   "explain": "\"My manager\" số ít + V3 → \"hasn't\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Had · past perfect",
+   "prompt": "When I joined the call, the meeting ___ (have) already started.",
+   "choices": [],
+   "answer": "had",
+   "accept": [],
+   "explain": "Việc xảy ra trước một mốc quá khứ → had + V3."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "topic": "Has to",
+   "prompt": "Everyone in the department ___ (have) to complete the security training every year, so please book a slot now.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"Everyone\" đi với động từ số ít → \"has to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "topic": "Had to",
+   "prompt": "The company ___ (have) to reduce costs last year, so there were no bonuses.",
+   "choices": [],
+   "answer": "had",
+   "accept": [],
+   "explain": "\"last year\" → quá khứ của \"have to\" là \"had to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "topic": "Has · question",
+   "prompt": "___ (have) the client signed the contract yet? I need to know today.",
+   "choices": [],
+   "answer": "Has",
+   "accept": [
+    "has"
+   ],
+   "explain": "Câu hỏi hiện tại hoàn thành với chủ ngữ số ít: Has + S + V3?"
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "topic": "Has · present",
+   "prompt": "Each of the new laptops ___ (have) 16 GB of RAM, which is enough for our builds.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"Each of ...\" luôn đi với động từ số ít → \"has\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "topic": "Didn't have to",
+   "prompt": "I ___ (not have) to work overtime last week, so I went home early.",
+   "choices": [],
+   "answer": "didn't have",
+   "accept": [
+    "did not have"
+   ],
+   "explain": "\"have to\" phủ định ở quá khứ là \"didn't have to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "hard",
+   "topic": "Has · present",
+   "prompt": "Nobody on the team ___ (have) the admin password right now.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"Nobody\" đi với động từ số ít → \"has\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Doesn't have to",
+   "prompt": "She ___ (not have) to come to the office on Fridays; she works from home.",
+   "choices": [],
+   "answer": "doesn't have",
+   "accept": [
+    "does not have"
+   ],
+   "explain": "Phủ định của \"has to\" là \"doesn't have to\"."
+  },
+  {
+   "kind": "tense",
+   "level": "medium",
+   "topic": "Has · present",
+   "prompt": "The new version ___ (have) more features than the old one, but it is slower.",
+   "choices": [],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"The new version\" số ít, hiện tại → \"has\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Have · main verb",
+   "prompt": "Do you ___ a minute to look at my code?",
+   "choices": [
+    "have",
+    "has",
+    "had"
+   ],
+   "answer": "have",
+   "accept": [],
+   "explain": "Sau \"Do/Does/Did\" luôn dùng động từ nguyên mẫu \"have\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Has · present",
+   "prompt": "My laptop ___ a problem with the battery.",
+   "choices": [
+    "has",
+    "have",
+    "having"
+   ],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"My laptop\" số ít → \"has\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Have lunch",
+   "prompt": "We ___ lunch at 12:30 every day.",
+   "choices": [
+    "have",
+    "has",
+    "are having"
+   ],
+   "answer": "have",
+   "accept": [],
+   "explain": "Thói quen hằng ngày, chủ ngữ \"we\" → \"have\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Had · past",
+   "prompt": "I ___ a terrible headache yesterday, so I left early.",
+   "choices": [
+    "had",
+    "have",
+    "has"
+   ],
+   "answer": "had",
+   "accept": [],
+   "explain": "\"yesterday\" → quá khứ \"had\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Has · question",
+   "prompt": "___ she finished the slides for the presentation?",
+   "choices": [
+    "Has",
+    "Does",
+    "Have"
+   ],
+   "answer": "Has",
+   "accept": [],
+   "explain": "Câu hỏi hiện tại hoàn thành với \"she\": Has she + V3?"
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Have a look",
+   "prompt": "Can I ___ a look at your screen?",
+   "choices": [
+    "have",
+    "has",
+    "having"
+   ],
+   "answer": "have",
+   "accept": [],
+   "explain": "Sau \"can\" dùng nguyên mẫu: \"have a look\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "topic": "Don't have",
+   "prompt": "I ___ a company car, so I take the bus to client sites.",
+   "choices": [
+    "don't have",
+    "haven't",
+    "hasn't"
+   ],
+   "answer": "don't have",
+   "accept": [],
+   "explain": "\"have\" chỉ sở hữu nên phủ định là \"don't have\", không dùng \"haven't\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "topic": "Do you have",
+   "prompt": "___ you have any questions about the new process?",
+   "choices": [
+    "Do",
+    "Have",
+    "Are"
+   ],
+   "answer": "Do",
+   "accept": [],
+   "explain": "Câu hỏi với \"have\" (động từ chính) dùng trợ động từ \"Do\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "topic": "Does … have",
+   "prompt": "___ the project have a fixed deadline?",
+   "choices": [
+    "Does",
+    "Has",
+    "Do",
+    "Is"
+   ],
+   "answer": "Does",
+   "accept": [],
+   "explain": "\"the project\" số ít + động từ chính \"have\" → \"Does ... have?\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "topic": "Has · present",
+   "prompt": "She ___ two years of experience in Java.",
+   "choices": [
+    "has",
+    "have",
+    "is having"
+   ],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"have\" chỉ sở hữu/kinh nghiệm không dùng thì tiếp diễn; \"she\" → \"has\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "topic": "Will have",
+   "prompt": "We ___ a meeting with the client at 3 p.m. tomorrow.",
+   "choices": [
+    "will have",
+    "have had",
+    "had",
+    "has"
+   ],
+   "answer": "will have",
+   "accept": [],
+   "explain": "\"tomorrow\" chỉ tương lai → \"will have\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "medium",
+   "topic": "Have · perfect",
+   "prompt": "I ___ never used this tool before, so please help me.",
+   "choices": [
+    "have",
+    "has",
+    "am"
+   ],
+   "answer": "have",
+   "accept": [],
+   "explain": "Hiện tại hoàn thành với \"I\": have + V3."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Doesn't have",
+   "prompt": "He ___ a new monitor yet.",
+   "choices": [
+    "doesn't have",
+    "hasn't",
+    "don't have",
+    "haven't"
+   ],
+   "answer": "doesn't have",
+   "accept": [],
+   "explain": "Ở đây \"have\" là động từ chính (sở hữu) → \"doesn't have\", dù có \"yet\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Hasn't · perfect",
+   "prompt": "The new hire ___ received her badge yet, so she can't enter the building.",
+   "choices": [
+    "doesn't have",
+    "hasn't",
+    "don't have"
+   ],
+   "answer": "hasn't",
+   "accept": [],
+   "explain": "Có V3 \"received\" nên \"have\" là trợ động từ → \"hasn't\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Has to",
+   "prompt": "Everyone ___ to wear an ID badge in the building.",
+   "choices": [
+    "have",
+    "has",
+    "having"
+   ],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"Everyone\" là số ít → \"has to\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Has · present",
+   "prompt": "The company ___ an office in Da Nang and another in Hanoi.",
+   "choices": [
+    "has",
+    "have",
+    "is having"
+   ],
+   "answer": "has",
+   "accept": [],
+   "explain": "\"The company\" số ít, nghĩa sở hữu → \"has\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Has · question",
+   "prompt": "___ the server crashed again? The website is down.",
+   "choices": [
+    "Has",
+    "Does",
+    "Is"
+   ],
+   "answer": "Has",
+   "accept": [],
+   "explain": "\"crashed\" là V3 nên dùng trợ động từ \"Has\"."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Had · past perfect",
+   "prompt": "Before the update, the app ___ never crashed.",
+   "choices": [
+    "had",
+    "has",
+    "have"
+   ],
+   "answer": "had",
+   "accept": [],
+   "explain": "Trước một mốc quá khứ (the update) → had + V3."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "hard",
+   "topic": "Don't have to",
+   "prompt": "You ___ to submit the report today — tomorrow is fine.",
+   "choices": [
+    "don't have",
+    "haven't",
+    "hasn't"
+   ],
+   "answer": "don't have",
+   "accept": [],
+   "explain": "Phủ định của \"have to\" là \"don't have to\" (không cần)."
+  },
+  {
+   "kind": "tenseChoice",
+   "level": "easy",
+   "topic": "Have a break",
+   "prompt": "Let's ___ a short break before the next session.",
+   "choices": [
+    "have",
+    "has",
+    "having"
+   ],
+   "answer": "have",
+   "accept": [],
+   "explain": "Sau \"Let's\" dùng nguyên mẫu: \"have a break\"."
+  }
+ ]
+}
