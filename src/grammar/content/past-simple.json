@@ -25,6 +25,18 @@
     "affirmative": "worked / went",
     "negative": "didn't work / didn't go",
     "question": "Did she work? / Did they go?"
+   },
+   {
+    "subject": "be · I / he / she / it",
+    "affirmative": "was",
+    "negative": "wasn't",
+    "question": "Was she at the meeting?"
+   },
+   {
+    "subject": "be · you / we / they",
+    "affirmative": "were",
+    "negative": "weren't",
+    "question": "Were they late?"
    }
   ],
   "foundation": "do"
@@ -85,6 +97,20 @@
      "vi": "Nhà cung cấp đã giao máy tính xách tay cách đây bao lâu?"
     }
    ]
+  },
+  {
+   "title": "Động từ be ở quá khứ: was / were",
+   "explain": "I / he / she / it dùng was, you / we / they dùng were. Phủ định là wasn't / weren't; câu hỏi đưa was / were lên trước chủ ngữ, không dùng did.",
+   "examples": [
+    {
+     "en": "The server was down for two hours last night.",
+     "vi": "Máy chủ đã ngừng hoạt động hai tiếng vào tối qua."
+    },
+    {
+     "en": "Were you at the client meeting yesterday?",
+     "vi": "Hôm qua bạn có ở cuộc họp với khách hàng không?"
+    }
+   ]
   }
  ],
  "signals": [
@@ -121,6 +147,16 @@
    "wrong": "Yesterday I check the logs and find the bug.",
    "right": "Yesterday I checked the logs and found the bug.",
    "explain": "Tiếng Việt không chia động từ theo thời gian nên người học hay quên đổi động từ sang dạng quá khứ khi đã có \"yesterday\"."
+  },
+  {
+   "wrong": "I didn't was at the office yesterday.",
+   "right": "I wasn't at the office yesterday.",
+   "explain": "Với be ở quá khứ, phủ định dùng wasn't / weren't, không dùng didn't."
+  },
+  {
+   "wrong": "They was late for the demo.",
+   "right": "They were late for the demo.",
+   "explain": "Chủ ngữ số nhiều (they) đi với were."
   }
  ],
  "compare": {
@@ -659,6 +695,83 @@
    "answer": "worked",
    "accept": [],
    "explain": "\"From 2018 to 2022\" là khoảng thời gian đã chấm dứt nên dùng quá khứ đơn."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "The internet connection ___ (be) very slow yesterday afternoon.",
+   "choices": [],
+   "answer": "was",
+   "accept": [],
+   "explain": "Quá khứ (yesterday afternoon), chủ ngữ số ít → was."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "The developers ___ (be) at a training workshop all day last Friday.",
+   "choices": [],
+   "answer": "were",
+   "accept": [],
+   "explain": "Quá khứ (last Friday), chủ ngữ số nhiều → were."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "Sorry, I ___ (not / be) at my desk when you called, so I didn't see your message.",
+   "choices": [],
+   "answer": "wasn't",
+   "accept": [
+    "was not"
+   ],
+   "explain": "Phủ định của be ở quá khứ với I → wasn't (không dùng didn't)."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "___ the client happy with the demo last week?",
+   "choices": [
+    "Was",
+    "Did",
+    "Were",
+    "Is"
+   ],
+   "answer": "Was",
+   "accept": [],
+   "explain": "Câu hỏi với be ở quá khứ, chủ ngữ số ít (the client) → Was; không dùng did."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "The last two releases ___ on time, so the team got a bonus.",
+   "choices": [
+    "were",
+    "was",
+    "did",
+    "are"
+   ],
+   "answer": "were",
+   "accept": [],
+   "explain": "Chủ ngữ số nhiều (the last two releases), việc đã qua (got) → were."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "Why ___ you late for the stand-up this morning?",
+   "choices": [
+    "were",
+    "did",
+    "was",
+    "are"
+   ],
+   "answer": "were",
+   "accept": [],
+   "explain": "Câu hỏi với be ở quá khứ (this morning đã qua), chủ ngữ you → were."
   }
  ]
 }

@@ -31,6 +31,24 @@
     "affirmative": "works",
     "negative": "doesn't work",
     "question": "Does she work?"
+   },
+   {
+    "subject": "be · I",
+    "affirmative": "am",
+    "negative": "am not",
+    "question": "Am I late?"
+   },
+   {
+    "subject": "be · he / she / it",
+    "affirmative": "is",
+    "negative": "isn't",
+    "question": "Is she in the office?"
+   },
+   {
+    "subject": "be · you / we / they",
+    "affirmative": "are",
+    "negative": "aren't",
+    "question": "Are they ready?"
    }
   ],
   "foundation": "do"
@@ -91,6 +109,20 @@
      "vi": "Khách hàng muốn có báo giá cuối cùng trước thứ Sáu."
     }
    ]
+  },
+  {
+   "title": "Động từ be ở hiện tại: am / is / are",
+   "explain": "Khi động từ chính là be (là, thì, ở), không dùng do/does: phủ định thêm not sau am/is/are, câu hỏi đưa am/is/are lên trước chủ ngữ.",
+   "examples": [
+    {
+     "en": "The new server is in the Singapore data center.",
+     "vi": "Máy chủ mới nằm ở trung tâm dữ liệu Singapore."
+    },
+    {
+     "en": "Are you free for a quick call at 3 p.m.?",
+     "vi": "Bạn có rảnh cho một cuộc gọi nhanh lúc 3 giờ chiều không?"
+    }
+   ]
   }
  ],
  "signals": [
@@ -127,6 +159,11 @@
    "wrong": "Where you work?",
    "right": "Where do you work?",
    "explain": "Câu hỏi ở hiện tại đơn cần trợ động từ do/does đứng trước chủ ngữ, không chỉ đổi ngữ điệu như tiếng Việt."
+  },
+  {
+   "wrong": "She doesn't be at the office on Fridays.",
+   "right": "She isn't at the office on Fridays.",
+   "explain": "Với động từ be, phủ định dùng am not / isn't / aren't, không dùng don't / doesn't."
   }
  ],
  "compare": {
@@ -663,6 +700,87 @@
    "answer": "sends",
    "accept": [],
    "explain": "Câu điều kiện loại 0 nói về quy trình luôn đúng (“always”) → mệnh đề if dùng hiện tại đơn, chủ ngữ số ít thêm -s."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "Our office ___ (be) on the fifth floor of this building.",
+   "choices": [],
+   "answer": "is",
+   "accept": [
+    "'s"
+   ],
+   "explain": "Sự thật ở hiện tại, chủ ngữ số ít (our office) → is."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "tense",
+   "level": "easy",
+   "prompt": "I ___ (be) responsible for the payment module in our team.",
+   "choices": [],
+   "answer": "am",
+   "accept": [
+    "'m"
+   ],
+   "explain": "Chủ ngữ I đi với am."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "tense",
+   "level": "medium",
+   "prompt": "The meeting rooms ___ (not / be) available on Friday afternoons because of cleaning.",
+   "choices": [],
+   "answer": "aren't",
+   "accept": [
+    "are not"
+   ],
+   "explain": "Phủ định của be ở hiện tại, chủ ngữ số nhiều → aren't (không dùng don't)."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "tenseChoice",
+   "level": "medium",
+   "prompt": "___ your manager usually in the office on Mondays?",
+   "choices": [
+    "Is",
+    "Does",
+    "Are",
+    "Do"
+   ],
+   "answer": "Is",
+   "accept": [],
+   "explain": "Câu hỏi với be: đưa is lên trước chủ ngữ số ít; không dùng does vì không có động từ thường."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "Everyone on the support team ___ familiar with the new ticket system.",
+   "choices": [
+    "is",
+    "are",
+    "be",
+    "does"
+   ],
+   "answer": "is",
+   "accept": [],
+   "explain": "Everyone là chủ ngữ số ít → is."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "tenseChoice",
+   "level": "hard",
+   "prompt": "The new laptops ___ much faster than the old ones, so nobody wants to go back.",
+   "choices": [
+    "is",
+    "are",
+    "be",
+    "does"
+   ],
+   "answer": "are",
+   "accept": [],
+   "explain": "Chủ ngữ số nhiều (the new laptops), sự thật ở hiện tại (wants) → are."
   }
  ]
 }
