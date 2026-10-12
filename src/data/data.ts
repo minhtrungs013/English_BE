@@ -1,4 +1,6 @@
 import { Controller, Delete, Get, HttpCode, Injectable, Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { DictationModule } from '../dictation/dictation.module';
+import { DictationService } from '../dictation/dictation.service';
 import { GrammarModule } from '../grammar/grammar.module';
 import { GrammarService } from '../grammar/grammar.service';
 import { NotificationsModule } from '../notifications/notifications.module';
@@ -36,7 +38,8 @@ export class DataService implements OnApplicationBootstrap {
     private readonly library: LibraryService,
     private readonly courses: CoursesService,
     private readonly notes: NotificationsService,
-    private readonly grammar: GrammarService
+    private readonly grammar: GrammarService,
+    private readonly dictation: DictationService
   ) {}
 
   /**
@@ -80,6 +83,7 @@ export class DataService implements OnApplicationBootstrap {
     await this.courses.deleteForUser(user);
     await this.notes.deleteForUser(user);
     await this.grammar.deleteForUser(user);
+    await this.dictation.deleteForUser(user);
     await Promise.all([
       this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user }),
       this.profiles.deleteOne({ user }), this.users.deleteOne({ _id: user })
@@ -140,7 +144,7 @@ export class DataController {
 }
 
 @Module({
-  imports: [WordsModule, CategoriesModule, TagsModule, ProfileModule, LibraryModule, CoursesModule, NotificationsModule, GrammarModule, MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
+  imports: [WordsModule, CategoriesModule, TagsModule, ProfileModule, LibraryModule, CoursesModule, NotificationsModule, GrammarModule, DictationModule, MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
   controllers: [DataController],
   providers: [DataService],
   exports: [DataService]

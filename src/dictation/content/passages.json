@@ -1,0 +1,123 @@
+{
+  "id": "passages",
+  "group": "passages",
+  "name": "Short passages",
+  "vi": "Đoạn văn ngắn",
+  "summary": "Tin nhắn thoại, thông báo, bản ghi nhớ và tóm tắt cuộc họp ngắn, mỗi bài 3 đến 5 câu. Luyện nghe và chép từng câu trong một tình huống hoàn chỉnh, giống phần nghe đoạn hội thoại và bài nói ngắn của TOEIC.",
+  "tips": [
+    "Bấm Phát tất cả một lần để nắm ý chính, sau đó chép từng câu một.",
+    "Câu đầu thường cho biết ai đang nói và về việc gì; dùng thông tin đó để đoán tên, số và giờ ở các câu sau.",
+    "Số, giờ và ngày tháng là phần dễ sai nhất; nghe lại chậm những câu có số trước khi kiểm tra."
+  ],
+  "items": [
+    { "kind": "passage", "level": "easy", "title": "Voicemail from a colleague", "sentences": [
+      { "text": "Hi Lan, this is Duc from accounting.", "vi": "Chào Lan, mình là Đức ở phòng kế toán." },
+      { "text": "I'm calling about the invoice you sent yesterday.", "vi": "Mình gọi về hóa đơn bạn gửi hôm qua." },
+      { "text": "Could you call me back when you have time?", "vi": "Khi nào rảnh bạn gọi lại cho mình được không?" },
+      { "text": "My number is 0905 112 334.", "vi": "Số của mình là 0905 112 334." }
+    ] },
+    { "kind": "passage", "level": "easy", "title": "Office closing early", "sentences": [
+      { "text": "Attention, please.", "vi": "Xin mọi người chú ý." },
+      { "text": "The office will close early today at 4 p.m.", "vi": "Hôm nay văn phòng sẽ đóng cửa sớm lúc 4 giờ chiều." },
+      { "text": "Please turn off your computers before you leave.", "vi": "Vui lòng tắt máy tính trước khi ra về." },
+      { "text": "Thank you, and have a nice weekend.", "vi": "Cảm ơn mọi người và chúc cuối tuần vui vẻ." }
+    ] },
+    { "kind": "passage", "level": "easy", "title": "Team lunch order", "sentences": [
+      { "text": "Hi everyone, we are ordering lunch for the team today.", "vi": "Chào mọi người, hôm nay chúng ta đặt cơm trưa cho cả nhóm." },
+      { "text": "You can choose chicken rice or noodle soup.", "vi": "Mọi người có thể chọn cơm gà hoặc phở." },
+      { "text": "Please tell Mai your choice before 11 a.m.", "vi": "Vui lòng báo lựa chọn của bạn cho Mai trước 11 giờ sáng." }
+    ] },
+    { "kind": "passage", "level": "easy", "title": "A new colleague", "sentences": [
+      { "text": "I'd like to introduce our new colleague, Sarah.", "vi": "Tôi xin giới thiệu đồng nghiệp mới của chúng ta, Sarah." },
+      { "text": "She is joining the design team as a junior designer.", "vi": "Cô ấy gia nhập nhóm thiết kế với vị trí nhà thiết kế mới vào nghề." },
+      { "text": "Sarah comes from Australia and speaks a little Vietnamese.", "vi": "Sarah đến từ Úc và nói được một chút tiếng Việt." },
+      { "text": "Please make her feel welcome.", "vi": "Mọi người hãy giúp cô ấy cảm thấy được chào đón nhé." }
+    ] },
+    { "kind": "passage", "level": "easy", "title": "Parking notice", "sentences": [
+      { "text": "From Monday, the parking area will be closed for repairs.", "vi": "Từ thứ Hai, bãi đỗ xe sẽ đóng cửa để sửa chữa." },
+      { "text": "Staff can park at the building across the street.", "vi": "Nhân viên có thể đỗ xe ở tòa nhà bên kia đường." },
+      { "text": "The repairs will take about two weeks.", "vi": "Việc sửa chữa sẽ mất khoảng hai tuần." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Meeting change", "sentences": [
+      { "text": "Hello Mark, this is Thao from Sunrise Logistics.", "vi": "Chào Mark, tôi là Thảo ở công ty Sunrise Logistics." },
+      { "text": "I'm afraid we need to move tomorrow's meeting to Thursday.", "vi": "Tôi e là chúng ta cần dời cuộc họp ngày mai sang thứ Năm." },
+      { "text": "Would 2 p.m. on Thursday work for you?", "vi": "Hai giờ chiều thứ Năm có tiện cho anh không?" },
+      { "text": "Please send me a quick email to confirm.", "vi": "Anh vui lòng gửi tôi một email ngắn để xác nhận nhé." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Flight delay", "sentences": [
+      { "text": "This is an announcement for passengers on flight 245 to Singapore.", "vi": "Đây là thông báo dành cho hành khách trên chuyến bay 245 đi Singapore." },
+      { "text": "The departure has been delayed by 40 minutes because of bad weather.", "vi": "Giờ khởi hành đã bị hoãn 40 phút do thời tiết xấu." },
+      { "text": "The new boarding time is 6:15 p.m.", "vi": "Giờ lên máy bay mới là 6 giờ 15 chiều." },
+      { "text": "We apologize for the inconvenience.", "vi": "Chúng tôi xin lỗi vì sự bất tiện này." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Memo: new printer", "sentences": [
+      { "text": "To all staff: a new printer has been installed on the third floor.", "vi": "Gửi toàn thể nhân viên: một máy in mới đã được lắp ở tầng ba." },
+      { "text": "It can print, scan and copy in color.", "vi": "Máy có thể in, quét và photo màu." },
+      { "text": "To use it, enter your staff number on the screen.", "vi": "Để sử dụng, hãy nhập mã số nhân viên của bạn trên màn hình." },
+      { "text": "If you have any problems, please contact the tech team.", "vi": "Nếu gặp vấn đề, vui lòng liên hệ nhóm kỹ thuật." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Customer service line", "sentences": [
+      { "text": "Thank you for calling Green Home Furniture.", "vi": "Cảm ơn quý khách đã gọi đến Green Home Furniture." },
+      { "text": "Our opening hours are 8 a.m. to 8 p.m., Monday to Saturday.", "vi": "Giờ mở cửa của chúng tôi là từ 8 giờ sáng đến 8 giờ tối, thứ Hai đến thứ Bảy." },
+      { "text": "To check an order, please have your order number ready.", "vi": "Để kiểm tra đơn hàng, quý khách vui lòng chuẩn bị sẵn mã số đơn hàng." },
+      { "text": "One of our staff will be with you shortly.", "vi": "Một nhân viên của chúng tôi sẽ hỗ trợ quý khách trong giây lát." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Marketing meeting summary", "sentences": [
+      { "text": "In today's meeting, we discussed the summer campaign.", "vi": "Trong cuộc họp hôm nay, chúng ta đã thảo luận về chiến dịch mùa hè." },
+      { "text": "The budget was approved at $30,000.", "vi": "Ngân sách được duyệt là 30.000 đô la." },
+      { "text": "Hanh will prepare the social media plan by next Friday.", "vi": "Hạnh sẽ chuẩn bị kế hoạch mạng xã hội trước thứ Sáu tuần sau." },
+      { "text": "We will meet again on June 5th to review progress.", "vi": "Chúng ta sẽ họp lại vào ngày 5 tháng Sáu để xem xét tiến độ." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Safety training reminder", "sentences": [
+      { "text": "This is a reminder about tomorrow's safety training.", "vi": "Đây là lời nhắc về buổi đào tạo an toàn ngày mai." },
+      { "text": "It starts at 9 a.m. in the main hall and lasts three hours.", "vi": "Buổi đào tạo bắt đầu lúc 9 giờ sáng ở hội trường chính và kéo dài ba tiếng." },
+      { "text": "Please bring your notebook and staff card.", "vi": "Vui lòng mang theo sổ ghi chép và thẻ nhân viên." },
+      { "text": "Lunch will be provided after the session.", "vi": "Bữa trưa sẽ được cung cấp sau buổi học." }
+    ] },
+    { "kind": "passage", "level": "hard", "title": "Message from a supplier", "sentences": [
+      { "text": "Good morning, this is Rachel Evans from Pacific Paper Supplies.", "vi": "Chào buổi sáng, tôi là Rachel Evans ở công ty Pacific Paper Supplies." },
+      { "text": "I'm calling about your order of 500 boxes of printing paper.", "vi": "Tôi gọi về đơn đặt hàng 500 thùng giấy in của quý công ty." },
+      { "text": "Unfortunately, only 300 boxes are available this week, and the rest will arrive on the 18th.", "vi": "Rất tiếc, tuần này chỉ có 300 thùng, số còn lại sẽ về vào ngày 18." },
+      { "text": "Please let me know whether you would like a partial delivery.", "vi": "Vui lòng cho tôi biết quý công ty có muốn nhận giao hàng từng phần không." },
+      { "text": "You can reach me at 024 3936 7788.", "vi": "Quý vị có thể liên lạc với tôi qua số 024 3936 7788." }
+    ] },
+    { "kind": "passage", "level": "hard", "title": "Quarterly results", "sentences": [
+      { "text": "I'm pleased to report that sales rose by 12 percent in the third quarter.", "vi": "Tôi vui mừng thông báo rằng doanh số đã tăng 12 phần trăm trong quý ba." },
+      { "text": "Most of the growth came from our online store, which now accounts for 40 percent of revenue.", "vi": "Phần lớn mức tăng đến từ cửa hàng trực tuyến, hiện chiếm 40 phần trăm doanh thu." },
+      { "text": "However, shipping costs increased, so profits grew more slowly.", "vi": "Tuy nhiên, chi phí vận chuyển tăng nên lợi nhuận tăng chậm hơn." },
+      { "text": "Next quarter, we will focus on reducing delivery times and costs.", "vi": "Quý tới, chúng ta sẽ tập trung giảm thời gian và chi phí giao hàng." }
+    ] },
+    { "kind": "passage", "level": "hard", "title": "Office move", "sentences": [
+      { "text": "As you know, we will be moving to our new office at 68 Ly Thuong Kiet Street next month.", "vi": "Như mọi người đã biết, tháng sau chúng ta sẽ chuyển đến văn phòng mới ở số 68 đường Lý Thường Kiệt." },
+      { "text": "The move will take place over the weekend of October 24th.", "vi": "Việc chuyển văn phòng sẽ diễn ra vào cuối tuần ngày 24 tháng Mười." },
+      { "text": "Please pack your personal items in the boxes provided by Thursday evening.", "vi": "Vui lòng xếp đồ cá nhân vào các thùng được phát trước tối thứ Năm." },
+      { "text": "The tech team will move all computers and phones.", "vi": "Nhóm kỹ thuật sẽ chuyển toàn bộ máy tính và điện thoại." },
+      { "text": "On Monday morning, everything should be ready for you at your new desk.", "vi": "Sáng thứ Hai, mọi thứ sẽ sẵn sàng tại bàn làm việc mới của bạn." }
+    ] },
+    { "kind": "passage", "level": "hard", "title": "Product launch update", "sentences": [
+      { "text": "Here is a short summary of this morning's project meeting.", "vi": "Sau đây là tóm tắt ngắn cuộc họp dự án sáng nay." },
+      { "text": "The product launch has been postponed from March to May because of supplier delays.", "vi": "Buổi ra mắt sản phẩm đã bị hoãn từ tháng Ba sang tháng Năm do nhà cung cấp chậm trễ." },
+      { "text": "Quang's team will contact customers who have already placed orders.", "vi": "Nhóm của Quang sẽ liên hệ với những khách hàng đã đặt hàng." },
+      { "text": "Meanwhile, the marketing team will revise the campaign timeline.", "vi": "Trong khi đó, nhóm tiếp thị sẽ điều chỉnh lại tiến độ chiến dịch." },
+      { "text": "Our next update meeting is on Tuesday at 10 a.m.", "vi": "Cuộc họp cập nhật tiếp theo vào thứ Ba lúc 10 giờ sáng." }
+    ] },
+    { "kind": "passage", "level": "hard", "title": "Hotel booking confirmation", "sentences": [
+      { "text": "Hello, this is Grand River Hotel calling to confirm your reservation.", "vi": "Xin chào, khách sạn Grand River gọi để xác nhận đặt phòng của quý khách." },
+      { "text": "You have booked two rooms for three nights, from April 7th to April 10th.", "vi": "Quý khách đã đặt hai phòng trong ba đêm, từ ngày 7 đến ngày 10 tháng Tư." },
+      { "text": "The total price is $540, including breakfast.", "vi": "Tổng giá là 540 đô la, đã bao gồm bữa sáng." },
+      { "text": "Your booking code is H3-918.", "vi": "Mã đặt phòng của quý khách là H3-918." },
+      { "text": "If you need to make any changes, please call us at least 48 hours before arrival.", "vi": "Nếu cần thay đổi, quý khách vui lòng gọi cho chúng tôi ít nhất 48 tiếng trước khi đến." }
+    ] },
+    { "kind": "passage", "level": "hard", "title": "Working from home policy", "sentences": [
+      { "text": "Starting next month, employees may work from home up to two days a week.", "vi": "Bắt đầu từ tháng sau, nhân viên có thể làm việc tại nhà tối đa hai ngày mỗi tuần." },
+      { "text": "Requests must be approved by your line manager at least one week in advance.", "vi": "Đề nghị phải được quản lý trực tiếp phê duyệt trước ít nhất một tuần." },
+      { "text": "Everyone is expected to be available online during core hours, from 10 a.m. to 3 p.m.", "vi": "Mọi người cần có mặt trực tuyến trong giờ làm việc chính, từ 10 giờ sáng đến 3 giờ chiều." },
+      { "text": "Further details have been sent to your email.", "vi": "Thông tin chi tiết đã được gửi đến email của bạn." }
+    ] },
+    { "kind": "passage", "level": "medium", "title": "Lost wallet", "sentences": [
+      { "text": "May I have your attention, please?", "vi": "Xin quý vị vui lòng chú ý." },
+      { "text": "A black wallet has been found in the cafeteria.", "vi": "Một chiếc ví màu đen đã được tìm thấy ở căng tin." },
+      { "text": "If it belongs to you, please collect it from the reception desk on the ground floor.", "vi": "Nếu đó là ví của bạn, vui lòng đến nhận tại quầy lễ tân ở tầng trệt." }
+    ] }
+  ]
+}

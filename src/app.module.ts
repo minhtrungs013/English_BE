@@ -6,6 +6,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories';
 import { CoursesModule } from './courses/courses.module';
+import { DictationModule } from './dictation/dictation.module';
 import { GrammarModule } from './grammar/grammar.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { DataModule } from './data/data';
@@ -37,6 +38,7 @@ import { WordsModule } from './words/words.module';
     CoursesModule,
     NotificationsModule,
     GrammarModule,
+    DictationModule,
     DataModule
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }]
