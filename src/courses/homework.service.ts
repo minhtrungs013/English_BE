@@ -5,6 +5,7 @@ import { addDays, daysBetween, todayKey } from '../common/day';
 import { LibraryService } from '../library/library.service';
 import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
+import { gradeDictation } from '../dictation/dictation.grade';
 import { TENSE_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
 import { Dialogue, dialogueBlanks } from './dialogue';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -96,6 +97,23 @@ function makeQuestion(w: CourseWord, type: QuestionType, review: boolean, pool: 
   return { type: 'type', word: w.word, review, prompt: meaning || w.meaning, hint: lettersHint(w.word), choices: [], answer: w.word, accept: [] };
 }
 
+/** Example sentences that make good dictation: a sentence, not too long. */
+const dictatable = (w: CourseWord) => {
+  const ex = w.ex.trim();
+  const words = ex.split(/\s+/).length;
+  return ex.length <= 160 && words >= 4 && words <= 18;
+};
+
+function dictationQuestion(w: CourseWord, review: boolean): Question {
+  const n = w.ex.trim().split(/\s+/).length;
+  return { type: 'dictation', word: w.word, review, prompt: '', hint: n + ' words', choices: [], answer: w.ex.trim(), accept: [] };
+}
+
+/** What the learner gets of a question before handing in: dictation sentences are only sent (encoded) for the device to speak. */
+function shown(q: Question) {
+  return { type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices, ...(q.type === 'dictation' ? { audio: Buffer.from(q.answer, 'utf8').toString('base64') } : {}) };
+}
+
 /** A homework question from an approved bank item. */
 function fromBank(b: BankItemDocument, review: boolean): Question {
   return { type: b.kind, word: b.word, review, prompt: b.prompt, hint: '', choices: b.kind === 'tenseChoice' ? shuffle(b.choices) : [], answer: b.answer, accept: b.accept, tense: b.tense, explain: b.explain };
@@ -154,7 +172,8 @@ export class HomeworkService {
   private wordsKey(c: CourseDocument, day: number, bank: BankItemDocument[]): string {
     return c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
       .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|') +
-      '#' + bank.map((b) => String(b._id) + ':' + ((b as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? 0)).join(',');
+      '#' + bank.map((b) => String(b._id) + ':' + ((b as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? 0)).join(',') +
+      '#d' + (c.dictationPerDay ?? 2);
   }
 
   private async bankUpTo(c: CourseDocument, day: number): Promise<BankItemDocument[]> {
@@ -190,6 +209,18 @@ export class HomeworkService {
     for (const w of review) qs.push(makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool));
     // Tense practice from the owner-approved question bank.
     qs.push(...shuffle(bank.filter((b) => b.day === day)).slice(0, TENSE_NEW).map((b) => fromBank(b, false)));
+    // Dictation: example sentences of earlier words not asked as a blank today (a blank's own sentence would give it away).
+    const blanked = new Set(qs.filter((q) => q.type === 'blank').map((q) => q.word.toLowerCase()));
+    const want = Math.min(3, Math.max(0, c.dictationPerDay ?? 2));
+    const picked = shuffle(earlier.filter((w) => dictatable(w) && !blanked.has(w.word.toLowerCase())))
+      .filter((w, i, all) => all.findIndex((x) => x.ex.trim() === w.ex.trim()) === i).slice(0, want);
+    for (const w of picked) qs.push(dictationQuestion(w, true));
+    // Not enough earlier sentences (e.g. day 1): use today's, and ask that word by typing instead of a blank.
+    for (const w of shuffle(today.filter(dictatable)).slice(0, want - picked.length)) {
+      const i = qs.findIndex((q) => q.type === 'blank' && q.word === w.word && !q.review);
+      if (i >= 0) qs[i] = makeQuestion(w, 'type', false, pool);
+      qs.push(dictationQuestion(w, false));
+    }
     const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
     qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true)));
     return shuffle(qs);
@@ -220,7 +251,8 @@ export class HomeworkService {
       review: hw.questions.map((q, i) => ({
         type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices,
         tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '',
-        yourAnswer: s.answers[i] ?? '', answer: q.answer, correct: !!s.results[i]
+        yourAnswer: s.answers[i] ?? '', answer: q.answer, correct: !!s.results[i],
+        ...(q.type === 'dictation' ? { grade: gradeDictation(q.answer, s.answers[i] ?? '') } : {})
       }))
     };
   }
@@ -234,7 +266,7 @@ export class HomeworkService {
     const lateDays = this.lateDays(e, day);
     return {
       day, total: hw.questions.length, lateDays, penalty: penaltyFor(lateDays),
-      questions: hw.questions.map((q) => ({ type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices })),
+      questions: hw.questions.map(shown),
       submission: s.submittedAt ? this.result(hw, s) : null
     };
   }
@@ -246,6 +278,7 @@ export class HomeworkService {
     if (!hw) throw new ConflictException('Open the homework first.');
     if (answers.length !== hw.questions.length) throw new ConflictException('This homework has changed. Reload it and try again.');
     const results = hw.questions.map((q, i) => {
+      if (q.type === 'dictation') return gradeDictation(q.answer, answers[i] ?? '').passed;
       const a = normalizeAnswer(answers[i] ?? '');
       return !!a && [q.answer, ...q.accept].some((x) => normalizeAnswer(x) === a);
     });

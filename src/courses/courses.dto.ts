@@ -15,6 +15,7 @@ export class CreateCourseDto {
   @Transform(trim) @IsString() @IsNotEmpty({ message: 'Please enter a course title.' }) @MaxLength(80) title: string;
   @IsOptional() @IsString() @MaxLength(500) description?: string;
   @IsOptional() @IsInt() @Min(3) @Max(10) wordsPerDay?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(3) dictationPerDay?: number;
   @IsOptional() @IsIn(VISIBILITIES) visibility?: string;
   /** Day 1 for everyone (YYYY-MM-DD); '' or left out = each learner starts when they join. */
   @IsOptional() @IsString() @Matches(/^(\d{4}-\d{2}-\d{2})?$/, { message: 'Start date must look like 2026-10-06.' }) startDate?: string;
@@ -59,7 +60,7 @@ export class CoursesQuery {
 
 export class SubmitHomeworkDto {
   /** One answer per question, in order ('' for a question left blank). */
-  @IsArray() @ArrayMaxSize(60) @IsString({ each: true }) @MaxLength(200, { each: true }) answers: string[];
+  @IsArray() @ArrayMaxSize(60) @IsString({ each: true }) @MaxLength(400, { each: true }) answers: string[];
 }
 
 export class LearnDayDto {

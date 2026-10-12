@@ -63,7 +63,7 @@ export class CoursesService {
     const isOwner = c.ownerId === user;
     return {
       id: String(c._id), title: c.title, description: c.description, ownerId: c.ownerId, ownerName: c.ownerName, isOwner,
-      visibility: c.visibility, wordsPerDay: c.wordsPerDay, totalDays: c.totalDays, tag: c.tag, startDate: c.startDate ?? '',
+      visibility: c.visibility, wordsPerDay: c.wordsPerDay, dictationPerDay: c.dictationPerDay ?? 2, totalDays: c.totalDays, tag: c.tag, startDate: c.startDate ?? '',
       readyDays: c.days.filter((d) => d.words.length > 0).length, members,
       ...(isOwner ? { joinCode: c.joinCode } : {}),
       enrollment: this.enrollmentView(e, c)
@@ -145,7 +145,7 @@ export class CoursesService {
     const slug = normalizeTag(dto.title).replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 30);
     const c = await this.courses.create({
       ownerId: user, ownerName: u?.name ?? '', title: dto.title, description: dto.description?.trim() ?? '',
-      wordsPerDay: dto.wordsPerDay ?? 5, totalDays: TOTAL_DAYS, visibility: dto.visibility ?? 'private', startDate: this.checkDate(dto.startDate),
+      wordsPerDay: dto.wordsPerDay ?? 5, dictationPerDay: dto.dictationPerDay ?? 2, totalDays: TOTAL_DAYS, visibility: dto.visibility ?? 'private', startDate: this.checkDate(dto.startDate),
       joinCode: await this.newCode(), tag: 'course-' + (slug || 'words'), days: []
     });
     return this.detail(c, user, 0, null);
@@ -176,6 +176,7 @@ export class CoursesService {
     if (dto.title !== undefined) c.title = dto.title;
     if (dto.description !== undefined) c.description = dto.description.trim();
     if (dto.visibility !== undefined) c.visibility = dto.visibility;
+    if (dto.dictationPerDay !== undefined) c.dictationPerDay = dto.dictationPerDay;
     if (dto.wordsPerDay !== undefined) {
       const most = Math.max(0, ...c.days.map((d) => d.words.length));
       if (dto.wordsPerDay < most) throw new BadRequestException('Some days already have ' + most + ' words. Remove words first, or choose at least ' + most + '.');

@@ -43,6 +43,8 @@ export class Course {
   /** How many new words each day has (set by the course owner). */
   @Prop({ default: 5 }) wordsPerDay: number;
   @Prop({ default: TOTAL_DAYS }) totalDays: number;
+  /** Dictation questions (hear a sentence, type it) in each day's homework, 0–3 (set by the course owner). */
+  @Prop({ default: 2 }) dictationPerDay: number;
   /**
    * Day 1 for everyone (YYYY-MM-DD, app time zone). '' = self-paced: each learner's day 1 is the day they join.
    */
