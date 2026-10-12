@@ -63,10 +63,10 @@ export class LibraryService implements OnApplicationBootstrap {
     else if (q.source === 'community') filter.authorId = { $ne: '' };
     else if (q.source === 'builtin') filter.authorId = '';
     // Topic counts ignore the topic filter so the chips can show how many words each topic has.
+    const term = q.q?.trim().toLowerCase() ?? '';
     const [items, total, counts] = await Promise.all([
-      this.lib.find(q.topic ? { ...filter, topic: q.topic } : filter)
-        .sort(q.q?.trim() ? { wordLower: 1 } : { sharedAt: -1, wordLower: 1 })
-        .skip((page - 1) * limit).limit(limit),
+      term ? this.ranked(q.topic ? { ...filter, topic: q.topic } : filter, term, (page - 1) * limit, limit)
+        : this.lib.find(q.topic ? { ...filter, topic: q.topic } : filter).sort({ sharedAt: -1, wordLower: 1 }).skip((page - 1) * limit).limit(limit),
       this.lib.countDocuments(q.topic ? { ...filter, topic: q.topic } : filter),
       this.lib.aggregate<{ _id: string; n: number }>([{ $match: filter }, { $group: { _id: '$topic', n: { $sum: 1 } } }])
     ]);
@@ -74,6 +74,38 @@ export class LibraryService implements OnApplicationBootstrap {
     let all = 0;
     for (const c of counts) { topics[c._id as Topic] = c.n; all += c.n; }
     return { items: items.map((d) => d.toJSON()), total, page, limit, topics, all };
+  }
+
+  /**
+   * Search results, best matches first: the word itself, then words starting with the search, then words containing it,
+   * then words that only match in their meaning (A–Z within each group).
+   */
+  private async ranked(filter: QueryFilter<LibraryWord>, term: string, skip: number, limit: number): Promise<LibraryWordDocument[]> {
+    const rows = await this.lib.aggregate<{ _id: unknown }>([
+      { $match: filter },
+      {
+        $addFields: {
+          _rank: {
+            $switch: {
+              branches: [
+                { case: { $eq: ['$wordLower', term] }, then: 0 },
+                { case: { $eq: [{ $indexOfCP: ['$wordLower', term] }, 0] }, then: 1 },
+                { case: { $gt: [{ $indexOfCP: ['$wordLower', term] }, 0] }, then: 2 }
+              ],
+              default: 3
+            }
+          }
+        }
+      },
+      { $sort: { _rank: 1, wordLower: 1 } },
+      { $skip: skip },
+      { $limit: limit },
+      { $project: { _id: 1 } }
+    ]);
+    const ids = rows.map((r) => String(r._id));
+    const docs = await this.lib.find({ _id: { $in: ids } });
+    const byId = new Map(docs.map((d) => [String(d._id), d]));
+    return ids.map((id) => byId.get(id)).filter((d): d is LibraryWordDocument => !!d);
   }
 
   async findOne(id: string): Promise<LibraryWordDocument> {
