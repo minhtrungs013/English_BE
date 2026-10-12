@@ -975,6 +975,94 @@
    "answer": "has already fixed",
    "accept": [],
    "explain": "Already đứng giữa has và V3, chủ ngữ số ít dùng has; yet không dùng trong câu khẳng định."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Mr. Tuan has went home, so please call him tomorrow.",
+   "wrong": "has went",
+   "answer": "has gone",
+   "choices": [],
+   "accept": [],
+   "explain": "Went là V2; hiện tại hoàn thành cần V3: has gone."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Ms. Ha has work in the accounting team since 2019.",
+   "wrong": "work",
+   "answer": "worked",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau has phải dùng V3/V-ed: has worked."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Have you finish the monthly report yet?",
+   "wrong": "finish",
+   "answer": "finished",
+   "choices": [],
+   "accept": [],
+   "explain": "Câu hỏi hiện tại hoàn thành: Have + S + V3 → finished."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "We have known our main client since three years.",
+   "wrong": "since",
+   "answer": "for",
+   "choices": [],
+   "accept": [],
+   "explain": "Khoảng thời gian (three years) đi với for; since đi với mốc thời gian."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "I have sent the invoice to the customer yesterday.",
+   "wrong": "have sent",
+   "answer": "sent",
+   "choices": [],
+   "accept": [],
+   "explain": "Có yesterday (thời điểm xác định trong quá khứ) → dùng quá khứ đơn sent."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Our department have hired five new engineers this quarter.",
+   "wrong": "have",
+   "answer": "has",
+   "choices": [],
+   "accept": [],
+   "explain": "Our department là chủ ngữ số ít → dùng has."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Duc has already wrote the release notes, so you can review them now.",
+   "wrong": "wrote",
+   "answer": "written",
+   "choices": [],
+   "accept": [],
+   "explain": "Wrote là V2; sau has cần V3 written."
+  },
+  {
+   "tense": "present-perfect",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "How long time have you worked for this company?",
+   "wrong": "How long time",
+   "answer": "How long",
+   "choices": [],
+   "accept": [],
+   "explain": "Hỏi khoảng thời gian chỉ dùng How long, không thêm time."
   }
  ],
  "tables": [

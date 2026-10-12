@@ -981,6 +981,94 @@
    "answer": "was always making",
    "accept": [],
    "explain": "Than phiền về thói quen gây khó chịu trong quá khứ: was always + V-ing."
+  },
+  {
+   "tense": "past-continuous",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "At 9 a.m. yesterday, I was prepare the slides for the client meeting.",
+   "wrong": "prepare",
+   "answer": "preparing",
+   "choices": [],
+   "accept": [],
+   "explain": "Quá khứ tiếp diễn cần was/were + V-ing → was preparing."
+  },
+  {
+   "tense": "past-continuous",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "The engineers was testing the new server when the power went off.",
+   "wrong": "was",
+   "answer": "were",
+   "choices": [],
+   "accept": [],
+   "explain": "The engineers là chủ ngữ số nhiều → dùng were."
+  },
+  {
+   "tense": "past-continuous",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Were you work late last night when I called you?",
+   "wrong": "work",
+   "answer": "working",
+   "choices": [],
+   "accept": [],
+   "explain": "Câu hỏi quá khứ tiếp diễn: Were + S + V-ing → working."
+  },
+  {
+   "tense": "past-continuous",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "While I writing the report, my laptop suddenly crashed.",
+   "wrong": "writing",
+   "answer": "was writing",
+   "choices": [],
+   "accept": [],
+   "explain": "Hành động đang diễn ra cần was + V-ing; thiếu was trước writing."
+  },
+  {
+   "tense": "past-continuous",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Hoa was siting at her desk when the fire alarm rang.",
+   "wrong": "siting",
+   "answer": "sitting",
+   "choices": [],
+   "accept": [],
+   "explain": "Sit có một nguyên âm + một phụ âm cuối → gấp đôi t: sitting."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "When I joined the company, I was knowing only two people in the team.",
+   "wrong": "was knowing",
+   "answer": "knew",
+   "choices": [],
+   "accept": [],
+   "explain": "Know là động từ trạng thái, không dùng tiếp diễn → quá khứ đơn knew."
+  },
+  {
+   "tense": "past-continuous",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "What did you doing at 3 p.m. yesterday when the system went down?",
+   "wrong": "did",
+   "answer": "were",
+   "choices": [],
+   "accept": [],
+   "explain": "Hỏi việc đang làm tại một thời điểm quá khứ: What were you doing."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "I was cutting my finger while I was opening the box of new monitors.",
+   "wrong": "was cutting",
+   "answer": "cut",
+   "choices": [],
+   "accept": [],
+   "explain": "Hành động ngắn xen vào hành động đang diễn ra → dùng quá khứ đơn cut."
   }
  ],
  "tables": [

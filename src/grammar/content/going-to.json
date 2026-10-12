@@ -907,6 +907,96 @@
    "answer": "are going to",
    "accept": [],
    "explain": "\"gonna\" chỉ dùng khi nói thân mật; trong email viết đầy đủ \"are going to\"."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "I'm going to busy next week because of the audit.",
+   "wrong": "going to busy",
+   "answer": "going to be busy",
+   "choices": [],
+   "accept": [],
+   "explain": "Trước tính từ (busy) phải có be: going to be busy."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "We going to launch the new app in March.",
+   "wrong": "We going",
+   "answer": "We're going",
+   "choices": [],
+   "accept": [
+    "We are going"
+   ],
+   "explain": "Thiếu be: chủ ngữ we cần are trước going to."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "They are going to not hire anyone this quarter.",
+   "wrong": "going to not",
+   "answer": "not going to",
+   "choices": [],
+   "accept": [],
+   "explain": "Not đứng ngay sau be, trước going to: are not going to."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Dear Ms. Lan, we are gonna send the contract by Friday.",
+   "wrong": "gonna",
+   "answer": "going to",
+   "choices": [],
+   "accept": [],
+   "explain": "Trong email công việc không viết \"gonna\", phải viết đầy đủ going to."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Look at those dark clouds — it is going to raining soon.",
+   "wrong": "going to raining",
+   "answer": "going to rain",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau going to dùng động từ nguyên mẫu, không thêm -ing."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Is she going to presents the results at the meeting?",
+   "wrong": "presents",
+   "answer": "present",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau going to động từ ở dạng nguyên mẫu, không thêm -s."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "When the new manager is going to start, we'll give her a tour.",
+   "wrong": "is going to start",
+   "answer": "starts",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau when nói về tương lai dùng hiện tại đơn, không dùng going to."
+  },
+  {
+   "tense": "going-to",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "What time you are going to leave the office today?",
+   "wrong": "you are",
+   "answer": "are you",
+   "choices": [],
+   "accept": [],
+   "explain": "Câu hỏi phải đảo be lên trước chủ ngữ: What time are you going to…?"
   }
  ],
  "tables": [

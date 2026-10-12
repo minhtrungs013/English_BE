@@ -10,6 +10,7 @@ import DO from './content/do.json';
 import FUTURE_SIMPLE from './content/future-simple.json';
 import GOING_TO from './content/going-to.json';
 import HAVE from './content/have.json';
+import MIXED from './content/mixed.json';
 import PAST_CONTINUOUS from './content/past-continuous.json';
 import PAST_SIMPLE from './content/past-simple.json';
 import PRESENT_CONTINUOUS from './content/present-continuous.json';
@@ -24,13 +25,23 @@ export interface Drill {
   tense?: Tense;
   /** Foundations lessons: a short label shown with the result (e.g. "Be · past"). */
   topic?: string;
-  kind: 'tense' | 'tenseChoice';
+  /**
+   * tense: type the verb form for "___ (verb)"; tenseChoice: pick it; identify: name the tense of the verb phrase in
+   * [[double brackets]] (choices and answer are tense ids); fixError: the sentence has one wrong word or phrase
+   * (`wrong`) — find it and type the correction (`answer`); cloze: a short text with several "___ (verb)" blanks (`blanks`).
+   */
+  kind: 'tense' | 'tenseChoice' | 'identify' | 'fixError' | 'cloze';
   level: 'easy' | 'medium' | 'hard';
   prompt: string;
   choices: string[];
   answer: string;
   accept: string[];
   explain: string;
+  /** fixError: the wrong word or phrase, exactly as it appears (once) in the prompt. */
+  wrong?: string;
+  /** cloze: a title for the text and one entry per "___" in order. */
+  title?: string;
+  blanks?: { answer: string; accept: string[]; tense?: Tense; explain: string }[];
 }
 /** A conjugation table; a row's `link` opens another lesson. */
 export interface Table { title: string; columns: string[]; rows: { label: string; cells: string[]; link?: string }[]; note?: string }
@@ -58,7 +69,7 @@ const tense = (l: object) => ({ ...l, group: 'tenses' }) as Lesson;
 /** In the order they're taught: foundations first. */
 export const LESSONS: Lesson[] = [
   BE, DO, HAVE, AGREEMENT, AUX_CHEATSHEET,
-  ...[PRESENT_SIMPLE, PRESENT_CONTINUOUS, PRESENT_PERFECT, PAST_SIMPLE, PAST_CONTINUOUS, FUTURE_SIMPLE, GOING_TO].map(tense)
+  ...[PRESENT_SIMPLE, PRESENT_CONTINUOUS, PRESENT_PERFECT, PAST_SIMPLE, PAST_CONTINUOUS, FUTURE_SIMPLE, GOING_TO, MIXED].map(tense)
 ] as Lesson[];
 
 export const LESSON_BY_ID = new Map(LESSONS.map((l) => [l.id, l]));

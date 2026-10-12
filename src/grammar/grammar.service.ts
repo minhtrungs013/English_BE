@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectModel, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Model } from 'mongoose';
 import { normalizeAnswer } from '../courses/homework.service';
+import { todayKey } from '../common/day';
 import { TENSE_LABEL, type Tense } from '../courses/tense';
 import { Drill, Group, LESSONS, LESSON_BY_ID, Lesson } from './grammar.content';
 
@@ -10,6 +11,46 @@ const MIX_MODES: Record<string, Group | null> = { mix: null, 'mix-tenses': 'tens
 
 /** What a drill's result is called: its topic (Foundations) or the tense of its answer (Tenses). */
 const drillLabel = (l: Lesson, d: Drill) => d.topic ?? (d.tense ? TENSE_LABEL[d.tense] : TENSE_LABEL[l.id as Tense] ?? l.name);
+
+/** One answer to a question: typed/picked text, the word picked (fixError) or one text per blank (cloze). */
+export interface PracticeAnswer { id: string; answer?: string; pick?: number; answers?: string[] }
+
+/** The words of a sentence, as the learner taps them (fixError). */
+const tokensOf = (prompt: string) => prompt.split(/\s+/).filter(Boolean);
+/** Indexes of the words that make up the wrong phrase of a fixError drill. */
+function wrongTokens(d: Drill): number[] {
+  const at = d.prompt.indexOf(d.wrong ?? '\u0000');
+  if (at < 0) return [];
+  const end = at + (d.wrong ?? '').length;
+  const out: number[] = [];
+  let pos = 0;
+  tokensOf(d.prompt).forEach((t, i) => {
+    const start = d.prompt.indexOf(t, pos);
+    pos = start + t.length;
+    if (start < end && pos > at) out.push(i);
+  });
+  return out;
+}
+const sameAs = (given: string, answer: string, accept: string[] = []) => {
+  const g = normalizeAnswer(given ?? '');
+  return !!g && [answer, ...accept].some((x) => normalizeAnswer(x) === g);
+};
+/** The sentence with the [[highlight]] markers of an identify drill removed. */
+const plain = (p: string) => p.replace(/\[\[|\]\]/g, '');
+
+/** Placement test: a fixed set, so results compare across learners and over time. */
+const PLACEMENT_PER_TENSE = ['medium', 'hard'] as const;
+
+/** A learner's placement test results. */
+@Schema({ collection: 'grammar_placement', timestamps: true })
+export class GrammarPlacement {
+  @Prop({ required: true, index: true }) user: string;
+  /** Lesson id → right / asked. */
+  @Prop({ type: Object, default: {} }) scores: Record<string, { correct: number; total: number }>;
+  /** The lessons to start with (weakest first). */
+  @Prop({ type: [String], default: [] }) recommended: string[];
+}
+export const GrammarPlacementSchema = SchemaFactory.createForClass(GrammarPlacement);
 
 /** Mastery looks at this many recent answers per tense. */
 const RECENT = 20;
@@ -60,7 +101,80 @@ function findDrill(id: string): { lesson: Lesson; drill: Drill } | null {
 
 @Injectable()
 export class GrammarService {
-  constructor(@InjectModel(GrammarProgress.name) private readonly progress: Model<GrammarProgress>) {}
+  constructor(
+    @InjectModel(GrammarProgress.name) private readonly progress: Model<GrammarProgress>,
+    @InjectModel(GrammarPlacement.name) private readonly placements: Model<GrammarPlacement>
+  ) {}
+
+  /** What the learner sees of a question (never the answer). */
+  private question(id: string) {
+    const { drill: d } = findDrill(id)!;
+    const base = { id, kind: d.kind, level: d.level };
+    if (d.kind === 'identify') {
+      const opts = shuffle(d.choices);
+      return { ...base, prompt: d.prompt, choices: opts, labels: opts.map((c) => TENSE_LABEL[c as Tense] ?? c) };
+    }
+    if (d.kind === 'fixError') return { ...base, prompt: d.prompt, tokens: tokensOf(d.prompt), choices: [] };
+    if (d.kind === 'cloze') return { ...base, title: d.title ?? '', prompt: d.prompt, blanks: d.blanks?.length ?? 0, choices: [] };
+    return { ...base, prompt: d.prompt, choices: d.kind === 'tenseChoice' ? shuffle(d.choices) : [] };
+  }
+
+  /** Grades one answer; `parts` are the per-answer results that count toward mastery (one per cloze blank). */
+  private grade(a: PracticeAnswer) {
+    const f = findDrill(a.id);
+    if (!f) throw new BadRequestException('Unknown question “' + a.id + '”.');
+    const { lesson, drill: d } = f;
+    // `tense` is the lesson to review for it: the tense of the answer on tense drills, else the lesson itself.
+    const review = d.tense ?? lesson.id;
+    const common = { id: a.id, kind: d.kind, lesson: lesson.id, tense: review, tenseLabel: drillLabel(lesson, d), explain: d.explain };
+    if (d.kind === 'cloze') {
+      const blanks = (d.blanks ?? []).map((b, k) => {
+        const given = a.answers?.[k] ?? '';
+        const t = b.tense;
+        return { yourAnswer: given, answer: b.answer, correct: sameAs(given, b.answer, b.accept), tense: t ?? '', tenseLabel: t ? TENSE_LABEL[t] : '', explain: b.explain };
+      });
+      const right = blanks.filter((b) => b.correct).length;
+      return {
+        result: { ...common, title: d.title ?? '', prompt: d.prompt, yourAnswer: '', answer: '', correct: right === blanks.length, score: { correct: right, total: blanks.length }, blanks },
+        parts: blanks.map((b, k) => ({ id: a.id + '#' + k, ok: b.correct }))
+      };
+    }
+    if (d.kind === 'fixError') {
+      const wrong = wrongTokens(d);
+      const pickRight = typeof a.pick === 'number' && wrong.includes(a.pick);
+      const fixRight = sameAs(a.answer ?? '', d.answer, d.accept);
+      const correct = pickRight && fixRight;
+      return {
+        result: { ...common, prompt: d.prompt, tokens: tokensOf(d.prompt), wrongTokens: wrong, wrong: d.wrong ?? '', pick: a.pick ?? null, pickRight, yourAnswer: a.answer ?? '', answer: d.answer, correct },
+        parts: [{ id: a.id, ok: correct }]
+      };
+    }
+    if (d.kind === 'identify') {
+      const correct = normalizeAnswer(a.answer ?? '') === normalizeAnswer(d.answer);
+      return {
+        result: { ...common, prompt: plain(d.prompt), highlight: d.prompt, yourAnswer: a.answer ?? '', yourLabel: TENSE_LABEL[a.answer as Tense] ?? a.answer ?? '', answer: d.answer, answerLabel: TENSE_LABEL[d.answer as Tense] ?? d.answer, correct },
+        parts: [{ id: a.id, ok: correct }]
+      };
+    }
+    const correct = sameAs(a.answer ?? '', d.answer, d.accept);
+    return { result: { ...common, prompt: d.prompt, yourAnswer: a.answer ?? '', answer: d.answer, correct }, parts: [{ id: a.id, ok: correct }] };
+  }
+
+  /** Adds graded answers to each lesson's recent history; returns the new mastery per lesson. */
+  private async record(user: string, graded: { result: { lesson: string }; parts: { id: string; ok: boolean }[] }[]) {
+    const byLesson = new Map<string, { id: string; ok: boolean }[]>();
+    for (const g of graded) byLesson.set(g.result.lesson, [...(byLesson.get(g.result.lesson) ?? []), ...g.parts]);
+    const masteryNow: Record<string, number> = {};
+    for (const [lesson, rs] of byLesson) {
+      const p = await this.progress.findOneAndUpdate(
+        { user, tense: lesson },
+        { $push: { recent: { $each: rs, $slice: -RECENT } }, $inc: { attempts: rs.length, correct: rs.filter((x) => x.ok).length }, $set: { lastAt: new Date() } },
+        { upsert: true, returnDocument: 'after' }
+      );
+      masteryNow[lesson] = mastery(p);
+    }
+    return masteryNow;
+  }
 
   private async mine(user: string) {
     return new Map((await this.progress.find({ user }).lean()).map((p) => [p.tense, p]));
@@ -69,7 +183,11 @@ export class GrammarService {
   /** The tenses with my mastery of each. */
   async list(user: string) {
     const mine = await this.mine(user);
+    const today = todayKey();
+    const place = await this.placements.findOne({ user }).sort({ createdAt: -1 }).lean<GrammarPlacement & { createdAt?: Date }>();
     return {
+      practisedToday: [...mine.values()].some((p) => p.lastAt && todayKey(new Date(p.lastAt)) === today),
+      placement: place ? { at: place.createdAt ? new Date(place.createdAt).getTime() : null, recommended: place.recommended, scores: place.scores } : null,
       tenses: LESSONS.map((l) => {
         const p = mine.get(l.id);
         return {
@@ -96,7 +214,8 @@ export class GrammarService {
    * A practice set: one tense, or "mix" (the weaker the tense, the more of its drills). Drills answered
    * recently are left out when possible. Answers aren't included — POST the answers to be graded.
    */
-  async practice(user: string, mode: string, n = PRACTICE_SIZE) {
+  async practice(user: string, modeArg: string, n = PRACTICE_SIZE) {
+    let mode = modeArg;
     const mine = await this.mine(user);
     const recentIds = new Set([...mine.values()].flatMap((p) => p.recent.map((r) => r.id)));
     const pickFrom = (lessonId: string, taken: Set<string>) => {
@@ -107,12 +226,24 @@ export class GrammarService {
     };
     const ids: string[] = [];
     const taken = new Set<string>();
+    if (mode === 'daily') {
+      // Today's practice: drills I got wrong lately first (up to 4), then the weaker lessons more often.
+      const missed: string[] = [];
+      for (const p of [...mine.values()].sort((a, b) => +new Date(b.lastAt ?? 0) - +new Date(a.lastAt ?? 0))) {
+        for (const r of [...p.recent].reverse()) {
+          const id = r.id.split('#')[0];
+          if (!r.ok && findDrill(id) && !missed.includes(id)) missed.push(id);
+        }
+      }
+      for (const id of missed.slice(0, 4)) { ids.push(id); taken.add(id); }
+      mode = 'mix';
+    }
     if (mode in MIX_MODES) {
       // Weight = 110 − mastery: a lesson at 0% comes up about 11 times as often as one at 100%.
       const group = MIX_MODES[mode];
       const weights = LESSONS.filter((l) => l.drills.length && (!group || l.group === group)).map((l) => ({ id: l.id, w: 110 - mastery(mine.get(l.id)) }));
       const total = weights.reduce((a, b) => a + b.w, 0);
-      while (ids.length < n) {
+      for (let guard = 0; ids.length < n && guard < n * 20; guard++) {
         let r = Math.random() * total;
         const t = weights.find((x) => (r -= x.w) < 0)?.id ?? weights[0].id;
         const id = pickFrom(t, taken);
@@ -130,48 +261,64 @@ export class GrammarService {
         .sort((a, b) => order.indexOf(a.level) - order.indexOf(b.level) || Number(recentIds.has(a.id)) - Number(recentIds.has(b.id)));
       ids.push(...pool.slice(0, n).map((x) => x.id));
     }
-    return {
-      mode,
-      questions: shuffle(ids).map((id) => {
-        // No tense here: shown before answering, it would give the answer away (especially in a mix).
-        const { drill } = findDrill(id)!;
-        return { id, kind: drill.kind, level: drill.level, prompt: drill.prompt, choices: drill.kind === 'tenseChoice' ? shuffle(drill.choices) : [] };
-      })
-    };
+    // No tense in the questions: shown before answering, it would give the answer away (especially in a mix).
+    return { mode: modeArg, questions: shuffle(ids).map((id) => this.question(id)) };
   }
 
-  /** Grades a practice set and updates the mastery of each tense in it. */
-  async submit(user: string, answers: { id: string; answer: string }[]) {
+  /** Grades a practice set and updates the mastery of each lesson in it. */
+  async submit(user: string, answers: PracticeAnswer[]) {
     if (!answers.length) throw new BadRequestException('No answers.');
-    const results = answers.map((a) => {
-      const f = findDrill(a.id);
-      if (!f) throw new BadRequestException('Unknown question “' + a.id + '”.');
-      const given = normalizeAnswer(a.answer ?? '');
-      const correct = !!given && [f.drill.answer, ...(f.drill.accept ?? [])].some((x) => normalizeAnswer(x) === given);
-      // Mastery goes to the lesson the drill belongs to; `tense` is the lesson to review for it (the tense of the
-      // answer on tense drills, the lesson itself on Foundations drills) and `tenseLabel` names it.
-      const review = f.drill.tense ?? f.lesson.id;
-      return { id: a.id, lesson: f.lesson.id, tense: review, tenseLabel: drillLabel(f.lesson, f.drill), prompt: f.drill.prompt, yourAnswer: a.answer ?? '', answer: f.drill.answer, correct, explain: f.drill.explain };
-    });
-    const byTense = new Map<string, { id: string; ok: boolean }[]>();
-    for (const r of results) byTense.set(r.lesson, [...(byTense.get(r.lesson) ?? []), { id: r.id, ok: r.correct }]);
-    const masteryNow: Record<string, number> = {};
-    for (const [tense, rs] of byTense) {
-      const p = await this.progress.findOneAndUpdate(
-        { user, tense },
-        {
-          $push: { recent: { $each: rs, $slice: -RECENT } },
-          $inc: { attempts: rs.length, correct: rs.filter((x) => x.ok).length },
-          $set: { lastAt: new Date() }
-        },
-        { upsert: true, returnDocument: 'after' }
-      );
-      masteryNow[tense] = mastery(p);
-    }
+    const graded = answers.map((a) => this.grade(a));
+    const masteryNow = await this.record(user, graded);
+    const results = graded.map((g) => g.result);
     return { results, correct: results.filter((r) => r.correct).length, total: results.length, mastery: masteryNow };
   }
 
+  /* ---------- placement test ---------- */
+
+  /** The fixed placement set: a medium and a hard drill of each tense, a medium one of each Foundations lesson. */
+  private placementIds(): string[] {
+    const ids: string[] = [];
+    for (const l of LESSONS.filter((x) => x.drills.length && x.id !== 'mixed')) {
+      const levels = l.group === 'tenses' ? PLACEMENT_PER_TENSE : (['medium'] as const);
+      for (const lv of levels) {
+        const i = l.drills.findIndex((d) => d.level === lv && (d.kind === 'tense' || d.kind === 'tenseChoice') && (!d.tense || d.tense === l.id));
+        if (i >= 0) ids.push(drillId(l.id, i));
+      }
+    }
+    return ids;
+  }
+
+  async placement(user: string) {
+    const last = await this.placements.findOne({ user }).sort({ createdAt: -1 }).lean<GrammarPlacement & { createdAt?: Date }>();
+    return {
+      questions: this.placementIds().map((id) => this.question(id)),
+      last: last ? { at: last.createdAt ? new Date(last.createdAt).getTime() : null, recommended: last.recommended, scores: last.scores } : null
+    };
+  }
+
+  /** Grades the placement test, starts each lesson's mastery from it and recommends the 3 weakest lessons. */
+  async submitPlacement(user: string, answers: PracticeAnswer[]) {
+    const allowed = new Set(this.placementIds());
+    if (!answers.length || answers.some((a) => !allowed.has(a.id))) throw new BadRequestException('These aren’t the placement questions.');
+    const graded = answers.map((a) => this.grade(a));
+    const scores: Record<string, { correct: number; total: number }> = {};
+    for (const g of graded) {
+      const sc = (scores[g.result.lesson] ??= { correct: 0, total: 0 });
+      sc.total++;
+      if (g.result.correct) sc.correct++;
+    }
+    const order = LESSONS.map((l) => l.id);
+    const recommended = Object.entries(scores)
+      .sort((a, b) => a[1].correct / a[1].total - b[1].correct / b[1].total || order.indexOf(a[0]) - order.indexOf(b[0]))
+      .slice(0, 3).map(([id]) => id);
+    const masteryNow = await this.record(user, graded);
+    await this.placements.create({ user, scores, recommended });
+    const results = graded.map((g) => g.result);
+    return { results, correct: results.filter((r) => r.correct).length, total: results.length, scores, recommended, mastery: masteryNow };
+  }
+
   async deleteForUser(user: string): Promise<void> {
-    await this.progress.deleteMany({ user });
+    await Promise.all([this.progress.deleteMany({ user }), this.placements.deleteMany({ user })]);
   }
 }

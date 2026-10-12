@@ -1024,6 +1024,96 @@
    "answer": "work",
    "accept": [],
    "explain": "Câu khẳng định hiện tại đơn chỉ cần S + V; không thêm am trước động từ thường (lỗi “I am work”)."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "My manager check his email every morning before the stand-up meeting.",
+   "wrong": "check",
+   "answer": "checks",
+   "choices": [],
+   "accept": [],
+   "explain": "Chủ ngữ số ít (my manager) → động từ phải thêm -s: checks."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Lan don't work on Saturdays, so please send the report on Friday.",
+   "wrong": "don't",
+   "answer": "doesn't",
+   "choices": [],
+   "accept": [
+    "does not"
+   ],
+   "explain": "Chủ ngữ ngôi thứ ba số ít (Lan) → phủ định dùng doesn't, không dùng don't."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "I am work in the finance department on the fifth floor.",
+   "wrong": "am work",
+   "answer": "work",
+   "choices": [],
+   "accept": [],
+   "explain": "Hiện tại đơn với động từ thường chỉ cần S + V; không thêm am trước work."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Does the new intern speaks Japanese well enough for the client call?",
+   "wrong": "speaks",
+   "answer": "speak",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau does, động từ trở về nguyên mẫu: Does + S + speak."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Our team leader usually finishs the weekly report by Thursday afternoon.",
+   "wrong": "finishs",
+   "answer": "finishes",
+   "choices": [],
+   "accept": [],
+   "explain": "Động từ tận cùng bằng -sh thêm -es: finish → finishes."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "The shuttle bus to the office leave at 7:15 every morning.",
+   "wrong": "leave",
+   "answer": "leaves",
+   "choices": [],
+   "accept": [],
+   "explain": "Chủ ngữ số ít (the shuttle bus) với lịch trình cố định → leaves."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Everyone in the HR department have a meeting with the director on Mondays.",
+   "wrong": "have",
+   "answer": "has",
+   "choices": [],
+   "accept": [],
+   "explain": "Everyone là chủ ngữ số ít dù nghĩa là “mọi người” → dùng has."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "What time do the IT helpdesk open on Saturdays?",
+   "wrong": "do",
+   "answer": "does",
+   "choices": [],
+   "accept": [],
+   "explain": "The IT helpdesk là chủ ngữ số ít → câu hỏi dùng does."
   }
  ],
  "tables": [

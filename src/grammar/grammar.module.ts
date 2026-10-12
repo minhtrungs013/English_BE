@@ -5,21 +5,26 @@ import { Throttle } from '@nestjs/throttler';
 import { Type } from 'class-transformer';
 import { ArrayMaxSize, ArrayMinSize, IsArray, IsInt, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested } from 'class-validator';
 import { UserId } from '../auth/auth.decorators';
-import { GrammarProgress, GrammarProgressSchema, GrammarService } from './grammar.service';
+import { GrammarPlacement, GrammarPlacementSchema, GrammarProgress, GrammarProgressSchema, GrammarService } from './grammar.service';
 
 export class PracticeQuery {
-  /** A lesson id, or mix / mix-tenses / mix-foundations. */
+  /** A lesson id, or mix / mix-tenses / mix-foundations, or daily (my practice for today). */
   @IsString() @Matches(/^[a-z-]{2,30}$/) mode: string;
   @IsOptional() @Type(() => Number) @IsInt() @Min(5) @Max(20) n?: number;
 }
 
 export class PracticeAnswerDto {
   @IsString() @MaxLength(40) id: string;
-  @IsString() @MaxLength(200) answer: string;
+  /** Typed / picked text (identify: a tense id; fixError: the correction). */
+  @IsOptional() @IsString() @MaxLength(200) answer?: string;
+  /** fixError: index of the word picked as wrong. */
+  @IsOptional() @IsInt() @Min(0) @Max(200) pick?: number;
+  /** cloze: one answer per blank, in order. */
+  @IsOptional() @IsArray() @ArrayMaxSize(12) @IsString({ each: true }) @MaxLength(200, { each: true }) answers?: string[];
 }
 
 export class PracticeSubmitDto {
-  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(20) @ValidateNested({ each: true }) @Type(() => PracticeAnswerDto) answers: PracticeAnswerDto[];
+  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(30) @ValidateNested({ each: true }) @Type(() => PracticeAnswerDto) answers: PracticeAnswerDto[];
 }
 
 @ApiTags('grammar')
@@ -48,6 +53,20 @@ export class GrammarController {
     return this.grammar.submit(user, dto.answers);
   }
 
+  /** The placement test (fixed questions) and my last result. Declared before ":tense". */
+  @Get('placement')
+  placement(@UserId() user: string) {
+    return this.grammar.placement(user);
+  }
+
+  /** Grade the placement test: per-lesson scores, recommended lessons, starting mastery. */
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  @Post('placement')
+  @HttpCode(200)
+  submitPlacement(@UserId() user: string, @Body() dto: PracticeSubmitDto) {
+    return this.grammar.submitPlacement(user, dto.answers);
+  }
+
   /** One tense's lesson (theory in Vietnamese, examples in English). */
   @Get(':tense')
   lesson(@UserId() user: string, @Param('tense') tense: string) {
@@ -56,7 +75,10 @@ export class GrammarController {
 }
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: GrammarProgress.name, schema: GrammarProgressSchema }])],
+  imports: [MongooseModule.forFeature([
+    { name: GrammarProgress.name, schema: GrammarProgressSchema },
+    { name: GrammarPlacement.name, schema: GrammarPlacementSchema }
+  ])],
   controllers: [GrammarController],
   providers: [GrammarService],
   exports: [GrammarService]

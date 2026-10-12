@@ -983,6 +983,96 @@
    "answer": "did the director approve",
    "accept": [],
    "explain": "What là tân ngữ (cái được duyệt) nên cần did + S + V nguyên mẫu."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Yesterday I didn't went to the office because I was sick.",
+   "wrong": "didn't went",
+   "answer": "didn't go",
+   "choices": [],
+   "accept": [
+    "did not go"
+   ],
+   "explain": "Sau didn't động từ trở về nguyên mẫu: didn't go."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Last week our team stoped work early for the year-end party.",
+   "wrong": "stoped",
+   "answer": "stopped",
+   "choices": [],
+   "accept": [],
+   "explain": "Stop có một nguyên âm + một phụ âm cuối → gấp đôi p: stopped."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "The client call yesterday were very productive.",
+   "wrong": "were",
+   "answer": "was",
+   "choices": [],
+   "accept": [],
+   "explain": "The client call là chủ ngữ số ít → dùng was."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Did you sent the contract to the legal team last Friday?",
+   "wrong": "sent",
+   "answer": "send",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau did, động từ ở dạng nguyên mẫu: Did you send."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "We buyed new laptops for the whole design team last month.",
+   "wrong": "buyed",
+   "answer": "bought",
+   "choices": [],
+   "accept": [],
+   "explain": "Buy là động từ bất quy tắc: quá khứ là bought."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "I was go to the bank at lunchtime to pay the office rent.",
+   "wrong": "was go",
+   "answer": "went",
+   "choices": [],
+   "accept": [],
+   "explain": "Quá khứ đơn của động từ thường không dùng was; go → went."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Two years ago, the company has moved its head office to District 7.",
+   "wrong": "has moved",
+   "answer": "moved",
+   "choices": [],
+   "accept": [],
+   "explain": "Có “two years ago” (thời điểm xác định) → dùng quá khứ đơn moved."
+  },
+  {
+   "tense": "past-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Who did call the customer about the late delivery yesterday?",
+   "wrong": "did call",
+   "answer": "called",
+   "choices": [],
+   "accept": [],
+   "explain": "Who là chủ ngữ của câu hỏi → không dùng did: Who called...?"
   }
  ],
  "tables": [

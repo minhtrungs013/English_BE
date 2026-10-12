@@ -1,0 +1,1958 @@
+{
+ "id": "mixed",
+ "name": "Mixed practice: real-world English",
+ "vi": "Luyện tổng hợp: tiếng Anh thực tế",
+ "summary": "Nhận diện thì trong câu và dùng đúng thì trong cả một đoạn email, báo cáo hay tin nhắn công việc.",
+ "uses": [],
+ "mistakes": [],
+ "drills": [
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "She [[has worked]] here since 2020.",
+   "choices": [
+    "present-perfect",
+    "past-simple",
+    "present-simple",
+    "present-continuous"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "have/has + V3, có “since 2020” → hiện tại hoàn thành."
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Weekly update",
+   "prompt": "Hi team, last week we ___ (launch) the new dashboard. Right now we ___ (fix) a few small bugs, and next week we ___ (start) the mobile version.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Mỗi chỗ trống có dấu hiệu thời gian riêng.",
+   "blanks": [
+    {
+     "answer": "launched",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "last week → quá khứ đơn."
+    },
+    {
+     "answer": "are fixing",
+     "accept": [
+      "'re fixing"
+     ],
+     "tense": "present-continuous",
+     "explain": "Right now → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "are going to start",
+     "accept": [
+      "'re going to start",
+      "will start"
+     ],
+     "tense": "going-to",
+     "explain": "Kế hoạch cho tuần sau → be going to (will cũng chấp nhận được)."
+    }
+   ]
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "Our team [[holds]] a stand-up meeting every morning at 9.",
+   "choices": [
+    "present-simple",
+    "present-continuous",
+    "past-simple",
+    "future-simple"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "V-s (holds), có “every morning” → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "The office [[opens]] at 8 a.m. from Monday to Friday.",
+   "choices": [
+    "present-continuous",
+    "present-simple",
+    "going-to",
+    "past-simple"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "V-s (opens), lịch cố định “from Monday to Friday” → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "Minh usually [[replies]] to customer emails before lunch.",
+   "choices": [
+    "present-simple",
+    "present-perfect",
+    "present-continuous",
+    "past-continuous"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "V-s (replies), có “usually” → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The backup script [[runs]] automatically every night.",
+   "choices": [
+    "future-simple",
+    "present-continuous",
+    "present-simple",
+    "past-simple"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "V-s (runs), có “every night” → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "I [[know]] the new project manager from my previous company.",
+   "choices": [
+    "present-simple",
+    "present-continuous",
+    "present-perfect",
+    "past-simple"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "Động từ trạng thái “know” dùng nguyên mẫu, không chia V-ing → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "This laptop [[belongs]] to the IT department, not to you.",
+   "choices": [
+    "present-continuous",
+    "present-simple",
+    "present-perfect",
+    "past-continuous"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "Động từ trạng thái “belong” + s, chỉ sự sở hữu → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Ms. Lan [[needs]] the sales figures right now.",
+   "choices": [
+    "present-continuous",
+    "going-to",
+    "present-simple",
+    "future-simple"
+   ],
+   "answer": "present-simple",
+   "accept": [],
+   "explain": "“need” là động từ trạng thái nên dù có “right now” vẫn là V-s → hiện tại đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "Please wait — I [[am updating]] the database right now.",
+   "choices": [
+    "present-continuous",
+    "present-simple",
+    "past-continuous",
+    "present-perfect"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "am + V-ing, có “right now” → hiện tại tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "Listen! The printer [[is making]] a strange noise.",
+   "choices": [
+    "present-simple",
+    "present-continuous",
+    "going-to",
+    "past-simple"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "is + V-ing, có “Listen!” (đang xảy ra) → hiện tại tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The developers [[are testing]] the new login page at the moment.",
+   "choices": [
+    "past-continuous",
+    "present-perfect",
+    "present-continuous",
+    "present-simple"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "are + V-ing, có “at the moment” → hiện tại tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "These days more customers [[are paying]] by mobile app.",
+   "choices": [
+    "present-continuous",
+    "present-simple",
+    "present-perfect",
+    "future-simple"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "are + V-ing, có “these days” (xu hướng hiện nay) → hiện tại tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "Our company [[is hiring]] three new engineers this month.",
+   "choices": [
+    "going-to",
+    "present-continuous",
+    "present-simple",
+    "past-continuous"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "is + V-ing, có “this month” (giai đoạn hiện tại) → hiện tại tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "We [[are meeting]] the client from Singapore tomorrow afternoon.",
+   "choices": [
+    "present-continuous",
+    "going-to",
+    "future-simple",
+    "present-simple"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "are + V-ing kèm “tomorrow” → hiện tại tiếp diễn diễn tả lịch hẹn đã sắp xếp."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Thao [[is flying]] to Da Nang for the conference next Monday.",
+   "choices": [
+    "future-simple",
+    "present-simple",
+    "going-to",
+    "present-continuous"
+   ],
+   "answer": "present-continuous",
+   "accept": [],
+   "explain": "is + V-ing (không có “going to”), có “next Monday” → hiện tại tiếp diễn cho kế hoạch đã sắp xếp."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "We [[have finished]] the report, so you can review it now.",
+   "choices": [
+    "present-perfect",
+    "past-simple",
+    "present-simple",
+    "past-continuous"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "have + V3, kết quả liên quan đến hiện tại (“now”) → hiện tại hoàn thành."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "Nam [[has just fixed]] the bug in the payment module.",
+   "choices": [
+    "past-simple",
+    "present-perfect",
+    "present-continuous",
+    "future-simple"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "has + just + V3 → hiện tại hoàn thành (vừa mới xong)."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The client [[hasn't replied]] to our proposal yet.",
+   "choices": [
+    "past-simple",
+    "present-simple",
+    "present-perfect",
+    "past-continuous"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "hasn't + V3, có “yet” → hiện tại hoàn thành."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The manager [[has already approved]] your leave request.",
+   "choices": [
+    "present-perfect",
+    "past-simple",
+    "going-to",
+    "present-continuous"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "has + already + V3 → hiện tại hoàn thành."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Mr. Hung [[has been]] the head of sales since 2021.",
+   "choices": [
+    "past-simple",
+    "present-perfect",
+    "present-simple",
+    "past-continuous"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "has been (không phải “was”), có “since 2021” → hiện tại hoàn thành, vẫn còn đúng đến nay."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "I [[have never used]] this accounting software before.",
+   "choices": [
+    "past-simple",
+    "present-simple",
+    "future-simple",
+    "present-perfect"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "have + never + V3, có “before” (kinh nghiệm đến nay) → hiện tại hoàn thành."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Our team [[has worked]] on this project for six months.",
+   "choices": [
+    "present-perfect",
+    "past-simple",
+    "present-continuous",
+    "past-continuous"
+   ],
+   "answer": "present-perfect",
+   "accept": [],
+   "explain": "has + V3, có “for six months” và vẫn đang tiếp tục → hiện tại hoàn thành."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "The meeting [[ended]] at 5 p.m. yesterday.",
+   "choices": [
+    "past-simple",
+    "present-perfect",
+    "past-continuous",
+    "present-simple"
+   ],
+   "answer": "past-simple",
+   "accept": [],
+   "explain": "V-ed (ended), có “yesterday” → quá khứ đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "We [[launched]] the new website last month.",
+   "choices": [
+    "present-perfect",
+    "past-simple",
+    "future-simple",
+    "past-continuous"
+   ],
+   "answer": "past-simple",
+   "accept": [],
+   "explain": "V-ed (launched), có “last month” → quá khứ đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The server [[crashed]] during the demo this morning.",
+   "choices": [
+    "past-continuous",
+    "present-perfect",
+    "past-simple",
+    "present-simple"
+   ],
+   "answer": "past-simple",
+   "accept": [],
+   "explain": "V-ed (crashed), sự việc xảy ra xong “during the demo this morning” → quá khứ đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The company [[moved]] to its new office in 2019.",
+   "choices": [
+    "past-simple",
+    "present-perfect",
+    "present-simple",
+    "going-to"
+   ],
+   "answer": "past-simple",
+   "accept": [],
+   "explain": "V-ed (moved), mốc thời gian quá khứ “in 2019” → quá khứ đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Linh [[sent]] the invoice to the customer two days ago.",
+   "choices": [
+    "present-perfect",
+    "past-simple",
+    "past-continuous",
+    "present-simple"
+   ],
+   "answer": "past-simple",
+   "accept": [],
+   "explain": "V2 (sent), có “two days ago” → quá khứ đơn, không dùng hiện tại hoàn thành."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Mr. Hung [[was]] the head of sales from 2018 to 2021.",
+   "choices": [
+    "present-perfect",
+    "past-continuous",
+    "past-simple",
+    "present-simple"
+   ],
+   "answer": "past-simple",
+   "accept": [],
+   "explain": "was (không phải “has been”), khoảng thời gian đã kết thúc “from 2018 to 2021” → quá khứ đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "I [[was having]] lunch when the manager called me.",
+   "choices": [
+    "past-continuous",
+    "past-simple",
+    "present-continuous",
+    "present-perfect"
+   ],
+   "answer": "past-continuous",
+   "accept": [],
+   "explain": "was + V-ing, bị cắt ngang bởi “when…called” → quá khứ tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "At 10 a.m. yesterday, the team [[was discussing]] the budget.",
+   "choices": [
+    "past-simple",
+    "past-continuous",
+    "present-continuous",
+    "future-simple"
+   ],
+   "answer": "past-continuous",
+   "accept": [],
+   "explain": "was + V-ing, có giờ cụ thể “at 10 a.m. yesterday” → quá khứ tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The system [[was restarting]] when the power went off.",
+   "choices": [
+    "present-continuous",
+    "past-simple",
+    "past-continuous",
+    "present-perfect"
+   ],
+   "answer": "past-continuous",
+   "accept": [],
+   "explain": "was + V-ing, có “when…went off” → quá khứ tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "While Hoa [[was presenting]] the report, the projector stopped working.",
+   "choices": [
+    "past-continuous",
+    "past-simple",
+    "present-continuous",
+    "going-to"
+   ],
+   "answer": "past-continuous",
+   "accept": [],
+   "explain": "was + V-ing, có “While…” → quá khứ tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The visitors [[were waiting]] in the lobby at 3 o'clock.",
+   "choices": [
+    "past-simple",
+    "present-perfect",
+    "present-continuous",
+    "past-continuous"
+   ],
+   "answer": "past-continuous",
+   "accept": [],
+   "explain": "were + V-ing, có thời điểm “at 3 o'clock” trong quá khứ → quá khứ tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "When I arrived at the office, my colleagues [[were already working]].",
+   "choices": [
+    "past-continuous",
+    "past-simple",
+    "present-perfect",
+    "present-continuous"
+   ],
+   "answer": "past-continuous",
+   "accept": [],
+   "explain": "were + V-ing (“already” không làm nó thành hoàn thành), có “When I arrived” → quá khứ tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "Don't worry, I [[will send]] you the file tonight.",
+   "choices": [
+    "future-simple",
+    "going-to",
+    "present-simple",
+    "present-continuous"
+   ],
+   "answer": "future-simple",
+   "accept": [],
+   "explain": "will + V nguyên mẫu, lời hứa “Don't worry” → tương lai đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "The new travel policy [[will start]] next January.",
+   "choices": [
+    "present-simple",
+    "future-simple",
+    "past-simple",
+    "present-perfect"
+   ],
+   "answer": "future-simple",
+   "accept": [],
+   "explain": "will + V nguyên mẫu, có “next January” → tương lai đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The phone is ringing — I [[will answer]] it.",
+   "choices": [
+    "going-to",
+    "present-continuous",
+    "future-simple",
+    "present-simple"
+   ],
+   "answer": "future-simple",
+   "accept": [],
+   "explain": "will + V nguyên mẫu, quyết định tức thì khi nghe điện thoại reo → tương lai đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "I think the price of laptops [[will go]] up next year.",
+   "choices": [
+    "future-simple",
+    "going-to",
+    "present-continuous",
+    "present-perfect"
+   ],
+   "answer": "future-simple",
+   "accept": [],
+   "explain": "will + V nguyên mẫu, có “I think” (dự đoán) → tương lai đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "I'm sure our team [[will win]] the contract.",
+   "choices": [
+    "going-to",
+    "future-simple",
+    "present-simple",
+    "present-continuous"
+   ],
+   "answer": "future-simple",
+   "accept": [],
+   "explain": "will + V nguyên mẫu, dự đoán theo ý kiến “I'm sure” → tương lai đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Experts predict that AI [[will change]] most office jobs by 2035.",
+   "choices": [
+    "present-continuous",
+    "going-to",
+    "future-simple",
+    "present-perfect"
+   ],
+   "answer": "future-simple",
+   "accept": [],
+   "explain": "will + V nguyên mẫu, có “predict” (dự đoán) → tương lai đơn."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "We [[are going to hire]] two new designers next month.",
+   "choices": [
+    "going-to",
+    "future-simple",
+    "present-continuous",
+    "present-simple"
+   ],
+   "answer": "going-to",
+   "accept": [],
+   "explain": "are going to + V nguyên mẫu, kế hoạch “next month” → tương lai gần (be going to)."
+  },
+  {
+   "kind": "identify",
+   "level": "easy",
+   "prompt": "I [[am going to call]] the supplier after lunch.",
+   "choices": [
+    "present-continuous",
+    "going-to",
+    "future-simple",
+    "past-simple"
+   ],
+   "answer": "going-to",
+   "accept": [],
+   "explain": "am going to + V nguyên mẫu, dự định đã có → be going to."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "Look at these sales figures — we [[are going to miss]] our target this quarter.",
+   "choices": [
+    "future-simple",
+    "present-continuous",
+    "going-to",
+    "present-perfect"
+   ],
+   "answer": "going-to",
+   "accept": [],
+   "explain": "are going to + V, dự đoán có bằng chứng “Look at these sales figures” → be going to."
+  },
+  {
+   "kind": "identify",
+   "level": "medium",
+   "prompt": "The company [[is going to open]] a branch in Hanoi next year.",
+   "choices": [
+    "going-to",
+    "present-simple",
+    "future-simple",
+    "past-continuous"
+   ],
+   "answer": "going-to",
+   "accept": [],
+   "explain": "is going to + V nguyên mẫu, kế hoạch “next year” → be going to."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Mai has bought her ticket; she [[is going to visit]] our Tokyo office in May.",
+   "choices": [
+    "present-continuous",
+    "future-simple",
+    "going-to",
+    "present-simple"
+   ],
+   "answer": "going-to",
+   "accept": [],
+   "explain": "is going to + V nguyên mẫu (có động từ “visit” phía sau) → be going to, không phải hiện tại tiếp diễn."
+  },
+  {
+   "kind": "identify",
+   "level": "hard",
+   "prompt": "Careful! That stack of boxes [[is going to fall]].",
+   "choices": [
+    "going-to",
+    "future-simple",
+    "present-continuous",
+    "present-simple"
+   ],
+   "answer": "going-to",
+   "accept": [],
+   "explain": "is going to + V, dự đoán dựa trên dấu hiệu trước mắt “Careful!” → be going to."
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Project status email",
+   "prompt": "Hi Mai, I ___ (finish) the login page yesterday. Right now I ___ (test) the payment module, and I ___ (not / find) any serious bugs so far. Our team usually ___ (release) new features on Fridays, so I promise I ___ (send) you the test report before Thursday.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Email báo cáo tiến độ: kết hợp quá khứ đơn, hiện tại tiếp diễn, hiện tại hoàn thành, hiện tại đơn và will.",
+   "blanks": [
+    {
+     "answer": "finished",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"yesterday\" → quá khứ đơn."
+    },
+    {
+     "answer": "am testing",
+     "accept": [
+      "'m testing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"Right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "haven't found",
+     "accept": [
+      "have not found"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"so far\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "releases",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"usually\" + chủ ngữ số ít \"our team\" → hiện tại đơn thêm -s."
+    },
+    {
+     "answer": "will send",
+     "accept": [
+      "'ll send"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I promise\" → lời hứa dùng will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Slack message to a teammate",
+   "prompt": "Hey Tuan, are you free? I ___ (work) on the sales dashboard right now. Every time I click Refresh, the page ___ (show) an error. I ___ (change) the database settings at 9 a.m., and Long ___ (not / reply) to my message since then. Don't worry, I think it ___ (be) fixed before lunch.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Tin nhắn Slack nhờ hỗ trợ: việc đang làm, thói quen lặp lại, việc đã xong và dự đoán.",
+   "blanks": [
+    {
+     "answer": "am working",
+     "accept": [
+      "'m working"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "shows",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"Every time\" → việc lặp lại, hiện tại đơn."
+    },
+    {
+     "answer": "changed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"at 9 a.m.\" là mốc thời gian đã qua → quá khứ đơn."
+    },
+    {
+     "answer": "hasn't replied",
+     "accept": [
+      "has not replied"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"since then\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "will be",
+     "accept": [
+      "'ll be"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I think\" → dự đoán dùng will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Meeting notes",
+   "prompt": "Team meeting – Monday. The team ___ (meet) every Monday at 9 a.m. Last week we ___ (launch) the new website, and since the launch, traffic ___ (grow) by 20%. Right now the design team ___ (prepare) a mobile version. We've decided that next month we ___ (start) a social media campaign.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Biên bản họp: thói quen, việc đã xảy ra, kết quả đến nay, việc đang làm và kế hoạch đã quyết định.",
+   "blanks": [
+    {
+     "answer": "meets",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"every Monday\" → hiện tại đơn, \"the team\" số ít thêm -s."
+    },
+    {
+     "answer": "launched",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"Last week\" → quá khứ đơn."
+    },
+    {
+     "answer": "has grown",
+     "accept": [
+      "'s grown"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"since the launch\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is preparing",
+     "accept": [
+      "'s preparing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"Right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "are going to start",
+     "accept": [
+      "'re going to start",
+      "are starting",
+      "'re starting"
+     ],
+     "tense": "going-to",
+     "explain": "\"We've decided\" → kế hoạch đã quyết định, dùng be going to."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Customer order reply",
+   "prompt": "Dear Mr. Brown, thank you for your email. We ___ (receive) your order on 3 May. At the moment, our warehouse ___ (pack) it. Our trucks normally ___ (deliver) within two days, so I'm sure it ___ (arrive) by Friday. We ___ (not / charge) your card yet.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thư trả lời khách hàng về đơn hàng: quá khứ, hiện tại tiếp diễn, thói quen, dự đoán và \"yet\".",
+   "blanks": [
+    {
+     "answer": "received",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"on 3 May\" là ngày trong quá khứ → quá khứ đơn."
+    },
+    {
+     "answer": "is packing",
+     "accept": [
+      "'s packing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"At the moment\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "deliver",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"normally\" → hiện tại đơn, \"trucks\" số nhiều không thêm -s."
+    },
+    {
+     "answer": "will arrive",
+     "accept": [
+      "'ll arrive"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I'm sure\" → dự đoán chắc chắn dùng will."
+    },
+    {
+     "answer": "haven't charged",
+     "accept": [
+      "have not charged"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"yet\" trong câu phủ định → hiện tại hoàn thành."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Weekly report",
+   "prompt": "Weekly report – Week 32. This week I ___ (fix) twelve bugs so far. On Tuesday I ___ (meet) the client to discuss the new menu. Currently, Hoa and I ___ (write) the user guide. Next week I ___ (attend) a training course — I booked it last month. Our office ___ (close) at 6 p.m. every day, so I usually work from home after that.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Báo cáo tuần: kết quả đến nay, việc đã xảy ra, việc đang làm, kế hoạch và lịch cố định.",
+   "blanks": [
+    {
+     "answer": "have fixed",
+     "accept": [
+      "'ve fixed"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"This week … so far\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "met",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"On Tuesday\" (đã qua) → quá khứ đơn, meet → met."
+    },
+    {
+     "answer": "are writing",
+     "accept": [
+      "'re writing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"Currently\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "am going to attend",
+     "accept": [
+      "'m going to attend",
+      "am attending",
+      "'m attending"
+     ],
+     "tense": "going-to",
+     "explain": "\"I booked it last month\" → kế hoạch có sẵn, dùng be going to."
+    },
+    {
+     "answer": "closes",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"every day\" → hiện tại đơn, \"our office\" thêm -es."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Office announcement",
+   "prompt": "Attention all staff: the lift ___ (not / work) at the moment, so please use the stairs. A technician ___ (come) yesterday and ordered a new part. The part ___ (not / arrive) yet. Don't worry — I'm sure the lift ___ (be) back in service soon. The building manager ___ (send) an update every morning.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thông báo văn phòng về thang máy hỏng: đang xảy ra, đã xảy ra, chưa xảy ra, dự đoán và thói quen.",
+   "blanks": [
+    {
+     "answer": "isn't working",
+     "accept": [
+      "is not working"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"at the moment\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "came",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"yesterday\" → quá khứ đơn, come → came."
+    },
+    {
+     "answer": "hasn't arrived",
+     "accept": [
+      "has not arrived"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"yet\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "will be",
+     "accept": [
+      "'ll be"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I'm sure\" → dự đoán dùng will."
+    },
+    {
+     "answer": "sends",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"every morning\" → hiện tại đơn, thêm -s."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Job application email",
+   "prompt": "Dear Ms. Linh, I ___ (write) to apply for the Junior Developer position. I ___ (work) as a tester at ABC Software since 2023. Last year I ___ (complete) a Java course online. I ___ (speak) English and Japanese fluently. I think I ___ (be) a good fit for your team.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thư xin việc: việc đang làm, kinh nghiệm từ trước đến nay, quá khứ, sự thật và dự đoán.",
+   "blanks": [
+    {
+     "answer": "am writing",
+     "accept": [
+      "'m writing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"I am writing to…\" → câu mở đầu thư, việc đang làm lúc viết."
+    },
+    {
+     "answer": "have worked",
+     "accept": [
+      "'ve worked",
+      "have been working",
+      "'ve been working"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"since 2023\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "completed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"Last year\" → quá khứ đơn."
+    },
+    {
+     "answer": "speak",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "Khả năng, sự thật → hiện tại đơn."
+    },
+    {
+     "answer": "will be",
+     "accept": [
+      "'ll be"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I think\" → dự đoán dùng will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "easy",
+   "title": "Travel itinerary",
+   "prompt": "Hi team, here is my plan for the Singapore trip. My flight ___ (leave) at 7:30 a.m. on Monday. I ___ (book) the hotel last week. Right now I ___ (prepare) the slides for the client meeting. I've decided that I ___ (take) a taxi from the airport. If there is a problem, I ___ (call) you.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Lịch trình công tác: giờ bay cố định, việc đã làm, việc đang làm, quyết định có sẵn và câu điều kiện.",
+   "blanks": [
+    {
+     "answer": "leaves",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "Lịch trình cố định (giờ bay) → hiện tại đơn."
+    },
+    {
+     "answer": "booked",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"last week\" → quá khứ đơn."
+    },
+    {
+     "answer": "am preparing",
+     "accept": [
+      "'m preparing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"Right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "am going to take",
+     "accept": [
+      "'m going to take",
+      "am taking",
+      "'m taking"
+     ],
+     "tense": "going-to",
+     "explain": "\"I've decided\" → dự định đã quyết, dùng be going to."
+    },
+    {
+     "answer": "will call",
+     "accept": [
+      "'ll call"
+     ],
+     "tense": "future-simple",
+     "explain": "Mệnh đề chính sau \"If…\" → will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Incident report",
+   "prompt": "At 2:15 p.m. yesterday, the server ___ (crash) while the team ___ (upload) the monthly data. We ___ (restart) it at 2:40. Since then, it ___ (run) normally. However, the disk is now 98% full, so it ___ (crash) again very soon.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Báo cáo sự cố máy chủ: hành động xen ngang, kết quả từ đó đến nay và dự đoán có căn cứ.",
+   "blanks": [
+    {
+     "answer": "crashed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn xen vào lúc 2:15 hôm qua → quá khứ đơn."
+    },
+    {
+     "answer": "were uploading",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"while\" + hành động đang diễn ra trong quá khứ → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "restarted",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"at 2:40\" (hôm qua) → quá khứ đơn."
+    },
+    {
+     "answer": "has run",
+     "accept": [
+      "'s run",
+      "has been running",
+      "'s been running"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"Since then\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is going to crash",
+     "accept": [
+      "'s going to crash"
+     ],
+     "tense": "going-to",
+     "explain": "Có dấu hiệu rõ (ổ đĩa đầy 98%) → be going to."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Missed call follow-up",
+   "prompt": "Hi Quang, sorry I missed your call. I ___ (drive) to the client's office when you ___ (call), so I couldn't answer. Good news: the client ___ (sign) the contract at 3 p.m. We ___ (have) a small celebration on Friday — the boss has already booked a restaurant. ___ (you / need) a copy of the contract today?",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Tin nhắn gọi lại: hành động bị cắt ngang, mốc giờ quá khứ, kế hoạch đã sắp xếp và câu hỏi hiện tại.",
+   "blanks": [
+    {
+     "answer": "was driving",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "Hành động đang diễn ra thì bị \"when you called\" cắt ngang → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "called",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn xen vào sau \"when\" → quá khứ đơn."
+    },
+    {
+     "answer": "signed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"at 3 p.m.\" là thời điểm đã qua → quá khứ đơn."
+    },
+    {
+     "answer": "are going to have",
+     "accept": [
+      "'re going to have",
+      "are having",
+      "'re having"
+     ],
+     "tense": "going-to",
+     "explain": "Sếp đã đặt nhà hàng → kế hoạch có sẵn, dùng be going to."
+    },
+    {
+     "answer": "Do you need",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"need\" là động từ trạng thái → câu hỏi hiện tại đơn với Do."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Security alert update",
+   "prompt": "Morning all! While I ___ (check) the logs last night, I ___ (notice) some strange login attempts. I ___ (block) 15 IP addresses so far. The security team ___ (look) into the issue right now. I don't think it ___ (affect) our customers, but I'll keep you posted.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Cập nhật bảo mật: hành động bị xen ngang, kết quả đến nay, việc đang làm và dự đoán.",
+   "blanks": [
+    {
+     "answer": "was checking",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"While … last night\" → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "noticed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn xảy ra trong lúc đang kiểm tra → quá khứ đơn."
+    },
+    {
+     "answer": "have blocked",
+     "accept": [
+      "'ve blocked"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"so far\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is looking",
+     "accept": [
+      "'s looking",
+      "are looking"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "will affect",
+     "accept": [
+      "'ll affect"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I don't think\" → dự đoán dùng will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Onboarding email",
+   "prompt": "Welcome to the team, Phuong! Every new employee ___ (spend) the first week with a mentor. Your mentor is Khanh; he ___ (work) here for six years, so he knows everything. Tomorrow at 9 a.m. HR ___ (show) you around the office — it's already in your calendar. When I ___ (join) the company in 2019, we ___ (move) to this building, so everything was chaotic!",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Email chào nhân viên mới: quy định chung, kinh nghiệm đến nay, kế hoạch đã xếp lịch và chuyện quá khứ.",
+   "blanks": [
+    {
+     "answer": "spends",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "Quy định chung, \"every new employee\" số ít → hiện tại đơn thêm -s."
+    },
+    {
+     "answer": "has worked",
+     "accept": [
+      "'s worked",
+      "has been working",
+      "'s been working"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"for six years\" và vẫn đang làm → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is going to show",
+     "accept": [
+      "'s going to show",
+      "is showing",
+      "'s showing"
+     ],
+     "tense": "going-to",
+     "explain": "Đã có trong lịch → kế hoạch có sẵn, dùng be going to."
+    },
+    {
+     "answer": "joined",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"in 2019\" → quá khứ đơn."
+    },
+    {
+     "answer": "were moving",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "Việc đang diễn ra vào lúc tôi vào công ty → quá khứ tiếp diễn."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Laptop repair update",
+   "prompt": "Dear Ms. Taylor, I'm sorry to hear about the problem with your laptop. According to our records, you ___ (buy) it on 10 June. Our technicians ___ (repair) it at the moment, and they ___ (find) two faulty parts so far. I think it ___ (be) ready by Thursday. Our repair service normally ___ (take) five working days.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thư trả lời khách về sửa laptop: quá khứ, đang làm, kết quả đến nay, dự đoán và quy trình thông thường.",
+   "blanks": [
+    {
+     "answer": "bought",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"on 10 June\" → quá khứ đơn, buy → bought."
+    },
+    {
+     "answer": "are repairing",
+     "accept": [
+      "'re repairing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"at the moment\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "have found",
+     "accept": [
+      "'ve found"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"so far\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "will be",
+     "accept": [
+      "'ll be"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I think\" → dự đoán dùng will."
+    },
+    {
+     "answer": "takes",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"normally\" → hiện tại đơn, \"service\" số ít thêm -s."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Sales meeting minutes",
+   "prompt": "Sales meeting – 12 October. Revenue ___ (rise) by 8% last quarter. Since September, we ___ (sign) four new clients. While Nam ___ (present) the figures, the projector suddenly ___ (stop) working, so we used a laptop. We've decided that next quarter we ___ (focus) on the Da Nang market.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Biên bản họp kinh doanh: số liệu quý trước, kết quả từ tháng 9, sự cố xen ngang và kế hoạch quý tới.",
+   "blanks": [
+    {
+     "answer": "rose",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"last quarter\" → quá khứ đơn, rise → rose."
+    },
+    {
+     "answer": "have signed",
+     "accept": [
+      "'ve signed"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"Since September\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "was presenting",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"While\" + hành động đang diễn ra → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "stopped",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn xen vào (\"suddenly\") → quá khứ đơn."
+    },
+    {
+     "answer": "are going to focus",
+     "accept": [
+      "'re going to focus"
+     ],
+     "tense": "going-to",
+     "explain": "\"We've decided\" → kế hoạch đã quyết định, dùng be going to."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "IT helpdesk ticket",
+   "prompt": "Ticket #4821 – Accounting. Hanh ___ (type) a report when her screen suddenly ___ (go) black. She ___ (try) to restart the PC three times since this morning. Our technician ___ (replace) the power supply right now. If that doesn't work, we ___ (give) her a spare laptop.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Phiếu hỗ trợ IT: sự cố xen ngang, số lần đến nay, việc đang làm và câu điều kiện.",
+   "blanks": [
+    {
+     "answer": "was typing",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "Hành động đang diễn ra thì bị \"when…\" cắt ngang → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "went",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn xen vào → quá khứ đơn, go → went."
+    },
+    {
+     "answer": "has tried",
+     "accept": [
+      "'s tried"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"three times since this morning\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is replacing",
+     "accept": [
+      "'s replacing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "will give",
+     "accept": [
+      "'ll give"
+     ],
+     "tense": "future-simple",
+     "explain": "Mệnh đề chính sau \"If…\" → will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Excel workshop sign-up",
+   "prompt": "Hi everyone, HR ___ (organise) an Excel workshop every quarter. The last one ___ (be) very popular, and since last week many people ___ (ask) about the next date. Look at the sign-up list — 60 names already! Room 5 ___ (be) too small. OK, I've just had an idea: we ___ (use) the main hall instead.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thông báo khoá Excel: thói quen, quá khứ, kết quả đến nay, dự đoán có căn cứ và quyết định tức thời.",
+   "blanks": [
+    {
+     "answer": "organises",
+     "accept": [
+      "organizes"
+     ],
+     "tense": "present-simple",
+     "explain": "\"every quarter\" → hiện tại đơn, \"HR\" số ít thêm -s."
+    },
+    {
+     "answer": "was",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"The last one\" (khoá trước) → quá khứ đơn."
+    },
+    {
+     "answer": "have asked",
+     "accept": [
+      "'ve asked"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"since last week\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is going to be",
+     "accept": [
+      "'s going to be"
+     ],
+     "tense": "going-to",
+     "explain": "Có bằng chứng (60 người đăng ký) → be going to."
+    },
+    {
+     "answer": "will use",
+     "accept": [
+      "'ll use"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I've just had an idea\" → quyết định ngay lúc nói, dùng will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Late reply to a partner",
+   "prompt": "Hi Sarah, sorry for the late reply. When your email ___ (arrive), I ___ (sit) in a long meeting with the CEO. I ___ (read) your proposal twice since then, and I think it ___ (work) well for our customers. Our team ___ (review) all new proposals on Wednesdays, so you'll hear from us soon.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thư xin lỗi trả lời muộn: hành động xen ngang, kết quả đến nay, dự đoán và lịch làm việc cố định.",
+   "blanks": [
+    {
+     "answer": "arrived",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn sau \"When\" → quá khứ đơn."
+    },
+    {
+     "answer": "was sitting",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "Việc đang diễn ra khi email đến → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "have read",
+     "accept": [
+      "'ve read"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"twice since then\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "will work",
+     "accept": [
+      "'ll work"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I think\" → dự đoán dùng will."
+    },
+    {
+     "answer": "reviews",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"on Wednesdays\" → thói quen, hiện tại đơn thêm -s."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "medium",
+   "title": "Office move notice",
+   "prompt": "Dear colleagues, as you know, we ___ (move) to the new office in District 7 next month — the contract was signed in August. The building manager ___ (paint) the walls this week. Last Friday, while we ___ (visit) the site, we ___ (see) the new canteen — it's great! The new office also ___ (have) a small gym.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Thông báo chuyển văn phòng: kế hoạch đã chốt, việc đang làm tuần này, chuyện quá khứ và sự thật.",
+   "blanks": [
+    {
+     "answer": "are going to move",
+     "accept": [
+      "'re going to move",
+      "are moving",
+      "'re moving"
+     ],
+     "tense": "going-to",
+     "explain": "Hợp đồng đã ký → kế hoạch chắc chắn, dùng be going to."
+    },
+    {
+     "answer": "is painting",
+     "accept": [
+      "'s painting"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"this week\" (đang diễn ra) → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "were visiting",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"while\" + hành động đang diễn ra hôm thứ Sáu → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "saw",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn trong lúc đang thăm → quá khứ đơn, see → saw."
+    },
+    {
+     "answer": "has",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"have\" (sở hữu) là động từ trạng thái → hiện tại đơn, \"office\" số ít → has."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Bug investigation notes",
+   "prompt": "While I ___ (debug) the payment module on Tuesday, I ___ (discover) that the API key had expired. I ___ (work) on this ticket for three days now. Now I ___ (know) the root cause, but the release is tomorrow and we still have ten open bugs — we ___ (not / meet) the deadline.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Ghi chú điều tra lỗi: quá khứ tiếp diễn vs quá khứ đơn, hiện tại hoàn thành, động từ trạng thái và dự đoán có căn cứ.",
+   "blanks": [
+    {
+     "answer": "was debugging",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"While … on Tuesday\" → hành động đang diễn ra trong quá khứ."
+    },
+    {
+     "answer": "discovered",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn xảy ra giữa lúc đang debug → quá khứ đơn."
+    },
+    {
+     "answer": "have worked",
+     "accept": [
+      "'ve worked",
+      "have been working",
+      "'ve been working"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"for three days now\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "know",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"know\" là động từ trạng thái, không dùng -ing → hiện tại đơn."
+    },
+    {
+     "answer": "aren't going to meet",
+     "accept": [
+      "are not going to meet",
+      "'re not going to meet"
+     ],
+     "tense": "going-to",
+     "explain": "Có bằng chứng (còn 10 lỗi, mai phát hành) → be going to."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Client visit recap",
+   "prompt": "Mr. Sato's team ___ (visit) our office twice this year. Their last visit ___ (be) in March. During that visit, they ___ (ask) a lot of questions while we ___ (demo) the new app. Mr. Sato ___ (prefer) short, practical meetings, so next time I'll keep the agenda to 30 minutes.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Tóm tắt chuyến thăm của khách: hiện tại hoàn thành vs quá khứ đơn, quá khứ tiếp diễn và động từ trạng thái.",
+   "blanks": [
+    {
+     "answer": "has visited",
+     "accept": [
+      "'s visited"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"twice this year\" (năm chưa kết thúc) → hiện tại hoàn thành."
+    },
+    {
+     "answer": "was",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"in March\" là mốc cụ thể → quá khứ đơn."
+    },
+    {
+     "answer": "asked",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động đã hoàn tất trong chuyến thăm → quá khứ đơn."
+    },
+    {
+     "answer": "were demoing",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"while\" + hành động kéo dài làm nền → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "prefers",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"prefer\" là động từ trạng thái → hiện tại đơn, thêm -s."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Demo rescheduling chat",
+   "prompt": "Linh: The client called while I ___ (have) lunch — they want the demo on Thursday. Duc: OK, I ___ (tell) the designers right away. Linh: Thanks. I ___ (invite) Minh too — I decided that this morning. Duc: By the way, look at this traffic — we ___ (be) late for the 3 p.m. meeting! Linh: Don't worry, I ___ (text) them now.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Đoạn chat đổi lịch demo: will (quyết định tức thời) vs be going to (dự định có sẵn, dự đoán có căn cứ).",
+   "blanks": [
+    {
+     "answer": "was having",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"while\" + việc đang làm khi khách gọi → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "will tell",
+     "accept": [
+      "'ll tell"
+     ],
+     "tense": "future-simple",
+     "explain": "Quyết định ngay lúc nói (\"right away\") → will."
+    },
+    {
+     "answer": "am going to invite",
+     "accept": [
+      "'m going to invite"
+     ],
+     "tense": "going-to",
+     "explain": "\"I decided that this morning\" → dự định có từ trước, dùng be going to."
+    },
+    {
+     "answer": "are going to be",
+     "accept": [
+      "'re going to be"
+     ],
+     "tense": "going-to",
+     "explain": "Có bằng chứng trước mắt (kẹt xe) → be going to."
+    },
+    {
+     "answer": "will text",
+     "accept": [
+      "'ll text"
+     ],
+     "tense": "future-simple",
+     "explain": "Quyết định tức thời để giải quyết vấn đề → will."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Performance self-assessment",
+   "prompt": "Since I ___ (join) the company in 2022, I ___ (lead) three major projects. The biggest one, the CRM migration, ___ (finish) last December. While we ___ (migrate) the data, we ___ (lose) some customer records, but we restored them from backups. I now ___ (believe) that testing is the most important step.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Bản tự đánh giá: \"since\" + quá khứ đơn, hiện tại hoàn thành, quá khứ tiếp diễn vs quá khứ đơn và động từ trạng thái.",
+   "blanks": [
+    {
+     "answer": "joined",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Mệnh đề sau \"Since\" chỉ mốc bắt đầu (in 2022) → quá khứ đơn."
+    },
+    {
+     "answer": "have led",
+     "accept": [
+      "'ve led"
+     ],
+     "tense": "present-perfect",
+     "explain": "Mệnh đề chính với \"Since…\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "finished",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"last December\" → quá khứ đơn."
+    },
+    {
+     "answer": "were migrating",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "\"While\" + hành động kéo dài → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "lost",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Sự việc ngắn xảy ra giữa lúc đang chuyển dữ liệu → quá khứ đơn."
+    },
+    {
+     "answer": "believe",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"believe\" là động từ trạng thái → hiện tại đơn, không dùng -ing."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Server outage update",
+   "prompt": "Update 10:45 — The website ___ (be) down since 9:30. At that time, thousands of users ___ (try) to log in when the load balancer suddenly ___ (fail). We ___ (restart) the main database at 10:00, but it didn't help. Our engineers ___ (investigate) the cause right now.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Cập nhật sự cố website: hiện tại hoàn thành với \"since\", quá khứ tiếp diễn vs quá khứ đơn và hiện tại tiếp diễn.",
+   "blanks": [
+    {
+     "answer": "has been",
+     "accept": [
+      "'s been"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"since 9:30\" và vẫn đang sập → hiện tại hoàn thành."
+    },
+    {
+     "answer": "were trying",
+     "accept": [],
+     "tense": "past-continuous",
+     "explain": "Hành động đang diễn ra lúc 9:30 → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "failed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Sự cố ngắn xen vào (\"when … suddenly\") → quá khứ đơn."
+    },
+    {
+     "answer": "restarted",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"at 10:00\" đã qua → quá khứ đơn."
+    },
+    {
+     "answer": "are investigating",
+     "accept": [
+      "'re investigating"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"right now\" → hiện tại tiếp diễn."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Contract negotiation email",
+   "prompt": "Dear Mr. Park, thank you for the revised offer. We ___ (understand) your position on pricing, and right now our legal team ___ (review) the new terms. However, the contract ___ (seem) quite different from the draft we ___ (discuss) last month. We ___ (know) each other for five years, so I'm sure we will find a solution.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Email đàm phán hợp đồng: động từ trạng thái (understand, seem, know) không dùng -ing, kết hợp hiện tại tiếp diễn và quá khứ đơn.",
+   "blanks": [
+    {
+     "answer": "understand",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"understand\" là động từ trạng thái → hiện tại đơn, không dùng -ing."
+    },
+    {
+     "answer": "is reviewing",
+     "accept": [
+      "'s reviewing",
+      "are reviewing"
+     ],
+     "tense": "present-continuous",
+     "explain": "\"right now\" → hiện tại tiếp diễn."
+    },
+    {
+     "answer": "seems",
+     "accept": [],
+     "tense": "present-simple",
+     "explain": "\"seem\" là động từ trạng thái → hiện tại đơn, thêm -s."
+    },
+    {
+     "answer": "discussed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"last month\" → quá khứ đơn."
+    },
+    {
+     "answer": "have known",
+     "accept": [
+      "'ve known"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"for five years\" + động từ trạng thái \"know\" → hiện tại hoàn thành (không dùng tiếp diễn)."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Project handover note",
+   "prompt": "Hi Bao, I'm handing over the ERP project to you. I ___ (write) about 80 pages of documentation so far. Last month I ___ (meet) the client twice to agree on the scope. When I ___ (join) the project, the team ___ (build) the database, so some tables have no notes. ___ (you / work) with SAP before? From next week Hoa ___ (help) you — we agreed on that yesterday.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Ghi chú bàn giao dự án: hiện tại hoàn thành vs quá khứ đơn, quá khứ tiếp diễn và kế hoạch đã thống nhất.",
+   "blanks": [
+    {
+     "answer": "have written",
+     "accept": [
+      "'ve written"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"so far\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "met",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"Last month\" → quá khứ đơn, meet → met."
+    },
+    {
+     "answer": "joined",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Hành động ngắn sau \"When\" → quá khứ đơn."
+    },
+    {
+     "answer": "was building",
+     "accept": [
+      "were building"
+     ],
+     "tense": "past-continuous",
+     "explain": "Việc đang diễn ra khi tôi vào dự án → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "Have you worked",
+     "accept": [],
+     "tense": "present-perfect",
+     "explain": "\"before\" hỏi về kinh nghiệm đến nay → hiện tại hoàn thành."
+    },
+    {
+     "answer": "is going to help",
+     "accept": [
+      "'s going to help",
+      "is helping",
+      "'s helping"
+     ],
+     "tense": "going-to",
+     "explain": "\"we agreed on that yesterday\" → kế hoạch có sẵn, dùng be going to."
+    }
+   ]
+  },
+  {
+   "kind": "cloze",
+   "level": "hard",
+   "title": "Quarterly sales report",
+   "prompt": "Quarterly report – Q3. Online sales ___ (increase) every month since July. In August alone, they ___ (jump) by 15%. While the marketing team ___ (run) the summer campaign, our website ___ (crash) twice. We already have 95% of our yearly target, so we ___ (beat) it easily. I think customers ___ (love) the new product line in Q4.",
+   "choices": [],
+   "answer": "",
+   "accept": [],
+   "explain": "Báo cáo quý: hiện tại hoàn thành vs quá khứ đơn, quá khứ tiếp diễn, will vs be going to.",
+   "blanks": [
+    {
+     "answer": "have increased",
+     "accept": [
+      "'ve increased"
+     ],
+     "tense": "present-perfect",
+     "explain": "\"since July\" → hiện tại hoàn thành."
+    },
+    {
+     "answer": "jumped",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "\"In August\" (đã kết thúc) → quá khứ đơn."
+    },
+    {
+     "answer": "was running",
+     "accept": [
+      "were running"
+     ],
+     "tense": "past-continuous",
+     "explain": "\"While\" + hành động kéo dài → quá khứ tiếp diễn."
+    },
+    {
+     "answer": "crashed",
+     "accept": [],
+     "tense": "past-simple",
+     "explain": "Sự cố xảy ra trong lúc chiến dịch đang chạy → quá khứ đơn."
+    },
+    {
+     "answer": "are going to beat",
+     "accept": [
+      "'re going to beat"
+     ],
+     "tense": "going-to",
+     "explain": "Có bằng chứng (đã đạt 95%) → be going to."
+    },
+    {
+     "answer": "will love",
+     "accept": [
+      "'ll love"
+     ],
+     "tense": "future-simple",
+     "explain": "\"I think\" → dự đoán chủ quan dùng will."
+    }
+   ]
+  }
+ ]
+}

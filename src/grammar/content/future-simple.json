@@ -961,6 +961,104 @@
    "answer": "won't be",
    "accept": [],
    "explain": "Phủ định với tính từ ready cần be: won't be + tính từ."
+  },
+  {
+   "tense": "future-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "I will busy all day tomorrow, so let's meet on Friday.",
+   "wrong": "will busy",
+   "answer": "will be busy",
+   "choices": [],
+   "accept": [
+    "'ll be busy"
+   ],
+   "explain": "Trước tính từ (busy) phải có be: will be busy."
+  },
+  {
+   "tense": "future-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Don't worry, I will to send you the invoice this afternoon.",
+   "wrong": "will to send",
+   "answer": "will send",
+   "choices": [],
+   "accept": [
+    "'ll send"
+   ],
+   "explain": "Sau will dùng động từ nguyên mẫu không có to."
+  },
+  {
+   "tense": "future-simple",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "She will sends the meeting notes after lunch.",
+   "wrong": "sends",
+   "answer": "send",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau will động từ luôn ở dạng nguyên mẫu, không thêm -s."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "When the client will arrive, I'll show her the new office.",
+   "wrong": "will arrive",
+   "answer": "arrives",
+   "choices": [],
+   "accept": [],
+   "explain": "Sau when nói về tương lai dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "If the server will crash again, we will call the vendor.",
+   "wrong": "will crash",
+   "answer": "crashes",
+   "choices": [],
+   "accept": [],
+   "explain": "Trong mệnh đề if (câu điều kiện loại 1) dùng hiện tại đơn, không dùng will."
+  },
+  {
+   "tense": "future-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "I think the new policy won't to affect our team much.",
+   "wrong": "won't to affect",
+   "answer": "won't affect",
+   "choices": [],
+   "accept": [
+    "will not affect"
+   ],
+   "explain": "Sau won't dùng động từ nguyên mẫu không có to."
+  },
+  {
+   "tense": "future-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Will you can join the call at 3 p.m. tomorrow?",
+   "wrong": "Will you can",
+   "answer": "Will you be able to",
+   "choices": [],
+   "accept": [
+    "Can you"
+   ],
+   "explain": "Không dùng will và can cạnh nhau; dùng will be able to (hoặc can)."
+  },
+  {
+   "tense": "future-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Wait, the phone is ringing — I answer it.",
+   "wrong": "I answer",
+   "answer": "I'll answer",
+   "choices": [],
+   "accept": [
+    "I will answer"
+   ],
+   "explain": "Quyết định ngay lúc nói dùng will: I'll answer it."
   }
  ],
  "tables": [

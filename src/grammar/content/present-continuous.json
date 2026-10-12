@@ -946,6 +946,94 @@
    "answer": "are flying",
    "accept": [],
    "explain": "“next Monday” và vé đã đặt → kế hoạch đã sắp xếp nên dùng hiện tại tiếp diễn."
+  },
+  {
+   "tense": "present-continuous",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Please be quiet — the director talking to an important client right now.",
+   "wrong": "talking",
+   "answer": "is talking",
+   "choices": [],
+   "accept": [],
+   "explain": "Hiện tại tiếp diễn cần be + V-ing; thiếu is trước talking."
+  },
+  {
+   "tense": "present-continuous",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Minh is writeing the test cases for the new login page at the moment.",
+   "wrong": "writeing",
+   "answer": "writing",
+   "choices": [],
+   "accept": [],
+   "explain": "Động từ tận cùng bằng -e câm bỏ e trước khi thêm -ing: write → writing."
+  },
+  {
+   "tense": "present-continuous",
+   "kind": "fixError",
+   "level": "easy",
+   "prompt": "Look! The printer are making a strange noise again.",
+   "wrong": "are",
+   "answer": "is",
+   "choices": [],
+   "accept": [],
+   "explain": "The printer là chủ ngữ số ít → dùng is, không dùng are."
+  },
+  {
+   "tense": "present-continuous",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "We are runing a survey of customer satisfaction this month.",
+   "wrong": "runing",
+   "answer": "running",
+   "choices": [],
+   "accept": [],
+   "explain": "Run có một nguyên âm + một phụ âm cuối → gấp đôi n: running."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "I am knowing the answer, but I can't share it before the official announcement.",
+   "wrong": "am knowing",
+   "answer": "know",
+   "choices": [],
+   "accept": [],
+   "explain": "Know là động từ trạng thái, không dùng tiếp diễn → I know."
+  },
+  {
+   "tense": "present-continuous",
+   "kind": "fixError",
+   "level": "medium",
+   "prompt": "Are you work on the budget proposal this week, or is Hoa doing it?",
+   "wrong": "work",
+   "answer": "working",
+   "choices": [],
+   "accept": [],
+   "explain": "Câu hỏi hiện tại tiếp diễn: Are + S + V-ing → working."
+  },
+  {
+   "tense": "present-simple",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Currently our team is needing two more testers for the mobile project.",
+   "wrong": "is needing",
+   "answer": "needs",
+   "choices": [],
+   "accept": [],
+   "explain": "Need là động từ trạng thái → dùng hiện tại đơn needs dù có currently."
+  },
+  {
+   "tense": "present-continuous",
+   "kind": "fixError",
+   "level": "hard",
+   "prompt": "Sales are increase steadily this quarter thanks to the new online campaign.",
+   "wrong": "increase",
+   "answer": "increasing",
+   "choices": [],
+   "accept": [],
+   "explain": "Xu hướng đang thay đổi → be + V-ing: are increasing."
   }
  ],
  "tables": [
