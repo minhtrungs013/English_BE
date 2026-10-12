@@ -145,7 +145,7 @@ export class GrammarService {
       const fixRight = sameAs(a.answer ?? '', d.answer, d.accept);
       const correct = pickRight && fixRight;
       return {
-        result: { ...common, prompt: d.prompt, tokens: tokensOf(d.prompt), wrongTokens: wrong, wrong: d.wrong ?? '', pick: a.pick ?? null, pickRight, yourAnswer: a.answer ?? '', answer: d.answer, correct },
+        result: { ...common, prompt: d.prompt, tokens: tokensOf(d.prompt), wrongTokens: wrong, wrong: d.wrong ?? '', pick: a.pick ?? null, pickRight, fixRight, yourAnswer: a.answer ?? '', answer: d.answer, correct },
         parts: [{ id: a.id, ok: correct }]
       };
     }
