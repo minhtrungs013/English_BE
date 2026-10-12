@@ -7,7 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, ListeningDoneDto
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, ListeningDoneDto, AutoFillDto
 } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
@@ -67,6 +67,13 @@ export class CoursesController {
   @Put(':id/days/:day')
   setDay(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: SetDayDto) {
     return this.courses.setDay(user, id, day, dto.words);
+  }
+
+  /** Fill the course's days with library words (owner only; no AI): easier words first, no word twice. */
+  @Post(':id/auto-fill')
+  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  autoFill(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Body() dto: AutoFillDto) {
+    return this.courses.autoFill(user, id, dto.levels ?? [], dto.topics ?? [], dto.mode ?? 'empty');
   }
 
   /** Add word #index of a day to the shared library (owner only). */

@@ -215,6 +215,42 @@ export class CoursesService {
   }
 
   /**
+   * Fills the days with built-in library words: `empty` tops up each day to wordsPerDay and keeps what is there;
+   * `replace` (only before anyone has joined) chooses every day again. Easier words go to the earlier days.
+   */
+  async autoFill(user: string, id: string, levels: string[], topics: string[], mode: 'empty' | 'replace') {
+    const c = await this.loadOwned(user, id);
+    if (mode === 'replace' && (await this.enrollments.exists({ courseId: id }))) {
+      throw new ConflictException('People have joined this course, so its words can’t all be replaced. Fill the empty places instead.');
+    }
+    const kept = mode === 'replace' ? [] : c.toObject().days;
+    const byDay = new Map<number, CourseWord[]>(kept.map((d) => [d.day, [...d.words]]));
+    let need = 0;
+    for (let day = 1; day <= c.totalDays; day++) need += Math.max(0, c.wordsPerDay - (byDay.get(day)?.length ?? 0));
+    if (!need) throw new BadRequestException('Every day already has ' + c.wordsPerDay + ' words.');
+    const exclude = new Set(kept.flatMap((d) => d.words.map((w) => w.word.toLowerCase())));
+    const picked = await this.library.pickForCourse(need, levels, topics, exclude);
+    if (!picked.length) throw new BadRequestException('No library words match these levels and topics.');
+    const rank = (l: string) => ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].indexOf(l);
+    picked.sort((a, b) => rank(a.level) - rank(b.level));
+    let next = 0;
+    for (let day = 1; day <= c.totalDays && next < picked.length; day++) {
+      const words = byDay.get(day) ?? [];
+      while (words.length < c.wordsPerDay && next < picked.length) {
+        const w = picked[next++];
+        words.push({
+          word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant,
+          level: w.level, libraryId: String(w._id), source: 'library'
+        });
+      }
+      byDay.set(day, words);
+    }
+    c.days = [...byDay].filter(([, w]) => w.length).map(([day, words]) => ({ day, words })).sort((a, b) => a.day - b.day);
+    await c.save();
+    return { added: picked.length, missing: need - picked.length, course: await this.get(user, id) };
+  }
+
+  /**
    * Details for a word to put in a course: the library's entry when there is one (free);
    * otherwise AI (or the free dictionaries), limited per user per day.
    */

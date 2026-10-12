@@ -22,6 +22,15 @@ export class CreateCourseDto {
 }
 export class UpdateCourseDto extends PartialType(CreateCourseDto) {}
 
+export class AutoFillDto {
+  /** Only words of these levels (empty / left out = any). */
+  @IsOptional() @IsArray() @ArrayMaxSize(6) @IsIn(LEVELS, { each: true }) levels?: string[];
+  /** Only words of these topics (empty / left out = any). */
+  @IsOptional() @IsArray() @ArrayMaxSize(6) @IsIn(TOPICS, { each: true }) topics?: string[];
+  /** empty (default): fill only the free places, keeping the words already chosen; replace: choose every day again. */
+  @IsOptional() @IsIn(['empty', 'replace']) mode?: 'empty' | 'replace';
+}
+
 export class CourseWordDto {
   @Transform(trim) @IsString() @IsNotEmpty() @MaxLength(80) word: string;
   @IsOptional() @IsString() @MaxLength(80) ipa?: string;

@@ -133,6 +133,18 @@ export class LibraryService implements OnApplicationBootstrap {
     return this.lib.findOne({ wordLower });
   }
 
+  /**
+   * Built-in words for filling a course: random, optionally only some levels / topics, never one of `exclude`
+   * (lowercase words). May return fewer than `n` when the filters leave too few.
+   */
+  async pickForCourse(n: number, levels: string[], topics: string[], exclude: Set<string>): Promise<LibraryWordDocument[]> {
+    const match: Record<string, unknown> = { authorId: '', meaning: { $ne: '' }, ex: { $ne: '' } };
+    if (levels.length) match.level = { $in: levels };
+    if (topics.length) match.topic = { $in: topics };
+    if (exclude.size) match.wordLower = { $nin: [...exclude] };
+    return this.lib.aggregate<LibraryWordDocument>([{ $match: match }, { $sample: { size: n } }]);
+  }
+
   /** A few random library words (e.g. wrong choices for quiz questions). */
   async sample(n: number): Promise<{ word: string; vi: string; meaning: string }[]> {
     return this.lib.aggregate([{ $sample: { size: n } }, { $project: { _id: 0, word: 1, vi: 1, meaning: 1 } }]);
