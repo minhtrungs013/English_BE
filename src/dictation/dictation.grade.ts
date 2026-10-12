@@ -95,16 +95,94 @@ export function keyOf(word: string): { key: string; digits: boolean } {
   return { key: k, digits };
 }
 
+/**
+ * Amounts: "$20" is heard as "twenty dollars", and either way of writing it is right. The sign is dropped, and so is a
+ * currency word right after a number ("20 dollars", "2.4 million dollars"), on both sides.
+ */
+const CURRENCY_WORDS = new Set(['dollar', 'dollars', 'pound', 'pounds', 'euro', 'euros']);
+const AMOUNT_WORDS = new Set(['thousand', 'million', 'billion']);
+const withoutSign = (w: string) => w.replace(/^([^\p{L}\p{N}]*)[£€]/u, '$1');
+
+const TENS: Record<string, number> = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
+/** The value of a number word ("seven", "forty", "forty-five"), else null. */
+function smallNumber(w: string): number | null {
+  const parts = w.split('-');
+  if (parts.length > 2) return null;
+  let n = 0;
+  for (const [i, p] of parts.entries()) {
+    const unit = NUMBER_WORDS.indexOf(p);
+    if (TENS[p] !== undefined && i === 0) n += TENS[p];
+    else if (unit >= 0 && unit < 20 && (parts.length === 1 || (i === 1 && unit > 0 && unit < 10))) n += unit;
+    else return null;
+  }
+  return n;
+}
+const bare = (w: string) => straight(w).toLowerCase().replace(EDGE, '');
+
+/**
+ * Runs of number words → digits, so either way of writing a number is right: "forty-five thousand" = "45,000",
+ * "two hundred and fifty" = "250", "two point four" = "2.4". Million / billion stay words ("2.4 million").
+ */
+function numbersInWords(words: string[]): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < words.length; i++) {
+    if (smallNumber(bare(words[i])) === null) { out.push(words[i]); continue; }
+    let total = 0, current = 0, j = i, decimals = '', last = words[i];
+    for (; j < words.length; j++) {
+      const b = bare(words[j]);
+      const n = smallNumber(b);
+      if (n !== null && !decimals) current += n;
+      else if (b === 'hundred' && current) current *= 100;
+      else if (b === 'thousand' && (current || total)) { total = (total + current) * 1000; current = 0; }
+      else if (b === 'and' && j > i && bare(words[j - 1]) === 'hundred' && smallNumber(bare(words[j + 1] ?? '')) !== null) continue;
+      else if (b === 'point' && j + 1 < words.length && smallNumber(bare(words[j + 1])) !== null && smallNumber(bare(words[j + 1]))! < 10 && !decimals) decimals = '.';
+      else if (decimals && n !== null && n < 10) decimals += n;
+      else break;
+      last = words[j];
+      if (/[^\p{L}\p{N}-]$/u.test(words[j])) { j++; break; } // the sentence or clause ends here
+    }
+    const trail = /[^\p{L}\p{N}]*$/u.exec(last)?.[0] ?? '';
+    out.push(String(total + current) + (decimals.length > 1 ? decimals : '') + trail);
+    i = j - 1;
+  }
+  return out;
+}
+
+/** "8 dollars (and) 50 (cents)" → "8.50 dollars", the way "$8.50" is written. */
+function dollarsAndCents(words: string[]): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < words.length; i++) {
+    const unit = bare(words[i + 1] ?? '');
+    if (/^\d+$/.test(bare(words[i])) && CURRENCY_WORDS.has(unit)) {
+      let j = i + 2;
+      if (bare(words[j] ?? '') === 'and') j++;
+      const cents = bare(words[j] ?? '');
+      const hasCents = ['cent', 'cents'].includes(bare(words[j + 1] ?? ''));
+      if (/^\d{2}$/.test(cents) || (hasCents && /^\d{1,2}$/.test(cents))) {
+        const end = hasCents ? j + 1 : j;
+        const trail = /[^\p{L}\p{N}]*$/u.exec(words[end])?.[0] ?? '';
+        out.push(bare(words[i]) + '.' + cents.padStart(2, '0'), unit + trail);
+        i = end;
+        continue;
+      }
+    }
+    out.push(words[i]);
+  }
+  return out;
+}
+
 /** Words → tokens: contractions expanded, punctuation-only words dropped, runs of digit groups merged ("0903 123 456"). */
 export function tokenise(text: string): Tok[] {
   const out: Tok[] = [];
-  for (const raw of straight(text ?? '').split(/\s+/).filter(Boolean)) {
-    // "16%" is said "16 percent".
-    const words = expand(raw).flatMap((w) => { const m = /^(.*\d)%(\W*)$/.exec(w); return m ? [m[1], 'percent' + m[2]] : [w]; });
+  const raws = straight(text ?? '').split(/\s+/).filter(Boolean).flatMap(expand);
+  // "16%" is said "16 percent".
+  const words = dollarsAndCents(numbersInWords(raws.flatMap((w) => { const m = /^(.*\d)%(\W*)$/.exec(w); return m ? [m[1], 'percent' + m[2]] : [w]; })).map(withoutSign));
+  {
     for (const word of words) {
       const { key, digits } = keyOf(word);
       if (!key) continue;
       const last = out[out.length - 1];
+      if (CURRENCY_WORDS.has(key) && last && (/^\d/.test(last.key) || AMOUNT_WORDS.has(last.key))) continue;
       if (digits && last?.digits) {
         last.word += ' ' + word;
         last.key += key;
@@ -184,7 +262,9 @@ export function gradeDictation(expected: string, typed: string): DictationResult
   }
   tokens.reverse();
   const correct = tokens.filter((x) => x.status === 'ok').length;
-  const extra = tokens.some((x) => x.status === 'extra');
-  const score = n ? Math.round((100 * correct) / n) : extra ? 0 : 100;
+  const extras = tokens.filter((x) => x.status === 'extra').length;
+  const extra = extras > 0;
+  // Extra words count against the score too (else "The ticket is $20. dolar" would score 100%).
+  const score = n ? Math.round((100 * correct) / (n + extras)) : extra ? 0 : 100;
   return { tokens, correct, total: n, score, passed: correct === n && !extra };
 }
