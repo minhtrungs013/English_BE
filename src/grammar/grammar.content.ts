@@ -1,6 +1,6 @@
 /**
  * Grammar lessons and their practice drills (written in content/<id>.json): theory in Vietnamese, examples and
- * drills in English. Two groups: "foundations" (helping verbs be / do / have, subject–verb agreement, a cheat sheet)
+ * drills in English. Two groups: "foundations" (helping verbs be / do / have, subject–verb agreement, irregular verbs, a cheat sheet)
  * and "tenses" (the 7 core tenses). Drill ids are "<lesson>:<index>".
  */
 import AGREEMENT from './content/agreement.json';
@@ -10,6 +10,7 @@ import DO from './content/do.json';
 import FUTURE_SIMPLE from './content/future-simple.json';
 import GOING_TO from './content/going-to.json';
 import HAVE from './content/have.json';
+import IRREGULAR_VERBS from './content/irregular-verbs.json';
 import MIXED from './content/mixed.json';
 import PAST_CONTINUOUS from './content/past-continuous.json';
 import PAST_SIMPLE from './content/past-simple.json';
@@ -68,7 +69,7 @@ const tense = (l: object) => ({ ...l, group: 'tenses' }) as Lesson;
 
 /** In the order they're taught: foundations first. */
 export const LESSONS: Lesson[] = [
-  BE, DO, HAVE, AGREEMENT, AUX_CHEATSHEET,
+  BE, DO, HAVE, AGREEMENT, IRREGULAR_VERBS, AUX_CHEATSHEET,
   ...[PRESENT_SIMPLE, PRESENT_CONTINUOUS, PRESENT_PERFECT, PAST_SIMPLE, PAST_CONTINUOUS, FUTURE_SIMPLE, GOING_TO, MIXED].map(tense)
 ] as Lesson[];
 

@@ -1080,7 +1080,8 @@
       "be",
       "was / were",
       "been"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "go",
@@ -1088,7 +1089,8 @@
       "go",
       "went",
       "gone"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "do",
@@ -1096,7 +1098,8 @@
       "do",
       "did",
       "done"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "have",
@@ -1104,7 +1107,8 @@
       "have",
       "had",
       "had"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "see",
@@ -1112,7 +1116,8 @@
       "see",
       "saw",
       "seen"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "write",
@@ -1120,7 +1125,8 @@
       "write",
       "wrote",
       "written"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "send",
@@ -1128,7 +1134,8 @@
       "send",
       "sent",
       "sent"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "take",
@@ -1136,7 +1143,8 @@
       "take",
       "took",
       "taken"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "give",
@@ -1144,7 +1152,8 @@
       "give",
       "gave",
       "given"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "make",
@@ -1152,122 +1161,11 @@
       "make",
       "made",
       "made"
-     ]
-    },
-    {
-     "label": "buy",
-     "cells": [
-      "buy",
-      "bought",
-      "bought"
-     ]
-    },
-    {
-     "label": "read",
-     "cells": [
-      "read",
-      "read",
-      "read"
-     ]
-    },
-    {
-     "label": "meet",
-     "cells": [
-      "meet",
-      "met",
-      "met"
-     ]
-    },
-    {
-     "label": "choose",
-     "cells": [
-      "choose",
-      "chose",
-      "chosen"
-     ]
-    },
-    {
-     "label": "forget",
-     "cells": [
-      "forget",
-      "forgot",
-      "forgotten"
-     ]
-    },
-    {
-     "label": "speak",
-     "cells": [
-      "speak",
-      "spoke",
-      "spoken"
-     ]
-    },
-    {
-     "label": "know",
-     "cells": [
-      "know",
-      "knew",
-      "known"
-     ]
-    },
-    {
-     "label": "get",
-     "cells": [
-      "get",
-      "got",
-      "got (BrE) / gotten (AmE)"
-     ]
-    },
-    {
-     "label": "lose",
-     "cells": [
-      "lose",
-      "lost",
-      "lost"
-     ]
-    },
-    {
-     "label": "build",
-     "cells": [
-      "build",
-      "built",
-      "built"
-     ]
-    },
-    {
-     "label": "begin",
-     "cells": [
-      "begin",
-      "began",
-      "begun"
-     ]
-    },
-    {
-     "label": "break",
-     "cells": [
-      "break",
-      "broke",
-      "broken"
-     ]
-    },
-    {
-     "label": "pay",
-     "cells": [
-      "pay",
-      "paid",
-      "paid"
-     ]
-    },
-    {
-     "label": "tell",
-     "cells": [
-      "tell",
-      "told",
-      "told"
-     ]
+     ],
+     "link": "irregular-verbs"
     }
    ],
-   "note": "Read (V2, V3) viết giống nguyên mẫu nhưng đọc là /red/. Động từ có quy tắc chỉ thêm -ed: worked, called, finished."
+   "note": "Read (V2, V3) viết giống nguyên mẫu nhưng đọc là /red/. Động từ có quy tắc chỉ thêm -ed: worked, called, finished. Bấm vào một dòng để mở bảng đầy đủ hơn 100 động từ bất quy tắc."
   },
   {
    "title": "Short answers & contractions",

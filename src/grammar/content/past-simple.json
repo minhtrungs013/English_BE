@@ -1176,7 +1176,8 @@
       "be",
       "was / were",
       "been"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "have",
@@ -1184,7 +1185,8 @@
       "have",
       "had",
       "had"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "do",
@@ -1192,7 +1194,8 @@
       "do",
       "did",
       "done"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "go",
@@ -1200,7 +1203,8 @@
       "go",
       "went",
       "gone"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "get",
@@ -1208,7 +1212,8 @@
       "get",
       "got",
       "got (Mỹ: gotten)"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "make",
@@ -1216,7 +1221,8 @@
       "make",
       "made",
       "made"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "send",
@@ -1224,7 +1230,8 @@
       "send",
       "sent",
       "sent"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "take",
@@ -1232,7 +1239,8 @@
       "take",
       "took",
       "taken"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "give",
@@ -1240,7 +1248,8 @@
       "give",
       "gave",
       "given"
-     ]
+     ],
+     "link": "irregular-verbs"
     },
     {
      "label": "find",
@@ -1248,170 +1257,11 @@
       "find",
       "found",
       "found"
-     ]
-    },
-    {
-     "label": "leave",
-     "cells": [
-      "leave",
-      "left",
-      "left"
-     ]
-    },
-    {
-     "label": "meet",
-     "cells": [
-      "meet",
-      "met",
-      "met"
-     ]
-    },
-    {
-     "label": "write",
-     "cells": [
-      "write",
-      "wrote",
-      "written"
-     ]
-    },
-    {
-     "label": "read",
-     "cells": [
-      "read",
-      "read",
-      "read"
-     ]
-    },
-    {
-     "label": "speak",
-     "cells": [
-      "speak",
-      "spoke",
-      "spoken"
-     ]
-    },
-    {
-     "label": "tell",
-     "cells": [
-      "tell",
-      "told",
-      "told"
-     ]
-    },
-    {
-     "label": "say",
-     "cells": [
-      "say",
-      "said",
-      "said"
-     ]
-    },
-    {
-     "label": "know",
-     "cells": [
-      "know",
-      "knew",
-      "known"
-     ]
-    },
-    {
-     "label": "think",
-     "cells": [
-      "think",
-      "thought",
-      "thought"
-     ]
-    },
-    {
-     "label": "buy",
-     "cells": [
-      "buy",
-      "bought",
-      "bought"
-     ]
-    },
-    {
-     "label": "pay",
-     "cells": [
-      "pay",
-      "paid",
-      "paid"
-     ]
-    },
-    {
-     "label": "bring",
-     "cells": [
-      "bring",
-      "brought",
-      "brought"
-     ]
-    },
-    {
-     "label": "begin",
-     "cells": [
-      "begin",
-      "began",
-      "begun"
-     ]
-    },
-    {
-     "label": "choose",
-     "cells": [
-      "choose",
-      "chose",
-      "chosen"
-     ]
-    },
-    {
-     "label": "lead",
-     "cells": [
-      "lead",
-      "led",
-      "led"
-     ]
-    },
-    {
-     "label": "break",
-     "cells": [
-      "break",
-      "broke",
-      "broken"
-     ]
-    },
-    {
-     "label": "spend",
-     "cells": [
-      "spend",
-      "spent",
-      "spent"
-     ]
-    },
-    {
-     "label": "lose",
-     "cells": [
-      "lose",
-      "lost",
-      "lost"
-     ]
-    },
-    {
-     "label": "put",
-     "cells": [
-      "put",
-      "put",
-      "put"
-     ]
-    },
-    {
-     "label": "learn",
-     "cells": [
-      "learn",
-      "learned / learnt",
-      "learned / learnt"
-     ]
+     ],
+     "link": "irregular-verbs"
     }
    ],
-   "note": "Một số động từ có hai dạng: learned / learnt, dreamed / dreamt, spelled / spelt, burned / burnt (dạng -ed phổ biến hơn, nhất là Anh-Mỹ). read – read – read viết giống nhau nhưng V2, V3 đọc là /red/."
+   "note": "Một số động từ có hai dạng: learned / learnt, dreamed / dreamt, spelled / spelt, burned / burnt (dạng -ed phổ biến hơn, nhất là Anh-Mỹ). read – read – read viết giống nhau nhưng V2, V3 đọc là /red/. Đây là 10 động từ hay gặp nhất — bấm vào một dòng để mở bảng đầy đủ hơn 100 động từ, chia theo nhóm dễ nhớ."
   },
   {
    "title": "Câu trả lời ngắn",

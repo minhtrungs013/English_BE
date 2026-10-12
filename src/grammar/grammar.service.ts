@@ -38,6 +38,27 @@ const sameAs = (given: string, answer: string, accept: string[] = []) => {
 /** The sentence with the [[highlight]] markers of an identify drill removed. */
 const plain = (p: string) => p.replace(/\[\[|\]\]/g, '');
 
+/**
+ * Every form of the verbs in the irregular verbs lesson → its base form. be / have / do are left out: they have
+ * lessons of their own, and linking every "is" or "has" would just be noise.
+ */
+const IRREGULAR = new Map<string, string>();
+for (const t of LESSON_BY_ID.get('irregular-verbs')?.tables ?? []) {
+  for (const r of t.rows) {
+    const base = r.label.toLowerCase();
+    if (['be', 'have', 'do'].includes(base)) continue;
+    for (const form of r.cells.slice(0, 3).flatMap((c) => c.split('/'))) IRREGULAR.set(form.trim().toLowerCase(), base);
+  }
+}
+/** The irregular verb in a "___ (verb)" hint ("(not / write)" → write), else the last word of the answer. */
+function irregularVerb(hint: string | undefined, answer: string): string | undefined {
+  const fromHint = hint?.split('/').pop()?.trim().toLowerCase();
+  if (fromHint && IRREGULAR.has(fromHint)) return IRREGULAR.get(fromHint);
+  return IRREGULAR.get(answer.trim().toLowerCase().split(/\s+/).pop() ?? '');
+}
+/** The words in brackets after each "___". */
+const hints = (prompt: string) => [...prompt.matchAll(/___ \(([^)]+)\)/g)].map((m) => m[1]);
+
 /** Placement test: a fixed set, so results compare across learners and over time. */
 const PLACEMENT_PER_TENSE = ['medium', 'hard'] as const;
 
@@ -128,10 +149,11 @@ export class GrammarService {
     const review = d.tense ?? lesson.id;
     const common = { id: a.id, kind: d.kind, lesson: lesson.id, tense: review, tenseLabel: drillLabel(lesson, d), explain: d.explain };
     if (d.kind === 'cloze') {
+      const blankHints = hints(d.prompt);
       const blanks = (d.blanks ?? []).map((b, k) => {
         const given = a.answers?.[k] ?? '';
         const t = b.tense;
-        return { yourAnswer: given, answer: b.answer, correct: sameAs(given, b.answer, b.accept), tense: t ?? '', tenseLabel: t ? TENSE_LABEL[t] : '', explain: b.explain };
+        return { yourAnswer: given, answer: b.answer, correct: sameAs(given, b.answer, b.accept), tense: t ?? '', tenseLabel: t ? TENSE_LABEL[t] : '', explain: b.explain, verb: irregularVerb(blankHints[k], b.answer) };
       });
       const right = blanks.filter((b) => b.correct).length;
       return {
@@ -145,7 +167,7 @@ export class GrammarService {
       const fixRight = sameAs(a.answer ?? '', d.answer, d.accept);
       const correct = pickRight && fixRight;
       return {
-        result: { ...common, prompt: d.prompt, tokens: tokensOf(d.prompt), wrongTokens: wrong, wrong: d.wrong ?? '', pick: a.pick ?? null, pickRight, fixRight, yourAnswer: a.answer ?? '', answer: d.answer, correct },
+        result: { ...common, prompt: d.prompt, tokens: tokensOf(d.prompt), wrongTokens: wrong, wrong: d.wrong ?? '', pick: a.pick ?? null, pickRight, fixRight, yourAnswer: a.answer ?? '', answer: d.answer, correct, verb: irregularVerb(undefined, d.answer) },
         parts: [{ id: a.id, ok: correct }]
       };
     }
@@ -157,7 +179,7 @@ export class GrammarService {
       };
     }
     const correct = sameAs(a.answer ?? '', d.answer, d.accept);
-    return { result: { ...common, prompt: d.prompt, yourAnswer: a.answer ?? '', answer: d.answer, correct }, parts: [{ id: a.id, ok: correct }] };
+    return { result: { ...common, prompt: d.prompt, yourAnswer: a.answer ?? '', answer: d.answer, correct, verb: irregularVerb(hints(d.prompt)[0], d.answer) }, parts: [{ id: a.id, ok: correct }] };
   }
 
   /** Adds graded answers to each lesson's recent history; returns the new mastery per lesson. */

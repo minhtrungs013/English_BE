@@ -1,0 +1,1854 @@
+{
+  "id": "irregular-verbs",
+  "group": "foundations",
+  "name": "Irregular verbs: V1, V2, V3",
+  "vi": "Động từ bất quy tắc",
+  "summary": "Động từ bất quy tắc không thêm -ed mà có dạng riêng: V1 (nguyên mẫu), V2 (quá khứ), V3 (quá khứ phân từ). V2 dùng cho quá khứ đơn khẳng định (I sent); V3 dùng cho hiện tại hoàn thành (have sent) và câu bị động (was sent). Sau did / didn't / to / will luôn dùng V1. Học theo nhóm quy luật (A–A–A, A–B–B, A–B–C, A–B–A) dễ nhớ hơn học thuộc A–Z.",
+  "tables": [
+    {
+      "title": "Same in all three (A–A–A)",
+      "columns": [
+        "V1",
+        "V2",
+        "V3",
+        "Nghĩa",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "bet",
+          "cells": [
+            "bet",
+            "bet",
+            "bet",
+            "cá cược, đoán chắc",
+            "I bet the client would change the scope again, and he did."
+          ]
+        },
+        {
+          "label": "broadcast",
+          "cells": [
+            "broadcast",
+            "broadcast",
+            "broadcast",
+            "phát sóng, phát trực tiếp",
+            "The town hall was broadcast live to all branches."
+          ]
+        },
+        {
+          "label": "burst",
+          "cells": [
+            "burst",
+            "burst",
+            "burst",
+            "vỡ, bùng nổ",
+            "A water pipe burst in the server room last night."
+          ]
+        },
+        {
+          "label": "cost",
+          "cells": [
+            "cost",
+            "cost",
+            "cost",
+            "có giá, tốn",
+            "The new licenses cost us $5,000 last year."
+          ]
+        },
+        {
+          "label": "cut",
+          "cells": [
+            "cut",
+            "cut",
+            "cut",
+            "cắt, cắt giảm",
+            "The company cut the travel budget by 20%."
+          ]
+        },
+        {
+          "label": "fit",
+          "cells": [
+            "fit",
+            "fit",
+            "fit",
+            "vừa, phù hợp",
+            "The new process fit our team well."
+          ]
+        },
+        {
+          "label": "forecast",
+          "cells": [
+            "forecast",
+            "forecast",
+            "forecast",
+            "dự báo",
+            "Finance forecast a 10% rise in revenue."
+          ]
+        },
+        {
+          "label": "hit",
+          "cells": [
+            "hit",
+            "hit",
+            "hit",
+            "đạt (mục tiêu), đánh",
+            "We hit our sales target in Q3."
+          ]
+        },
+        {
+          "label": "hurt",
+          "cells": [
+            "hurt",
+            "hurt",
+            "hurt",
+            "làm đau, gây hại",
+            "The delay hurt our relationship with the client."
+          ]
+        },
+        {
+          "label": "let",
+          "cells": [
+            "let",
+            "let",
+            "let",
+            "để, cho phép",
+            "My manager let me work from home on Friday."
+          ]
+        },
+        {
+          "label": "put",
+          "cells": [
+            "put",
+            "put",
+            "put",
+            "đặt, để",
+            "I put the contract on your desk this morning."
+          ]
+        },
+        {
+          "label": "quit",
+          "cells": [
+            "quit",
+            "quit",
+            "quit",
+            "nghỉ việc, bỏ",
+            "Two developers quit last month."
+          ]
+        },
+        {
+          "label": "read",
+          "cells": [
+            "read",
+            "read",
+            "read",
+            "đọc (V2, V3 đọc là /red/)",
+            "I have read your proposal, and it looks good."
+          ]
+        },
+        {
+          "label": "set",
+          "cells": [
+            "set",
+            "set",
+            "set",
+            "đặt, thiết lập",
+            "We set a new deadline for the release."
+          ]
+        },
+        {
+          "label": "shut",
+          "cells": [
+            "shut",
+            "shut",
+            "shut",
+            "đóng, tắt",
+            "The factory was shut for two days for maintenance."
+          ]
+        },
+        {
+          "label": "split",
+          "cells": [
+            "split",
+            "split",
+            "split",
+            "chia, tách",
+            "We split the project into three phases."
+          ]
+        },
+        {
+          "label": "spread",
+          "cells": [
+            "spread",
+            "spread",
+            "spread",
+            "lan truyền, trải ra",
+            "The news of the merger spread quickly."
+          ]
+        },
+        {
+          "label": "upset",
+          "cells": [
+            "upset",
+            "upset",
+            "upset",
+            "làm buồn, làm phật ý",
+            "The sudden change upset the whole team."
+          ]
+        }
+      ],
+      "note": "Ba dạng giống hệt nhau, đa số là động từ ngắn tận cùng -t hoặc -d (cut, put, hit, spread). Nhìn ngữ cảnh (yesterday, has, was) để biết đó là V1, V2 hay V3. Riêng read: viết giống nhau nhưng V2, V3 đọc là /red/."
+    },
+    {
+      "title": "V2 = V3 (A–B–B)",
+      "columns": [
+        "V1",
+        "V2",
+        "V3",
+        "Nghĩa",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "bend",
+          "cells": [
+            "bend",
+            "bent",
+            "bent",
+            "uốn cong, nhân nhượng",
+            "We bent the rules a little for this urgent order."
+          ]
+        },
+        {
+          "label": "bring",
+          "cells": [
+            "bring",
+            "brought",
+            "brought",
+            "mang đến",
+            "She brought snacks to the sprint review."
+          ]
+        },
+        {
+          "label": "build",
+          "cells": [
+            "build",
+            "built",
+            "built",
+            "xây dựng",
+            "Our team built the app in three months."
+          ]
+        },
+        {
+          "label": "buy",
+          "cells": [
+            "buy",
+            "bought",
+            "bought",
+            "mua",
+            "The company bought 50 new laptops."
+          ]
+        },
+        {
+          "label": "catch",
+          "cells": [
+            "catch",
+            "caught",
+            "caught",
+            "bắt, bắt kịp",
+            "QA caught the bug before the release."
+          ]
+        },
+        {
+          "label": "dig",
+          "cells": [
+            "dig",
+            "dug",
+            "dug",
+            "đào, tìm hiểu kỹ",
+            "We dug into the logs and found the cause."
+          ]
+        },
+        {
+          "label": "dream",
+          "cells": [
+            "dream",
+            "dreamt / dreamed",
+            "dreamt / dreamed",
+            "mơ, mơ ước",
+            "I always dreamed of working abroad."
+          ]
+        },
+        {
+          "label": "feed",
+          "cells": [
+            "feed",
+            "fed",
+            "fed",
+            "cho ăn, cung cấp (dữ liệu)",
+            "We fed the sales data into the new dashboard."
+          ]
+        },
+        {
+          "label": "feel",
+          "cells": [
+            "feel",
+            "felt",
+            "felt",
+            "cảm thấy",
+            "Everyone felt tired after the release night."
+          ]
+        },
+        {
+          "label": "fight",
+          "cells": [
+            "fight",
+            "fought",
+            "fought",
+            "đấu tranh, chiến đấu",
+            "We fought hard for this contract."
+          ]
+        },
+        {
+          "label": "find",
+          "cells": [
+            "find",
+            "found",
+            "found",
+            "tìm thấy",
+            "I found the error in line 42."
+          ]
+        },
+        {
+          "label": "get",
+          "cells": [
+            "get",
+            "got",
+            "got",
+            "nhận được, trở nên",
+            "I got your email this morning."
+          ]
+        },
+        {
+          "label": "hang",
+          "cells": [
+            "hang",
+            "hung",
+            "hung",
+            "treo",
+            "They hung the new company logo in the lobby."
+          ]
+        },
+        {
+          "label": "have",
+          "cells": [
+            "have",
+            "had",
+            "had",
+            "có, dùng (bữa)",
+            "We had a long meeting with the vendor."
+          ]
+        },
+        {
+          "label": "hear",
+          "cells": [
+            "hear",
+            "heard",
+            "heard",
+            "nghe",
+            "Have you heard about the new policy?"
+          ]
+        },
+        {
+          "label": "hold",
+          "cells": [
+            "hold",
+            "held",
+            "held",
+            "tổ chức, cầm",
+            "The company held its annual meeting in Hanoi."
+          ]
+        },
+        {
+          "label": "keep",
+          "cells": [
+            "keep",
+            "kept",
+            "kept",
+            "giữ",
+            "She kept all the receipts for the trip."
+          ]
+        },
+        {
+          "label": "lay",
+          "cells": [
+            "lay",
+            "laid",
+            "laid",
+            "đặt, sa thải (lay off)",
+            "The company laid off 30 staff last year."
+          ]
+        },
+        {
+          "label": "lead",
+          "cells": [
+            "lead",
+            "led",
+            "led",
+            "dẫn dắt, lãnh đạo",
+            "Minh led the migration project."
+          ]
+        },
+        {
+          "label": "learn",
+          "cells": [
+            "learn",
+            "learnt / learned",
+            "learnt / learned",
+            "học",
+            "I learned a lot from my first project."
+          ]
+        },
+        {
+          "label": "leave",
+          "cells": [
+            "leave",
+            "left",
+            "left",
+            "rời đi, để lại",
+            "He left the office at 7 p.m."
+          ]
+        },
+        {
+          "label": "lend",
+          "cells": [
+            "lend",
+            "lent",
+            "lent",
+            "cho mượn",
+            "I lent my charger to a colleague."
+          ]
+        },
+        {
+          "label": "lose",
+          "cells": [
+            "lose",
+            "lost",
+            "lost",
+            "mất, thua",
+            "We lost a big client last quarter."
+          ]
+        },
+        {
+          "label": "make",
+          "cells": [
+            "make",
+            "made",
+            "made",
+            "làm, tạo ra",
+            "I made a few changes to the slides."
+          ]
+        },
+        {
+          "label": "mean",
+          "cells": [
+            "mean",
+            "meant",
+            "meant",
+            "có nghĩa, định",
+            "Sorry, I meant to reply earlier."
+          ]
+        },
+        {
+          "label": "meet",
+          "cells": [
+            "meet",
+            "met",
+            "met",
+            "gặp",
+            "We met the new CTO yesterday."
+          ]
+        },
+        {
+          "label": "pay",
+          "cells": [
+            "pay",
+            "paid",
+            "paid",
+            "trả tiền",
+            "The client has paid the invoice."
+          ]
+        },
+        {
+          "label": "say",
+          "cells": [
+            "say",
+            "said",
+            "said",
+            "nói",
+            "The manager said the deadline was fixed."
+          ]
+        },
+        {
+          "label": "seek",
+          "cells": [
+            "seek",
+            "sought",
+            "sought",
+            "tìm kiếm",
+            "We sought advice from a lawyer."
+          ]
+        },
+        {
+          "label": "sell",
+          "cells": [
+            "sell",
+            "sold",
+            "sold",
+            "bán",
+            "We sold 2,000 units in May."
+          ]
+        },
+        {
+          "label": "send",
+          "cells": [
+            "send",
+            "sent",
+            "sent",
+            "gửi",
+            "I sent the report to HR."
+          ]
+        },
+        {
+          "label": "shoot",
+          "cells": [
+            "shoot",
+            "shot",
+            "shot",
+            "quay (video), bắn",
+            "The marketing team shot a new product video."
+          ]
+        },
+        {
+          "label": "sit",
+          "cells": [
+            "sit",
+            "sat",
+            "sat",
+            "ngồi",
+            "I sat next to the CEO at lunch."
+          ]
+        },
+        {
+          "label": "sleep",
+          "cells": [
+            "sleep",
+            "slept",
+            "slept",
+            "ngủ",
+            "I only slept four hours before the demo."
+          ]
+        },
+        {
+          "label": "spell",
+          "cells": [
+            "spell",
+            "spelt / spelled",
+            "spelt / spelled",
+            "đánh vần",
+            "You spelled the client's name wrong."
+          ]
+        },
+        {
+          "label": "spend",
+          "cells": [
+            "spend",
+            "spent",
+            "spent",
+            "tiêu, dành (thời gian)",
+            "We spent two days on testing."
+          ]
+        },
+        {
+          "label": "stand",
+          "cells": [
+            "stand",
+            "stood",
+            "stood",
+            "đứng",
+            "We stood for the whole stand-up."
+          ]
+        },
+        {
+          "label": "stick",
+          "cells": [
+            "stick",
+            "stuck",
+            "stuck",
+            "dán, mắc kẹt",
+            "The deployment got stuck at step three."
+          ]
+        },
+        {
+          "label": "teach",
+          "cells": [
+            "teach",
+            "taught",
+            "taught",
+            "dạy",
+            "A senior dev taught me how to use Git."
+          ]
+        },
+        {
+          "label": "tell",
+          "cells": [
+            "tell",
+            "told",
+            "told",
+            "kể, bảo",
+            "Has anyone told the client about the delay?"
+          ]
+        },
+        {
+          "label": "think",
+          "cells": [
+            "think",
+            "thought",
+            "thought",
+            "nghĩ",
+            "I thought the meeting was at 3 p.m."
+          ]
+        },
+        {
+          "label": "understand",
+          "cells": [
+            "understand",
+            "understood",
+            "understood",
+            "hiểu",
+            "I understood the requirements after the call."
+          ]
+        },
+        {
+          "label": "win",
+          "cells": [
+            "win",
+            "won",
+            "won",
+            "thắng, giành được",
+            "Our team won the hackathon."
+          ]
+        }
+      ],
+      "note": "Nhóm lớn nhất: V2 và V3 giống nhau. Học theo vần: -ought/-aught (bought, brought, thought, taught, caught), -d → -t (send/sent, spend, lend, build), -eep → -ept (keep, sleep). get – got – got (tiếng Mỹ hay dùng V3 “gotten”). Dạng có “/”: bản Anh -t, bản Mỹ -ed, cả hai đều đúng."
+    },
+    {
+      "title": "All different (A–B–C)",
+      "columns": [
+        "V1",
+        "V2",
+        "V3",
+        "Nghĩa",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "be",
+          "cells": [
+            "be",
+            "was / were",
+            "been",
+            "thì, là, ở",
+            "I have been in this role for two years."
+          ]
+        },
+        {
+          "label": "begin",
+          "cells": [
+            "begin",
+            "began",
+            "begun",
+            "bắt đầu",
+            "The project began in March."
+          ]
+        },
+        {
+          "label": "bite",
+          "cells": [
+            "bite",
+            "bit",
+            "bitten",
+            "cắn",
+            "We have bitten off more than we can chew this sprint."
+          ]
+        },
+        {
+          "label": "break",
+          "cells": [
+            "break",
+            "broke",
+            "broken",
+            "làm vỡ, làm hỏng",
+            "The update broke the login page."
+          ]
+        },
+        {
+          "label": "choose",
+          "cells": [
+            "choose",
+            "chose",
+            "chosen",
+            "chọn",
+            "The client chose the blue design."
+          ]
+        },
+        {
+          "label": "do",
+          "cells": [
+            "do",
+            "did",
+            "done",
+            "làm",
+            "I have done the code review."
+          ]
+        },
+        {
+          "label": "draw",
+          "cells": [
+            "draw",
+            "drew",
+            "drawn",
+            "vẽ, thu hút",
+            "The new product drew a lot of attention."
+          ]
+        },
+        {
+          "label": "drink",
+          "cells": [
+            "drink",
+            "drank",
+            "drunk",
+            "uống",
+            "We drank too much coffee during the release."
+          ]
+        },
+        {
+          "label": "drive",
+          "cells": [
+            "drive",
+            "drove",
+            "driven",
+            "lái xe, thúc đẩy",
+            "Online sales have driven our growth this year."
+          ]
+        },
+        {
+          "label": "eat",
+          "cells": [
+            "eat",
+            "ate",
+            "eaten",
+            "ăn",
+            "We ate lunch with the Japanese partners."
+          ]
+        },
+        {
+          "label": "fall",
+          "cells": [
+            "fall",
+            "fell",
+            "fallen",
+            "rơi, giảm",
+            "Sales fell by 5% in July."
+          ]
+        },
+        {
+          "label": "fly",
+          "cells": [
+            "fly",
+            "flew",
+            "flown",
+            "bay",
+            "She flew to Tokyo for the client meeting."
+          ]
+        },
+        {
+          "label": "forget",
+          "cells": [
+            "forget",
+            "forgot",
+            "forgotten",
+            "quên",
+            "I have forgotten my password again."
+          ]
+        },
+        {
+          "label": "forgive",
+          "cells": [
+            "forgive",
+            "forgave",
+            "forgiven",
+            "tha thứ",
+            "The client forgave the small delay."
+          ]
+        },
+        {
+          "label": "freeze",
+          "cells": [
+            "freeze",
+            "froze",
+            "frozen",
+            "đóng băng, treo (máy)",
+            "My laptop froze during the presentation."
+          ]
+        },
+        {
+          "label": "give",
+          "cells": [
+            "give",
+            "gave",
+            "given",
+            "đưa, cho",
+            "The manager gave us positive feedback."
+          ]
+        },
+        {
+          "label": "go",
+          "cells": [
+            "go",
+            "went",
+            "gone",
+            "đi",
+            "He has gone to the bank; he'll be back soon."
+          ]
+        },
+        {
+          "label": "grow",
+          "cells": [
+            "grow",
+            "grew",
+            "grown",
+            "tăng trưởng, phát triển",
+            "Our team has grown to 40 people."
+          ]
+        },
+        {
+          "label": "hide",
+          "cells": [
+            "hide",
+            "hid",
+            "hidden",
+            "giấu, ẩn",
+            "The setting is hidden in the advanced menu."
+          ]
+        },
+        {
+          "label": "know",
+          "cells": [
+            "know",
+            "knew",
+            "known",
+            "biết",
+            "I knew the answer but forgot to say it."
+          ]
+        },
+        {
+          "label": "mistake",
+          "cells": [
+            "mistake",
+            "mistook",
+            "mistaken",
+            "nhầm lẫn",
+            "I mistook the test server for production."
+          ]
+        },
+        {
+          "label": "ride",
+          "cells": [
+            "ride",
+            "rode",
+            "ridden",
+            "đi (xe máy, xe đạp)",
+            "I rode my motorbike to the office today."
+          ]
+        },
+        {
+          "label": "ring",
+          "cells": [
+            "ring",
+            "rang",
+            "rung",
+            "reo, gọi điện",
+            "The phone rang during the meeting."
+          ]
+        },
+        {
+          "label": "rise",
+          "cells": [
+            "rise",
+            "rose",
+            "risen",
+            "tăng, mọc",
+            "Costs have risen sharply this year."
+          ]
+        },
+        {
+          "label": "see",
+          "cells": [
+            "see",
+            "saw",
+            "seen",
+            "thấy, xem",
+            "I saw your message, thanks."
+          ]
+        },
+        {
+          "label": "shake",
+          "cells": [
+            "shake",
+            "shook",
+            "shaken",
+            "lắc, bắt (tay)",
+            "We shook hands after signing the deal."
+          ]
+        },
+        {
+          "label": "show",
+          "cells": [
+            "show",
+            "showed",
+            "shown",
+            "cho xem, chỉ",
+            "The report has shown a clear trend."
+          ]
+        },
+        {
+          "label": "sing",
+          "cells": [
+            "sing",
+            "sang",
+            "sung",
+            "hát",
+            "Our team sang karaoke at the year-end party."
+          ]
+        },
+        {
+          "label": "speak",
+          "cells": [
+            "speak",
+            "spoke",
+            "spoken",
+            "nói (chuyện)",
+            "I spoke to the vendor this morning."
+          ]
+        },
+        {
+          "label": "steal",
+          "cells": [
+            "steal",
+            "stole",
+            "stolen",
+            "ăn cắp",
+            "Customer data was stolen in the attack."
+          ]
+        },
+        {
+          "label": "swim",
+          "cells": [
+            "swim",
+            "swam",
+            "swum",
+            "bơi",
+            "We swam at the hotel pool during the team trip."
+          ]
+        },
+        {
+          "label": "take",
+          "cells": [
+            "take",
+            "took",
+            "taken",
+            "lấy, mất (thời gian)",
+            "The migration took six hours."
+          ]
+        },
+        {
+          "label": "throw",
+          "cells": [
+            "throw",
+            "threw",
+            "thrown",
+            "ném, tổ chức (tiệc)",
+            "HR threw a farewell party for Lan."
+          ]
+        },
+        {
+          "label": "wake",
+          "cells": [
+            "wake",
+            "woke",
+            "woken",
+            "thức dậy, đánh thức",
+            "An alert woke me up at 3 a.m."
+          ]
+        },
+        {
+          "label": "wear",
+          "cells": [
+            "wear",
+            "wore",
+            "worn",
+            "mặc, đeo",
+            "Everyone wore the company T-shirt at the event."
+          ]
+        },
+        {
+          "label": "write",
+          "cells": [
+            "write",
+            "wrote",
+            "written",
+            "viết",
+            "She has written the user guide."
+          ]
+        }
+      ],
+      "note": "Ba dạng khác nhau, V3 thường có -n/-en (written, taken, given, broken, chosen). Vần i – a – u: begin – began – begun, drink, ring, sing, swim. Vần -ew – -own: grow – grew – grown, know, fly, throw. Nhóm hay nhầm nhất: “has wrote”, “was broke”."
+    },
+    {
+      "title": "V3 = V1 (A–B–A) and other patterns",
+      "columns": [
+        "V1",
+        "V2",
+        "V3",
+        "Nghĩa",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "beat",
+          "cells": [
+            "beat",
+            "beat",
+            "beaten",
+            "đánh bại, vượt (chỉ tiêu)",
+            "We have beaten our sales target."
+          ]
+        },
+        {
+          "label": "become",
+          "cells": [
+            "become",
+            "became",
+            "become",
+            "trở thành",
+            "She has become our team lead."
+          ]
+        },
+        {
+          "label": "come",
+          "cells": [
+            "come",
+            "came",
+            "come",
+            "đến",
+            "The new interns came on Monday."
+          ]
+        },
+        {
+          "label": "overcome",
+          "cells": [
+            "overcome",
+            "overcame",
+            "overcome",
+            "vượt qua",
+            "We have overcome the main technical issues."
+          ]
+        },
+        {
+          "label": "prove",
+          "cells": [
+            "prove",
+            "proved",
+            "proven / proved",
+            "chứng minh",
+            "The new tool has proven very useful."
+          ]
+        },
+        {
+          "label": "run",
+          "cells": [
+            "run",
+            "ran",
+            "run",
+            "chạy, vận hành",
+            "I ran the tests again, and they passed."
+          ]
+        }
+      ],
+      "note": "V3 giống V1, chỉ V2 khác: come – came – come, become, overcome, run – ran – run. Nhóm này quá nhỏ nên gộp thêm mẫu khác: beat – beat – beaten (V2 = V1) và prove – proved – proven (V3 thêm -n)."
+    }
+  ],
+  "uses": [
+    {
+      "title": "V2 – quá khứ đơn khẳng định",
+      "explain": "Dùng V2 cho việc đã xảy ra và kết thúc trong quá khứ (yesterday, last week, in 2020). Chỉ dùng V2 trong câu khẳng định; câu hỏi và phủ định dùng did / didn't + V1.",
+      "examples": [
+        {
+          "en": "I sent the proposal to the client yesterday.",
+          "vi": "Hôm qua tôi đã gửi bản đề xuất cho khách hàng."
+        },
+        {
+          "en": "We met the new team in Singapore last month.",
+          "vi": "Tháng trước chúng tôi gặp đội mới ở Singapore."
+        },
+        {
+          "en": "The demo took two hours.",
+          "vi": "Buổi demo mất hai tiếng."
+        }
+      ]
+    },
+    {
+      "title": "V3 – sau have / has / had (thì hoàn thành)",
+      "explain": "Have / has / had + V3 tạo thì hoàn thành: việc đã xong nhưng còn liên quan đến hiện tại, hoặc kinh nghiệm (ever, yet, already, since).",
+      "examples": [
+        {
+          "en": "I have written the test cases.",
+          "vi": "Tôi đã viết xong các test case."
+        },
+        {
+          "en": "Has the client paid the invoice yet?",
+          "vi": "Khách hàng đã thanh toán hóa đơn chưa?"
+        },
+        {
+          "en": "She has never forgotten a deadline.",
+          "vi": "Cô ấy chưa bao giờ quên hạn chót."
+        }
+      ]
+    },
+    {
+      "title": "V3 – sau be (câu bị động)",
+      "explain": "Be (am / is / are / was / were / been / be) + V3 tạo câu bị động, nhấn mạnh việc được làm, không phải ai làm.",
+      "examples": [
+        {
+          "en": "The bug was found during testing.",
+          "vi": "Lỗi được phát hiện trong lúc kiểm thử."
+        },
+        {
+          "en": "All files are kept on the shared drive.",
+          "vi": "Tất cả tệp được lưu trên ổ chung."
+        },
+        {
+          "en": "The report will be sent on Friday.",
+          "vi": "Báo cáo sẽ được gửi vào thứ Sáu."
+        }
+      ]
+    },
+    {
+      "title": "V1 – sau did / didn't / to / will / can",
+      "explain": "Khi đã có did, to hoặc động từ khuyết thiếu (will, can, should), động từ chính luôn ở dạng nguyên mẫu V1, kể cả khi nói về quá khứ.",
+      "examples": [
+        {
+          "en": "Did you send the file? – No, I didn't send it.",
+          "vi": "Bạn đã gửi tệp chưa? – Chưa, tôi chưa gửi."
+        },
+        {
+          "en": "I forgot to bring my laptop charger.",
+          "vi": "Tôi quên mang sạc laptop."
+        },
+        {
+          "en": "We will meet the vendor tomorrow.",
+          "vi": "Ngày mai chúng tôi sẽ gặp nhà cung cấp."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "I sended the report yesterday.",
+      "right": "I sent the report yesterday.",
+      "explain": "Send là động từ bất quy tắc: send – sent – sent. Không thêm -ed."
+    },
+    {
+      "wrong": "Did you went to the meeting?",
+      "right": "Did you go to the meeting?",
+      "explain": "Did đã chỉ quá khứ, nên động từ chính dùng V1: go."
+    },
+    {
+      "wrong": "I have went to the bank. / She has wrote the email.",
+      "right": "I have gone to the bank. / She has written the email.",
+      "explain": "Sau have / has dùng V3, không dùng V2: go – went – gone, write – wrote – written."
+    },
+    {
+      "wrong": "I have saw this error before.",
+      "right": "I have seen this error before.",
+      "explain": "see – saw – seen; saw là V2, sau have phải là V3 seen."
+    },
+    {
+      "wrong": "The printer was broke.",
+      "right": "The printer was broken.",
+      "explain": "Sau be dùng V3: break – broke – broken."
+    },
+    {
+      "wrong": "He has drank too much coffee.",
+      "right": "He has drunk too much coffee.",
+      "explain": "drink – drank – drunk; sau has dùng V3 drunk."
+    },
+    {
+      "wrong": "I thinked the deadline was Friday.",
+      "right": "I thought the deadline was Friday.",
+      "explain": "think – thought – thought. Các động từ -ought/-aught: buy, bring, think, teach, catch, fight, seek."
+    },
+    {
+      "wrong": "The client payed the invoice.",
+      "right": "The client paid the invoice.",
+      "explain": "pay – paid – paid, say – said – said, lay – laid – laid: viết -aid, không viết -ayed."
+    }
+  ],
+  "drills": [
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "I ___ (send) the file to the client yesterday.",
+      "choices": [],
+      "answer": "sent",
+      "accept": [],
+      "explain": "send – sent – sent; “yesterday” → quá khứ đơn dùng V2."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "We ___ (meet) the new CTO at the town hall last Friday.",
+      "choices": [],
+      "answer": "met",
+      "accept": [],
+      "explain": "meet – met – met; “last Friday” → V2."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "She ___ (buy) a new laptop for the design team last week.",
+      "choices": [],
+      "answer": "bought",
+      "accept": [],
+      "explain": "buy – bought – bought; “last week” → V2."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "The meeting ___ (begin) at 9 a.m. sharp this morning.",
+      "choices": [],
+      "answer": "began",
+      "accept": [],
+      "explain": "begin – began – begun; việc đã xong sáng nay → V2 “began”."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "V3 · present perfect",
+      "prompt": "Have you ___ (write) the weekly report yet?",
+      "choices": [],
+      "answer": "written",
+      "accept": [],
+      "explain": "write – wrote – written; sau “have” → V3."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "V3 · passive",
+      "prompt": "Our new office was ___ (build) in 2020.",
+      "choices": [],
+      "answer": "built",
+      "accept": [],
+      "explain": "build – built – built; bị động “was” + V3."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Base after did/to/will",
+      "prompt": "Did you ___ (take) notes at the meeting?",
+      "choices": [],
+      "answer": "take",
+      "accept": [],
+      "explain": "take – took – taken; sau “did” dùng nguyên mẫu V1."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V2 · past simple",
+      "prompt": "Our team ___ (win) the hackathon last month.",
+      "choices": [],
+      "answer": "won",
+      "accept": [],
+      "explain": "win – won – won; “last month” → V2."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V3 · present perfect",
+      "prompt": "Nam has ___ (lead) the mobile team since January.",
+      "choices": [],
+      "answer": "led",
+      "accept": [],
+      "explain": "lead – led – led; có “has” → V3."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V2 · past simple",
+      "prompt": "The price of cloud storage ___ (rise) by 10% last quarter.",
+      "choices": [],
+      "answer": "rose",
+      "accept": [],
+      "explain": "rise – rose – risen; “last quarter” → V2."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V3 · passive",
+      "prompt": "Thousands of customer passwords were ___ (steal) in the data breach.",
+      "choices": [],
+      "answer": "stolen",
+      "accept": [],
+      "explain": "steal – stole – stolen; bị động “were” + V3."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V3 · present perfect",
+      "prompt": "I've ___ (forget) my access card at home again.",
+      "choices": [],
+      "answer": "forgotten",
+      "accept": [],
+      "explain": "forget – forgot – forgotten; “I've” = I have → V3."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V2 · past simple",
+      "prompt": "I ___ (learn) a lot from the senior developers on my first project.",
+      "choices": [],
+      "answer": "learned",
+      "accept": [
+        "learnt"
+      ],
+      "explain": "learn – learnt / learned; việc đã qua → V2, cả hai dạng đều đúng."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Base after did/to/will",
+      "prompt": "We didn't ___ (spend) the whole marketing budget.",
+      "choices": [],
+      "answer": "spend",
+      "accept": [],
+      "explain": "spend – spent – spent; sau “didn't” dùng V1."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V3 · present perfect",
+      "prompt": "The client has ___ (choose) the second design option.",
+      "choices": [],
+      "answer": "chosen",
+      "accept": [],
+      "explain": "choose – chose – chosen; có “has” → V3."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "V2 · past simple",
+      "prompt": "He ___ (quit) his job in June and joined a startup.",
+      "choices": [],
+      "answer": "quit",
+      "accept": [],
+      "explain": "quit – quit – quit; ba dạng giống nhau, “in June” → V2."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V3 · passive",
+      "prompt": "The server room door must be ___ (shut) at all times.",
+      "choices": [],
+      "answer": "shut",
+      "accept": [],
+      "explain": "shut – shut – shut; bị động “be” + V3, V3 vẫn là “shut”."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "Sales have ___ (fall) sharply since the new competitor entered the market.",
+      "choices": [],
+      "answer": "fallen",
+      "accept": [],
+      "explain": "fall – fell – fallen; có “have” → V3."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V2 · past simple",
+      "prompt": "The CEO ___ (lay) out the new strategy at the kickoff meeting.",
+      "choices": [],
+      "answer": "laid",
+      "accept": [],
+      "explain": "lay – laid – laid; việc đã xảy ra → V2 “laid” (không viết “layed”)."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V3 · passive",
+      "prompt": "The keynote will be ___ (broadcast) live on our YouTube channel.",
+      "choices": [],
+      "answer": "broadcast",
+      "accept": [
+        "broadcasted"
+      ],
+      "explain": "broadcast – broadcast – broadcast; bị động “be” + V3, không thêm -ed."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "Prices have ___ (become) more stable since March.",
+      "choices": [],
+      "answer": "become",
+      "accept": [],
+      "explain": "become – became – become; có “have” → V3 giống V1."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V2 · past simple",
+      "prompt": "Our app ___ (freeze) twice during the live demo yesterday.",
+      "choices": [],
+      "answer": "froze",
+      "accept": [],
+      "explain": "freeze – froze – frozen; “yesterday” → V2."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "By the time the workshop started, we had ___ (run) out of ideas.",
+      "choices": [],
+      "answer": "run",
+      "accept": [],
+      "explain": "run – ran – run; sau “had” → V3, giống V1."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "Yesterday I ___ an email to HR about my annual leave.",
+      "choices": [
+        "send",
+        "sent",
+        "sended"
+      ],
+      "answer": "sent",
+      "accept": [],
+      "explain": "send – sent – sent; “yesterday” → V2. Không có “sended”."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Base after did/to/will",
+      "prompt": "Did you ___ the client at the airport yesterday?",
+      "choices": [
+        "meet",
+        "met",
+        "meeted"
+      ],
+      "answer": "meet",
+      "accept": [],
+      "explain": "Sau “did” dùng V1: meet (meet – met – met)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "V3 · present perfect",
+      "prompt": "I have ___ this bug before.",
+      "choices": [
+        "saw",
+        "seen",
+        "see"
+      ],
+      "answer": "seen",
+      "accept": [],
+      "explain": "see – saw – seen; có “have” → V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "V3 · passive",
+      "prompt": "The office window was ___ during the storm last night.",
+      "choices": [
+        "broke",
+        "broken",
+        "break"
+      ],
+      "answer": "broken",
+      "accept": [],
+      "explain": "break – broke – broken; bị động “was” + V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "She ___ to Da Nang for a client workshop last week.",
+      "choices": [
+        "go",
+        "went",
+        "gone"
+      ],
+      "answer": "went",
+      "accept": [],
+      "explain": "go – went – gone; “last week” → V2."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Base after did/to/will",
+      "prompt": "I'll ___ you the slides after lunch.",
+      "choices": [
+        "give",
+        "gave",
+        "given"
+      ],
+      "answer": "give",
+      "accept": [],
+      "explain": "give – gave – given; sau “will” dùng V1."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "V2 · past simple",
+      "prompt": "We ___ a lot of coffee during the release night.",
+      "choices": [
+        "drank",
+        "drunk",
+        "drink"
+      ],
+      "answer": "drank",
+      "accept": [],
+      "explain": "drink – drank – drunk; câu khẳng định quá khứ → V2."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "V3 · present perfect",
+      "prompt": "Has the courier ___ the package yet?",
+      "choices": [
+        "bring",
+        "brought",
+        "brang"
+      ],
+      "answer": "brought",
+      "accept": [],
+      "explain": "bring – brought – brought; sau “has” → V3. Không có “brang”."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V3 · present perfect",
+      "prompt": "He has ___ three blog posts about Kubernetes this month.",
+      "choices": [
+        "wrote",
+        "written",
+        "write"
+      ],
+      "answer": "written",
+      "accept": [],
+      "explain": "write – wrote – written; có “has” → V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V2 · past simple",
+      "prompt": "I ___ the instructions twice, but I still couldn't install the driver.",
+      "choices": [
+        "read",
+        "readed",
+        "rode"
+      ],
+      "answer": "read",
+      "accept": [],
+      "explain": "read – read – read (V2 đọc /red/). Không có “readed”."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V3 · passive",
+      "prompt": "The opening speech was ___ by the CEO herself.",
+      "choices": [
+        "gave",
+        "given",
+        "give"
+      ],
+      "answer": "given",
+      "accept": [],
+      "explain": "give – gave – given; bị động “was” + V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Base after did/to/will",
+      "prompt": "The manager didn't ___ why the project was cancelled.",
+      "choices": [
+        "say",
+        "said",
+        "says"
+      ],
+      "answer": "say",
+      "accept": [],
+      "explain": "Sau “didn't” dùng V1: say (say – said – said)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V3 · present perfect",
+      "prompt": "Have you ever ___ business class?",
+      "choices": [
+        "flew",
+        "flown",
+        "fly"
+      ],
+      "answer": "flown",
+      "accept": [],
+      "explain": "fly – flew – flown; “have … ever” → V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V2 · past simple",
+      "prompt": "Our online sales ___ by 15% after the new campaign.",
+      "choices": [
+        "grow",
+        "grew",
+        "grown"
+      ],
+      "answer": "grew",
+      "accept": [],
+      "explain": "grow – grew – grown; việc đã qua → V2."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V3 · present perfect",
+      "prompt": "Have you ___ the CFO about the budget cut?",
+      "choices": [
+        "told",
+        "tell",
+        "telled"
+      ],
+      "answer": "told",
+      "accept": [],
+      "explain": "tell – told – told; sau “have” → V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "V3 · passive",
+      "prompt": "These photos were ___ at the year-end party.",
+      "choices": [
+        "took",
+        "taken",
+        "take"
+      ],
+      "answer": "taken",
+      "accept": [],
+      "explain": "take – took – taken; bị động “were” + V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "The team has ___ the sales target three quarters in a row.",
+      "choices": [
+        "beat",
+        "beaten",
+        "beated"
+      ],
+      "answer": "beaten",
+      "accept": [],
+      "explain": "beat – beat – beaten; có “has” → V3 “beaten”."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V3 · passive",
+      "prompt": "The workload was ___ evenly across the three teams.",
+      "choices": [
+        "spread",
+        "spreaded",
+        "spreaden"
+      ],
+      "answer": "spread",
+      "accept": [],
+      "explain": "spread – spread – spread; bị động “was” + V3, không thêm -ed."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "Since joining the company, she has ___ a key member of the team.",
+      "choices": [
+        "became",
+        "become",
+        "becomed"
+      ],
+      "answer": "become",
+      "accept": [],
+      "explain": "become – became – become; sau “has” → V3 giống V1."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V2 · past simple",
+      "prompt": "The phone ___ three times before anyone answered.",
+      "choices": [
+        "rang",
+        "rung",
+        "ring"
+      ],
+      "answer": "rang",
+      "accept": [],
+      "explain": "ring – rang – rung; quá khứ đơn → V2 “rang”."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "Has the finance team ___ the vendor yet?",
+      "choices": [
+        "paid",
+        "payed",
+        "pay"
+      ],
+      "answer": "paid",
+      "accept": [],
+      "explain": "pay – paid – paid; sau “has” → V3. Không viết “payed”."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V3 · passive",
+      "prompt": "The new feature has been ___ in the latest app update.",
+      "choices": [
+        "hid",
+        "hidden",
+        "hide"
+      ],
+      "answer": "hidden",
+      "accept": [],
+      "explain": "hide – hid – hidden; bị động “has been” + V3."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "V3 · present perfect",
+      "prompt": "Before the merger, the company had ___ two smaller startups.",
+      "choices": [
+        "bought",
+        "buyed",
+        "buy",
+        "brought"
+      ],
+      "answer": "bought",
+      "accept": [],
+      "explain": "buy – bought – bought; sau “had” → V3. Đừng nhầm với brought (bring)."
+    },
+    {
+      "topic": "Fix: V2 of send",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "I sended the invoice to the client this morning.",
+      "wrong": "sended",
+      "answer": "sent",
+      "choices": [],
+      "accept": [],
+      "explain": "send – sent – sent; không thêm -ed."
+    },
+    {
+      "topic": "Fix: base after did",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "Did you went to the training session yesterday?",
+      "wrong": "went",
+      "answer": "go",
+      "choices": [],
+      "accept": [],
+      "explain": "Sau “did” dùng V1: go – went – gone."
+    },
+    {
+      "topic": "Fix: has + V3",
+      "kind": "fixError",
+      "level": "medium",
+      "prompt": "She has wrote the user manual for the new app.",
+      "wrong": "wrote",
+      "answer": "written",
+      "choices": [],
+      "accept": [],
+      "explain": "write – wrote – written; có “has” → V3."
+    },
+    {
+      "topic": "Fix: have + V3",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "I have saw this error message before.",
+      "wrong": "saw",
+      "answer": "seen",
+      "choices": [],
+      "accept": [],
+      "explain": "see – saw – seen; có “have” → V3."
+    },
+    {
+      "topic": "Fix: passive + V3",
+      "kind": "fixError",
+      "level": "medium",
+      "prompt": "The printer was broke, so I used the one on the third floor.",
+      "wrong": "broke",
+      "answer": "broken",
+      "choices": [],
+      "accept": [],
+      "explain": "break – broke – broken; sau “was” → V3."
+    },
+    {
+      "topic": "Fix: has + V3",
+      "kind": "fixError",
+      "level": "hard",
+      "prompt": "He has drank three cups of coffee since the meeting started.",
+      "wrong": "drank",
+      "answer": "drunk",
+      "choices": [],
+      "accept": [],
+      "explain": "drink – drank – drunk; có “has” → V3."
+    },
+    {
+      "topic": "Fix: V2 of think",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "I thinked the deadline was Friday.",
+      "wrong": "thinked",
+      "answer": "thought",
+      "choices": [],
+      "accept": [],
+      "explain": "think – thought – thought; không thêm -ed."
+    },
+    {
+      "topic": "Fix: have + V3",
+      "kind": "fixError",
+      "level": "hard",
+      "prompt": "We have went over budget twice this year.",
+      "wrong": "went",
+      "answer": "gone",
+      "choices": [],
+      "accept": [],
+      "explain": "go – went – gone; có “have” → V3."
+    }
+  ]
+}
