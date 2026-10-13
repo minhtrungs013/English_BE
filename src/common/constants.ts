@@ -15,6 +15,8 @@ export const THEMES = ['light', 'dark', 'system'] as const;
 export const DIRECTIONS = ['en-vi', 'vi-en'] as const;
 export const GOALS = ['10', '20', '30', '50'] as const;
 export const ACCENTS = ['indigo', 'blue', 'teal', 'green', 'orange', 'rose'] as const;
+/** Look of the whole app (palette, font, corners); the accent only applies to 'classic'. */
+export const STYLES = ['classic', 'warm', 'ocean', 'sakura', 'midnight', 'mono'] as const;
 
 export const MIN = 60_000;
 export const DAY = 86_400_000;

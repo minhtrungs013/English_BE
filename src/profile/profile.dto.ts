@@ -1,6 +1,6 @@
 import { ArrayMaxSize, IsArray, IsBoolean, IsIn, IsNumber, IsOptional, IsString, Max, MaxLength, Min } from 'class-validator';
 import { NOTIFY_TYPES } from '../notifications/notification.schema';
-import { ACCENTS, DIRECTIONS, GOALS, THEMES } from '../common/constants';
+import { ACCENTS, DIRECTIONS, GOALS, STYLES, THEMES } from '../common/constants';
 
 /** The display name lives on the user account (PATCH /auth/me); these are learning preferences. */
 export class UpdateSettingsDto {
@@ -9,6 +9,7 @@ export class UpdateSettingsDto {
   @IsOptional() @IsBoolean() autoplay?: boolean;
   @IsOptional() @IsBoolean() showEx?: boolean;
   @IsOptional() @IsIn(THEMES) theme?: string;
+  @IsOptional() @IsIn(STYLES) style?: string;
   @IsOptional() @IsIn(ACCENTS) accent?: string;
   @IsOptional() @IsString() @MaxLength(300) voice?: string;
   @IsOptional() @IsNumber() @Min(0.5) @Max(1.5) rate?: number;

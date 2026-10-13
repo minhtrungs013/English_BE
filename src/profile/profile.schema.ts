@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { ACCENTS, DIRECTIONS, GOALS, THEMES } from '../common/constants';
+import { ACCENTS, DIRECTIONS, GOALS, STYLES, THEMES } from '../common/constants';
 import { jsonOptions } from '../common/to-json';
 
 @Schema({ _id: false })
@@ -10,6 +10,7 @@ export class Settings {
   @Prop({ default: true }) autoplay: boolean;
   @Prop({ default: true }) showEx: boolean;
   @Prop({ enum: THEMES, default: 'light' }) theme: string;
+  @Prop({ enum: STYLES, default: 'classic' }) style: string;
   /** Main color of the app. */
   @Prop({ enum: ACCENTS, default: 'indigo' }) accent: string;
   /** Browser speech voice (voiceURI); '' = the browser's default English voice. */
