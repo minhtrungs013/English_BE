@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { previousDay } from '../common/constants';
+import { previousDay, STYLE_UNLOCKS } from '../common/constants';
 import { todayKey } from '../common/day';
 
 /** Daily limits that reset at midnight (app time zone). */
@@ -25,7 +25,11 @@ export class ProfileService {
   }
 
   async updateSettings(user: string, dto: UpdateSettingsDto): Promise<ProfileDocument> {
-    await this.get(user);
+    const doc = await this.get(user);
+    const need = dto.style ? STYLE_UNLOCKS[dto.style] : undefined;
+    if (need && Math.max(doc.progress?.bestStreak ?? 0, doc.progress?.streak ?? 0) < need) {
+      throw new ForbiddenException('Keep a ' + need + '-day review streak to unlock this style.');
+    }
     const $set: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(dto)) if (v !== undefined) $set['settings.' + k] = v;
     return (await this.profiles.findOneAndUpdate({ user }, { $set }, { returnDocument: 'after', runValidators: true }))!;
@@ -41,6 +45,7 @@ export class ProfileService {
       p.streak = p.lastStreakDay === previousDay(day) ? p.streak + 1 : 1;
       p.lastStreakDay = day;
     }
+    p.bestStreak = Math.max(p.bestStreak ?? 0, p.streak);
     doc.markModified('progress');
     await doc.save();
     return doc.toJSON().progress as Progress;

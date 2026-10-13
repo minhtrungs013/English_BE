@@ -16,7 +16,9 @@ export const DIRECTIONS = ['en-vi', 'vi-en'] as const;
 export const GOALS = ['10', '20', '30', '50'] as const;
 export const ACCENTS = ['indigo', 'blue', 'teal', 'green', 'orange', 'rose'] as const;
 /** Look of the whole app (palette, font, corners); the accent only applies to 'classic'. */
-export const STYLES = ['classic', 'warm', 'ocean', 'sakura', 'midnight', 'mono'] as const;
+export const STYLES = ['classic', 'warm', 'ocean', 'sakura', 'midnight', 'mono', 'aurora', 'royal'] as const;
+/** Bonus styles and the best review streak (days) that unlocks each. */
+export const STYLE_UNLOCKS: Record<string, number> = { aurora: 7, royal: 30 };
 
 export const MIN = 60_000;
 export const DAY = 86_400_000;

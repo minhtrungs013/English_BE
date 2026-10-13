@@ -25,6 +25,8 @@ export class Settings {
 @Schema({ _id: false })
 export class Progress {
   @Prop({ default: 0 }) streak: number;
+  /** Longest streak ever (unlocks bonus styles; kept when a streak ends). */
+  @Prop({ default: 0 }) bestStreak: number;
   /** Client day key (YYYY-MM-DD) of the last day with a completed review. */
   @Prop({ default: '' }) lastStreakDay: string;
   @Prop({ default: '' }) reviewedDay: string;
