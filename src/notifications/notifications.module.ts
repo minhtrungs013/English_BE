@@ -7,6 +7,8 @@ import { Word, WordSchema } from '../words/word.schema';
 import { Notification, NotificationSchema } from './notification.schema';
 import { NotificationsController } from './notifications.controller';
 import { NotificationsService } from './notifications.service';
+import { PushToken, PushTokenSchema } from './push-token.schema';
+import { PushService } from './push.service';
 
 @Module({
   imports: [
@@ -17,11 +19,12 @@ import { NotificationsService } from './notifications.service';
       { name: Submission.name, schema: SubmissionSchema },
       { name: BankItem.name, schema: BankItemSchema },
       { name: Word.name, schema: WordSchema },
-      { name: Profile.name, schema: ProfileSchema }
+      { name: Profile.name, schema: ProfileSchema },
+      { name: PushToken.name, schema: PushTokenSchema }
     ])
   ],
   controllers: [NotificationsController],
-  providers: [NotificationsService],
+  providers: [NotificationsService, PushService],
   exports: [NotificationsService]
 })
 export class NotificationsModule {}

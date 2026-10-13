@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { addDays, appTimeZone, daysBetween, todayKey } from '../common/day';
+import { addDays, daysBetween, hourNow, todayKey } from '../common/day';
 import { Course, Enrollment, currentDay } from '../courses/course.schema';
 import { BankItem, Submission } from '../courses/homework.schema';
 import { Profile } from '../profile/profile.schema';
 import { Word } from '../words/word.schema';
 import { Notification, NotificationDocument, NotifyLink, NotifyType } from './notification.schema';
+import { PushService } from './push.service';
 
 /** Checking a user's courses for new notifications happens at most this often. */
 const CHECK_EVERY_MS = 60_000;
@@ -21,11 +22,6 @@ const STREAK_HOUR = 20;
 const plural = (n: number, w: string) => n + ' ' + w + (n === 1 ? '' : 's');
 const people = (n: number) => (n === 1 ? '1 person' : n + ' people');
 const penaltyFor = (late: number) => (late <= 0 ? 100 : late === 1 ? 80 : late === 2 ? 60 : 50);
-
-/** The current hour (0–23) in the app's time zone. */
-function hourNow(): number {
-  return Number(new Intl.DateTimeFormat('en-GB', { timeZone: appTimeZone(), hour: '2-digit', hourCycle: 'h23' }).format(new Date()));
-}
 
 /** "10 Oct" for a YYYY-MM-DD key. */
 function shortDate(key: string): string {
@@ -46,7 +42,8 @@ export class NotificationsService {
     @InjectModel(Submission.name) private readonly submissions: Model<Submission>,
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
     @InjectModel(Word.name) private readonly words: Model<Word>,
-    @InjectModel(Profile.name) private readonly profiles: Model<Profile>
+    @InjectModel(Profile.name) private readonly profiles: Model<Profile>,
+    private readonly push: PushService
   ) {}
 
   /* ---------- writing ---------- */
@@ -69,7 +66,11 @@ export class NotificationsService {
         upsert: true
       }
     }));
-    if (ops.length) await this.notes.bulkWrite(ops, { ordered: false });
+    if (!ops.length) return;
+    const r = await this.notes.bulkWrite(ops, { ordered: false });
+    // Only the ones just created are pushed (existing keys are left alone and stay silent).
+    const ids = Object.values(r.upsertedIds ?? {});
+    if (ids.length) void this.push.send(user, await this.notes.find({ _id: { $in: ids } }).lean());
   }
 
   /**
@@ -86,6 +87,7 @@ export class NotificationsService {
     if (!n) return;
     const t = text(n.count);
     await this.notes.updateOne({ _id: n._id }, { $set: { title: t.title, body: t.body ?? '', readAt: null, at: new Date(), hidden: false } });
+    void this.push.send(user, [{ _id: n._id, type, link: n.link, title: t.title, body: t.body ?? '' }]);
   }
 
   /* ---------- events (called by other services) ---------- */
@@ -279,8 +281,18 @@ export class NotificationsService {
     if (!r.matchedCount) throw new NotFoundException('Notification not found.');
   }
 
+  /** The hourly check (cron) for everyone who can get pushes, 20 users at a time. */
+  async refreshAll(): Promise<{ users: number; ms: number }> {
+    const start = Date.now();
+    const users = await this.push.users();
+    for (let i = 0; i < users.length; i += 20) {
+      await Promise.all(users.slice(i, i + 20).map((u) => this.refresh(u, true).catch(() => undefined)));
+    }
+    return { users: users.length, ms: Date.now() - start };
+  }
+
   async deleteForUser(user: string): Promise<void> {
     this.checked.delete(user);
-    await this.notes.deleteMany({ user });
+    await Promise.all([this.notes.deleteMany({ user }), this.push.deleteForUser(user)]);
   }
 }

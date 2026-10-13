@@ -26,3 +26,8 @@ export function addDays(key: string, n: number): string {
   const d = new Date(toUtc(key) + n * DAY_MS);
   return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
 }
+
+/** The current hour (0–23) in the app's time zone. */
+export function hourNow(now = new Date()): number {
+  return Number(new Intl.DateTimeFormat('en-GB', { timeZone: appTimeZone(), hour: '2-digit', hourCycle: 'h23' }).format(now));
+}
