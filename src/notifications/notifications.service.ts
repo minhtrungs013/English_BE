@@ -7,7 +7,7 @@ import { BankItem, Submission } from '../courses/homework.schema';
 import { Profile } from '../profile/profile.schema';
 import { Word } from '../words/word.schema';
 import { Notification, NotificationDocument, NotifyLink, NotifyType } from './notification.schema';
-import { PushService } from './push.service';
+import { isQuietHour, PushService } from './push.service';
 
 /** Checking a user's courses for new notifications happens at most this often. */
 const CHECK_EVERY_MS = 60_000;
@@ -70,7 +70,7 @@ export class NotificationsService {
     const r = await this.notes.bulkWrite(ops, { ordered: false });
     // Only the ones just created are pushed (existing keys are left alone and stay silent).
     const ids = Object.values(r.upsertedIds ?? {});
-    if (ids.length) void this.push.send(user, await this.notes.find({ _id: { $in: ids } }).lean());
+    if (ids.length) await this.pushOrHold(user, ids);
   }
 
   /**
@@ -87,7 +87,7 @@ export class NotificationsService {
     if (!n) return;
     const t = text(n.count);
     await this.notes.updateOne({ _id: n._id }, { $set: { title: t.title, body: t.body ?? '', readAt: null, at: new Date(), hidden: false } });
-    void this.push.send(user, [{ _id: n._id, type, link: n.link, title: t.title, body: t.body ?? '' }]);
+    await this.pushOrHold(user, [n._id]);
   }
 
   /* ---------- events (called by other services) ---------- */
@@ -282,11 +282,28 @@ export class NotificationsService {
   }
 
   /** The hourly check (cron) for everyone who can get pushes, 20 users at a time. */
+  /** Pushes new notifications now, or (quiet hours) marks them to be pushed from 07:00. */
+  private async pushOrHold(user: string, ids: unknown[]): Promise<void> {
+    if (isQuietHour()) {
+      await this.notes.updateMany({ _id: { $in: ids } }, { $set: { pushPending: true } });
+      return;
+    }
+    void this.push.send(user, await this.notes.find({ _id: { $in: ids } }).lean());
+  }
+
+  /** After quiet hours: pushes what was held back overnight, if it's still unread. */
+  private async flushHeld(user: string): Promise<void> {
+    if (isQuietHour()) return;
+    const held = await this.notes.find({ user, pushPending: true, readAt: null, hidden: false }).lean();
+    await this.notes.updateMany({ user, pushPending: true }, { $set: { pushPending: false } });
+    if (held.length) await this.push.send(user, held);
+  }
+
   async refreshAll(): Promise<{ users: number; ms: number }> {
     const start = Date.now();
     const users = await this.push.users();
     for (let i = 0; i < users.length; i += 20) {
-      await Promise.all(users.slice(i, i + 20).map((u) => this.refresh(u, true).catch(() => undefined)));
+      await Promise.all(users.slice(i, i + 20).map((u) => this.refresh(u, true).then(() => this.flushHeld(u)).catch(() => undefined)));
     }
     return { users: users.length, ms: Date.now() - start };
   }

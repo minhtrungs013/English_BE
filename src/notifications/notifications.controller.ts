@@ -57,6 +57,14 @@ export class NotificationsController {
     await this.push.register(user, dto.token, dto.platform);
   }
 
+  /** Sends a test push to my phones now (ignores quiet hours) and reports what the push service said. */
+  @Post('push-test')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 5, ttl: 60_000 } })
+  pushTest(@UserId() user: string) {
+    return this.push.test(user);
+  }
+
   /** Signing out: this device stops getting pushes. */
   @Delete('push-token')
   @HttpCode(204)

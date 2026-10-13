@@ -39,6 +39,8 @@ export class Notification {
   @Prop({ type: Date, default: () => new Date() }) at: Date;
   /** Dismissed by the user: kept (so the same key isn't created again) but no longer listed. */
   @Prop({ default: false }) hidden: boolean;
+  /** Made during quiet hours: pushed later (from 07:00) if still unread. */
+  @Prop({ default: false }) pushPending: boolean;
 }
 export type NotificationDocument = HydratedDocument<Notification>;
 export const NotificationSchema = SchemaFactory.createForClass(Notification);

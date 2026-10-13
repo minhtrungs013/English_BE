@@ -51,7 +51,7 @@ export class PushService {
   /** Pushes the notifications to all the user's devices. Never throws (problems are logged). */
   async send(user: string, notes: PushNote[]): Promise<void> {
     try {
-      if (!notes.length || isQuietHour()) return;
+      if (!notes.length) return;
       const devices = await this.tokens.find({ user }, { token: 1 }).lean();
       if (!devices.length) return;
       const messages = devices.flatMap((d) => notes.map((n) => ({
@@ -64,13 +64,24 @@ export class PushService {
     }
   }
 
-  private async post(messages: { to: string }[]): Promise<void> {
+  /** A test push to all the user's devices (ignores quiet hours); returns what Expo said for each device. */
+  async test(user: string): Promise<{ devices: number; results: { status: string; error?: string }[] }> {
+    const devices = await this.tokens.find({ user }, { token: 1 }).lean();
+    if (!devices.length) return { devices: 0, results: [] };
+    const tickets = await this.post(devices.map((d) => ({
+      to: d.token, title: 'Wordbook', body: 'Test notification — push works on this phone 🎉', sound: 'default', channelId: 'default',
+      data: { type: 'test', link: null }
+    })));
+    return { devices: devices.length, results: tickets.map((t) => ({ status: t.status, error: t.status === 'error' ? t.details?.error ?? t.message : undefined })) };
+  }
+
+  private async post(messages: { to: string }[]): Promise<ExpoTicket[]> {
     const headers: Record<string, string> = { Accept: 'application/json', 'Accept-Encoding': 'gzip, deflate', 'Content-Type': 'application/json' };
     if (process.env.EXPO_ACCESS_TOKEN) headers.Authorization = 'Bearer ' + process.env.EXPO_ACCESS_TOKEN;
     const res = await fetch(EXPO_URL, { method: 'POST', headers, body: JSON.stringify(messages), signal: AbortSignal.timeout(TIMEOUT_MS) });
     if (!res.ok) {
       this.log.warn('Expo push answered ' + res.status);
-      return;
+      return messages.map(() => ({ status: 'error' as const, message: 'Expo push service answered ' + res.status }));
     }
     const tickets = ((await res.json()) as { data?: ExpoTicket[] }).data ?? [];
     // Tickets come back in the same order as the messages.
@@ -81,5 +92,6 @@ export class PushService {
       else this.log.warn('Push ticket error: ' + (t.details?.error ?? t.message ?? 'unknown'));
     });
     if (gone.size) await this.tokens.deleteMany({ token: { $in: [...gone] } });
+    return tickets;
   }
 }
