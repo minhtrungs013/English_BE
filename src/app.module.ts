@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { KeepAliveService } from './common/keep-alive.service';
 import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
@@ -41,6 +42,6 @@ import { WordsModule } from './words/words.module';
     DictationModule,
     DataModule
   ],
-  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }]
+  providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }, KeepAliveService]
 })
 export class AppModule {}
