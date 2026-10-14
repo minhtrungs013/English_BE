@@ -43321,13 +43321,6 @@
     "note": "BrE: centre"
    },
    {
-    "word": "centre",
-    "pos": "Noun",
-    "vi": "trung tâm",
-    "ex": "The conference centre is near the station.",
-    "note": "AmE: center"
-   },
-   {
     "word": "central",
     "pos": "Adjective",
     "vi": "trung tâm; chủ yếu",
@@ -43364,13 +43357,6 @@
     "vi": "tập trung hóa",
     "ex": "We plan to centralize all purchasing.",
     "note": "BrE: centralise"
-   },
-   {
-    "word": "center",
-    "pos": "Noun",
-    "vi": "trung tâm",
-    "ex": "The training center is on the third floor.",
-    "note": "BrE: centre"
    },
    {
     "word": "centre",
@@ -52246,13 +52232,6 @@
     "note": "AmE: defense"
    },
    {
-    "word": "defense",
-    "pos": "Noun",
-    "vi": "sự bảo vệ, phòng thủ",
-    "ex": "Our firewall is the first line of defense.",
-    "note": "BrE: defence"
-   },
-   {
     "word": "defensive",
     "pos": "Adjective",
     "vi": "phòng thủ",
@@ -52282,13 +52261,6 @@
     "pos": "Verb",
     "vi": "bảo vệ, bênh vực",
     "ex": "She defended her team's decision."
-   },
-   {
-    "word": "defence",
-    "pos": "Noun",
-    "vi": "sự bảo vệ, phòng thủ",
-    "ex": "The lawyer prepared the company's defence.",
-    "note": "AmE: defense"
    },
    {
     "word": "defense",
@@ -78493,13 +78465,6 @@
     "note": "AmE: license"
    },
    {
-    "word": "license",
-    "pos": "Noun",
-    "vi": "giấy phép, bằng",
-    "ex": "Each user needs a software license.",
-    "note": "BrE: licence"
-   },
-   {
     "word": "licensed",
     "pos": "Adjective",
     "vi": "được cấp phép",
@@ -78536,13 +78501,6 @@
     "pos": "Verb",
     "vi": "cấp phép",
     "ex": "The city licenses all food vendors."
-   },
-   {
-    "word": "licence",
-    "pos": "Noun",
-    "vi": "giấy phép, bằng",
-    "ex": "You need a valid driving licence to rent a car.",
-    "note": "AmE: license"
    },
    {
     "word": "license",
@@ -86820,13 +86778,6 @@
     "note": "person"
    },
    {
-    "word": "offense",
-    "pos": "Noun",
-    "vi": "sự xúc phạm; sự vi phạm",
-    "ex": "No offense, but I disagree.",
-    "note": "BrE: offence"
-   },
-   {
     "word": "offensive",
     "pos": "Adjective",
     "vi": "xúc phạm, khó chịu",
@@ -86856,13 +86807,6 @@
     "pos": "Verb",
     "vi": "xúc phạm, làm phật lòng",
     "ex": "The joke offended some clients."
-   },
-   {
-    "word": "offence",
-    "pos": "Noun",
-    "vi": "sự vi phạm, tội; sự xúc phạm",
-    "ex": "Smoking here is an offence.",
-    "note": "AmE: offense"
    },
    {
     "word": "offender",
@@ -86908,13 +86852,6 @@
     "pos": "Verb",
     "vi": "xúc phạm, làm phật lòng",
     "ex": "The joke offended some clients."
-   },
-   {
-    "word": "offence",
-    "pos": "Noun",
-    "vi": "sự vi phạm, tội; sự xúc phạm",
-    "ex": "Smoking here is an offence.",
-    "note": "AmE: offense"
    },
    {
     "word": "offender",
@@ -93446,13 +93383,6 @@
     "note": "BrE: practise"
    },
    {
-    "word": "practise",
-    "pos": "Verb",
-    "vi": "luyện tập; hành nghề (BrE)",
-    "ex": "She practises her English every day.",
-    "note": "AmE: practice"
-   },
-   {
     "word": "practice",
     "pos": "Noun",
     "vi": "sự thực hành; thông lệ; phòng khám",
@@ -93482,13 +93412,6 @@
   "level": "A2",
   "topic": "toeic",
   "family": [
-   {
-    "word": "practice",
-    "pos": "Verb",
-    "vi": "luyện tập; hành nghề",
-    "ex": "Practice your presentation before the meeting.",
-    "note": "BrE: practise"
-   },
    {
     "word": "practise",
     "pos": "Verb",
@@ -95182,13 +95105,6 @@
     "note": "BrE: programme"
    },
    {
-    "word": "programme",
-    "pos": "Noun",
-    "vi": "chương trình (BrE)",
-    "ex": "The training programme starts in May.",
-    "note": "AmE: program"
-   },
-   {
     "word": "programmer",
     "pos": "Noun",
     "vi": "lập trình viên",
@@ -95222,13 +95138,6 @@
     "pos": "Verb",
     "vi": "lập trình",
     "ex": "The machine is programmed to stop at 6 p.m."
-   },
-   {
-    "word": "program",
-    "pos": "Noun",
-    "vi": "chương trình",
-    "ex": "The training program lasts six weeks.",
-    "note": "BrE: programme"
    },
    {
     "word": "programme",
@@ -117626,13 +117535,6 @@
     "pos": "Noun",
     "vi": "việc đi lại",
     "ex": "Travel expenses will be refunded."
-   },
-   {
-    "word": "traveller",
-    "pos": "Noun",
-    "vi": "khách du lịch, người đi lại",
-    "ex": "Business travellers need fast Wi-Fi.",
-    "note": "AmE: traveler"
    }
   ]
  },
@@ -117656,12 +117558,6 @@
     "pos": "Verb",
     "vi": "đi lại, du lịch",
     "ex": "She travels to Singapore for work every month."
-   },
-   {
-    "word": "travel",
-    "pos": "Noun",
-    "vi": "việc đi lại",
-    "ex": "Travel expenses will be refunded."
    },
    {
     "word": "traveller",
