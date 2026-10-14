@@ -51,6 +51,10 @@ export class LibraryService implements OnApplicationBootstrap {
     if (!ops.length) return;
     const res = await this.lib.bulkWrite(ops, { ordered: false });
     if (res.upsertedCount) this.log.log('Added ' + res.upsertedCount + ' built-in words to the library.');
+    // Words learners saved before families existed get the library's family once.
+    const families = new Map(seed.map((e) => [e.word.toLowerCase(), cleanFamily(e.family)] as const).filter(([, f]) => f.length));
+    const filled = await this.words.backfillFamilies(families);
+    if (filled) this.log.log('Added the word family to ' + filled + ' saved words.');
     await this.syncFamilies(seed);
   }
 

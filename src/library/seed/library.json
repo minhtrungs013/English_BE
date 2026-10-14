@@ -525,7 +525,27 @@
   "ant": [],
   "level": "B1",
   "topic": "it",
-  "family": []
+  "family": [
+   {
+    "word": "debug",
+    "pos": "Verb",
+    "vi": "gỡ lỗi, debug",
+    "ex": "I need an hour to debug the payment module."
+   },
+   {
+    "word": "debugger",
+    "pos": "Noun",
+    "vi": "trình gỡ lỗi",
+    "ex": "Run the code in the debugger to find the problem.",
+    "note": "tool"
+   },
+   {
+    "word": "debugging",
+    "pos": "Noun",
+    "vi": "việc gỡ lỗi",
+    "ex": "Debugging took most of the afternoon."
+   }
+  ]
  },
  {
   "word": "crash",
@@ -2997,7 +3017,21 @@
   "ant": [],
   "level": "C1",
   "topic": "it",
-  "family": []
+  "family": [
+   {
+    "word": "parse",
+    "pos": "Verb",
+    "vi": "phân tích cú pháp, đọc tách dữ liệu",
+    "ex": "The script parses the CSV file every night."
+   },
+   {
+    "word": "parser",
+    "pos": "Noun",
+    "vi": "bộ phân tích cú pháp",
+    "ex": "We replaced the old parser with a faster library.",
+    "note": "tool"
+   }
+  ]
  },
  {
   "word": "override",
@@ -10370,7 +10404,20 @@
   "ant": [],
   "level": "C2",
   "topic": "customer",
-  "family": []
+  "family": [
+   {
+    "word": "reiterate",
+    "pos": "Verb",
+    "vi": "nhắc lại, nhấn mạnh lại",
+    "ex": "Let me reiterate that the deadline is Friday."
+   },
+   {
+    "word": "reiteration",
+    "pos": "Noun",
+    "vi": "sự nhắc lại",
+    "ex": "His email was a reiteration of the earlier policy."
+   }
+  ]
  },
  {
   "word": "liability",
@@ -12362,7 +12409,20 @@
   ],
   "level": "A2",
   "topic": "leader",
-  "family": []
+  "family": [
+   {
+    "word": "busy",
+    "pos": "Adjective",
+    "vi": "bận rộn",
+    "ex": "I'm busy with the quarterly report today."
+   },
+   {
+    "word": "busily",
+    "pos": "Adverb",
+    "vi": "một cách bận rộn",
+    "ex": "The team was busily preparing for the launch."
+   }
+  ]
  },
  {
   "word": "finish",
@@ -14816,7 +14876,39 @@
   ],
   "level": "C1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "convene",
+    "pos": "Verb",
+    "vi": "triệu tập, nhóm họp",
+    "ex": "The board will convene next Monday."
+   },
+   {
+    "word": "convention",
+    "pos": "Noun",
+    "vi": "hội nghị; quy ước",
+    "ex": "The sales convention is in Las Vegas."
+   },
+   {
+    "word": "conventional",
+    "pos": "Adjective",
+    "vi": "thông thường, truyền thống",
+    "ex": "We use conventional methods."
+   },
+   {
+    "word": "unconventional",
+    "pos": "Adjective",
+    "vi": "khác thường",
+    "ex": "He has an unconventional management style.",
+    "note": "opposite (un-)"
+   },
+   {
+    "word": "conventionally",
+    "pos": "Adverb",
+    "vi": "theo cách thông thường",
+    "ex": "The products are conventionally packaged."
+   }
+  ]
  },
  {
   "word": "adjourn",
@@ -17922,7 +18014,26 @@
   "ant": [],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "file",
+    "pos": "Verb",
+    "vi": "nộp (hồ sơ); lưu trữ",
+    "ex": "Please file your expense report by Friday."
+   },
+   {
+    "word": "file",
+    "pos": "Noun",
+    "vi": "tập tin; hồ sơ",
+    "ex": "I attached the file to the email."
+   },
+   {
+    "word": "filing",
+    "pos": "Noun",
+    "vi": "việc nộp hồ sơ; lưu trữ",
+    "ex": "The tax filing deadline is next week."
+   }
+  ]
  },
  {
   "word": "document",
@@ -19185,7 +19296,21 @@
   "ant": [],
   "level": "B2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "tell",
+    "pos": "Verb",
+    "vi": "nói, kể, bảo",
+    "ex": "Please tell the team about the schedule change."
+   },
+   {
+    "word": "teller",
+    "pos": "Noun",
+    "vi": "giao dịch viên ngân hàng",
+    "ex": "The bank teller checked my ID.",
+    "note": "person"
+   }
+  ]
  },
  {
   "word": "currency",
@@ -21169,7 +21294,21 @@
   ],
   "level": "B2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "wholesaler",
+    "pos": "Noun",
+    "vi": "nhà bán sỉ",
+    "ex": "The wholesaler delivers to our stores every Monday.",
+    "note": "person/company"
+   },
+   {
+    "word": "wholesale",
+    "pos": "Adjective",
+    "vi": "bán sỉ",
+    "ex": "We buy office supplies at wholesale prices."
+   }
+  ]
  },
  {
   "word": "retail",
@@ -21418,7 +21557,32 @@
   ],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "damage",
+    "pos": "Verb",
+    "vi": "làm hư hỏng",
+    "ex": "Heat can damage the equipment."
+   },
+   {
+    "word": "damage",
+    "pos": "Noun",
+    "vi": "thiệt hại, hư hỏng",
+    "ex": "The storm caused serious damage to the warehouse."
+   },
+   {
+    "word": "damaged",
+    "pos": "Adjective",
+    "vi": "bị hư hỏng",
+    "ex": "Please return any damaged items within 7 days."
+   },
+   {
+    "word": "damaging",
+    "pos": "Adjective",
+    "vi": "gây hại",
+    "ex": "The news was damaging to the company's reputation."
+   }
+  ]
  },
  {
   "word": "defective",
@@ -23723,7 +23887,26 @@
   ],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "board",
+    "pos": "Verb",
+    "vi": "lên (tàu, xe, máy bay)",
+    "ex": "Passengers may now board the plane."
+   },
+   {
+    "word": "board",
+    "pos": "Noun",
+    "vi": "ban giám đốc; bảng",
+    "ex": "The board approved the new budget."
+   },
+   {
+    "word": "boarding",
+    "pos": "Noun",
+    "vi": "việc lên máy bay/tàu",
+    "ex": "Boarding begins 30 minutes before departure."
+   }
+  ]
  },
  {
   "word": "depart",
@@ -24224,7 +24407,21 @@
   ],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "fasten",
+    "pos": "Verb",
+    "vi": "thắt, buộc chặt",
+    "ex": "Please fasten your seat belt."
+   },
+   {
+    "word": "unfasten",
+    "pos": "Verb",
+    "vi": "tháo, cởi ra",
+    "ex": "Do not unfasten your seat belt until the plane stops.",
+    "note": "opposite (un-)"
+   }
+  ]
  },
  {
   "word": "customs",
@@ -25284,6 +25481,12 @@
   "level": "B2",
   "topic": "toeic",
   "family": [
+   {
+    "word": "convene",
+    "pos": "Verb",
+    "vi": "triệu tập, nhóm họp",
+    "ex": "The board will convene next Monday."
+   },
    {
     "word": "convention",
     "pos": "Noun",
@@ -27612,7 +27815,20 @@
   ],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "fragility",
+    "pos": "Noun",
+    "vi": "sự dễ vỡ, mong manh",
+    "ex": "The crisis showed the fragility of the supply chain."
+   },
+   {
+    "word": "fragile",
+    "pos": "Adjective",
+    "vi": "dễ vỡ, mong manh",
+    "ex": "This package contains fragile glassware."
+   }
+  ]
  },
  {
   "word": "load",
@@ -30868,7 +31084,26 @@
   ],
   "level": "A2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "near",
+    "pos": "Adjective",
+    "vi": "gần",
+    "ex": "The hotel is near the conference center."
+   },
+   {
+    "word": "nearby",
+    "pos": "Adjective",
+    "vi": "gần đó",
+    "ex": "There are several restaurants nearby."
+   },
+   {
+    "word": "nearly",
+    "pos": "Adverb",
+    "vi": "gần như",
+    "ex": "The project is nearly finished."
+   }
+  ]
  },
  {
   "word": "reduce",
@@ -35447,7 +35682,27 @@
   ],
   "level": "A1",
   "topic": "customer",
-  "family": []
+  "family": [
+   {
+    "word": "answer",
+    "pos": "Verb",
+    "vi": "trả lời",
+    "ex": "Please answer the client's email today."
+   },
+   {
+    "word": "answer",
+    "pos": "Noun",
+    "vi": "câu trả lời",
+    "ex": "We are still waiting for an answer from the supplier."
+   },
+   {
+    "word": "unanswered",
+    "pos": "Adjective",
+    "vi": "chưa được trả lời",
+    "ex": "I have twenty unanswered emails in my inbox.",
+    "note": "opposite (un-)"
+   }
+  ]
  },
  {
   "word": "anti-",
@@ -36288,7 +36543,27 @@
   "ant": [],
   "level": "A1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "arm",
+    "pos": "Verb",
+    "vi": "trang bị vũ khí",
+    "ex": "The guards are armed with radios and batons."
+   },
+   {
+    "word": "armed",
+    "pos": "Adjective",
+    "vi": "có vũ trang",
+    "ex": "Armed guards protect the bank at night."
+   },
+   {
+    "word": "unarmed",
+    "pos": "Adjective",
+    "vi": "không vũ trang",
+    "ex": "The security staff at the entrance are unarmed.",
+    "note": "opposite (un-)"
+   }
+  ]
  },
  {
   "word": "arms",
@@ -36318,7 +36593,27 @@
   ],
   "level": "B2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "arm",
+    "pos": "Verb",
+    "vi": "trang bị vũ khí",
+    "ex": "The guards are armed with radios and batons."
+   },
+   {
+    "word": "armed",
+    "pos": "Adjective",
+    "vi": "có vũ trang",
+    "ex": "Armed guards protect the bank at night."
+   },
+   {
+    "word": "unarmed",
+    "pos": "Adjective",
+    "vi": "không vũ trang",
+    "ex": "The security staff at the entrance are unarmed.",
+    "note": "opposite (un-)"
+   }
+  ]
  },
  {
   "word": "army",
@@ -37685,7 +37980,26 @@
   ],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "awaken",
+    "pos": "Verb",
+    "vi": "đánh thức; khơi dậy",
+    "ex": "The training awakened her interest in data analysis."
+   },
+   {
+    "word": "wake",
+    "pos": "Verb",
+    "vi": "thức dậy; đánh thức",
+    "ex": "I usually wake up at six on workdays."
+   },
+   {
+    "word": "awake",
+    "pos": "Adjective",
+    "vi": "thức, tỉnh táo",
+    "ex": "I was awake until 2 a.m. finishing the slides."
+   }
+  ]
  },
  {
   "word": "award",
@@ -37924,7 +38238,20 @@
   ],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "backward",
+    "pos": "Adjective",
+    "vi": "lùi về sau; lạc hậu",
+    "ex": "The new policy is a backward step for the company."
+   },
+   {
+    "word": "backwards",
+    "pos": "Adverb",
+    "vi": "về phía sau, ngược lại",
+    "ex": "Count backwards from the deadline to plan each task."
+   }
+  ]
  },
  {
   "word": "backward",
@@ -37941,7 +38268,20 @@
   ],
   "level": "B2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "backward",
+    "pos": "Adjective",
+    "vi": "lùi về sau; lạc hậu",
+    "ex": "The new policy is a backward step for the company."
+   },
+   {
+    "word": "backwards",
+    "pos": "Adverb",
+    "vi": "về phía sau, ngược lại",
+    "ex": "Count backwards from the deadline to plan each task."
+   }
+  ]
  },
  {
   "word": "bacteria",
@@ -38605,7 +38945,20 @@
   ],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "beat",
+    "pos": "Verb",
+    "vi": "đánh bại; vượt qua",
+    "ex": "We beat our sales target by 15 percent."
+   },
+   {
+    "word": "unbeatable",
+    "pos": "Adjective",
+    "vi": "không thể đánh bại, tốt nhất",
+    "ex": "The store offers unbeatable prices this week."
+   }
+  ]
  },
  {
   "word": "beautiful",
@@ -39200,7 +39553,20 @@
   ],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "bend",
+    "pos": "Verb",
+    "vi": "uốn cong; cúi xuống",
+    "ex": "Bend your knees when you lift heavy boxes."
+   },
+   {
+    "word": "bent",
+    "pos": "Adjective",
+    "vi": "bị cong",
+    "ex": "The delivery arrived with a bent frame."
+   }
+  ]
  },
  {
   "word": "bent",
@@ -39218,7 +39584,20 @@
   ],
   "level": "B2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "bend",
+    "pos": "Verb",
+    "vi": "uốn cong; cúi xuống",
+    "ex": "Bend your knees when you lift heavy boxes."
+   },
+   {
+    "word": "bent",
+    "pos": "Adjective",
+    "vi": "bị cong",
+    "ex": "The delivery arrived with a bent frame."
+   }
+  ]
  },
  {
   "word": "beneath",
@@ -39406,7 +39785,26 @@
   ],
   "level": "A1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "goodness",
+    "pos": "Noun",
+    "vi": "lòng tốt; điều tốt",
+    "ex": "He helped us out of pure goodness."
+   },
+   {
+    "word": "goods",
+    "pos": "Noun",
+    "vi": "hàng hóa",
+    "ex": "The goods will be shipped tomorrow."
+   },
+   {
+    "word": "good",
+    "pos": "Adjective",
+    "vi": "tốt, giỏi",
+    "ex": "She did a good job on the presentation."
+   }
+  ]
  },
  {
   "word": "between",
@@ -39874,7 +40272,26 @@
   ],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "blindness",
+    "pos": "Noun",
+    "vi": "sự mù lòa",
+    "ex": "The charity supports people with blindness."
+   },
+   {
+    "word": "blind",
+    "pos": "Adjective",
+    "vi": "mù",
+    "ex": "The building has signs in Braille for blind visitors."
+   },
+   {
+    "word": "blindly",
+    "pos": "Adverb",
+    "vi": "một cách mù quáng",
+    "ex": "Don't blindly follow the old process."
+   }
+  ]
  },
  {
   "word": "block",
@@ -40025,7 +40442,26 @@
   "ant": [],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "boil",
+    "pos": "Verb",
+    "vi": "đun sôi, sôi",
+    "ex": "Boil the water before making tea."
+   },
+   {
+    "word": "boiler",
+    "pos": "Noun",
+    "vi": "nồi hơi",
+    "ex": "The technician will repair the boiler on Monday."
+   },
+   {
+    "word": "boiling",
+    "pos": "Adjective",
+    "vi": "đang sôi; rất nóng",
+    "ex": "It was boiling hot in the office yesterday."
+   }
+  ]
  },
  {
   "word": "bomb",
@@ -41243,7 +41679,20 @@
   "ant": [],
   "level": "B2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "bury",
+    "pos": "Verb",
+    "vi": "chôn; vùi lấp",
+    "ex": "The key detail was buried in the contract."
+   },
+   {
+    "word": "burial",
+    "pos": "Noun",
+    "vi": "sự chôn cất",
+    "ex": "He took a day off to attend his uncle's burial."
+   }
+  ]
  },
  {
   "word": "bus",
@@ -48454,6 +48903,12 @@
   "topic": "toeic",
   "family": [
    {
+    "word": "convene",
+    "pos": "Verb",
+    "vi": "triệu tập, nhóm họp",
+    "ex": "The board will convene next Monday."
+   },
+   {
     "word": "convention",
     "pos": "Noun",
     "vi": "hội nghị; quy ước",
@@ -50736,7 +51191,32 @@
   "ant": [],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "damage",
+    "pos": "Verb",
+    "vi": "làm hư hỏng",
+    "ex": "Heat can damage the equipment."
+   },
+   {
+    "word": "damage",
+    "pos": "Noun",
+    "vi": "thiệt hại, hư hỏng",
+    "ex": "The storm caused serious damage to the warehouse."
+   },
+   {
+    "word": "damaged",
+    "pos": "Adjective",
+    "vi": "bị hư hỏng",
+    "ex": "Please return any damaged items within 7 days."
+   },
+   {
+    "word": "damaging",
+    "pos": "Adjective",
+    "vi": "gây hại",
+    "ex": "The news was damaging to the company's reputation."
+   }
+  ]
  },
  {
   "word": "damp",
@@ -50972,7 +51452,20 @@
   "ant": [],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "dare",
+    "pos": "Verb",
+    "vi": "dám",
+    "ex": "Nobody dared to question the manager's decision."
+   },
+   {
+    "word": "daring",
+    "pos": "Adjective",
+    "vi": "táo bạo",
+    "ex": "It was a daring plan, but it worked."
+   }
+  ]
  },
  {
   "word": "dark",
@@ -51150,7 +51643,26 @@
   "ant": [],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "deafness",
+    "pos": "Noun",
+    "vi": "sự điếc",
+    "ex": "The app supports users with deafness."
+   },
+   {
+    "word": "deaf",
+    "pos": "Adjective",
+    "vi": "điếc",
+    "ex": "The hotel has rooms for deaf guests."
+   },
+   {
+    "word": "deafening",
+    "pos": "Adjective",
+    "vi": "điếc tai, rất ồn",
+    "ex": "The noise from the construction was deafening."
+   }
+  ]
  },
  {
   "word": "deal",
@@ -52451,7 +52963,20 @@
   "ant": [],
   "level": "C1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "derive",
+    "pos": "Verb",
+    "vi": "bắt nguồn từ; thu được",
+    "ex": "Most of our income is derived from exports."
+   },
+   {
+    "word": "derivative",
+    "pos": "Noun",
+    "vi": "sản phẩm phái sinh",
+    "ex": "The bank trades currency derivatives."
+   }
+  ]
  },
  {
   "word": "describe",
@@ -52604,7 +53129,20 @@
   "ant": [],
   "level": "B1",
   "topic": "interview",
-  "family": []
+  "family": [
+   {
+    "word": "deserve",
+    "pos": "Verb",
+    "vi": "xứng đáng",
+    "ex": "You deserve a raise for your hard work."
+   },
+   {
+    "word": "deserving",
+    "pos": "Adjective",
+    "vi": "xứng đáng",
+    "ex": "The award goes to the most deserving employee."
+   }
+  ]
  },
  {
   "word": "design",
@@ -57333,7 +57871,20 @@
   ],
   "level": "B1",
   "topic": "customer",
-  "family": []
+  "family": [
+   {
+    "word": "elder",
+    "pos": "Adjective",
+    "vi": "lớn tuổi hơn",
+    "ex": "My elder sister works in accounting."
+   },
+   {
+    "word": "elderly",
+    "pos": "Adjective",
+    "vi": "cao tuổi",
+    "ex": "The service helps elderly customers bank online."
+   }
+  ]
  },
  {
   "word": "elect",
@@ -59440,7 +59991,52 @@
   "ant": [],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "specialize",
+    "pos": "Verb",
+    "vi": "chuyên về",
+    "ex": "The firm specializes in logistics."
+   },
+   {
+    "word": "specialist",
+    "pos": "Noun",
+    "vi": "chuyên gia",
+    "ex": "We consulted a tax specialist.",
+    "note": "person"
+   },
+   {
+    "word": "specialty",
+    "pos": "Noun",
+    "vi": "đặc sản; chuyên môn",
+    "ex": "Seafood is the restaurant's specialty.",
+    "note": "BrE: speciality"
+   },
+   {
+    "word": "special",
+    "pos": "Adjective",
+    "vi": "đặc biệt",
+    "ex": "We have a special offer this week."
+   },
+   {
+    "word": "specialized",
+    "pos": "Adjective",
+    "vi": "chuyên môn hóa",
+    "ex": "This job requires specialized training."
+   },
+   {
+    "word": "especially",
+    "pos": "Adverb",
+    "vi": "đặc biệt là",
+    "ex": "The office is busy, especially on Mondays."
+   },
+   {
+    "word": "specially",
+    "pos": "Adverb",
+    "vi": "đặc biệt, riêng cho",
+    "ex": "The room was specially designed for meetings."
+   }
+  ]
  },
  {
   "word": "essay",
@@ -62199,7 +62795,27 @@
   "ant": [],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "further",
+    "pos": "Adjective",
+    "vi": "thêm, xa hơn",
+    "ex": "Please contact us for further information."
+   },
+   {
+    "word": "furthest",
+    "pos": "Adjective",
+    "vi": "xa nhất",
+    "ex": "The new branch is the furthest from the head office.",
+    "note": "superlative"
+   },
+   {
+    "word": "furthermore",
+    "pos": "Adverb",
+    "vi": "hơn nữa",
+    "ex": "The plan is cheap; furthermore, it is easy to implement."
+   }
+  ]
  },
  {
   "word": "farm",
@@ -62417,7 +63033,20 @@
   ],
   "level": "A1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "fat",
+    "pos": "Adjective",
+    "vi": "béo; mập",
+    "ex": "The cafeteria offers low-fat meals."
+   },
+   {
+    "word": "fatty",
+    "pos": "Adjective",
+    "vi": "nhiều mỡ, béo",
+    "ex": "Try to avoid fatty food at lunch."
+   }
+  ]
  },
  {
   "word": "father",
@@ -62648,7 +63277,20 @@
   "ant": [],
   "level": "B2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "federation",
+    "pos": "Noun",
+    "vi": "liên đoàn, liên bang",
+    "ex": "She works for the national employers' federation."
+   },
+   {
+    "word": "federal",
+    "pos": "Adjective",
+    "vi": "thuộc liên bang",
+    "ex": "The company must follow federal tax rules."
+   }
+  ]
  },
  {
   "word": "feed",
@@ -62976,7 +63618,26 @@
   ],
   "level": "A2",
   "topic": "interview",
-  "family": []
+  "family": [
+   {
+    "word": "fill",
+    "pos": "Verb",
+    "vi": "đổ đầy; điền",
+    "ex": "Please fill in the form and return it today."
+   },
+   {
+    "word": "refill",
+    "pos": "Verb",
+    "vi": "đổ đầy lại",
+    "ex": "Can you refill the printer paper?"
+   },
+   {
+    "word": "filling",
+    "pos": "Noun",
+    "vi": "nhân (bánh); việc làm đầy",
+    "ex": "The sandwich has a chicken filling."
+   }
+  ]
  },
  {
   "word": "film",
@@ -63124,7 +63785,20 @@
   ],
   "level": "A1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "find",
+    "pos": "Verb",
+    "vi": "tìm thấy",
+    "ex": "I can't find the contract file."
+   },
+   {
+    "word": "finding",
+    "pos": "Noun",
+    "vi": "phát hiện, kết quả (nghiên cứu)",
+    "ex": "The report presents the main findings of the survey."
+   }
+  ]
  },
  {
   "word": "find out",
@@ -65734,7 +66408,27 @@
   ],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "further",
+    "pos": "Adjective",
+    "vi": "thêm, xa hơn",
+    "ex": "Please contact us for further information."
+   },
+   {
+    "word": "furthest",
+    "pos": "Adjective",
+    "vi": "xa nhất",
+    "ex": "The new branch is the furthest from the head office.",
+    "note": "superlative"
+   },
+   {
+    "word": "furthermore",
+    "pos": "Adverb",
+    "vi": "hơn nữa",
+    "ex": "The plan is cheap; furthermore, it is easy to implement."
+   }
+  ]
  },
  {
   "word": "future",
@@ -67006,7 +67700,26 @@
   "ant": [],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "goodness",
+    "pos": "Noun",
+    "vi": "lòng tốt; điều tốt",
+    "ex": "He helped us out of pure goodness."
+   },
+   {
+    "word": "goods",
+    "pos": "Noun",
+    "vi": "hàng hóa",
+    "ex": "The goods will be shipped tomorrow."
+   },
+   {
+    "word": "good",
+    "pos": "Adjective",
+    "vi": "tốt, giỏi",
+    "ex": "She did a good job on the presentation."
+   }
+  ]
  },
  {
   "word": "govern",
@@ -68049,7 +68762,20 @@
   "ant": [],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "hang",
+    "pos": "Verb",
+    "vi": "treo",
+    "ex": "Please hang your coat by the door."
+   },
+   {
+    "word": "hanger",
+    "pos": "Noun",
+    "vi": "móc treo áo",
+    "ex": "There are extra hangers in the closet."
+   }
+  ]
  },
  {
   "word": "happen",
@@ -68065,7 +68791,20 @@
   "ant": [],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "happen",
+    "pos": "Verb",
+    "vi": "xảy ra",
+    "ex": "What happened at the meeting yesterday?"
+   },
+   {
+    "word": "happening",
+    "pos": "Noun",
+    "vi": "sự việc, sự kiện",
+    "ex": "There were some strange happenings in the office last week."
+   }
+  ]
  },
  {
   "word": "happiness",
@@ -68721,7 +69460,27 @@
   "ant": [],
   "level": "B2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "heal",
+    "pos": "Verb",
+    "vi": "chữa lành, lành lại",
+    "ex": "It took six weeks for his wrist to heal."
+   },
+   {
+    "word": "healer",
+    "pos": "Noun",
+    "vi": "người chữa bệnh",
+    "ex": "She is known as a traditional healer.",
+    "note": "person"
+   },
+   {
+    "word": "healing",
+    "pos": "Noun",
+    "vi": "sự chữa lành, hồi phục",
+    "ex": "The spa focuses on rest and healing."
+   }
+  ]
  },
  {
   "word": "health",
@@ -69374,7 +70133,20 @@
   ],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "hide",
+    "pos": "Verb",
+    "vi": "giấu, che giấu",
+    "ex": "Don't hide problems from your manager."
+   },
+   {
+    "word": "hidden",
+    "pos": "Adjective",
+    "vi": "ẩn, bị che giấu",
+    "ex": "Check the contract for hidden fees."
+   }
+  ]
  },
  {
   "word": "high",
@@ -77615,7 +78387,20 @@
   ],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "lessen",
+    "pos": "Verb",
+    "vi": "làm giảm bớt",
+    "ex": "The new software will lessen our workload."
+   },
+   {
+    "word": "less",
+    "pos": "Adverb",
+    "vi": "ít hơn",
+    "ex": "This model uses less power than the old one."
+   }
+  ]
  },
  {
   "word": "lesson",
@@ -79824,7 +80609,20 @@
   ],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "madness",
+    "pos": "Noun",
+    "vi": "sự điên rồ",
+    "ex": "Launching without testing would be madness."
+   },
+   {
+    "word": "mad",
+    "pos": "Adjective",
+    "vi": "điên; tức giận",
+    "ex": "The client was mad about the late delivery."
+   }
+  ]
  },
  {
   "word": "magazine",
@@ -82787,7 +83585,20 @@
   ],
   "level": "A1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "mostly",
+    "pos": "Adverb",
+    "vi": "chủ yếu, phần lớn",
+    "ex": "Our customers are mostly small businesses."
+   },
+   {
+    "word": "most",
+    "pos": "Other",
+    "vi": "hầu hết; nhất",
+    "ex": "Most employees work from home on Fridays."
+   }
+  ]
  },
  {
   "word": "mostly",
@@ -82803,7 +83614,20 @@
   "ant": [],
   "level": "B1",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "mostly",
+    "pos": "Adverb",
+    "vi": "chủ yếu, phần lớn",
+    "ex": "Our customers are mostly small businesses."
+   },
+   {
+    "word": "most",
+    "pos": "Other",
+    "vi": "hầu hết; nhất",
+    "ex": "Most employees work from home on Fridays."
+   }
+  ]
  },
  {
   "word": "mother",
@@ -83853,7 +84677,26 @@
   ],
   "level": "A1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "near",
+    "pos": "Adjective",
+    "vi": "gần",
+    "ex": "The hotel is near the conference center."
+   },
+   {
+    "word": "nearby",
+    "pos": "Adjective",
+    "vi": "gần đó",
+    "ex": "There are several restaurants nearby."
+   },
+   {
+    "word": "nearly",
+    "pos": "Adverb",
+    "vi": "gần như",
+    "ex": "The project is nearly finished."
+   }
+  ]
  },
  {
   "word": "nearly",
@@ -83868,7 +84711,26 @@
   "ant": [],
   "level": "A2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "near",
+    "pos": "Adjective",
+    "vi": "gần",
+    "ex": "The hotel is near the conference center."
+   },
+   {
+    "word": "nearby",
+    "pos": "Adjective",
+    "vi": "gần đó",
+    "ex": "There are several restaurants nearby."
+   },
+   {
+    "word": "nearly",
+    "pos": "Adverb",
+    "vi": "gần như",
+    "ex": "The project is nearly finished."
+   }
+  ]
  },
  {
   "word": "neat",
@@ -108266,6 +109128,12 @@
     "ex": "This job requires specialized training."
    },
    {
+    "word": "especially",
+    "pos": "Adverb",
+    "vi": "đặc biệt là",
+    "ex": "The office is busy, especially on Mondays."
+   },
+   {
     "word": "specially",
     "pos": "Adverb",
     "vi": "đặc biệt, riêng cho",
@@ -108319,6 +109187,12 @@
     "pos": "Adjective",
     "vi": "chuyên môn hóa",
     "ex": "This job requires specialized training."
+   },
+   {
+    "word": "especially",
+    "pos": "Adverb",
+    "vi": "đặc biệt là",
+    "ex": "The office is busy, especially on Mondays."
    },
    {
     "word": "specially",
@@ -108375,6 +109249,12 @@
     "pos": "Adjective",
     "vi": "chuyên môn hóa",
     "ex": "This job requires specialized training."
+   },
+   {
+    "word": "especially",
+    "pos": "Adverb",
+    "vi": "đặc biệt là",
+    "ex": "The office is busy, especially on Mondays."
    },
    {
     "word": "specially",
@@ -114045,7 +114925,21 @@
   "ant": [],
   "level": "A1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "tell",
+    "pos": "Verb",
+    "vi": "nói, kể, bảo",
+    "ex": "Please tell the team about the schedule change."
+   },
+   {
+    "word": "teller",
+    "pos": "Noun",
+    "vi": "giao dịch viên ngân hàng",
+    "ex": "The bank teller checked my ID.",
+    "note": "person"
+   }
+  ]
  },
  {
   "word": "temperature",
@@ -116956,7 +117850,20 @@
   "ant": [],
   "level": "B1",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "tropics",
+    "pos": "Noun",
+    "vi": "vùng nhiệt đới",
+    "ex": "The resort is popular with visitors to the tropics."
+   },
+   {
+    "word": "tropical",
+    "pos": "Adjective",
+    "vi": "nhiệt đới",
+    "ex": "Vietnam has a tropical climate."
+   }
+  ]
  },
  {
   "word": "trouble",
@@ -118271,7 +119178,20 @@
   ],
   "level": "B2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "upward",
+    "pos": "Adjective",
+    "vi": "đi lên, tăng",
+    "ex": "Sales show a steady upward trend."
+   },
+   {
+    "word": "upwards",
+    "pos": "Adverb",
+    "vi": "lên trên, trở lên",
+    "ex": "Prices start from $50 upwards."
+   }
+  ]
  },
  {
   "word": "upward",
@@ -118288,7 +119208,20 @@
   ],
   "level": "B2",
   "topic": "toeic",
-  "family": []
+  "family": [
+   {
+    "word": "upward",
+    "pos": "Adjective",
+    "vi": "đi lên, tăng",
+    "ex": "Sales show a steady upward trend."
+   },
+   {
+    "word": "upwards",
+    "pos": "Adverb",
+    "vi": "lên trên, trở lên",
+    "ex": "Prices start from $50 upwards."
+   }
+  ]
  },
  {
   "word": "urban",
@@ -118305,7 +119238,20 @@
   ],
   "level": "B2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "urbanization",
+    "pos": "Noun",
+    "vi": "sự đô thị hóa",
+    "ex": "Rapid urbanization increases housing demand."
+   },
+   {
+    "word": "urban",
+    "pos": "Adjective",
+    "vi": "thuộc đô thị",
+    "ex": "Urban offices are more expensive to rent."
+   }
+  ]
  },
  {
   "word": "urge",
@@ -121127,7 +122073,20 @@
   ],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "whole",
+    "pos": "Adjective",
+    "vi": "toàn bộ, cả",
+    "ex": "The whole team joined the training."
+   },
+   {
+    "word": "wholly",
+    "pos": "Adverb",
+    "vi": "hoàn toàn",
+    "ex": "The subsidiary is wholly owned by our company."
+   }
+  ]
  },
  {
   "word": "whom",
@@ -122475,7 +123434,20 @@
   ],
   "level": "A2",
   "topic": "other",
-  "family": []
+  "family": [
+   {
+    "word": "worsen",
+    "pos": "Verb",
+    "vi": "trở nên tệ hơn",
+    "ex": "The supply problem worsened last month."
+   },
+   {
+    "word": "worse",
+    "pos": "Adjective",
+    "vi": "tệ hơn",
+    "ex": "Traffic is worse in the morning."
+   }
+  ]
  },
  {
   "word": "worship",

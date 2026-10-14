@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DAY, MIN, dayKey, type Rating } from '../common/constants';
-import { cleanFamily } from '../common/family';
+import { cleanFamily, type FamilyMember } from '../common/family';
 import { ProfileService } from '../profile/profile.service';
 import { Word, WordDocument } from './word.schema';
 import { CreateWordDto, ReviewWordDto, UpdateWordDto } from './word.dto';
@@ -100,6 +100,18 @@ export class WordsService {
   }
 
   /** Ids of the user's words with these texts (lower-cased), by lower-cased word. */
+  /**
+   * Gives words saved before word families existed (no `family` field at all) the library's family for the same
+   * word. Words that have the field — even empty, e.g. cleared by the user — are left alone. Returns how many.
+   */
+  async backfillFamilies(families: Map<string, FamilyMember[]>): Promise<number> {
+    if (!families.size) return 0;
+    const rows = await this.words.find({ family: { $exists: false }, wordLower: { $in: [...families.keys()] } }, { wordLower: 1 }).lean();
+    if (!rows.length) return 0;
+    await this.words.bulkWrite(rows.map((r) => ({ updateOne: { filter: { _id: r._id, family: { $exists: false } }, update: { $set: { family: families.get(r.wordLower)! } } } })), { ordered: false });
+    return rows.length;
+  }
+
   async idsByWords(user: string, wordsLower: string[]): Promise<Map<string, string>> {
     if (!wordsLower.length) return new Map();
     const rows = await this.words.find({ user, wordLower: { $in: wordsLower } }, { wordLower: 1 }).lean();
