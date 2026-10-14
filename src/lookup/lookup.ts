@@ -5,6 +5,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { UserId } from '../auth/auth.decorators';
 import { POS_LIST, type Level } from '../common/constants';
+import type { FamilyMember } from '../common/family';
 import { LibraryModule } from '../library/library.module';
 import { LibraryService } from '../library/library.service';
 import { ProfileModule } from '../profile/profile.module';
@@ -18,6 +19,8 @@ export interface LookupResult {
   source: 'collection' | 'library' | 'builtin' | 'ai' | 'online';
   ipa?: string; pos?: string; meaning?: string; vi?: string; ex?: string;
   syn?: string[]; ant?: string[]; level?: Level;
+  /** Word family (the word itself included); only from your words, the library and AI. */
+  family?: FamilyMember[];
   /** Today's auto-fill usage after this request. */
   quota?: { used: number; limit: number };
 }
@@ -65,10 +68,10 @@ export class LookupService {
     const lw = word.toLowerCase();
     const mine = await this.words.findByWord(user, word);
     if (mine) {
-      return { source: 'collection', ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, syn: mine.syn, ant: mine.ant, level: mine.level as Level };
+      return { source: 'collection', ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, syn: mine.syn, ant: mine.ant, level: mine.level as Level, family: mine.toObject().family ?? [] };
     }
     const lib = await this.library.findByWord(lw);
-    if (lib) return { source: 'library', ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level as Level };
+    if (lib) return { source: 'library', ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level as Level, family: lib.toObject().family ?? [] };
     const b = BUILTIN_DICT[lw];
     if (b) return { source: 'builtin', ipa: b[0], pos: b[1], meaning: b[2], vi: b[3], ex: b[4], syn: b[5], ant: b[6], level: b[7] };
 

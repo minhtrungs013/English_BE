@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsIn, IsInt, IsMongoId, IsOptional, IsString, Max, MaxLength, Min } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min } from 'class-validator';
 import { LEVELS } from '../common/constants';
 import { TOPICS } from './library.schema';
 
@@ -16,6 +16,11 @@ export class LibraryQuery {
 
 export class FindWordQuery {
   @IsString() @MaxLength(80) word: string;
+}
+
+export class FamilyStatusDto {
+  /** The family's member words. */
+  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(10) @IsString({ each: true }) @IsNotEmpty({ each: true }) @MaxLength(40, { each: true }) words: string[];
 }
 
 export class ShareWordDto {

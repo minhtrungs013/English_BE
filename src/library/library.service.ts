@@ -1,6 +1,7 @@
 import { ConflictException, ForbiddenException, Injectable, Logger, NotFoundException, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, QueryFilter } from 'mongoose';
+import { cleanFamily, type FamilyMember } from '../common/family';
 import { Tag } from '../tags/tags';
 import { User } from '../users/user.schema';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -9,7 +10,7 @@ import { LibraryQuery, ShareWordDto } from './library.dto';
 import { LibraryWord, LibraryWordDocument, TOPIC_TAG, TOPICS, type Topic } from './library.schema';
 import SEED from './seed/library.json';
 
-interface SeedEntry { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; topic: string }
+interface SeedEntry { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; topic: string; family?: unknown[] }
 
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -28,26 +29,48 @@ export class LibraryService implements OnApplicationBootstrap {
   ) {}
 
   /**
-   * Keeps the built-in words in line with seed/library.json: adds missing ones and removes
-   * built-in words no longer in the file. Words users shared, and words users saved to their
-   * own vocabulary, are never touched.
+   * Keeps the built-in words in line with seed/library.json: adds missing ones, removes
+   * built-in words no longer in the file and updates the word family of built-in words whose family
+   * in the file changed (entries without a `family` key are left as they are). Words users shared,
+   * and words users saved to their own vocabulary, are never touched.
    */
   async onApplicationBootstrap(): Promise<void> {
-    const keys = (SEED as SeedEntry[]).map((e) => e.word.toLowerCase());
+    const seed = SEED as SeedEntry[];
+    const keys = seed.map((e) => e.word.toLowerCase());
     if (keys.length) {
       const removed = await this.lib.deleteMany({ authorId: '', wordLower: { $nin: keys } });
       if (removed.deletedCount) this.log.log('Removed ' + removed.deletedCount + ' built-in words no longer in the seed list.');
     }
-    const ops = (SEED as SeedEntry[]).map((e) => ({
+    const ops = seed.map((e) => ({
       updateOne: {
         filter: { wordLower: e.word.toLowerCase() },
-        update: { $setOnInsert: { ...e, wordLower: e.word.toLowerCase(), authorId: '', authorName: 'Wordbook', saves: 0, sharedAt: new Date() } },
+        update: { $setOnInsert: { ...e, family: cleanFamily(e.family), wordLower: e.word.toLowerCase(), authorId: '', authorName: 'Wordbook', saves: 0, sharedAt: new Date() } },
         upsert: true
       }
     }));
     if (!ops.length) return;
     const res = await this.lib.bulkWrite(ops, { ordered: false });
     if (res.upsertedCount) this.log.log('Added ' + res.upsertedCount + ' built-in words to the library.');
+    await this.syncFamilies(seed);
+  }
+
+  /** Sets the family of built-in words to the seed's where it differs (compared as cleaned JSON). */
+  async syncFamilies(seed: SeedEntry[]): Promise<number> {
+    const want = new Map<string, FamilyMember[]>();
+    for (const e of seed) if (Array.isArray(e.family)) want.set(e.word.toLowerCase(), cleanFamily(e.family));
+    if (!want.size) return 0;
+    const have = await this.lib.find({ authorId: '' }, { wordLower: 1, family: 1 }).lean();
+    const ops = [];
+    for (const d of have) {
+      const family = want.get(d.wordLower);
+      if (family && JSON.stringify(cleanFamily(d.family)) !== JSON.stringify(family)) {
+        ops.push({ updateOne: { filter: { _id: d._id, authorId: '' }, update: { $set: { family } } } });
+      }
+    }
+    if (!ops.length) return 0;
+    await this.lib.bulkWrite(ops, { ordered: false });
+    this.log.log('Updated the word family of ' + ops.length + ' built-in words.');
+    return ops.length;
   }
 
   async list(user: string, q: LibraryQuery) {
@@ -121,7 +144,7 @@ export class LibraryService implements OnApplicationBootstrap {
     await this.tags.updateOne({ user, name: tag }, { $setOnInsert: { user, name: tag } }, { upsert: true });
     const w = await this.words.create(user, {
       word: d.word, ipa: d.ipa, pos: d.pos, meaning: d.meaning, vi: d.vi, ex: d.ex,
-      syn: d.syn, ant: d.ant, level: d.level, tags: [tag]
+      syn: d.syn, ant: d.ant, level: d.level, tags: [tag], family: d.family ?? []
     });
     await this.lib.updateOne({ _id: d._id }, { $inc: { saves: 1 } });
     await this.notes.librarySaved(d.authorId, user, String(d._id), d.word).catch(() => undefined);
@@ -137,7 +160,7 @@ export class LibraryService implements OnApplicationBootstrap {
   /** Adds a word to the library under the user's name (used for my words and for course words). */
   async shareData(
     user: string,
-    w: { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string },
+    w: { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; family?: FamilyMember[] },
     topic: string
   ): Promise<LibraryWordDocument> {
     if (!w.meaning.trim() && !w.vi.trim()) throw new ConflictException('Add a meaning or a Vietnamese translation before sharing.');
@@ -145,7 +168,7 @@ export class LibraryService implements OnApplicationBootstrap {
     try {
       return await this.lib.create({
         word: w.word, wordLower: w.word.toLowerCase(), ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex,
-        syn: w.syn, ant: w.ant, level: w.level, topic, authorId: user, authorName: u?.name ?? 'A learner'
+        syn: w.syn, ant: w.ant, level: w.level, family: cleanFamily(w.family), topic, authorId: user, authorName: u?.name ?? 'A learner'
       });
     } catch (e) {
       if ((e as { code?: number }).code === 11000) throw new ConflictException('“' + w.word + '” is already in the library.');
@@ -158,6 +181,23 @@ export class LibraryService implements OnApplicationBootstrap {
     const d = await this.findOne(id);
     if (d.authorId !== user) throw new ForbiddenException('You can only remove words you shared.');
     await d.deleteOne();
+  }
+
+  /**
+   * For each word (in the order given): the library entry with that word and the user's own word with
+   * that text (case-insensitive), as ids or null.
+   */
+  async familyStatus(user: string, words: string[]) {
+    const list = words.map((w) => w.trim()).filter(Boolean);
+    const lower = [...new Set(list.map((w) => w.toLowerCase()))];
+    const [lib, mine] = await Promise.all([
+      this.lib.find({ wordLower: { $in: lower } }, { wordLower: 1 }).lean(),
+      this.words.idsByWords(user, lower)
+    ]);
+    const libIds = new Map(lib.map((d) => [d.wordLower, String(d._id)]));
+    return {
+      items: list.map((word) => ({ word, libraryId: libIds.get(word.toLowerCase()) ?? null, myWordId: mine.get(word.toLowerCase()) ?? null }))
+    };
   }
 
   /** One library entry by its lower-cased word. */

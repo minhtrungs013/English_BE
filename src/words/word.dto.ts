@@ -1,6 +1,8 @@
 import { PartialType } from '@nestjs/swagger';
-import { ArrayMaxSize, IsArray, IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import { ArrayMaxSize, IsArray, IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, ValidateNested } from 'class-validator';
 import { DAY_KEY, LEVELS, POS_LIST, RATINGS } from '../common/constants';
+import { FAMILY_MAX, FamilyMemberDto } from '../common/family';
 
 export class CreateWordDto {
   @IsString() @IsNotEmpty() @MaxLength(80) word: string;
@@ -15,6 +17,8 @@ export class CreateWordDto {
   @IsOptional() @IsString() @MaxLength(40) cat?: string;
   @IsOptional() @IsArray() @ArrayMaxSize(30) @IsString({ each: true }) @MaxLength(40, { each: true }) tags?: string[];
   @IsOptional() @IsString() @MaxLength(2000) notes?: string;
+  /** Word family, the word itself included ([] = none). */
+  @IsOptional() @IsArray() @ArrayMaxSize(FAMILY_MAX) @ValidateNested({ each: true }) @Type(() => FamilyMemberDto) family?: FamilyMemberDto[];
 }
 
 export class UpdateWordDto extends PartialType(CreateWordDto) {}

@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { LEVELS } from '../common/constants';
+import { FamilyMember, familyProp } from '../common/family';
 import { jsonOptions } from '../common/to-json';
 
 export const TOPICS = ['it', 'interview', 'customer', 'leader', 'toeic', 'other'] as const;
@@ -24,6 +25,8 @@ export class LibraryWord {
   @Prop({ default: '' }) ex: string;
   @Prop({ type: [String], default: [] }) syn: string[];
   @Prop({ type: [String], default: [] }) ant: string[];
+  /** Related forms (decide → decision, decisive…), the word itself included; [] = none. */
+  @Prop(familyProp) family: FamilyMember[];
   @Prop({ enum: LEVELS, default: 'B1' }) level: string;
   @Prop({ enum: TOPICS, default: 'other', index: true }) topic: string;
   /** User id of whoever shared it; '' for the built-in words. */

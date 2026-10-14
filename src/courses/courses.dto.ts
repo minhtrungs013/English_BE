@@ -4,6 +4,7 @@ import {
   ArrayMaxSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested
 } from 'class-validator';
 import { LEVELS, POS_LIST } from '../common/constants';
+import { FAMILY_MAX, FamilyMemberDto } from '../common/family';
 import { TOPICS } from '../library/library.schema';
 import { VISIBILITIES, WORD_SOURCES } from './course.schema';
 import { BANK_KINDS, BANK_STATUSES, type BankStatus } from './homework.schema';
@@ -43,6 +44,8 @@ export class CourseWordDto {
   @IsOptional() @IsIn(LEVELS) level?: string;
   @IsOptional() @IsString() @MaxLength(40) libraryId?: string;
   @IsOptional() @IsIn(WORD_SOURCES) source?: string;
+  /** Word family, the word itself included ([] = none). */
+  @IsOptional() @IsArray() @ArrayMaxSize(FAMILY_MAX) @ValidateNested({ each: true }) @Type(() => FamilyMemberDto) family?: FamilyMemberDto[];
 }
 
 export class SetDayDto {

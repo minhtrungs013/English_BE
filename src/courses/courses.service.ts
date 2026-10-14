@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { randomInt } from 'crypto';
 import { Model } from 'mongoose';
 import { todayKey } from '../common/day';
+import { cleanFamily } from '../common/family';
 
 /** A real calendar date in YYYY-MM-DD form. */
 function validDate(s: string): boolean {
@@ -205,7 +206,8 @@ export class CoursesService {
       seen.add(key);
       clean.push({
         word: w.word.trim(), ipa: w.ipa ?? '', pos: w.pos ?? 'Noun', meaning: w.meaning ?? '', vi: w.vi ?? '', ex: w.ex ?? '',
-        syn: w.syn ?? [], ant: w.ant ?? [], level: w.level ?? 'B1', libraryId: w.libraryId ?? '', source: w.source ?? 'manual'
+        syn: w.syn ?? [], ant: w.ant ?? [], level: w.level ?? 'B1', libraryId: w.libraryId ?? '', source: w.source ?? 'manual',
+        family: cleanFamily(w.family)
       });
     }
     const others = c.days.filter((d) => d.day !== day);
@@ -240,7 +242,7 @@ export class CoursesService {
         const w = picked[next++];
         words.push({
           word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant,
-          level: w.level, libraryId: String(w._id), source: 'library'
+          level: w.level, libraryId: String(w._id), source: 'library', family: w.family ?? []
         });
       }
       byDay.set(day, words);
@@ -260,7 +262,7 @@ export class CoursesService {
     if (lib) {
       return {
         source: 'library' as const, quota: await this.profile.dailyStatus(user, 'courseAi'),
-        word: { word: lib.word, ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level, libraryId: String(lib._id), source: 'library' }
+        word: { word: lib.word, ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level, libraryId: String(lib._id), source: 'library', family: lib.toObject().family ?? [] }
       };
     }
     if (!(await this.profile.useDaily(user, 'courseAi'))) {
@@ -272,7 +274,7 @@ export class CoursesService {
     if (!r) throw new NotFoundException({ statusCode: 404, error: 'Not Found', message: 'No details found for “' + word + '”.', quota });
     return {
       source: r.source === 'ai' ? ('ai' as const) : ('online' as const), quota,
-      word: { word, ipa: r.ipa ?? '', pos: r.pos ?? 'Noun', meaning: r.meaning ?? '', vi: r.vi ?? '', ex: r.ex ?? '', syn: r.syn ?? [], ant: r.ant ?? [], level: r.level ?? 'B1', libraryId: '', source: 'ai' }
+      word: { word, ipa: r.ipa ?? '', pos: r.pos ?? 'Noun', meaning: r.meaning ?? '', vi: r.vi ?? '', ex: r.ex ?? '', syn: r.syn ?? [], ant: r.ant ?? [], level: r.level ?? 'B1', libraryId: '', source: 'ai', family: r.family ?? [] }
     };
   }
 
@@ -339,7 +341,7 @@ export class CoursesService {
     const skipped: string[] = [];
     for (const w of chosen) {
       if (await this.words.findByWord(user, w.word)) { skipped.push(w.word); continue; }
-      const created = await this.words.create(user, { word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant, level: w.level, tags: [c.tag] });
+      const created = await this.words.create(user, { word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant, level: w.level, tags: [c.tag], family: w.family ?? [] });
       added.push(created.toJSON());
     }
     return { added, skipped };

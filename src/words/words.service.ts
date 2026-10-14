@@ -2,6 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DAY, MIN, dayKey, type Rating } from '../common/constants';
+import { cleanFamily } from '../common/family';
 import { ProfileService } from '../profile/profile.service';
 import { Word, WordDocument } from './word.schema';
 import { CreateWordDto, ReviewWordDto, UpdateWordDto } from './word.dto';
@@ -49,7 +50,7 @@ export class WordsService {
   async create(user: string, dto: CreateWordDto): Promise<WordDocument> {
     const word = dto.word.trim();
     try {
-      return await this.words.create({ ...dto, user, word, wordLower: word.toLowerCase(), syn: clean(dto.syn), ant: clean(dto.ant), tags: clean(dto.tags) });
+      return await this.words.create({ ...dto, user, word, wordLower: word.toLowerCase(), syn: clean(dto.syn), ant: clean(dto.ant), tags: clean(dto.tags), family: cleanFamily(dto.family) });
     } catch (e) {
       if (isDuplicateKey(e)) throw new ConflictException('“' + word + '” is already in your collection.');
       throw e;
@@ -60,6 +61,7 @@ export class WordsService {
     const patch: Record<string, unknown> = { ...dto };
     if (dto.word !== undefined) { patch.word = dto.word.trim(); patch.wordLower = dto.word.trim().toLowerCase(); }
     for (const k of ['syn', 'ant', 'tags'] as const) if (dto[k]) patch[k] = clean(dto[k]);
+    if (dto.family) patch.family = cleanFamily(dto.family);
     try {
       const w = await this.words.findOneAndUpdate({ _id: id, user }, { $set: patch }, { returnDocument: 'after', runValidators: true });
       if (!w) throw new NotFoundException('Word not found');
@@ -95,6 +97,13 @@ export class WordsService {
   /** Used when a tag is deleted. */
   async removeTag(user: string, tag: string): Promise<void> {
     await this.words.updateMany({ user, tags: tag }, { $pull: { tags: tag } });
+  }
+
+  /** Ids of the user's words with these texts (lower-cased), by lower-cased word. */
+  async idsByWords(user: string, wordsLower: string[]): Promise<Map<string, string>> {
+    if (!wordsLower.length) return new Map();
+    const rows = await this.words.find({ user, wordLower: { $in: wordsLower } }, { wordLower: 1 }).lean();
+    return new Map(rows.map((r) => [r.wordLower, String(r._id)]));
   }
 
   async findByWord(user: string, word: string): Promise<WordDocument | null> {

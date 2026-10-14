@@ -1,9 +1,10 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { UserId } from '../auth/auth.decorators';
 import { ParseObjectIdPipe } from '../common/parse-object-id.pipe';
 import { LibraryService } from './library.service';
-import { FindWordQuery, LibraryQuery, ShareWordDto } from './library.dto';
+import { FamilyStatusDto, FindWordQuery, LibraryQuery, ShareWordDto } from './library.dto';
 
 @ApiTags('library')
 @ApiBearerAuth()
@@ -25,6 +26,17 @@ export class LibraryController {
   async find(@Query() q: FindWordQuery) {
     const d = q.word.trim() ? await this.library.findByWord(q.word.trim().toLowerCase()) : null;
     return { word: d ? d.toJSON() : null };
+  }
+
+  /**
+   * For each word of a word family: its library entry and my own word with that text, if any
+   * (ids or null), so the app can show Save / View per member.
+   */
+  @Throttle({ default: { limit: 60, ttl: 60_000 } })
+  @Post('family-status')
+  @HttpCode(200)
+  familyStatus(@UserId() user: string, @Body() dto: FamilyStatusDto) {
+    return this.library.familyStatus(user, dto.words);
   }
 
   @Get(':id')

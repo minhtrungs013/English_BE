@@ -1,7 +1,9 @@
 import { LEVELS, POS_LIST, type Level } from '../common/constants';
+import { FAMILY_POS, cleanFamily, type FamilyMember } from '../common/family';
 
 export interface AiWord {
   ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: Level;
+  family: FamilyMember[];
 }
 
 const SYSTEM = `You write entries for a vocabulary app used by Vietnamese software developers learning professional English (IT work, interviews, meetings, TOEIC).
@@ -14,11 +16,17 @@ Return ONLY a JSON object with these keys:
 - "syn": up to 3 lowercase synonyms (array, may be empty)
 - "ant": up to 2 lowercase antonyms (array, may be empty)
 - "level": CEFR level, one of ${LEVELS.map((l) => '"' + l + '"').join(', ')}
+- "family": the word family: common related forms of the same root (e.g. decide → decide, decision, decisive, decisively, indecisive), at most 6, INCLUDING the word itself; [] when the word has no common related forms (and for phrases). Each item: {"word": the form (lowercase unless a proper noun), "pos": one of ${FAMILY_POS.map((p) => '"' + p + '"').join(', ')}, "vi": short Vietnamese translation (at most 60 characters), "ex": optional short workplace example sentence using that form (at most 120 characters), "note": optional hint of at most 25 characters, e.g. "opposite (in-)"}. Only real, commonly used words; no rare or invented forms.
 If the input is not a real English word or phrase, return {"error":"unknown"}.`;
 
 const str = (v: unknown, max: number): string => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const list = (v: unknown, max: number): string[] =>
   Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string' && !!x.trim()).map((x) => x.trim().slice(0, 60)).slice(0, max) : [];
+
+/** The AI's word family, checked: invalid members dropped, the word itself first if it was left out, at most 6. */
+export function aiFamily(v: unknown, word: string, pos: string, vi: string): FamilyMember[] {
+  return cleanFamily(v, { max: 6, strict: true, self: { word, pos, vi: vi.split(',')[0] } });
+}
 
 /**
  * Asks OpenAI for a dictionary entry. Returns null when the word isn't recognised or the call fails,
@@ -61,7 +69,8 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
       ex: ex.toLowerCase().includes(word.toLowerCase()) ? ex : '',
       syn: list(o.syn, 3),
       ant: list(o.ant, 2),
-      level: (LEVELS as readonly string[]).includes(level) ? level : 'B1'
+      level: (LEVELS as readonly string[]).includes(level) ? level : 'B1',
+      family: aiFamily(o.family, word, pos, str(o.vi, 200))
     };
   } catch {
     return null;

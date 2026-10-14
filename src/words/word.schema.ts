@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { LEVELS, RATINGS, STATUSES } from '../common/constants';
+import { FamilyMember, familyProp } from '../common/family';
 import { jsonOptions } from '../common/to-json';
 
 @Schema({ _id: false })
@@ -23,6 +24,8 @@ export class Word {
   @Prop({ default: '' }) ex: string;
   @Prop({ type: [String], default: [] }) syn: string[];
   @Prop({ type: [String], default: [] }) ant: string[];
+  /** Related forms (decide → decision, decisive…), the word itself included; [] = none. */
+  @Prop(familyProp) family: FamilyMember[];
   @Prop({ enum: LEVELS, default: 'B1' }) level: string;
   @Prop({ enum: STATUSES, default: 'new' }) status: string;
   /** Category id, or '' when uncategorized. */
