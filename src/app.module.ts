@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories';
+import { ChatModule } from './chat/chat';
 import { CoursesModule } from './courses/courses.module';
 import { DictationModule } from './dictation/dictation.module';
 import { GrammarModule } from './grammar/grammar.module';
@@ -40,6 +41,7 @@ import { WordsModule } from './words/words.module';
     NotificationsModule,
     GrammarModule,
     DictationModule,
+    ChatModule,
     DataModule
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }, KeepAliveService]

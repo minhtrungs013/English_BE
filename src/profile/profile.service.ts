@@ -5,8 +5,8 @@ import { previousDay, STYLE_UNLOCKS } from '../common/constants';
 import { todayKey } from '../common/day';
 
 /** Daily limits that reset at midnight (app time zone). */
-export type DailyQuota = 'autofill' | 'courseAi';
-const LIMIT_ENV: Record<DailyQuota, [string, number]> = { autofill: ['AUTOFILL_DAILY_LIMIT', 3], courseAi: ['COURSE_AI_DAILY_LIMIT', 30] };
+export type DailyQuota = 'autofill' | 'courseAi' | 'chat';
+const LIMIT_ENV: Record<DailyQuota, [string, number]> = { autofill: ['AUTOFILL_DAILY_LIMIT', 3], courseAi: ['COURSE_AI_DAILY_LIMIT', 30], chat: ['CHAT_DAILY_LIMIT', 30] };
 import { Profile, ProfileDocument, Progress, Settings } from './profile.schema';
 import { UpdateSettingsDto } from './profile.dto';
 

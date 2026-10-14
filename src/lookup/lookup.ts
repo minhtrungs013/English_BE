@@ -84,9 +84,9 @@ export class LookupService {
     return this.external(word);
   }
 
-  /** OpenAI when configured, otherwise (or on failure) the free online dictionaries. No quota checks here. */
-  async external(word: string): Promise<LookupResult | null> {
-    const key = this.config.get<string>('OPENAI_API_KEY');
+  /** OpenAI when configured (and not `noAi`), otherwise (or on failure) the free online dictionaries. No quota checks here. */
+  async external(word: string, opts: { noAi?: boolean } = {}): Promise<LookupResult | null> {
+    const key = opts.noAi ? undefined : this.config.get<string>('OPENAI_API_KEY');
     if (key) {
       const ai = await aiLookup(word, key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
       if (ai) return { source: 'ai', ...ai };
