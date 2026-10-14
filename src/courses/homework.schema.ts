@@ -1,14 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export const QUESTION_TYPES = ['meaning', 'word', 'type', 'blank', 'tense', 'tenseChoice', 'dictation'] as const;
+export const QUESTION_TYPES = ['meaning', 'word', 'type', 'blank', 'tense', 'tenseChoice', 'dictation', 'wordform'] as const;
 export type QuestionType = (typeof QUESTION_TYPES)[number];
 
 /**
  * One homework question. meaning: pick the Vietnamese meaning of a word; word: pick the word for a meaning;
  * type: type the word for a meaning; blank: type the missing word in the example sentence;
  * tense / tenseChoice: put the verb in the right tense (typed / multiple choice), from the course's question bank;
- * dictation: hear a course word's example sentence (the device speaks it) and type it — `answer` is the sentence.
+ * dictation: hear a course word's example sentence (the device speaks it) and type it — `answer` is the sentence;
+ * wordform: type the right form of a word-family member in its example sentence ("The ___ (decide) was made."),
+ * `hint` is the answer's part of speech ("noun") and `explain` the family line + its Vietnamese meaning.
  */
 @Schema({ _id: false })
 export class Question {

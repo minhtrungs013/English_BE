@@ -1,0 +1,1237 @@
+{
+  "id": "word-formation",
+  "group": "foundations",
+  "name": "Word formation: noun, verb, adjective, adverb",
+  "vi": "Cấu tạo từ (họ từ)",
+  "summary": "Một từ gốc có thể đổi thành danh từ, động từ, tính từ hoặc trạng từ nhờ hậu tố (decide → decision → decisive) và đổi sang nghĩa ngược lại nhờ tiền tố (un-, im-, dis-…). Chọn đúng dạng dựa vào vị trí trong câu: sau a/the/tính từ → danh từ; sau be hoặc trước danh từ → tính từ; bổ nghĩa cho động từ/tính từ → trạng từ; sau động từ khuyết thiếu hoặc “to” → động từ. Rất hay gặp trong TOEIC Part 5.",
+  "tables": [
+    {
+      "title": "Noun suffixes",
+      "columns": [
+        "Suffix",
+        "Meaning / use",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "-tion / -sion",
+          "cells": [
+            "-tion / -sion",
+            "action or result of a verb",
+            "decide → decision, inform → information"
+          ]
+        },
+        {
+          "label": "-ment",
+          "cells": [
+            "-ment",
+            "action or result of a verb",
+            "manage → management, pay → payment"
+          ]
+        },
+        {
+          "label": "-ness",
+          "cells": [
+            "-ness",
+            "state or quality (from adjectives)",
+            "aware → awareness, kind → kindness"
+          ]
+        },
+        {
+          "label": "-ity",
+          "cells": [
+            "-ity",
+            "quality (from adjectives)",
+            "secure → security, available → availability"
+          ]
+        },
+        {
+          "label": "-ance / -ence",
+          "cells": [
+            "-ance / -ence",
+            "action or state",
+            "perform → performance, differ → difference"
+          ]
+        },
+        {
+          "label": "-al",
+          "cells": [
+            "-al",
+            "action (from some verbs)",
+            "approve → approval, arrive → arrival"
+          ]
+        },
+        {
+          "label": "-er / -or",
+          "cells": [
+            "-er / -or",
+            "person who does the action",
+            "manage → manager, visit → visitor"
+          ]
+        },
+        {
+          "label": "-ee",
+          "cells": [
+            "-ee",
+            "person who receives the action",
+            "employ → employee, train → trainee"
+          ]
+        },
+        {
+          "label": "-ant / -ent",
+          "cells": [
+            "-ant / -ent",
+            "person who does the action",
+            "apply → applicant, reside → resident"
+          ]
+        }
+      ],
+      "note": "Danh từ chỉ người (-er/-or/-ee/-ant) là danh từ đếm được: cần a/the hoặc dạng số nhiều (an applicant, applicants). Danh từ chỉ việc/khái niệm (-tion, -ment, -ness) thường không cần “a” khi mang nghĩa chung."
+    },
+    {
+      "title": "Adjective suffixes",
+      "columns": [
+        "Suffix",
+        "Meaning / use",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "-ive",
+          "cells": [
+            "-ive",
+            "having this quality",
+            "compete → competitive, effect → effective"
+          ]
+        },
+        {
+          "label": "-ful",
+          "cells": [
+            "-ful",
+            "full of, having",
+            "success → successful, help → helpful"
+          ]
+        },
+        {
+          "label": "-less",
+          "cells": [
+            "-less",
+            "without",
+            "care → careless, use → useless"
+          ]
+        },
+        {
+          "label": "-able / -ible",
+          "cells": [
+            "-able / -ible",
+            "can be done; having this quality",
+            "rely → reliable, response → responsible"
+          ]
+        },
+        {
+          "label": "-al",
+          "cells": [
+            "-al",
+            "related to",
+            "finance → financial, profession → professional"
+          ]
+        },
+        {
+          "label": "-ous",
+          "cells": [
+            "-ous",
+            "having this quality",
+            "danger → dangerous, fame → famous"
+          ]
+        },
+        {
+          "label": "-ic",
+          "cells": [
+            "-ic",
+            "related to",
+            "economy → economic, energy → energetic"
+          ]
+        },
+        {
+          "label": "-ing / -ed",
+          "cells": [
+            "-ing / -ed",
+            "-ing: causes the feeling; -ed: feels it",
+            "The news is disappointing. / I am disappointed."
+          ]
+        }
+      ],
+      "note": "-ing mô tả sự vật gây ra cảm xúc (a boring meeting), -ed mô tả người cảm thấy (bored staff)."
+    },
+    {
+      "title": "Verb suffixes",
+      "columns": [
+        "Suffix",
+        "Meaning / use",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "-ize (-ise in UK)",
+          "cells": [
+            "-ize (-ise in UK)",
+            "make, become",
+            "modern → modernize, organ → organize"
+          ]
+        },
+        {
+          "label": "-en",
+          "cells": [
+            "-en",
+            "make (more)",
+            "strength → strengthen, wide → widen, short → shorten"
+          ]
+        },
+        {
+          "label": "-ify",
+          "cells": [
+            "-ify",
+            "make, cause to be",
+            "simple → simplify, clear → clarify"
+          ]
+        },
+        {
+          "label": "-ate",
+          "cells": [
+            "-ate",
+            "make, do",
+            "active → activate, motive → motivate"
+          ]
+        }
+      ],
+      "note": "Anh-Mỹ viết -ize (organize), Anh-Anh thường viết -ise (organise); TOEIC chủ yếu dùng -ize."
+    },
+    {
+      "title": "Adverbs with -ly",
+      "columns": [
+        "Rule",
+        "Meaning / use",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "adjective + -ly",
+          "cells": [
+            "adjective + -ly",
+            "how something is done",
+            "quick → quickly, careful → carefully"
+          ]
+        },
+        {
+          "label": "-y → -ily",
+          "cells": [
+            "-y → -ily",
+            "change y to i",
+            "happy → happily, easy → easily"
+          ]
+        },
+        {
+          "label": "-le → -ly",
+          "cells": [
+            "-le → -ly",
+            "drop e, add y",
+            "possible → possibly, simple → simply"
+          ]
+        },
+        {
+          "label": "-ic → -ically",
+          "cells": [
+            "-ic → -ically",
+            "add -ally",
+            "basic → basically, automatic → automatically"
+          ]
+        },
+        {
+          "label": "Irregular",
+          "cells": [
+            "Irregular",
+            "same form or a new word",
+            "good → well, fast → fast, hard → hard, late → late"
+          ]
+        }
+      ],
+      "note": "“Public → publicly” là ngoại lệ của quy tắc -ic. “Hardly” (hầu như không) và “lately” (gần đây) có nghĩa khác “hard” và “late”."
+    },
+    {
+      "title": "Negative prefixes",
+      "columns": [
+        "Prefix",
+        "Meaning / use",
+        "Example"
+      ],
+      "rows": [
+        {
+          "label": "un-",
+          "cells": [
+            "un-",
+            "not (most common)",
+            "unclear, unavailable, unhappy, unable"
+          ]
+        },
+        {
+          "label": "in-",
+          "cells": [
+            "in-",
+            "not (often Latin words)",
+            "incomplete, inaccurate, inconvenient"
+          ]
+        },
+        {
+          "label": "im- (before m, p)",
+          "cells": [
+            "im- (before m, p)",
+            "not",
+            "impossible, impolite, immature"
+          ]
+        },
+        {
+          "label": "il- (before l)",
+          "cells": [
+            "il- (before l)",
+            "not",
+            "illegal, illogical"
+          ]
+        },
+        {
+          "label": "ir- (before r)",
+          "cells": [
+            "ir- (before r)",
+            "not",
+            "irregular, irrelevant, irresponsible"
+          ]
+        },
+        {
+          "label": "dis-",
+          "cells": [
+            "dis-",
+            "not / opposite action",
+            "dishonest, disagree, disappear"
+          ]
+        },
+        {
+          "label": "mis-",
+          "cells": [
+            "mis-",
+            "wrongly, badly",
+            "misunderstand, misspell, mislead"
+          ]
+        }
+      ],
+      "note": "Không tự ghép tiền tố theo cảm tính: phải học từng từ (impossible, không phải “unpossible”)."
+    }
+  ],
+  "uses": [
+    {
+      "title": "Sau a / an / the / từ sở hữu → danh từ",
+      "explain": "Sau mạo từ (a, the), từ sở hữu (my, your, our, the company’s) hoặc lượng từ (some, any, much) cần một danh từ.",
+      "examples": [
+        {
+          "en": "The decision was made yesterday.",
+          "vi": "Quyết định đã được đưa ra hôm qua."
+        },
+        {
+          "en": "Thank you for your patience.",
+          "vi": "Cảm ơn sự kiên nhẫn của bạn."
+        }
+      ]
+    },
+    {
+      "title": "Sau tính từ hoặc giới từ → danh từ",
+      "explain": "Tính từ đứng trước để bổ nghĩa cho danh từ; sau giới từ (of, for, in, on…) cũng cần danh từ (hoặc V-ing).",
+      "examples": [
+        {
+          "en": "There was a significant improvement in sales.",
+          "vi": "Doanh số đã cải thiện đáng kể."
+        },
+        {
+          "en": "She is in charge of the development of the app.",
+          "vi": "Cô ấy phụ trách việc phát triển ứng dụng."
+        }
+      ]
+    },
+    {
+      "title": "Trước danh từ → tính từ",
+      "explain": "Tính từ đứng trước danh từ để mô tả nó (a reliable supplier). Mẫu “a/the + ___ + danh từ” thường cần tính từ.",
+      "examples": [
+        {
+          "en": "We offer competitive prices.",
+          "vi": "Chúng tôi đưa ra mức giá cạnh tranh."
+        },
+        {
+          "en": "Ms. Tran is a reliable manager.",
+          "vi": "Chị Trân là một quản lý đáng tin cậy."
+        }
+      ]
+    },
+    {
+      "title": "Sau be / động từ nối → tính từ",
+      "explain": "Sau be, become, seem, look, feel, remain, stay… cần tính từ, không dùng trạng từ.",
+      "examples": [
+        {
+          "en": "The results seem very impressive.",
+          "vi": "Kết quả có vẻ rất ấn tượng."
+        },
+        {
+          "en": "The customer became angry.",
+          "vi": "Khách hàng trở nên tức giận."
+        }
+      ]
+    },
+    {
+      "title": "Bổ nghĩa cho động từ, tính từ → trạng từ",
+      "explain": "Trạng từ (-ly) nói về cách thức hoặc mức độ: đứng sau động từ/tân ngữ, giữa trợ động từ và động từ chính, hoặc trước tính từ.",
+      "examples": [
+        {
+          "en": "Please read the contract carefully.",
+          "vi": "Hãy đọc kỹ hợp đồng."
+        },
+        {
+          "en": "Prices have increased dramatically.",
+          "vi": "Giá đã tăng mạnh."
+        },
+        {
+          "en": "The hotel was extremely clean.",
+          "vi": "Khách sạn cực kỳ sạch sẽ."
+        }
+      ]
+    },
+    {
+      "title": "Sau động từ khuyết thiếu hoặc “to” → động từ",
+      "explain": "Sau can, will, should, must… và sau “to” (plan to, need to) cần động từ nguyên mẫu.",
+      "examples": [
+        {
+          "en": "We should simplify the sign-up process.",
+          "vi": "Chúng ta nên đơn giản hóa quy trình đăng ký."
+        },
+        {
+          "en": "The company plans to strengthen its position in Asia.",
+          "vi": "Công ty dự định củng cố vị thế ở châu Á."
+        }
+      ]
+    },
+    {
+      "title": "Mẹo TOEIC Part 5",
+      "explain": "Nếu 4 lựa chọn cùng một họ từ, không cần dịch cả câu: nhìn từ đứng trước và sau chỗ trống để biết cần loại từ gì, rồi kiểm tra nghĩa (người hay vật, -ed hay -ing).",
+      "examples": [
+        {
+          "en": "Our new ___ will start on Monday. → employee (a person, after the adjective “new”)",
+          "vi": "Nhân viên mới của chúng tôi sẽ bắt đầu vào thứ Hai."
+        },
+        {
+          "en": "The figures were ___. → disappointing (the figures cause the feeling)",
+          "vi": "Các số liệu thật đáng thất vọng."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    {
+      "wrong": "She spoke very confident.",
+      "right": "She spoke very confidently.",
+      "explain": "Bổ nghĩa cho động từ “spoke” cần trạng từ (-ly)."
+    },
+    {
+      "wrong": "This task is very importance.",
+      "right": "This task is very important.",
+      "explain": "Sau be + very cần tính từ, không dùng danh từ."
+    },
+    {
+      "wrong": "We need to make a decide.",
+      "right": "We need to make a decision.",
+      "explain": "Sau “a” cần danh từ: decide (động từ) → decision."
+    },
+    {
+      "wrong": "The results look well.",
+      "right": "The results look good.",
+      "explain": "Sau động từ nối (look, seem, feel) dùng tính từ “good”; “well” là trạng từ."
+    },
+    {
+      "wrong": "I was very boring in the meeting.",
+      "right": "I was very bored in the meeting.",
+      "explain": "Người cảm thấy chán dùng -ed (bored); -ing (boring) là thứ gây chán."
+    },
+    {
+      "wrong": "It is unpossible to finish today.",
+      "right": "It is impossible to finish today.",
+      "explain": "Phủ định của possible là impossible (im- trước p)."
+    },
+    {
+      "wrong": "Each new employer receives a laptop on the first day.",
+      "right": "Each new employee receives a laptop on the first day.",
+      "explain": "-er là người thuê (chủ), -ee là người được thuê (nhân viên)."
+    },
+    {
+      "wrong": "The new system works automaticly.",
+      "right": "The new system works automatically.",
+      "explain": "Tính từ đuôi -ic thêm -ally: automatic → automatically."
+    }
+  ],
+  "drills": [
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Noun after the",
+      "prompt": "The ___ (decide) was made yesterday.",
+      "choices": [],
+      "answer": "decision",
+      "accept": [],
+      "explain": "Sau “the” cần danh từ: decide → decision."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Noun after a/an",
+      "prompt": "Please make an ___ (appoint) with the bank manager.",
+      "choices": [],
+      "answer": "appointment",
+      "accept": [],
+      "explain": "Sau “an” cần danh từ: appoint → appointment."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Noun after adjective",
+      "prompt": "There was a big ___ (improve) in sales last quarter.",
+      "choices": [],
+      "answer": "improvement",
+      "accept": [],
+      "explain": "Sau tính từ “big” cần danh từ: improve → improvement."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Adjective after be",
+      "prompt": "The new software is very ___ (use) for our team.",
+      "choices": [],
+      "answer": "useful",
+      "accept": [],
+      "explain": "Sau “is very” cần tính từ: use → useful (hữu ích)."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Adverb after object",
+      "prompt": "Please read the contract ___ (careful) before you sign it.",
+      "choices": [],
+      "answer": "carefully",
+      "accept": [],
+      "explain": "Bổ nghĩa cho động từ “read” cần trạng từ: careful → carefully."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Adjective before noun",
+      "prompt": "She gave a very ___ (success) presentation.",
+      "choices": [],
+      "answer": "successful",
+      "accept": [],
+      "explain": "Trước danh từ “presentation” cần tính từ: success → successful."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Person noun",
+      "prompt": "Each new ___ (employ) receives a laptop on the first day.",
+      "choices": [],
+      "answer": "employee",
+      "accept": [],
+      "explain": "Người được thuê (nhân viên) → employee; employer là người thuê."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Adverb after verb",
+      "prompt": "The team worked ___ (quick) to fix the bug.",
+      "choices": [],
+      "answer": "quickly",
+      "accept": [],
+      "explain": "Bổ nghĩa cho động từ “worked” cần trạng từ: quick → quickly."
+    },
+    {
+      "kind": "tense",
+      "level": "easy",
+      "topic": "Noun after your",
+      "prompt": "Thank you for your ___ (patient).",
+      "choices": [],
+      "answer": "patience",
+      "accept": [],
+      "explain": "Sau “your” cần danh từ: patient → patience (sự kiên nhẫn)."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Noun after preposition",
+      "prompt": "We are still waiting for ___ (approve) from head office.",
+      "choices": [],
+      "answer": "approval",
+      "accept": [],
+      "explain": "Sau giới từ “for” cần danh từ: approve → approval."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Adjective after seem",
+      "prompt": "The results seem very ___ (impress).",
+      "choices": [],
+      "answer": "impressive",
+      "accept": [],
+      "explain": "Sau động từ nối “seem” cần tính từ: impress → impressive."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Adverb before adjective",
+      "prompt": "The report was ___ (surprise) short.",
+      "choices": [],
+      "answer": "surprisingly",
+      "accept": [],
+      "explain": "Bổ nghĩa cho tính từ “short” cần trạng từ: surprisingly."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Noun after the",
+      "prompt": "He is responsible for the ___ (develop) of the new app.",
+      "choices": [],
+      "answer": "development",
+      "accept": [],
+      "explain": "Sau “the” và trước “of” cần danh từ: develop → development."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Adjective before noun",
+      "prompt": "We offer ___ (compete) prices to all customers.",
+      "choices": [],
+      "answer": "competitive",
+      "accept": [],
+      "explain": "Trước danh từ “prices” cần tính từ: compete → competitive."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Verb after modal",
+      "prompt": "We should ___ (simple) the sign-up process.",
+      "choices": [],
+      "answer": "simplify",
+      "accept": [],
+      "explain": "Sau “should” cần động từ nguyên mẫu: simple → simplify."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Verb after to",
+      "prompt": "The company plans to ___ (strength) its position in Asia.",
+      "choices": [],
+      "answer": "strengthen",
+      "accept": [],
+      "explain": "Sau “to” cần động từ: strength → strengthen."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Noun after the",
+      "prompt": "The ___ (deliver) of the order was delayed by two days.",
+      "choices": [],
+      "answer": "delivery",
+      "accept": [],
+      "explain": "Sau “the” cần danh từ: deliver → delivery."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Negative prefix",
+      "prompt": "The instructions were ___ (clear), so nobody understood them.",
+      "choices": [],
+      "answer": "unclear",
+      "accept": [],
+      "explain": "Nghĩa phủ định (không ai hiểu) → un- + clear = unclear."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Adverb spelling -ic",
+      "prompt": "The new system backs up files ___ (automatic) every night.",
+      "choices": [],
+      "answer": "automatically",
+      "accept": [],
+      "explain": "Tính từ -ic thêm -ally: automatic → automatically."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Adverb spelling -y",
+      "prompt": "She ___ (happy) accepted the job offer.",
+      "choices": [],
+      "answer": "happily",
+      "accept": [],
+      "explain": "Trạng từ đứng trước động từ; -y → -ily: happy → happily."
+    },
+    {
+      "kind": "tense",
+      "level": "medium",
+      "topic": "Adjective after be",
+      "prompt": "Working near the machines can be ___ (danger).",
+      "choices": [],
+      "answer": "dangerous",
+      "accept": [],
+      "explain": "Sau “be” cần tính từ: danger → dangerous."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Negative prefix",
+      "prompt": "It is ___ (legal) to copy this software without a license.",
+      "choices": [],
+      "answer": "illegal",
+      "accept": [],
+      "explain": "Phủ định của legal là illegal (il- trước l)."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Noun -ity",
+      "prompt": "The ___ (secure) of customer data is our top priority.",
+      "choices": [],
+      "answer": "security",
+      "accept": [],
+      "explain": "Sau “the” cần danh từ: secure → security."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Noun -ence",
+      "prompt": "The ___ (differ) between the two offers is small.",
+      "choices": [],
+      "answer": "difference",
+      "accept": [],
+      "explain": "Sau “the” cần danh từ: differ → difference."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Verb after to",
+      "prompt": "We need to ___ (modern) our office equipment.",
+      "choices": [],
+      "answer": "modernize",
+      "accept": [
+        "modernise"
+      ],
+      "explain": "Sau “need to” cần động từ: modern → modernize (hiện đại hóa)."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Negative prefix",
+      "prompt": "The client was ___ (satisfy) with the late delivery.",
+      "choices": [],
+      "answer": "dissatisfied",
+      "accept": [
+        "unsatisfied"
+      ],
+      "explain": "Khách không hài lòng vì giao trễ → tiền tố dis- và đuôi -ed (người cảm thấy): dissatisfied."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Adjective after be",
+      "prompt": "The manager is ___ (respond) for hiring new staff.",
+      "choices": [],
+      "answer": "responsible",
+      "accept": [],
+      "explain": "“be responsible for” = chịu trách nhiệm về; cần tính từ responsible."
+    },
+    {
+      "kind": "tense",
+      "level": "hard",
+      "topic": "Person noun",
+      "prompt": "Each ___ (apply) must send a CV by Friday.",
+      "choices": [],
+      "answer": "applicant",
+      "accept": [],
+      "explain": "Người nộp đơn → applicant; application là lá đơn."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Noun after the",
+      "prompt": "The ___ of the new branch is planned for May.",
+      "choices": [
+        "open",
+        "opening",
+        "opened",
+        "opens"
+      ],
+      "answer": "opening",
+      "accept": [],
+      "explain": "Sau “the” và trước “of” cần danh từ: opening (việc khai trương)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Adjective before noun",
+      "prompt": "Ms. Tran is a ___ manager who always meets her deadlines.",
+      "choices": [
+        "rely",
+        "reliable",
+        "reliably",
+        "reliability"
+      ],
+      "answer": "reliable",
+      "accept": [],
+      "explain": "Giữa “a” và danh từ “manager” cần tính từ: reliable."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Adverb before verb",
+      "prompt": "Mr. Lee ___ agreed to work overtime.",
+      "choices": [
+        "kind",
+        "kindly",
+        "kindness",
+        "kinder"
+      ],
+      "answer": "kindly",
+      "accept": [],
+      "explain": "Đứng trước động từ “agreed” để bổ nghĩa → trạng từ kindly."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Adjective after be",
+      "prompt": "The new office design is very ___.",
+      "choices": [
+        "attract",
+        "attractive",
+        "attractively",
+        "attraction"
+      ],
+      "answer": "attractive",
+      "accept": [],
+      "explain": "Sau “is very” cần tính từ: attractive."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Noun after your",
+      "prompt": "Please send us your ___ by Friday.",
+      "choices": [
+        "apply",
+        "applicant",
+        "application",
+        "applied"
+      ],
+      "answer": "application",
+      "accept": [],
+      "explain": "Sau “your” cần danh từ chỉ vật được gửi: application (đơn)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Noun after adjective",
+      "prompt": "We received a positive ___ from the client.",
+      "choices": [
+        "respond",
+        "response",
+        "responsive",
+        "responsively"
+      ],
+      "answer": "response",
+      "accept": [],
+      "explain": "Sau tính từ “positive” cần danh từ: response."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Adverb before adjective",
+      "prompt": "The hotel was ___ clean.",
+      "choices": [
+        "extreme",
+        "extremely",
+        "extremity",
+        "extremes"
+      ],
+      "answer": "extremely",
+      "accept": [],
+      "explain": "Bổ nghĩa cho tính từ “clean” cần trạng từ: extremely."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "easy",
+      "topic": "Adjective before noun",
+      "prompt": "Thank you for your ___ comments.",
+      "choices": [
+        "help",
+        "helpful",
+        "helpfully",
+        "helper"
+      ],
+      "answer": "helpful",
+      "accept": [],
+      "explain": "Trước danh từ “comments” cần tính từ: helpful."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Noun after the",
+      "prompt": "The ___ of the project depends on teamwork.",
+      "choices": [
+        "succeed",
+        "success",
+        "successful",
+        "successfully"
+      ],
+      "answer": "success",
+      "accept": [],
+      "explain": "Sau “the” và trước “of” cần danh từ: success."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Verb after modal",
+      "prompt": "The new tool will ___ the hiring process.",
+      "choices": [
+        "simple",
+        "simplify",
+        "simply",
+        "simplicity"
+      ],
+      "answer": "simplify",
+      "accept": [],
+      "explain": "Sau “will” cần động từ nguyên mẫu: simplify."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Adverb after verb",
+      "prompt": "She explained the problem very ___.",
+      "choices": [
+        "clear",
+        "clearly",
+        "clarity",
+        "clarify"
+      ],
+      "answer": "clearly",
+      "accept": [],
+      "explain": "Bổ nghĩa cho động từ “explained” cần trạng từ: clearly."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Adjective before noun",
+      "prompt": "We are looking for an ___ sales assistant.",
+      "choices": [
+        "experience",
+        "experienced",
+        "experiences",
+        "experiencing"
+      ],
+      "answer": "experienced",
+      "accept": [],
+      "explain": "Trước cụm danh từ “sales assistant” cần tính từ: experienced (có kinh nghiệm)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Noun after adjective",
+      "prompt": "The company made a large ___ in new equipment.",
+      "choices": [
+        "invest",
+        "investor",
+        "investment",
+        "invested"
+      ],
+      "answer": "investment",
+      "accept": [],
+      "explain": "Sau “a large” cần danh từ chỉ việc đầu tư: investment (investor là người)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Person noun",
+      "prompt": "Our new ___ will start work next Monday.",
+      "choices": [
+        "employ",
+        "employee",
+        "employment",
+        "employable"
+      ],
+      "answer": "employee",
+      "accept": [],
+      "explain": "Cần danh từ chỉ người làm việc: employee."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Adjective after become",
+      "prompt": "The customer became ___ after waiting for an hour.",
+      "choices": [
+        "anger",
+        "angry",
+        "angrily",
+        "angers"
+      ],
+      "answer": "angry",
+      "accept": [],
+      "explain": "Sau động từ nối “become” cần tính từ: angry."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Negative prefix",
+      "prompt": "Sorry, the director is ___ right now. Please call back later.",
+      "choices": [
+        "available",
+        "unavailable",
+        "availability"
+      ],
+      "answer": "unavailable",
+      "accept": [],
+      "explain": "“Please call back later” → giám đốc không rảnh: unavailable."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Verb after to",
+      "prompt": "We hope to ___ costs by 10% next year.",
+      "choices": [
+        "reduce",
+        "reduction",
+        "reducible",
+        "reduced"
+      ],
+      "answer": "reduce",
+      "accept": [],
+      "explain": "Sau “hope to” cần động từ nguyên mẫu: reduce."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "medium",
+      "topic": "Adverb before verb",
+      "prompt": "The price of fuel has ___ increased.",
+      "choices": [
+        "dramatic",
+        "dramatically",
+        "drama",
+        "dramatize"
+      ],
+      "answer": "dramatically",
+      "accept": [],
+      "explain": "Giữa “has” và động từ chính cần trạng từ: dramatically."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "Adverb before participle",
+      "prompt": "The event was ___ planned.",
+      "choices": [
+        "careful",
+        "carefully",
+        "care",
+        "carefulness"
+      ],
+      "answer": "carefully",
+      "accept": [],
+      "explain": "Bổ nghĩa cho “planned” (phân từ) cần trạng từ: carefully."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "Noun after your",
+      "prompt": "Thank you for your ___ in our company.",
+      "choices": [
+        "interest",
+        "interested",
+        "interesting",
+        "interestingly"
+      ],
+      "answer": "interest",
+      "accept": [],
+      "explain": "Sau “your” cần danh từ: interest (sự quan tâm)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "-ing vs -ed adjective",
+      "prompt": "The sales figures this quarter were very ___.",
+      "choices": [
+        "disappoint",
+        "disappointing",
+        "disappointed",
+        "disappointment"
+      ],
+      "answer": "disappointing",
+      "accept": [],
+      "explain": "Số liệu gây thất vọng → tính từ -ing: disappointing."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "-ing vs -ed adjective",
+      "prompt": "The staff were ___ with the new bonus system.",
+      "choices": [
+        "satisfy",
+        "satisfying",
+        "satisfied",
+        "satisfaction"
+      ],
+      "answer": "satisfied",
+      "accept": [],
+      "explain": "Người cảm thấy hài lòng → tính từ -ed: satisfied (be satisfied with)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "Adjective before noun",
+      "prompt": "The firm offers ___ advice to small businesses.",
+      "choices": [
+        "finance",
+        "financial",
+        "financially",
+        "financed"
+      ],
+      "answer": "financial",
+      "accept": [],
+      "explain": "Trước danh từ “advice” cần tính từ: financial."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "Negative noun",
+      "prompt": "We apologize for any ___ this may cause.",
+      "choices": [
+        "inconvenient",
+        "inconvenience",
+        "inconveniently",
+        "convenient"
+      ],
+      "answer": "inconvenience",
+      "accept": [],
+      "explain": "Sau “any” cần danh từ: inconvenience (sự bất tiện)."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "Adverb before adjective",
+      "prompt": "The new model is ___ more expensive than the old one.",
+      "choices": [
+        "significant",
+        "significantly",
+        "significance",
+        "signify"
+      ],
+      "answer": "significantly",
+      "accept": [],
+      "explain": "Bổ nghĩa cho “more expensive” cần trạng từ: significantly."
+    },
+    {
+      "kind": "tenseChoice",
+      "level": "hard",
+      "topic": "Person noun (plural)",
+      "prompt": "All ___ must sign in at the reception desk.",
+      "choices": [
+        "visit",
+        "visitors",
+        "visiting",
+        "visited"
+      ],
+      "answer": "visitors",
+      "accept": [],
+      "explain": "Sau “All” và trước động từ cần danh từ số nhiều chỉ người: visitors."
+    },
+    {
+      "topic": "Fix: adverb after verb",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "She spoke very confident during the interview.",
+      "wrong": "confident",
+      "answer": "confidently",
+      "choices": [],
+      "accept": [],
+      "explain": "Bổ nghĩa cho động từ “spoke” cần trạng từ: confidently."
+    },
+    {
+      "topic": "Fix: noun after a",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "We need to make a decide by Friday.",
+      "wrong": "decide",
+      "answer": "decision",
+      "choices": [],
+      "accept": [],
+      "explain": "Sau “a” cần danh từ: decision."
+    },
+    {
+      "topic": "Fix: adjective after be",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "Our team is very success this year.",
+      "wrong": "success",
+      "answer": "successful",
+      "choices": [],
+      "accept": [],
+      "explain": "Sau “is very” cần tính từ: successful."
+    },
+    {
+      "topic": "Fix: adverb after object",
+      "kind": "fixError",
+      "level": "easy",
+      "prompt": "The manager explained the plan clear.",
+      "wrong": "clear",
+      "answer": "clearly",
+      "choices": [],
+      "accept": [],
+      "explain": "Bổ nghĩa cho động từ “explained” cần trạng từ: clearly."
+    },
+    {
+      "topic": "Fix: adjective after be",
+      "kind": "fixError",
+      "level": "medium",
+      "prompt": "This task is very importance.",
+      "wrong": "importance",
+      "answer": "important",
+      "choices": [],
+      "accept": [],
+      "explain": "Sau “is very” cần tính từ: important."
+    },
+    {
+      "topic": "Fix: adjective after be",
+      "kind": "fixError",
+      "level": "medium",
+      "prompt": "The product sells well because it is very rely.",
+      "wrong": "rely",
+      "answer": "reliable",
+      "choices": [],
+      "accept": [],
+      "explain": "Sau “is very” cần tính từ: reliable (đáng tin cậy)."
+    },
+    {
+      "topic": "Fix: negative prefix",
+      "kind": "fixError",
+      "level": "medium",
+      "prompt": "It is unpossible to finish the report today.",
+      "wrong": "unpossible",
+      "answer": "impossible",
+      "choices": [],
+      "accept": [],
+      "explain": "Phủ định của possible là impossible (im- trước p)."
+    },
+    {
+      "topic": "Fix: -ed adjective",
+      "kind": "fixError",
+      "level": "hard",
+      "prompt": "I was very boring during the long training session.",
+      "wrong": "boring",
+      "answer": "bored",
+      "choices": [],
+      "accept": [],
+      "explain": "Người cảm thấy chán dùng -ed: bored."
+    }
+  ]
+}

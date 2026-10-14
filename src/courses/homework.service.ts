@@ -11,6 +11,7 @@ import { Dialogue, dialogueBlanks } from './dialogue';
 import { NotificationsService } from '../notifications/notifications.service';
 import { QuestionsService } from './questions.service';
 import { TENSE_LABEL, type Tense } from './tense';
+import { familyKey, wordFormQuestion } from '../common/wordform';
 
 /** How many earlier words a day's homework reviews (at least this many, or the course's words per day). */
 const MIN_REVIEW = 3;
@@ -20,6 +21,8 @@ const TENSE_NEW = 4;
 const TENSE_REVIEW = 2;
 /** Words in the warm-up before a day's new words. */
 const WARMUP_WORDS = 6;
+/** Most word-form (word family) questions in a day's homework. */
+const WORDFORM_PER_DAY = 2;
 
 /** Percent of the score kept when homework is handed in late: on time 100%, then 80%, 60%, and 50% from 3 days late. */
 export function penaltyFor(lateDays: number): number {
@@ -104,6 +107,37 @@ const dictatable = (w: CourseWord) => {
   return ex.length <= 160 && words >= 4 && words <= 18;
 };
 
+/**
+ * Up to `max` word-form questions from the words' families (today's words first, then earlier ones),
+ * skipping words asked as a blank today and families already used.
+ */
+function wordFormQuestions(today: CourseWord[], earlier: CourseWord[], blanked: Set<string>, max: number): Question[] {
+  const out: Question[] = [];
+  const families = new Set<string>();
+  const words = new Set<string>();
+  const candidates = [...shuffle(today).map((w) => ({ w, review: false })), ...shuffle(earlier).map((w) => ({ w, review: true }))];
+  for (const { w, review } of candidates) {
+    if (out.length >= max) break;
+    const k = w.word.toLowerCase();
+    if (blanked.has(k) || words.has(k) || !w.family?.length) continue;
+    const fk = familyKey(w.family);
+    if (families.has(fk)) continue;
+    const f = wordFormQuestion(w.family);
+    if (!f) continue;
+    families.add(fk);
+    words.add(k);
+    out.push({ type: 'wordform', word: w.word, review, prompt: f.prompt, hint: f.pos, choices: [], answer: f.answer, accept: [], explain: f.family + (f.vi ? ' — ' + f.vi : '') });
+  }
+  return out;
+}
+
+/** A short hash of a string (to notice changes in word families). */
+function hashOf(s: string): string {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+
 function dictationQuestion(w: CourseWord, review: boolean): Question {
   const n = w.ex.trim().split(/\s+/).length;
   return { type: 'dictation', word: w.word, review, prompt: '', hint: n + ' words', choices: [], answer: w.ex.trim(), accept: [] };
@@ -173,7 +207,9 @@ export class HomeworkService {
     return c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
       .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|') +
       '#' + bank.map((b) => String(b._id) + ':' + ((b as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? 0)).join(',') +
-      '#d' + (c.dictationPerDay ?? 2);
+      '#d' + (c.dictationPerDay ?? 2) +
+      '#f' + hashOf(JSON.stringify(c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
+        .map((d) => d.words.map((w) => (w.family ?? []).map((m) => [m.word, m.pos, m.vi, m.ex ?? ''])))));
   }
 
   private async bankUpTo(c: CourseDocument, day: number): Promise<BankItemDocument[]> {
@@ -221,6 +257,9 @@ export class HomeworkService {
       if (i >= 0) qs[i] = makeQuestion(w, 'type', false, pool);
       qs.push(dictationQuestion(w, false));
     }
+    // Word forms from the words' families, never about a word asked as a blank today.
+    const blankedNow = new Set(qs.filter((q) => q.type === 'blank').map((q) => q.word.toLowerCase()));
+    qs.push(...wordFormQuestions(today, earlier, blankedNow, WORDFORM_PER_DAY));
     const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
     qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true)));
     return shuffle(qs);
