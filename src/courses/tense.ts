@@ -3,6 +3,8 @@
  * and the OpenAI prompt for AI-written questions.
  */
 
+import type { Part } from './sentence-rules';
+
 export const TENSES = ['present-simple', 'present-continuous', 'present-perfect', 'past-simple', 'past-continuous', 'future-simple', 'going-to'] as const;
 export type Tense = (typeof TENSES)[number];
 
@@ -26,6 +28,8 @@ export interface TenseDraft {
   answer: string;
   accept: string[];
   explain: string;
+  /** The full sentence (answer in place) split into subject / verb / object…, when known. */
+  parts?: Part[];
 }
 
 export interface RecapDraft { text: string; vi: string }
@@ -33,7 +37,7 @@ export interface RecapDraft { text: string; vi: string }
 /* ---------- verb forms ---------- */
 
 /** Irregular verbs common at work: base → [past, past participle]. */
-const IRREGULAR: Record<string, [string, string]> = {
+export const IRREGULAR: Record<string, [string, string]> = {
   be: ['was', 'been'], begin: ['began', 'begun'], break: ['broke', 'broken'], bring: ['brought', 'brought'], build: ['built', 'built'],
   buy: ['bought', 'bought'], catch: ['caught', 'caught'], choose: ['chose', 'chosen'], come: ['came', 'come'], cut: ['cut', 'cut'],
   deal: ['dealt', 'dealt'], do: ['did', 'done'], draw: ['drew', 'drawn'], drive: ['drove', 'driven'], fall: ['fell', 'fallen'],
@@ -98,16 +102,24 @@ export function verbForms(raw: string) {
 /* ---------- templates (no AI) ---------- */
 
 type Forms = NonNullable<ReturnType<typeof verbForms>>;
-interface Template { tense: Tense; sentence: string; answer: (f: Forms) => string; explain: string }
+/** `parts`: the sentence split into subject / verb / object… with the answer `a` in place (for "Grammar" in the app). */
+export interface Template { tense: Tense; sentence: string; answer: (f: Forms) => string; explain: string; parts: (a: string) => Part[] }
 
-const TEMPLATES: Template[] = [
-  { tense: 'present-simple', sentence: 'Our lead usually ___ ({v}) it on Monday mornings.', answer: (f) => f.third, explain: 'Thói quen lặp lại (“usually”), chủ ngữ số ít → động từ thêm -s/-es.' },
-  { tense: 'present-continuous', sentence: 'Please wait, the team ___ ({v}) it right now.', answer: (f) => 'is ' + f.ing, explain: 'Việc đang diễn ra ngay lúc nói (“right now”) → is/am/are + V-ing.' },
-  { tense: 'present-perfect', sentence: 'We ___ ({v}) it already for this release.', answer: (f) => 'have ' + f.pp, explain: 'Việc đã xong, kết quả còn liên quan tới hiện tại (“already”) → have/has + V3.' },
-  { tense: 'past-simple', sentence: 'Yesterday, the developer ___ ({v}) it before the stand-up.', answer: (f) => f.past, explain: 'Việc đã xảy ra và kết thúc trong quá khứ (“yesterday”) → V2/V-ed.' },
-  { tense: 'past-continuous', sentence: 'I ___ ({v}) it when the server went down.', answer: (f) => 'was ' + f.ing, explain: 'Việc đang diễn ra thì một việc khác xen vào (“when … went down”) → was/were + V-ing.' },
-  { tense: 'future-simple', sentence: 'Don’t worry, I ___ ({v}) it tomorrow.', answer: (f) => 'will ' + f.base, explain: 'Quyết định/lời hứa về tương lai (“tomorrow”) → will + V.' },
-  { tense: 'going-to', sentence: 'We have a plan: next sprint we ___ ({v}) it for the client.', answer: (f) => 'are going to ' + f.base, explain: 'Kế hoạch đã định trước (“we have a plan”) → am/is/are going to + V.' }
+export const TEMPLATES: Template[] = [
+  { tense: 'present-simple', sentence: 'Our lead usually ___ ({v}) it on Monday mornings.', answer: (f) => f.third, explain: 'Thói quen lặp lại (“usually”), chủ ngữ số ít → động từ thêm -s/-es.',
+    parts: (a) => [{ text: 'Our lead', role: 'S' }, { text: 'usually', role: 'adv' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'on Monday mornings.', role: 'time' }] },
+  { tense: 'present-continuous', sentence: 'Please wait, the team ___ ({v}) it right now.', answer: (f) => 'is ' + f.ing, explain: 'Việc đang diễn ra ngay lúc nói (“right now”) → is/am/are + V-ing.',
+    parts: (a) => [{ text: 'Please wait,', role: 'other' }, { text: 'the team', role: 'S' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'right now.', role: 'time' }] },
+  { tense: 'present-perfect', sentence: 'We ___ ({v}) it already for this release.', answer: (f) => 'have ' + f.pp, explain: 'Việc đã xong, kết quả còn liên quan tới hiện tại (“already”) → have/has + V3.',
+    parts: (a) => [{ text: 'We', role: 'S' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'already', role: 'adv' }, { text: 'for this release.', role: 'other' }] },
+  { tense: 'past-simple', sentence: 'Yesterday, the developer ___ ({v}) it before the stand-up.', answer: (f) => f.past, explain: 'Việc đã xảy ra và kết thúc trong quá khứ (“yesterday”) → V2/V-ed.',
+    parts: (a) => [{ text: 'Yesterday,', role: 'time' }, { text: 'the developer', role: 'S' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'before the stand-up.', role: 'time' }] },
+  { tense: 'past-continuous', sentence: 'I ___ ({v}) it when the server went down.', answer: (f) => 'was ' + f.ing, explain: 'Việc đang diễn ra thì một việc khác xen vào (“when … went down”) → was/were + V-ing.',
+    parts: (a) => [{ text: 'I', role: 'S' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'when the server went down.', role: 'clause' }] },
+  { tense: 'future-simple', sentence: 'Don’t worry, I ___ ({v}) it tomorrow.', answer: (f) => 'will ' + f.base, explain: 'Quyết định/lời hứa về tương lai (“tomorrow”) → will + V.',
+    parts: (a) => [{ text: 'Don’t worry,', role: 'other' }, { text: 'I', role: 'S' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'tomorrow.', role: 'time' }] },
+  { tense: 'going-to', sentence: 'We have a plan: next sprint we ___ ({v}) it for the client.', answer: (f) => 'are going to ' + f.base, explain: 'Kế hoạch đã định trước (“we have a plan”) → am/is/are going to + V.',
+    parts: (a) => [{ text: 'We have a plan:', role: 'other' }, { text: 'next sprint', role: 'time' }, { text: 'we', role: 'S' }, { text: a, role: 'V' }, { text: 'it', role: 'O' }, { text: 'for the client.', role: 'other' }] }
 ];
 
 /** Wrong choices for a tense question: the same verb in other tenses. */
@@ -132,7 +144,7 @@ export function templateQuestions(word: string, tenses: readonly Tense[], perWor
       // Multiple choice shows the verb forms as choices, so the sentence doesn't need the verb in brackets.
       prompt: choice ? sentence.replace(' (' + f.base + ')', '') : sentence,
       choices: choice ? formChoices(f, answer).sort(() => Math.random() - 0.5) : [],
-      answer, accept: answer.startsWith('have ') ? ["'ve " + answer.slice(5)] : [], explain: t.explain
+      answer, accept: answer.startsWith('have ') ? ["'ve " + answer.slice(5)] : [], explain: t.explain, parts: t.parts(answer)
     };
   });
 }
@@ -150,7 +162,8 @@ Each question: {"word": the vocabulary item exactly as given, "tense": one id, "
  "sentence": the sentence with exactly one "___" where the verb phrase goes; for "fill" put the base verb in brackets right after the blank, e.g. "Yesterday we ___ (deploy) the hotfix.",
  "choices": for "choice" exactly 4 different verb phrases (one correct), for "fill" [],
  "answer": the exact verb phrase that fills the blank (e.g. "deployed", "have fixed", "is reviewing"),
- "explain": one short sentence in Vietnamese explaining why this tense is used}.
+ "explain": one short sentence in Vietnamese explaining why this tense is used,
+ "parts": the FULL sentence (answer in place of ___, no brackets) split into consecutive chunks that together give back the sentence word for word, each {"text": chunk, "role": one of "S" (subject), "V" (the whole verb phrase), "O" (object), "C" (complement), "time", "place", "adv" (other adverb), "clause" (a whole dependent clause), "other"}}.
 "recap": when REVIEW WORDS are given, a short workplace story (3–4 sentences, B1 level) using as many of them as possible, mixing past, present and future tenses, as {"text": English story, "vi": Vietnamese translation}; otherwise null.`;
 
 const str = (v: unknown, max: number): string => (typeof v === 'string' ? v.trim().slice(0, max) : '');
@@ -191,7 +204,7 @@ export async function aiTenseQuestions(
       const choices = Array.isArray(q.choices) ? [...new Set(q.choices.map((c) => str(c, 80)).filter(Boolean))] : [];
       if (!word || !TENSES.includes(tense) || !answer || (sentence.match(/___/g) ?? []).length !== 1) continue;
       if (kind === 'tenseChoice' && (choices.length !== 4 || !choices.includes(answer))) continue;
-      questions.push({ word, tense, kind, prompt: sentence, choices: kind === 'tenseChoice' ? choices : [], answer, accept: [], explain: str(q.explain, 300) });
+      questions.push({ word, tense, kind, prompt: sentence, choices: kind === 'tenseChoice' ? choices : [], answer, accept: [], explain: str(q.explain, 300), parts: Array.isArray(q.parts) ? (q.parts as Part[]) : undefined });
     }
     const r = o.recap as Record<string, unknown> | null | undefined;
     const recap = r && str(r.text, 1200) ? { text: str(r.text, 1200), vi: str(r.vi, 1500) } : null;

@@ -13,6 +13,7 @@ import { CoursesService } from './courses.service';
 import { BankItem, BankItemSchema, Homework, HomeworkSchema, Submission, SubmissionSchema } from './homework.schema';
 import { HomeworkService } from './homework.service';
 import { QuestionsService } from './questions.service';
+import { SentenceGrammar, SentenceGrammarSchema, SentenceGrammarService } from './sentence-grammar';
 
 @Module({
   imports: [
@@ -22,12 +23,13 @@ import { QuestionsService } from './questions.service';
       { name: Homework.name, schema: HomeworkSchema },
       { name: Submission.name, schema: SubmissionSchema },
       { name: BankItem.name, schema: BankItemSchema },
-      { name: User.name, schema: UserSchema }
+      { name: User.name, schema: UserSchema },
+      { name: SentenceGrammar.name, schema: SentenceGrammarSchema }
     ]),
     WordsModule, LibraryModule, LookupModule, ProfileModule, TagsModule, NotificationsModule
   ],
   controllers: [CoursesController],
-  providers: [CoursesService, HomeworkService, QuestionsService],
+  providers: [CoursesService, HomeworkService, QuestionsService, SentenceGrammarService],
   exports: [CoursesService]
 })
 export class CoursesModule {}

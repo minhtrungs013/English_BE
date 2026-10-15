@@ -12,6 +12,8 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { QuestionsService } from './questions.service';
 import { TENSE_LABEL, type Tense } from './tense';
 import { familyKey, wordFormQuestion } from '../common/wordform';
+import { SentenceGrammarService } from './sentence-grammar';
+import { fullSentence, wordFormNote } from './sentence-rules';
 
 /** How many earlier words a day's homework reviews (at least this many, or the course's words per day). */
 const MIN_REVIEW = 3;
@@ -179,7 +181,8 @@ export class HomeworkService {
     @InjectModel(User.name) private readonly users: Model<User>,
     private readonly library: LibraryService,
     private readonly questions: QuestionsService,
-    private readonly notes: NotificationsService
+    private readonly notes: NotificationsService,
+    private readonly grammar: SentenceGrammarService
   ) {}
 
   /* ---------- access ---------- */
@@ -283,7 +286,24 @@ export class HomeworkService {
 
   /* ---------- views ---------- */
 
-  private result(hw: HomeworkDocument, s: SubmissionDocument) {
+  /**
+   * The grammar of each question's sentence (answer in place), or null. Only ever sent with the answers:
+   * after handing in, and in the warm-up (which isn't graded).
+   */
+  private grammarOf(qs: { type: string; prompt: string; answer: string; hint?: string; tense?: string; explain?: string }[]) {
+    return this.grammar.views(qs.map((q) => ({
+      text: fullSentence(q),
+      hint: {
+        tense: q.tense,
+        // Tense questions explain the tense; a word-form question's explain is its family, not grammar.
+        explain: TENSE_KINDS.includes(q.type) ? q.explain : '',
+        note: q.type === 'wordform' ? wordFormNote(q.prompt, q.answer, q.hint ?? '') : null
+      }
+    })));
+  }
+
+  private async result(hw: HomeworkDocument, s: SubmissionDocument) {
+    const grammar = await this.grammarOf(hw.questions);
     return {
       score: s.score, raw: s.raw, correct: s.correct, total: s.total, lateDays: s.lateDays, penalty: s.penalty,
       durationMs: s.durationMs, submittedAt: s.submittedAt?.getTime() ?? null,
@@ -291,7 +311,8 @@ export class HomeworkService {
         type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices,
         tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '',
         yourAnswer: s.answers[i] ?? '', answer: q.answer, correct: !!s.results[i],
-        ...(q.type === 'dictation' ? { grade: gradeDictation(q.answer, s.answers[i] ?? '') } : {})
+        ...(q.type === 'dictation' ? { grade: gradeDictation(q.answer, s.answers[i] ?? '') } : {}),
+        grammar: grammar[i]
       }))
     };
   }
@@ -306,7 +327,7 @@ export class HomeworkService {
     return {
       day, total: hw.questions.length, lateDays, penalty: penaltyFor(lateDays),
       questions: hw.questions.map(shown),
-      submission: s.submittedAt ? this.result(hw, s) : null
+      submission: s.submittedAt ? await this.result(hw, s) : null
     };
   }
 
@@ -384,11 +405,24 @@ export class HomeworkService {
       const q = tense && Math.random() < 0.5 ? fromBank(tense, true) : makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool);
       return { type: q.type, word: q.word, prompt: q.prompt, hint: q.hint, choices: q.choices, answer: q.answer, accept: q.accept, tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '' };
     });
+    // The warm-up already includes the answers, so the grammar can come along (shown once a question is answered).
+    const grammar = await this.grammarOf(questions);
     return {
       day, recap,
       words: picked.map((w) => ({ word: w.word, ipa: w.ipa, vi: w.vi, meaning: w.meaning, missed: wrong.get(w.word.toLowerCase()) ?? 0 })),
-      questions
+      questions: questions.map((q, i) => ({ ...q, grammar: grammar[i] }))
     };
+  }
+
+  /**
+   * The grammar of the example sentences of an open day's words (the Learn step). Only the course's own sentences:
+   * the app can't ask about any other text here.
+   */
+  async examples(user: string, id: string, day: number) {
+    const { c } = await this.openDay(user, id, day);
+    const words = (c.days.find((d) => d.day === day)?.words ?? []).filter((w) => w.ex?.trim());
+    const grammar = await this.grammar.views(words.map((w) => ({ text: w.ex.trim() })));
+    return { items: words.map((w, i) => ({ word: w.word, ex: w.ex.trim(), grammar: grammar[i] })).filter((x) => x.grammar) };
   }
 
   /** Marks a day's warm-up as finished (it isn't graded; the result is only kept for the learner's progress). */

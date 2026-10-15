@@ -138,6 +138,12 @@ export class CoursesController {
     return this.homework.warmupDone(user, id, day, dto.correct, dto.total);
   }
 
+  /** The grammar of the example sentences of a day's words, for "Grammar" in the Learn step. */
+  @Get(':id/days/:day/grammar')
+  examples(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.homework.examples(user, id, day);
+  }
+
   /** The day's listening dialogue (practice; answers included), or { dialogue: null }. */
   @Get(':id/days/:day/listening')
   listening(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {

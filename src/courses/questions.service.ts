@@ -8,6 +8,8 @@ import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.
 import { Dialogue, aiDialogue, cleanDialogue } from './dialogue';
 import { BankItem, BankItemDocument, BankStatus } from './homework.schema';
 import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiTenseQuestions, templateQuestions } from './tense';
+import { SentenceGrammarService } from './sentence-grammar';
+import { fullSentence } from './sentence-rules';
 
 /** How many earlier words the recap story may use. */
 const RECAP_WORDS = 12;
@@ -18,7 +20,8 @@ export class QuestionsService {
     @InjectModel(Course.name) private readonly courses: Model<Course>,
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
     private readonly config: ConfigService,
-    private readonly profile: ProfileService
+    private readonly profile: ProfileService,
+    private readonly grammar: SentenceGrammarService
   ) {}
 
   private async owned(user: string, id: string): Promise<CourseDocument> {
@@ -121,6 +124,8 @@ export class QuestionsService {
       docs.push({ courseId: id, day, kind: 'recap', word: '', tense: '', prompt: recap.text, explain: recap.vi, choices: [], answer: '', accept: [], source, status: 'pending' });
     }
     await this.bank.insertMany(docs);
+    // The grammar of each sentence (answer in place), for "Grammar" after answering. Optional: never blocks the questions.
+    await this.grammar.save(drafts.map((d) => ({ text: fullSentence({ type: d.kind, prompt: d.prompt, answer: d.answer }), tense: d.tense, parts: d.parts, explain: d.explain, source }))).catch(() => undefined);
     return { source, added: docs.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
   }
 
