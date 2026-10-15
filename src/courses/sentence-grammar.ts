@@ -18,6 +18,8 @@ export class SentenceGrammar {
   @Prop({ default: '' }) tense: string;
   @Prop({ type: [{ _id: false, text: String, role: String }], default: [] }) parts: Part[];
   @Prop({ default: '' }) explain: string;
+  /** Short Vietnamese name of the structure when it isn't one of the tense lessons (e.g. "Bị động – hiện tại đơn"). */
+  @Prop({ default: '' }) label: string;
   @Prop({ type: [{ _id: false, on: String, text: String }], default: [] }) notes: { on: string; text: string }[];
   @Prop({ enum: ['template', 'ai', 'owner'], default: 'ai' }) source: string;
   /** Checked by a course owner: never overwritten by generated data. */
@@ -31,6 +33,8 @@ export interface GrammarView {
   text: string;
   tense: string;
   lesson: { id: string; name: string; vi: string } | null;
+  /** The structure's name when there's no lesson for it (passive, modal…). */
+  label: string;
   formula: string;
   signals: string[];
   /** The sentence split into subject / verb / object…; empty when it hasn't been analysed. */
@@ -44,7 +48,7 @@ export interface GrammarView {
 /** Extra facts a question already knows: its tense and explanation (bank items), a word-form note. */
 export interface GrammarHint { tense?: string; explain?: string; note?: { on: string; text: string } | null }
 
-export interface GrammarInput { text: string; tense: string; parts?: Part[]; explain?: string; notes?: { on: string; text: string }[]; source: 'template' | 'ai' | 'owner' }
+export interface GrammarInput { text: string; tense: string; label?: string; parts?: Part[]; explain?: string; notes?: { on: string; text: string }[]; source: 'template' | 'ai' | 'owner' }
 
 @Injectable()
 export class SentenceGrammarService implements OnApplicationBootstrap {
@@ -57,15 +61,17 @@ export class SentenceGrammarService implements OnApplicationBootstrap {
 
   /** Stores analyses (skipping invalid parts); an owner-checked one is kept as it is. */
   async save(items: GrammarInput[]): Promise<void> {
-    const ops = items.filter((g) => g.text.trim() && (TENSES as readonly string[]).includes(g.tense)).map((g) => {
+    // A tense lesson id, or none (passive, modal…) as long as the sentence is split into parts.
+    const ops = items.flatMap((g) => {
       const parts = g.parts ? checkParts(g.text, g.parts) ?? [] : [];
-      return {
+      if (!g.text.trim() || !((TENSES as readonly string[]).includes(g.tense) || (!g.tense && parts.length))) return [];
+      return [{
         updateOne: {
           filter: { key: sentenceKey(g.text), checked: { $ne: true } },
-          update: { $set: { text: g.text.trim(), tense: g.tense, parts, explain: (g.explain ?? '').slice(0, 400), notes: (g.notes ?? []).slice(0, 4), source: g.source } },
+          update: { $set: { text: g.text.trim(), tense: g.tense, label: (g.label ?? '').slice(0, 60), parts, explain: (g.explain ?? '').slice(0, 400), notes: (g.notes ?? []).slice(0, 4), source: g.source } },
           upsert: true
         }
-      };
+      }];
     });
     if (!ops.length) return;
     // An owner-checked document makes the upsert try to insert a duplicate key: that one is simply skipped.
@@ -79,13 +85,15 @@ export class SentenceGrammarService implements OnApplicationBootstrap {
     return items.map(({ text, hint }) => {
       if (!text) return null;
       const d = stored.get(sentenceKey(text));
-      const tense = d?.tense || hint?.tense || ruleTense(text) || '';
+      // A stored analysis decides, even "no tense lesson" (the pattern would guess wrong on a passive, say).
+      const tense = d ? d.tense || hint?.tense || '' : hint?.tense || ruleTense(text) || '';
       const lesson = tense ? LESSON_BY_ID.get(tense) : undefined;
       const notes = [...(d?.notes ?? []), ...(hint?.note ? [hint.note] : [])];
-      if (!lesson && !notes.length) return null;
+      if (!lesson && !notes.length && !d?.parts?.length) return null;
       return {
         text, tense,
         lesson: lesson ? { id: lesson.id, name: lesson.name, vi: lesson.vi } : null,
+        label: d?.label ?? '',
         formula: lesson?.formula?.affirmative.pattern ?? '',
         signals: tense ? findSignals(text, tense) : [],
         parts: d?.parts ?? [],
