@@ -145,3 +145,12 @@ export class BankStatusDto {
 export class BankQuery {
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(30) day?: number;
 }
+
+export class BankPickItemDto {
+  @IsMongoId() id: string;
+  /** tense: typed · tenseChoice: multiple choice (falls back to typed when the verb can't have choices). */
+  @IsIn(['tense', 'tenseChoice']) kind: 'tense' | 'tenseChoice';
+}
+export class BankPickDto {
+  @IsArray() @ArrayMaxSize(60) @ValidateNested({ each: true }) @Type(() => BankPickItemDto) items: BankPickItemDto[];
+}

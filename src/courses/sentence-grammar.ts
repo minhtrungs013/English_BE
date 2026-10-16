@@ -78,6 +78,12 @@ export class SentenceGrammarService implements OnApplicationBootstrap {
     await this.docs.bulkWrite(ops, { ordered: false }).catch((e: { code?: number }) => { if (e?.code !== 11000) throw e; });
   }
 
+  /** Stored explanation and subject (the S part) by sentence key, for questions copied from the sentence bank. */
+  async explains(texts: string[]): Promise<Map<string, { explain: string; subject: string }>> {
+    const docs = texts.length ? await this.docs.find({ key: { $in: texts.map(sentenceKey) } }, { key: 1, explain: 1, parts: 1 }).lean() : [];
+    return new Map(docs.map((d) => [d.key, { explain: d.explain, subject: d.parts.find((p) => p.role === 'S')?.text ?? '' }]));
+  }
+
   /** The grammar to show for each sentence ('' entries give null). One query for all of them. */
   async views(items: { text: string; hint?: GrammarHint }[]): Promise<(GrammarView | null)[]> {
     const keys = [...new Set(items.filter((i) => i.text).map((i) => sentenceKey(i.text)))];

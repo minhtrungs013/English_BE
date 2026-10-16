@@ -53,10 +53,34 @@ export const IRREGULAR: Record<string, [string, string]> = {
   think: ['thought', 'thought'], throw: ['threw', 'thrown'], understand: ['understood', 'understood'], undo: ['undid', 'undone'],
   upset: ['upset', 'upset'], wake: ['woke', 'woken'], wear: ['wore', 'worn'], win: ['won', 'won'], withdraw: ['withdrew', 'withdrawn'],
   write: ['wrote', 'written'], overwrite: ['overwrote', 'overwritten'], override: ['overrode', 'overridden'], rerun: ['reran', 'rerun'],
-  reset: ['reset', 'reset'], broadcast: ['broadcast', 'broadcast'], spin: ['spun', 'spun'], bind: ['bound', 'bound'], seek: ['sought', 'sought']
+  reset: ['reset', 'reset'], broadcast: ['broadcast', 'broadcast'], spin: ['spun', 'spun'], bind: ['bound', 'bound'], seek: ['sought', 'sought'],
+  // More irregular verbs (so choices are never "rided" or "eated").
+  arise: ['arose', 'arisen'], awake: ['awoke', 'awoken'], bear: ['bore', 'borne'], beat: ['beat', 'beaten'], become: ['became', 'become'],
+  bend: ['bent', 'bent'], bet: ['bet', 'bet'], bite: ['bit', 'bitten'], bleed: ['bled', 'bled'], blow: ['blew', 'blown'],
+  breed: ['bred', 'bred'], burst: ['burst', 'burst'], cast: ['cast', 'cast'], cling: ['clung', 'clung'], cost: ['cost', 'cost'],
+  creep: ['crept', 'crept'], dig: ['dug', 'dug'], drink: ['drank', 'drunk'], eat: ['ate', 'eaten'], feed: ['fed', 'fed'],
+  fight: ['fought', 'fought'], flee: ['fled', 'fled'], fly: ['flew', 'flown'], forbid: ['forbade', 'forbidden'], forecast: ['forecast', 'forecast'],
+  foresee: ['foresaw', 'foreseen'], forgive: ['forgave', 'forgiven'], grind: ['ground', 'ground'], hang: ['hung', 'hung'], hurt: ['hurt', 'hurt'],
+  kneel: ['knelt', 'knelt'], lay: ['laid', 'laid'], lie: ['lay', 'lain'], light: ['lit', 'lit'], mislead: ['misled', 'misled'],
+  mistake: ['mistook', 'mistaken'], misunderstand: ['misunderstood', 'misunderstood'], overcome: ['overcame', 'overcome'], oversee: ['oversaw', 'overseen'], overtake: ['overtook', 'overtaken'],
+  quit: ['quit', 'quit'], ride: ['rode', 'ridden'], ring: ['rang', 'rung'], rise: ['rose', 'risen'], shake: ['shook', 'shaken'],
+  shed: ['shed', 'shed'], shine: ['shone', 'shone'], shoot: ['shot', 'shot'], shrink: ['shrank', 'shrunk'], sing: ['sang', 'sung'],
+  sink: ['sank', 'sunk'], slide: ['slid', 'slid'], speed: ['sped', 'sped'], spread: ['spread', 'spread'], spring: ['sprang', 'sprung'],
+  stick: ['stuck', 'stuck'], steal: ['stole', 'stolen'], sting: ['stung', 'stung'], strike: ['struck', 'struck'], swear: ['swore', 'sworn'],
+  sweep: ['swept', 'swept'], swim: ['swam', 'swum'], swing: ['swung', 'swung'], tear: ['tore', 'torn'], undergo: ['underwent', 'undergone'],
+  undertake: ['undertook', 'undertaken'], uphold: ['upheld', 'upheld'], weep: ['wept', 'wept'], wind: ['wound', 'wound'], withhold: ['withheld', 'withheld'],
+  withstand: ['withstood', 'withstood'], weave: ['wove', 'woven'], outdo: ['outdid', 'outdone'], outgrow: ['outgrew', 'outgrown'], overhear: ['overheard', 'overheard'],
+  oversleep: ['overslept', 'overslept'], overspend: ['overspent', 'overspent'], overrun: ['overran', 'overrun'], overpay: ['overpaid', 'overpaid'], rethink: ['rethought', 'rethought'],
+  resell: ['resold', 'resold'], retell: ['retold', 'retold'], redo: ['redid', 'redone'], remake: ['remade', 'remade'], repay: ['repaid', 'repaid'],
+  resend: ['resent', 'resent'], rewind: ['rewound', 'rewound'], input: ['input', 'input'], output: ['output', 'output'], bid: ['bid', 'bid'],
+  burn: ['burned', 'burned'], dream: ['dreamed', 'dreamed'], learn: ['learned', 'learned'], spell: ['spelled', 'spelled'], spill: ['spilled', 'spilled'],
+  prove: ['proved', 'proven'], sew: ['sewed', 'sewn'], sow: ['sowed', 'sown'], swell: ['swelled', 'swollen'], dwell: ['dwelt', 'dwelt'],
+  lean: ['leaned', 'leaned'], leap: ['leapt', 'leapt'], smell: ['smelled', 'smelled'], spoil: ['spoiled', 'spoiled'], spit: ['spat', 'spat'],
+  strive: ['strove', 'striven'], stride: ['strode', 'stridden'], string: ['strung', 'strung'], tread: ['trod', 'trodden'], wed: ['wed', 'wed'],
+  wring: ['wrung', 'wrung'], slit: ['slit', 'slit'], sling: ['slung', 'slung'], stink: ['stank', 'stunk'], thrust: ['thrust', 'thrust']
 };
 
-const VOWEL = /[aeiou]/;
+const VOWEL = /[aeiouy]/;
 
 /** Short words ending consonant-vowel-consonant double the last letter (stop → stopped). */
 function doubles(v: string): boolean {

@@ -6,6 +6,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { TagsModule } from '../tags/tags';
 import { User, UserSchema } from '../users/user.schema';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { SentenceBankModule } from '../sentence-bank/sentence-bank';
 import { WordsModule } from '../words/words.module';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from './course.schema';
 import { CoursesController } from './courses.controller';
@@ -26,7 +27,7 @@ import { SentenceGrammar, SentenceGrammarSchema, SentenceGrammarService } from '
       { name: User.name, schema: UserSchema },
       { name: SentenceGrammar.name, schema: SentenceGrammarSchema }
     ]),
-    WordsModule, LibraryModule, LookupModule, ProfileModule, TagsModule, NotificationsModule
+    WordsModule, LibraryModule, LookupModule, ProfileModule, TagsModule, NotificationsModule, SentenceBankModule
   ],
   controllers: [CoursesController],
   providers: [CoursesService, HomeworkService, QuestionsService, SentenceGrammarService],

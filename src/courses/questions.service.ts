@@ -6,10 +6,13 @@ import { ProfileService } from '../profile/profile.service';
 import { Course, CourseDocument } from './course.schema';
 import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.dto';
 import { Dialogue, aiDialogue, cleanDialogue } from './dialogue';
-import { BankItem, BankItemDocument, BankStatus } from './homework.schema';
+import { BankItem, BankItemDocument, BankStatus, TENSE_KINDS } from './homework.schema';
 import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiTenseQuestions, templateQuestions } from './tense';
 import { SentenceGrammarService } from './sentence-grammar';
-import { fullSentence } from './sentence-rules';
+import { fullSentence, sentenceKey } from './sentence-rules';
+import { questionFrom, SentenceBankService } from '../sentence-bank/sentence-bank';
+
+const shuffle = <T,>(a: T[]): T[] => a.map((x) => [Math.random(), x] as const).sort((p, q) => p[0] - q[0]).map(([, x]) => x);
 
 /** How many earlier words the recap story may use. */
 const RECAP_WORDS = 12;
@@ -21,7 +24,8 @@ export class QuestionsService {
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
     private readonly config: ConfigService,
     private readonly profile: ProfileService,
-    private readonly grammar: SentenceGrammarService
+    private readonly grammar: SentenceGrammarService,
+    private readonly sentenceBank: SentenceBankService
   ) {}
 
   private async owned(user: string, id: string): Promise<CourseDocument> {
@@ -255,5 +259,65 @@ export class QuestionsService {
 
   async removeCourses(courseIds: string[]): Promise<void> {
     await this.bank.deleteMany({ courseId: { $in: courseIds } });
+  }
+
+  /* ---------- the word sentence bank ---------- */
+
+  /**
+   * The bank's sentences for a day's words, for the owner to pick from: each with whether it's already in this
+   * course and whether it can become a tense question (typed / multiple choice). `has`: tenses the word already has here.
+   */
+  async bankSentences(user: string, id: string, day: number) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const words = (c.days.find((d) => d.day === day)?.words ?? []).map((w) => w.word);
+    const [byWord, mine] = await Promise.all([
+      this.sentenceBank.forWords(words),
+      this.bank.find({ courseId: id, kind: { $in: TENSE_KINDS }, status: { $ne: 'rejected' } }, { word: 1, tense: 1, prompt: 1, answer: 1, sourceId: 1 }).lean()
+    ]);
+    const used = new Set(mine.flatMap((b) => [b.sourceId, sentenceKey(fullSentence({ type: 'tense', prompt: b.prompt, answer: b.answer }))]).filter(Boolean));
+    return {
+      words: words.map((word) => ({
+        word,
+        has: [...new Set(mine.filter((b) => b.word.toLowerCase() === word.toLowerCase()).map((b) => b.tense))],
+        sentences: (byWord.get(word.toLowerCase()) ?? []).map((s) => {
+          const q = questionFrom(s);
+          return {
+            id: String(s._id), sentence: s.sentence, verb: s.verb, tense: s.tense, tenseLabel: TENSE_LABEL[s.tense as Tense] ?? '', context: s.context, level: s.level,
+            used: used.has(String(s._id)) || used.has(s.key), canAsk: !!q, canChoose: !!q?.canChoose
+          };
+        })
+      }))
+    };
+  }
+
+  /** Copies picked bank sentences into the day's questions (approved: the bank is checked already). */
+  async addFromBank(user: string, id: string, day: number, items: { id: string; kind: 'tense' | 'tenseChoice' }[]) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const words = new Map((c.days.find((d) => d.day === day)?.words ?? []).map((w) => [w.word.toLowerCase(), w.word]));
+    const found = new Map((await this.sentenceBank.findByIds(items.map((x) => x.id))).map((s) => [String(s._id), s]));
+    const taken = new Set((await this.bank.find({ courseId: id, sourceId: { $in: [...found.keys()] }, status: { $ne: 'rejected' } }, { sourceId: 1 }).lean()).map((b) => b.sourceId));
+    const explains = await this.grammar.explains([...found.values()].map((s) => s.sentence));
+    const docs: Partial<BankItem>[] = [];
+    const skipped: string[] = [];
+    for (const it of items) {
+      const s = found.get(it.id);
+      const word = s ? words.get(s.word.toLowerCase()) : undefined;
+      const g = s ? explains.get(sentenceKey(s.sentence)) : undefined;
+      const q = s ? questionFrom(s, g?.subject) : null;
+      if (!s || !word || !q || taken.has(it.id)) { skipped.push(it.id); continue; }
+      taken.add(it.id);
+      const choice = it.kind === 'tenseChoice' && q.canChoose;
+      docs.push({
+        courseId: id, day, kind: choice ? 'tenseChoice' : 'tense', word, tense: s.tense,
+        // Multiple choice shows the verb forms, so the sentence doesn't need the verb in brackets.
+        prompt: choice ? q.prompt.replace(/\s*\([^)]*\)/, '') : q.prompt,
+        choices: choice ? shuffle([q.answer, ...shuffle(q.choices).slice(0, 3)]) : [],
+        answer: q.answer, accept: q.accept, explain: g?.explain ?? '', source: 'bank', sourceId: it.id, status: 'approved'
+      });
+    }
+    if (docs.length) await this.bank.insertMany(docs);
+    return { added: docs.length, skipped: skipped.length, items: await this.list(user, id, day) };
   }
 }

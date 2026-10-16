@@ -7,7 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, ListeningDoneDto, AutoFillDto
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, BankPickDto, ListeningDoneDto, AutoFillDto
 } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
@@ -203,6 +203,19 @@ export class CoursesController {
   @Post(':id/days/:day/questions')
   createQuestion(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: BankItemDto) {
     return this.questions.create(user, id, day, dto);
+  }
+
+  /** The word sentence bank's sentences for a day's words, to pick questions from (owner). */
+  @Get(':id/days/:day/sentence-bank')
+  bankSentences(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.questions.bankSentences(user, id, day);
+  }
+
+  /** Turn picked bank sentences into the day's questions (approved). */
+  @Post(':id/days/:day/sentence-bank')
+  @HttpCode(200)
+  addFromBank(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: BankPickDto) {
+    return this.questions.addFromBank(user, id, day, dto.items);
   }
 
   /** Import tense questions for a day from the owner's CSV/JSON rows (approved; bad rows are reported). */
