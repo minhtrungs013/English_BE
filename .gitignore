@@ -9,3 +9,11 @@ dist/
 grammar-batch/input/
 grammar-batch/output/
 grammar-batch/report.txt
+
+# AI question batches (scripts/export-course-words.js, scripts/check-questions.js)
+question-batch/*/
+
+# AI word sentence batches (scripts/export-word-sentences.js, scripts/check-word-sentences.js)
+sentence-bank/input/
+sentence-bank/output/
+sentence-bank/report.txt
