@@ -31,6 +31,6 @@ import { SentenceGrammar, SentenceGrammarSchema, SentenceGrammarService } from '
   ],
   controllers: [CoursesController],
   providers: [CoursesService, HomeworkService, QuestionsService, SentenceGrammarService],
-  exports: [CoursesService]
+  exports: [CoursesService, SentenceGrammarService]
 })
 export class CoursesModule {}
