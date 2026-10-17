@@ -11,6 +11,7 @@ import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiTenseQuestions, templateQuest
 import { SentenceGrammarService } from './sentence-grammar';
 import { fullSentence, sentenceKey } from './sentence-rules';
 import { questionFrom, SentenceBankService } from '../sentence-bank/sentence-bank';
+import { AccessService } from '../access/access';
 
 const shuffle = <T,>(a: T[]): T[] => a.map((x) => [Math.random(), x] as const).sort((p, q) => p[0] - q[0]).map(([, x]) => x);
 
@@ -25,13 +26,14 @@ export class QuestionsService {
     private readonly config: ConfigService,
     private readonly profile: ProfileService,
     private readonly grammar: SentenceGrammarService,
-    private readonly sentenceBank: SentenceBankService
+    private readonly sentenceBank: SentenceBankService,
+    private readonly access: AccessService
   ) {}
 
   private async owned(user: string, id: string): Promise<CourseDocument> {
     const c = await this.courses.findById(id);
     if (!c) throw new NotFoundException('Course not found.');
-    if (c.ownerId !== user) throw new ForbiddenException('Only the course owner can manage its questions.');
+    await this.access.requireAdmin(user, 'Only an admin can manage course questions.');
     return c;
   }
 

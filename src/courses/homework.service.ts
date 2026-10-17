@@ -14,6 +14,7 @@ import { TENSE_LABEL, type Tense } from './tense';
 import { familyKey, wordFormQuestion } from '../common/wordform';
 import { SentenceGrammarService } from './sentence-grammar';
 import { fullSentence, wordFormNote } from './sentence-rules';
+import { AccessService } from '../access/access';
 
 /** How many earlier words a day's homework reviews (at least this many, or the course's words per day). */
 const MIN_REVIEW = 3;
@@ -182,7 +183,8 @@ export class HomeworkService {
     private readonly library: LibraryService,
     private readonly questions: QuestionsService,
     private readonly notes: NotificationsService,
-    private readonly grammar: SentenceGrammarService
+    private readonly grammar: SentenceGrammarService,
+    private readonly access: AccessService
   ) {}
 
   /* ---------- access ---------- */
@@ -478,9 +480,10 @@ export class HomeworkService {
     if (!c) throw new NotFoundException('Course not found.');
     const enrolled = await this.enrollments.find({ courseId: id }).lean();
     const mine = enrolled.find((e) => e.user === user);
-    if (c.ownerId !== user && !mine) throw new ForbiddenException('Join the course to see its leaderboard.');
+    const admin = await this.access.isAdmin(user);
+    if (!admin && !mine) throw new ForbiddenException('Join the course to see its leaderboard.');
 
-    const maxDay = c.ownerId === user ? c.totalDays : currentDay(mine!, c.totalDays);
+    const maxDay = admin && !mine ? c.totalDays : currentDay(mine!, c.totalDays);
     const day = Math.max(1, Math.min(maxDay, dayArg ?? (mine ? currentDay(mine, c.totalDays) : 1)));
     const ids = enrolled.map((e) => e.user);
     const names = new Map((await this.users.find({ _id: { $in: ids } }, { name: 1 }).lean()).map((u) => [String(u._id), u.name]));
@@ -525,7 +528,7 @@ export class HomeworkService {
   private async ownedCourse(user: string, id: string): Promise<CourseDocument> {
     const c = await this.courses.findById(id);
     if (!c) throw new NotFoundException('Course not found.');
-    if (c.ownerId !== user) throw new ForbiddenException('Only the course owner can see its members.');
+    await this.access.requireAdmin(user, 'Only an admin can see a course’s members.');
     return c;
   }
 

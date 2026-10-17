@@ -4,6 +4,7 @@ import { randomInt } from 'crypto';
 import { Model } from 'mongoose';
 import { todayKey } from '../common/day';
 import { cleanFamily } from '../common/family';
+import { AccessService } from '../access/access';
 
 /** A real calendar date in YYYY-MM-DD form. */
 function validDate(s: string): boolean {
@@ -38,7 +39,8 @@ export class CoursesService {
     private readonly profile: ProfileService,
     private readonly homework: HomeworkService,
     private readonly questions: QuestionsService,
-    private readonly notes: NotificationsService
+    private readonly notes: NotificationsService,
+    private readonly access: AccessService
   ) {}
 
   /* ---------- views ---------- */
@@ -60,8 +62,9 @@ export class CoursesService {
   }
 
   /** Card data for course lists. */
-  private summary(c: CourseDocument, user: string, members: number, e: EnrollmentDocument | null) {
-    const isOwner = c.ownerId === user;
+  /** isOwner: the viewer can manage the course (admins manage every course). */
+  private summary(c: CourseDocument, user: string, members: number, e: EnrollmentDocument | null, admin = false) {
+    const isOwner = admin;
     return {
       id: String(c._id), title: c.title, description: c.description, ownerId: c.ownerId, ownerName: c.ownerName, isOwner,
       visibility: c.visibility, wordsPerDay: c.wordsPerDay, dictationPerDay: c.dictationPerDay ?? 2, totalDays: c.totalDays, tag: c.tag, startDate: c.startDate ?? '',
@@ -77,9 +80,9 @@ export class CoursesService {
    */
   private detail(
     c: CourseDocument, user: string, members: number, e: EnrollmentDocument | null,
-    scores = new Map<number, number>(), bank?: Map<number, { pending: number; approved: number }>
+    scores = new Map<number, number>(), bank?: Map<number, { pending: number; approved: number }>, admin = false
   ) {
-    const base = this.summary(c, user, members, e);
+    const base = this.summary(c, user, members, e, admin);
     const open = base.isOwner ? c.totalDays : e ? currentDay(e, c.totalDays) : 0;
     // Plain objects (spreading Mongoose subdocuments doesn't copy their fields).
     const byDay = new Map(c.toObject().days.map((d) => [d.day, d.words]));
@@ -105,7 +108,7 @@ export class CoursesService {
 
   private async loadOwned(user: string, id: string): Promise<CourseDocument> {
     const c = await this.load(id);
-    if (c.ownerId !== user) throw new ForbiddenException('Only the course owner can change it.');
+    await this.access.requireAdmin(user, 'Only an admin can change courses.');
     return c;
   }
 
@@ -119,16 +122,18 @@ export class CoursesService {
     else if (scope === 'public') list = await this.courses.find({ visibility: 'public' }).sort({ createdAt: -1 }).limit(100);
     else list = await this.courses.find({ _id: { $in: mine.map((e) => e.courseId) } }).sort({ updatedAt: -1 });
     const counts = await this.memberCounts(list.map((c) => String(c._id)));
-    return list.map((c) => this.summary(c, user, counts[String(c._id)] ?? 0, myEnrollment.get(String(c._id)) ?? null));
+    const admin = await this.access.isAdmin(user);
+    return list.map((c) => this.summary(c, user, counts[String(c._id)] ?? 0, myEnrollment.get(String(c._id)) ?? null, admin));
   }
 
   async get(user: string, id: string) {
     const c = await this.load(id);
     const e = await this.enrollments.findOne({ user, courseId: id });
-    // Private courses are only visible to their owner and learners who joined with the code.
-    if (c.visibility !== 'public' && c.ownerId !== user && !e) throw new NotFoundException('Course not found.');
+    const admin = await this.access.isAdmin(user);
+    // Private courses are only visible to admins and learners who joined with the code.
+    if (c.visibility !== 'public' && !admin && !e) throw new NotFoundException('Course not found.');
     const counts = await this.memberCounts([id]);
-    return this.detail(c, user, counts[id] ?? 0, e, e ? await this.homework.myScores(user, id) : undefined, c.ownerId === user ? await this.questions.counts(id) : undefined);
+    return this.detail(c, user, counts[id] ?? 0, e, e ? await this.homework.myScores(user, id) : undefined, admin ? await this.questions.counts(id) : undefined, admin);
   }
 
   /* ---------- owner: create & edit ---------- */
@@ -142,6 +147,7 @@ export class CoursesService {
   }
 
   async create(user: string, dto: CreateCourseDto) {
+    await this.access.requireAdmin(user, 'Only an admin can create courses.');
     const u = await this.users.findById(user);
     const slug = normalizeTag(dto.title).replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 30);
     const c = await this.courses.create({
@@ -149,7 +155,7 @@ export class CoursesService {
       wordsPerDay: dto.wordsPerDay ?? 5, dictationPerDay: dto.dictationPerDay ?? 2, totalDays: TOTAL_DAYS, visibility: dto.visibility ?? 'private', startDate: this.checkDate(dto.startDate),
       joinCode: await this.newCode(), tag: 'course-' + (slug || 'words'), days: []
     });
-    return this.detail(c, user, 0, null);
+    return this.detail(c, user, 0, null, undefined, undefined, true);
   }
 
   private checkDate(s?: string): string {
@@ -297,7 +303,7 @@ export class CoursesService {
 
   async join(user: string, id: string, code?: string) {
     const c = await this.load(id);
-    const ok = c.visibility === 'public' || c.ownerId === user || (!!code && code.toUpperCase() === c.joinCode);
+    const ok = c.visibility === 'public' || c.ownerId === user || (!!code && code.toUpperCase() === c.joinCode) || (await this.access.isAdmin(user));
     if (!ok) throw new NotFoundException('Course not found.');
     const r = await this.enrollments.updateOne({ user, courseId: id }, { $setOnInsert: { user, courseId: id, startDay: c.startDate || todayKey(), learned: [], warmedUp: [], listened: [] } }, { upsert: true });
     if (r.upsertedCount) {

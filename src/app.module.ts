@@ -4,6 +4,8 @@ import { KeepAliveService } from './common/keep-alive.service';
 import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { AccessModule } from './access/access';
+import { AdminModule } from './admin/admin';
 import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories';
 import { ChatModule } from './chat/chat';
@@ -30,6 +32,8 @@ import { WordsModule } from './words/words.module';
     }),
     // Generous default limit; login/register have stricter limits of their own.
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
+    AccessModule,
+    AdminModule,
     AuthModule,
     ProfileModule,
     WordsModule,

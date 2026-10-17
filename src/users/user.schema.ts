@@ -7,13 +7,15 @@ export class User {
   @Prop({ required: true, unique: true, lowercase: true, trim: true }) email: string;
   /** scrypt hash `salt:hash` (base64). Never returned by the API — see `publicUser`. */
   @Prop({ required: true }) passwordHash: string;
+  /** admin: creates and manages courses, users, the sentence bank and the library (see AccessService). */
+  @Prop({ enum: ['user', 'admin'], default: 'user' }) role: string;
 }
 
 export type UserDocument = HydratedDocument<User>;
 export const UserSchema = SchemaFactory.createForClass(User);
 
-export interface PublicUser { id: string; name: string; email: string }
+export interface PublicUser { id: string; name: string; email: string; role: 'user' | 'admin' }
 
 export function publicUser(u: UserDocument): PublicUser {
-  return { id: String(u._id), name: u.name, email: u.email };
+  return { id: String(u._id), name: u.name, email: u.email, role: u.role === 'admin' ? 'admin' : 'user' };
 }
