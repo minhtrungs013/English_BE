@@ -104,7 +104,7 @@ export async function aiRound(messages: OpenAiMessage[], key: string, model: str
   const res = await fetch(URL, {
     method: 'POST', signal, headers: headers(key),
     body: JSON.stringify({
-      model, max_tokens: MAX_TOKENS, temperature: 0.4,
+      model, max_tokens: MAX_TOKENS,
       system: conv.system, messages: conv.messages,
       tools: TOOLS, tool_choice: { type: 'auto' }
     })
@@ -125,7 +125,7 @@ export async function aiStream(messages: OpenAiMessage[], key: string, model: st
   const res = await fetch(URL, {
     method: 'POST', signal, headers: headers(key),
     body: JSON.stringify({
-      model, max_tokens: MAX_TOKENS, temperature: 0.4, stream: true,
+      model, max_tokens: MAX_TOKENS, stream: true,
       system: conv.system, messages: conv.messages,
       // The history contains tool_use / tool_result blocks, so Claude requires `tools` to be declared;
       // tool_choice "none" makes sure this round only writes the final text.

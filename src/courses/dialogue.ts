@@ -109,13 +109,13 @@ export async function aiDialogue(words: string[], apiKey: string, model: string)
       body: JSON.stringify({
         model,
         max_tokens: 2000,
-        temperature: 0.6,
         system: DIALOGUE_SYSTEM,
         messages: [{ role: 'user', content: 'WORDS: ' + words.join(' | ') }]
       }),
       signal: AbortSignal.timeout(45000)
     });
-  } catch {
+  } catch (e) {
+    console.warn('[Courses] dialogue fetch failed: ' + String(e));
     return null;
   }
   if (!res.ok) {
@@ -129,7 +129,8 @@ export async function aiDialogue(words: string[], apiKey: string, model: string)
     const start = text.indexOf('{');
     const end = text.lastIndexOf('}');
     return cleanDialogue(JSON.parse(start >= 0 && end > start ? text.slice(start, end + 1) : '{}'));
-  } catch {
+  } catch (e) {
+    console.warn('[Courses] dialogue parse failed: ' + String(e));
     return null;
   }
 }

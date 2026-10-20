@@ -248,10 +248,11 @@ export async function aiTenseQuestions(
     res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model, max_tokens: 4000, temperature: 0.5, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
+      body: JSON.stringify({ model, max_tokens: 4000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
       signal: AbortSignal.timeout(45000)
     });
-  } catch {
+  } catch (e) {
+    console.warn('[Courses] fetch failed: ' + String(e));
     return null;
   }
   if (!res.ok) {
@@ -282,7 +283,8 @@ export async function aiTenseQuestions(
     const r = o.recap as Record<string, unknown> | null | undefined;
     const recap = r && str(r.text, 1200) ? { text: str(r.text, 1200), vi: str(r.vi, 1500) } : null;
     return { questions, recap };
-  } catch {
+  } catch (e) {
+    console.warn('[Courses] parse failed: ' + String(e));
     return null;
   }
 }
