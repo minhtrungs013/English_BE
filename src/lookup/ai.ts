@@ -86,7 +86,6 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
       body: JSON.stringify({
         model,
         max_tokens: 1000,
-        temperature: 0.3,
         system: SYSTEM,
         messages: [{ role: 'user', content: 'Word: ' + word }]
       }),
@@ -97,8 +96,8 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
     return null;
   }
   if (!res.ok) {
-    // Debug: also print the error body (remove it once the problem is fixed).
-    console.warn('[Lookup] Claude request failed with status ' + res.status + ': ' + (await res.text()).slice(0, 300));
+    // Log the status only (never the key); 401 = bad key, 429 = rate limit, 529 = Claude overloaded.
+    console.warn('[Lookup] Claude request failed with status ' + res.status);
     return null;
   }
   try {
