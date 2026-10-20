@@ -193,6 +193,51 @@ Each question: {"word": the vocabulary item exactly as given, "tense": one id, "
 const str = (v: unknown, max: number): string => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 
 /** Asks OpenAI for tense questions (and a recap story). Returns null when the call fails, so callers can use the templates. */
+// export async function aiTenseQuestions(
+//   words: string[], reviewWords: string[], tenses: readonly Tense[], perWord: number, apiKey: string, model: string
+// ): Promise<{ questions: TenseDraft[]; recap: RecapDraft | null } | null> {
+//   const user = 'WORDS: ' + words.join(' | ') + '\nQuestions per word: ' + perWord + '\nUse only these tenses: ' + tenses.join(', ') +
+//     '\nAbout half "fill" and half "choice".' + (reviewWords.length ? '\nREVIEW WORDS (for the recap): ' + reviewWords.join(' | ') : '\nNo review words: recap must be null.');
+//   let res: Response;
+//   try {
+//     res = await fetch('https://api.openai.com/v1/chat/completions', {
+//       method: 'POST',
+//       headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ model, temperature: 0.5, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: user }] }),
+//       signal: AbortSignal.timeout(45000)
+//     });
+//   } catch {
+//     return null;
+//   }
+//   if (!res.ok) {
+//     console.warn('[Courses] OpenAI request failed with status ' + res.status);
+//     return null;
+//   }
+//   try {
+//     const body = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+//     const o = JSON.parse(body.choices?.[0]?.message?.content ?? '{}') as { questions?: unknown[]; recap?: unknown };
+//     const known = new Map(words.map((w) => [w.toLowerCase(), w]));
+//     const questions: TenseDraft[] = [];
+//     for (const raw of Array.isArray(o.questions) ? o.questions : []) {
+//       const q = raw as Record<string, unknown>;
+//       const word = known.get(str(q.word, 80).toLowerCase());
+//       const tense = str(q.tense, 30) as Tense;
+//       const sentence = str(q.sentence, 300);
+//       const answer = str(q.answer, 80);
+//       const kind = q.kind === 'choice' ? 'tenseChoice' : 'tense';
+//       const choices = Array.isArray(q.choices) ? [...new Set(q.choices.map((c) => str(c, 80)).filter(Boolean))] : [];
+//       if (!word || !TENSES.includes(tense) || !answer || (sentence.match(/___/g) ?? []).length !== 1) continue;
+//       if (kind === 'tenseChoice' && (choices.length !== 4 || !choices.includes(answer))) continue;
+//       questions.push({ word, tense, kind, prompt: sentence, choices: kind === 'tenseChoice' ? choices : [], answer, accept: [], explain: str(q.explain, 300), parts: Array.isArray(q.parts) ? (q.parts as Part[]) : undefined });
+//     }
+//     const r = o.recap as Record<string, unknown> | null | undefined;
+//     const recap = r && str(r.text, 1200) ? { text: str(r.text, 1200), vi: str(r.vi, 1500) } : null;
+//     return { questions, recap };
+//   } catch {
+//     return null;
+//   }
+// }
+
 export async function aiTenseQuestions(
   words: string[], reviewWords: string[], tenses: readonly Tense[], perWord: number, apiKey: string, model: string
 ): Promise<{ questions: TenseDraft[]; recap: RecapDraft | null } | null> {
@@ -200,22 +245,26 @@ export async function aiTenseQuestions(
     '\nAbout half "fill" and half "choice".' + (reviewWords.length ? '\nREVIEW WORDS (for the recap): ' + reviewWords.join(' | ') : '\nNo review words: recap must be null.');
   let res: Response;
   try {
-    res = await fetch('https://api.openai.com/v1/chat/completions', {
+    res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, temperature: 0.5, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: user }] }),
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({ model, max_tokens: 4000, temperature: 0.5, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
       signal: AbortSignal.timeout(45000)
     });
   } catch {
     return null;
   }
   if (!res.ok) {
-    console.warn('[Courses] OpenAI request failed with status ' + res.status);
+    console.warn('[Courses] Claude request failed with status ' + res.status);
     return null;
   }
   try {
-    const body = (await res.json()) as { choices?: { message?: { content?: string } }[] };
-    const o = JSON.parse(body.choices?.[0]?.message?.content ?? '{}') as { questions?: unknown[]; recap?: unknown };
+    const body = (await res.json()) as { content?: { type: string; text?: string }[] };
+    const text = (body.content ?? []).filter((b) => b.type === 'text').map((b) => b.text ?? '').join('');
+    // Claude has no json_object mode, so cut the JSON out in case it adds a code fence or a sentence around it.
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    const o = JSON.parse(start >= 0 && end > start ? text.slice(start, end + 1) : '{}') as { questions?: unknown[]; recap?: unknown };
     const known = new Map(words.map((w) => [w.toLowerCase(), w]));
     const questions: TenseDraft[] = [];
     for (const raw of Array.isArray(o.questions) ? o.questions : []) {

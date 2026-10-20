@@ -32,17 +32,63 @@ export function aiFamily(v: unknown, word: string, pos: string, vi: string): Fam
  * Asks OpenAI for a dictionary entry. Returns null when the word isn't recognised or the call fails,
  * so the caller can fall back to the free dictionary. Every field is validated before it's used.
  */
+// export async function aiLookup(word: string, apiKey: string, model: string): Promise<AiWord | null> {
+//   let res: Response;
+//   try {
+//     res = await fetch('https://api.openai.com/v1/chat/completions', {
+//       method: 'POST',
+//       headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+//       body: JSON.stringify({
+//         model,
+//         temperature: 0.3,
+//         response_format: { type: 'json_object' },
+//         messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: 'Word: ' + word }]
+//       }),
+//       signal: AbortSignal.timeout(20000)
+//     });
+//   } catch {
+//     return null;
+//   }
+//   if (!res.ok) {
+//     // Log the status only (never the key); 401 = bad key, 429 = quota/rate limit.
+//     console.warn('[Lookup] OpenAI request failed with status ' + res.status);
+//     return null;
+//   }
+//   try {
+//     const body = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+//     const o = JSON.parse(body.choices?.[0]?.message?.content ?? '{}') as Record<string, unknown>;
+//     if (o.error || !str(o.meaning, 200)) return null;
+//     const pos = str(o.pos, 20);
+//     const level = str(o.level, 2) as Level;
+//     const ex = str(o.ex, 300);
+//     return {
+//       ipa: str(o.ipa, 80),
+//       pos: (POS_LIST as readonly string[]).includes(pos) ? pos : 'Other',
+//       meaning: str(o.meaning, 200),
+//       vi: str(o.vi, 200),
+//       ex: ex.toLowerCase().includes(word.toLowerCase()) ? ex : '',
+//       syn: list(o.syn, 3),
+//       ant: list(o.ant, 2),
+//       level: (LEVELS as readonly string[]).includes(level) ? level : 'B1',
+//       family: aiFamily(o.family, word, pos, str(o.vi, 200))
+//     };
+//   } catch {
+//     return null;
+//   }
+// }
+
 export async function aiLookup(word: string, apiKey: string, model: string): Promise<AiWord | null> {
   let res: Response;
   try {
-    res = await fetch('https://api.openai.com/v1/chat/completions', {
+    res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       body: JSON.stringify({
         model,
+        max_tokens: 1000,
         temperature: 0.3,
-        response_format: { type: 'json_object' },
-        messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: 'Word: ' + word }]
+        system: SYSTEM,
+        messages: [{ role: 'user', content: 'Word: ' + word }]
       }),
       signal: AbortSignal.timeout(20000)
     });
@@ -50,13 +96,17 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
     return null;
   }
   if (!res.ok) {
-    // Log the status only (never the key); 401 = bad key, 429 = quota/rate limit.
-    console.warn('[Lookup] OpenAI request failed with status ' + res.status);
+    // Log the status only (never the key); 401 = bad key, 429 = rate limit, 529 = Claude overloaded.
+    console.warn('[Lookup] Claude request failed with status ' + res.status);
     return null;
   }
   try {
-    const body = (await res.json()) as { choices?: { message?: { content?: string } }[] };
-    const o = JSON.parse(body.choices?.[0]?.message?.content ?? '{}') as Record<string, unknown>;
+    const body = (await res.json()) as { content?: { type: string; text?: string }[] };
+    const text = (body.content ?? []).filter((b) => b.type === 'text').map((b) => b.text ?? '').join('');
+    // Claude has no json_object mode, so cut the JSON out in case it adds a code fence or a sentence around it.
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    const o = JSON.parse(start >= 0 && end > start ? text.slice(start, end + 1) : '{}') as Record<string, unknown>;
     if (o.error || !str(o.meaning, 200)) return null;
     const pos = str(o.pos, 20);
     const level = str(o.level, 2) as Level;

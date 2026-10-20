@@ -74,26 +74,61 @@ Return ONLY JSON: {"title": short English title, "scenario": one Vietnamese sent
 "lines": [{"s": 0 or 1, "text": English line with blanks, "vi": natural Vietnamese translation (without brackets)}],
 "questions": 2–3 TOEIC Part 3 style questions: [{"question", "choices": 4 different options, "answer": one of the choices exactly, "explain": one short Vietnamese sentence}]}.`;
 
-/** Asks OpenAI for a dialogue; null when the call fails or the result doesn't pass the checks. */
+// /** Asks OpenAI for a dialogue; null when the call fails or the result doesn't pass the checks. */
+// export async function aiDialogue(words: string[], apiKey: string, model: string): Promise<Dialogue | null> {
+//   let res: Response;
+//   try {
+//     res = await fetch('https://api.openai.com/v1/chat/completions', {
+//       method: 'POST',
+//       headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ model, temperature: 0.6, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: DIALOGUE_SYSTEM }, { role: 'user', content: 'WORDS: ' + words.join(' | ') }] }),
+//       signal: AbortSignal.timeout(45000)
+//     });
+//   } catch {
+//     return null;
+//   }
+//   if (!res.ok) {
+//     console.warn('[Courses] OpenAI dialogue request failed with status ' + res.status);
+//     return null;
+//   }
+//   try {
+//     const body = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+//     return cleanDialogue(JSON.parse(body.choices?.[0]?.message?.content ?? '{}'));
+//   } catch {
+//     return null;
+//   }
+// }
+
+/** Asks Claude for a dialogue; null when the call fails or the result doesn't pass the checks. */
 export async function aiDialogue(words: string[], apiKey: string, model: string): Promise<Dialogue | null> {
   let res: Response;
   try {
-    res = await fetch('https://api.openai.com/v1/chat/completions', {
+    res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { Authorization: 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model, temperature: 0.6, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: DIALOGUE_SYSTEM }, { role: 'user', content: 'WORDS: ' + words.join(' | ') }] }),
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        max_tokens: 2000,
+        temperature: 0.6,
+        system: DIALOGUE_SYSTEM,
+        messages: [{ role: 'user', content: 'WORDS: ' + words.join(' | ') }]
+      }),
       signal: AbortSignal.timeout(45000)
     });
   } catch {
     return null;
   }
   if (!res.ok) {
-    console.warn('[Courses] OpenAI dialogue request failed with status ' + res.status);
+    console.warn('[Courses] Claude dialogue request failed with status ' + res.status);
     return null;
   }
   try {
-    const body = (await res.json()) as { choices?: { message?: { content?: string } }[] };
-    return cleanDialogue(JSON.parse(body.choices?.[0]?.message?.content ?? '{}'));
+    const body = (await res.json()) as { content?: { type: string; text?: string }[] };
+    const text = (body.content ?? []).filter((b) => b.type === 'text').map((b) => b.text ?? '').join('');
+    // Claude has no json_object mode, so cut the JSON out in case it adds a code fence or a sentence around it.
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    return cleanDialogue(JSON.parse(start >= 0 && end > start ? text.slice(start, end + 1) : '{}'));
   } catch {
     return null;
   }
