@@ -92,12 +92,13 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
       }),
       signal: AbortSignal.timeout(20000)
     });
-  } catch {
+  } catch (e) {
+    console.warn('[Lookup] fetch failed: ' + String(e));
     return null;
   }
   if (!res.ok) {
-    // Log the status only (never the key); 401 = bad key, 429 = rate limit, 529 = Claude overloaded.
-    console.warn('[Lookup] Claude request failed with status ' + res.status);
+    // Debug: also print the error body (remove it once the problem is fixed).
+    console.warn('[Lookup] Claude request failed with status ' + res.status + ': ' + (await res.text()).slice(0, 300));
     return null;
   }
   try {
@@ -122,7 +123,8 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
       level: (LEVELS as readonly string[]).includes(level) ? level : 'B1',
       family: aiFamily(o.family, word, pos, str(o.vi, 200))
     };
-  } catch {
+  } catch (e) {
+    console.warn('[Lookup] parse failed: ' + String(e));
     return null;
   }
 }
