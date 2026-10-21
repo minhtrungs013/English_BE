@@ -111,7 +111,7 @@ export class QuestionsService {
         throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write questions by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
       }
       // const ai = await aiTenseQuestions(words.map((w) => w.word), earlier, tenses, perWord, key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
-      const ai = await aiTenseQuestions(words.map((w) => w.word), earlier, tenses, perWord, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-5-5'));
+      const ai = await aiTenseQuestions(words.map((w) => w.word), earlier, tenses, perWord, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
       if (ai && ai.questions.length) {
         await this.profile.useDaily(user, 'courseAi');
         drafts = ai.questions;
@@ -151,7 +151,7 @@ export class QuestionsService {
       throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write the dialogue by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
     }
     // const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
-    const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-5-5'));
+    const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
     if (!d) throw new UnprocessableEntityException('AI couldn’t write a dialogue right now. Try again later, or write it by hand / import it.');
     await this.profile.useDaily(user, 'courseAi');
     await this.bank.create({ courseId: id, day, kind: 'dialogue', word: '', tense: '', prompt: d.title, explain: d.scenario, choices: [], answer: '', accept: [], data: d as unknown as Record<string, unknown>, source: 'ai', status: 'pending' });

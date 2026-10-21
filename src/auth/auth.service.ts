@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpException, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -6,7 +6,8 @@ import { DataService } from '../data/data';
 import { LibraryService } from '../library/library.service';
 import { ProfileService } from '../profile/profile.service';
 import { PublicUser, User, UserDocument, publicUser } from '../users/user.schema';
-import { ChangePasswordDto, LoginDto, RegisterDto } from './auth.dto';
+import { ChangePasswordDto, EmailDto, LoginDto, RegisterDto, ResetPasswordDto, VerifyCodeDto } from './auth.dto';
+import { OtpService } from './otp';
 import { hashPassword, verifyPassword } from './password';
 
 export interface AuthResponse { accessToken: string; user: PublicUser }
@@ -20,7 +21,8 @@ export class AuthService {
     private readonly jwt: JwtService,
     private readonly data: DataService,
     private readonly profile: ProfileService,
-    private readonly library: LibraryService
+    private readonly library: LibraryService,
+    private readonly otp: OtpService
   ) {}
 
   private async issue(u: UserDocument): Promise<AuthResponse> {
@@ -28,11 +30,27 @@ export class AuthService {
     return { accessToken, user: publicUser(u) };
   }
 
-  async register(dto: RegisterDto): Promise<AuthResponse> {
+  /** Step 1 of sign-up: keeps the details and emails a 6-digit code. The account is created by verifyRegister. */
+  async register(dto: RegisterDto): Promise<{ email: string }> {
+    if (await this.users.exists({ email: dto.email })) throw new ConflictException('An account with this email already exists.');
+    await this.otp.issue(dto.email, 'register', { name: dto.name, passwordHash: await hashPassword(dto.password) });
+    return { email: dto.email };
+  }
+
+  /** Sends the sign-up code again (the details are kept from register). */
+  async resendRegister(dto: EmailDto): Promise<void> {
+    if (!(await this.otp.exists(dto.email, 'register'))) throw new BadRequestException('Your sign-up has expired. Please sign up again.');
+    await this.otp.issue(dto.email, 'register');
+  }
+
+  /** Step 2 of sign-up: the right code creates the account. */
+  async verifyRegister(dto: VerifyCodeDto): Promise<AuthResponse> {
+    const p = await this.otp.verify(dto.email, 'register', dto.code);
+    if (!p) throw new BadRequestException('Your sign-up has expired. Please sign up again.');
     if (await this.users.exists({ email: dto.email })) throw new ConflictException('An account with this email already exists.');
     let u: UserDocument;
     try {
-      u = await this.users.create({ name: dto.name, email: dto.email, passwordHash: await hashPassword(dto.password) });
+      u = await this.users.create({ name: p.name, email: dto.email, passwordHash: p.passwordHash });
     } catch (e) {
       if ((e as { code?: number }).code === 11000) throw new ConflictException('An account with this email already exists.');
       throw e;
@@ -43,6 +61,25 @@ export class AuthService {
     await this.data.claimUnownedData(id);
     await this.profile.get(id);
     this.log.log('New account: ' + id);
+    return this.issue(u);
+  }
+
+  /** Emails a reset code when the account exists. Says nothing either way, so emails can't be probed. */
+  async forgotPassword(dto: EmailDto): Promise<void> {
+    if (!(await this.users.exists({ email: dto.email }))) return;
+    try { await this.otp.issue(dto.email, 'reset'); } catch (e) {
+      if (e instanceof HttpException && e.getStatus() === 429) return;
+      throw e;
+    }
+  }
+
+  async resetPassword(dto: ResetPasswordDto): Promise<AuthResponse> {
+    await this.otp.verify(dto.email, 'reset', dto.code);
+    const u = await this.users.findOne({ email: dto.email });
+    if (!u) throw new BadRequestException('The code has expired. Please ask for a new one.');
+    u.passwordHash = await hashPassword(dto.password);
+    await u.save();
+    this.log.log('Password reset: ' + String(u._id));
     return this.issue(u);
   }
 

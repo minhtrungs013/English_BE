@@ -145,7 +145,7 @@ export class ChatService {
     // const key = this.config.get<string>('OPENAI_API_KEY')!;
     const key = this.config.get<string>('ANTHROPIC_API_KEY')!;
     // const model = this.config.get<string>('CHAT_MODEL') || this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini');
-    const model = this.config.get<string>('CHAT_MODEL') || this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-5-5');
+    const model = this.config.get<string>('CHAT_MODEL') || this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5');
     const messages: { role: string; content?: string | null; tool_calls?: unknown; tool_call_id?: string }[] = [{ role: 'system', content: SYSTEM }, ...history];
     try {
       // Up to two rounds of tool calls, then the streamed answer.

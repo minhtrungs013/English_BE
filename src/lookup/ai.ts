@@ -97,7 +97,7 @@ export async function aiLookup(word: string, apiKey: string, model: string): Pro
   }
   if (!res.ok) {
     // Log the status only (never the key); 401 = bad key, 429 = rate limit, 529 = Claude overloaded.
-    console.warn('[Lookup] Claude request failed with status ' + res.status);
+    console.warn('[Lookup] Claude request failed with status ' + res.status + ': ' + (await res.text().catch(() => '')).slice(0, 300));
     return null;
   }
   try {

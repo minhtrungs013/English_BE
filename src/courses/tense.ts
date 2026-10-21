@@ -256,7 +256,7 @@ export async function aiTenseQuestions(
     return null;
   }
   if (!res.ok) {
-    console.warn('[Courses] Claude request failed with status ' + res.status);
+    console.warn('[Courses] Claude request failed with status ' + res.status + ': ' + (await res.text().catch(() => '')).slice(0, 300));
     return null;
   }
   try {

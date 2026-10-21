@@ -71,9 +71,17 @@ export class LookupService {
       return { source: 'collection', ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, syn: mine.syn, ant: mine.ant, level: mine.level as Level, family: mine.toObject().family ?? [] };
     }
     const lib = await this.library.findByWord(lw);
-    if (lib) return { source: 'library', ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level as Level, family: lib.toObject().family ?? [] };
+    if (lib) {
+      let family: FamilyMember[] = lib.toObject().family ?? [];
+      // Older library words have no family: ask AI once and keep it on the library word.
+      if (!family.length) {
+        family = await this.aiFamilyOnly(word);
+        if (family.length) await this.library.setFamily(String(lib._id), family);
+      }
+      return { source: 'library', ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, syn: lib.syn, ant: lib.ant, level: lib.level as Level, family };
+    }
     const b = BUILTIN_DICT[lw];
-    if (b) return { source: 'builtin', ipa: b[0], pos: b[1], meaning: b[2], vi: b[3], ex: b[4], syn: b[5], ant: b[6], level: b[7] };
+    if (b) return { source: 'builtin', ipa: b[0], pos: b[1], meaning: b[2], vi: b[3], ex: b[4], syn: b[5], ant: b[6], level: b[7], family: await this.aiFamilyOnly(word) };
 
     // Anything past this point calls OpenAI or online dictionaries: limited per user per day.
     if (!(await this.profile.useAutofill(user))) {
@@ -84,13 +92,21 @@ export class LookupService {
     return this.external(word);
   }
 
+  /** The word family from AI (empty without a key, for phrases, or when the call fails). */
+  private async aiFamilyOnly(word: string): Promise<FamilyMember[]> {
+    const key = this.config.get<string>('ANTHROPIC_API_KEY');
+    if (!key || /s/.test(word)) return [];
+    const ai = await aiLookup(word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
+    return ai?.family ?? [];
+  }
+
   /** OpenAI when configured (and not `noAi`), otherwise (or on failure) the free online dictionaries. No quota checks here. */
   async external(word: string, opts: { noAi?: boolean } = {}): Promise<LookupResult | null> {
     // const key = opts.noAi ? undefined : this.config.get<string>('OPENAI_API_KEY');
     const key = opts.noAi ? undefined : this.config.get<string>('ANTHROPIC_API_KEY');
     if (key) {
       // const ai = await aiLookup(word, key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
-      const ai = await aiLookup(word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-5-5'));
+      const ai = await aiLookup(word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
       if (ai) return { source: 'ai', ...ai };
       this.log.warn('AI lookup gave no result for a word; using the free dictionary instead.');
     }

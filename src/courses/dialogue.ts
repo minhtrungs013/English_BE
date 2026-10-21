@@ -119,7 +119,7 @@ export async function aiDialogue(words: string[], apiKey: string, model: string)
     return null;
   }
   if (!res.ok) {
-    console.warn('[Courses] Claude dialogue request failed with status ' + res.status);
+    console.warn('[Courses] Claude dialogue request failed with status ' + res.status + ': ' + (await res.text().catch(() => '')).slice(0, 300));
     return null;
   }
   try {

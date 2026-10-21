@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
 const trimLower = ({ value }: { value: unknown }) => (typeof value === 'string' ? value.trim().toLowerCase() : value);
 const trim = ({ value }: { value: unknown }) => (typeof value === 'string' ? value.trim() : value);
@@ -22,4 +22,16 @@ export class UpdateMeDto {
 export class ChangePasswordDto {
   @IsString() @IsNotEmpty() @MaxLength(128) currentPassword: string;
   @IsString() @MinLength(8, { message: 'New password must be at least 8 characters.' }) @MaxLength(128) newPassword: string;
+}
+
+export class EmailDto {
+  @Transform(trimLower) @IsEmail({}, { message: 'Please enter a valid email address.' }) @MaxLength(120) email: string;
+}
+
+export class VerifyCodeDto extends EmailDto {
+  @Transform(trim) @Matches(/^\d{6}$/, { message: 'The code has 6 digits.' }) code: string;
+}
+
+export class ResetPasswordDto extends VerifyCodeDto {
+  @IsString() @MinLength(8, { message: 'Password must be at least 8 characters.' }) @MaxLength(128) password: string;
 }

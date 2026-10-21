@@ -10,10 +10,11 @@ import { User, UserSchema } from '../users/user.schema';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { MailService, Otp, OtpSchema, OtpService } from './otp';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }, { name: Otp.name, schema: OtpSchema }]),
     JwtModule.registerAsync({
       global: true,
       inject: [ConfigService],
@@ -27,6 +28,6 @@ import { JwtAuthGuard } from './jwt-auth.guard';
     ProfileModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, { provide: APP_GUARD, useClass: JwtAuthGuard }]
+  providers: [AuthService, MailService, OtpService, { provide: APP_GUARD, useClass: JwtAuthGuard }]
 })
 export class AuthModule {}

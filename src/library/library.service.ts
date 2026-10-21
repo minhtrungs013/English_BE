@@ -205,6 +205,11 @@ export class LibraryService implements OnApplicationBootstrap {
   }
 
   /** One library entry by its lower-cased word. */
+  /** Stores a word family found later (by AI) on a library word that had none. */
+  async setFamily(id: string, family: FamilyMember[]): Promise<void> {
+    await this.lib.updateOne({ _id: id, $or: [{ family: { $size: 0 } }, { family: { $exists: false } }] }, { $set: { family } });
+  }
+
   async findByWord(wordLower: string): Promise<LibraryWordDocument | null> {
     return this.lib.findOne({ wordLower });
   }
