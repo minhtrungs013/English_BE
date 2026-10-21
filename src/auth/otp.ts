@@ -28,8 +28,12 @@ OtpSchema.index({ email: 1, purpose: 1 }, { unique: true });
 OtpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 /**
- * Sends mail. With RESEND_API_KEY it uses Resend's HTTPS API (works on hosts that block SMTP ports, such as Render's free plan);
- * otherwise SMTP (Gmail: smtp.gmail.com, port 465 or 587, an App Password). With neither it only logs the mail.
+ * Sends mail, by the first one configured:
+ * - Brevo (BREVO_API_KEY): HTTPS, to anyone, from a sender email verified in Brevo (a Gmail address is fine). Works on hosts
+ *   that block SMTP ports, such as Render's free plan.
+ * - Resend (RESEND_API_KEY): HTTPS too, but without a verified domain it only delivers to your own Resend account email.
+ * - SMTP (Gmail: smtp.gmail.com, port 465 or 587, an App Password).
+ * With none of them it only logs the mail.
  */
 @Injectable()
 export class MailService {
@@ -37,14 +41,16 @@ export class MailService {
   private readonly tx: nodemailer.Transporter | null;
   private readonly from: string;
   private readonly resendKey: string | undefined;
+  private readonly brevoKey: string | undefined;
 
   constructor(config: ConfigService) {
-    this.resendKey = config.get<string>('RESEND_API_KEY');
+    this.brevoKey = config.get<string>('BREVO_API_KEY');
+    this.resendKey = this.brevoKey ? undefined : config.get<string>('RESEND_API_KEY');
     const user = config.get<string>('SMTP_USER');
     const pass = config.get<string>('SMTP_PASS');
     const port = Number(config.get('SMTP_PORT', 465));
     // 465: SSL from the start; 587: plain connection upgraded with STARTTLS.
-    this.tx = !this.resendKey && user && pass
+    this.tx = !this.brevoKey && !this.resendKey && user && pass
       ? nodemailer.createTransport({ host: config.get('SMTP_HOST', 'smtp.gmail.com'), port, secure: port === 465, auth: { user, pass }, connectionTimeout: 15_000, greetingTimeout: 10_000, socketTimeout: 20_000 })
       : null;
     // Resend without a verified domain only accepts its test sender (and only delivers to your own Resend account email).
@@ -52,6 +58,19 @@ export class MailService {
   }
 
   async send(to: string, subject: string, text: string, html: string): Promise<void> {
+    if (this.brevoKey) {
+      // MAIL_FROM: "Wordbook <you@gmail.com>" or just the address; it must be a sender verified in Brevo.
+      const m = /^\s*(.*?)\s*<([^>]+)>\s*$/.exec(this.from);
+      const sender = m ? { name: m[1] || 'Wordbook', email: m[2] } : { name: 'Wordbook', email: this.from.trim() };
+      const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: { 'api-key': this.brevoKey, 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify({ sender, to: [{ email: to }], subject, textContent: text, htmlContent: html }),
+        signal: AbortSignal.timeout(15_000)
+      });
+      if (!res.ok) throw new Error('Brevo ' + res.status + ': ' + (await res.text().catch(() => '')).slice(0, 300));
+      return;
+    }
     if (this.resendKey) {
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
