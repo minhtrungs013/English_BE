@@ -27,25 +27,41 @@ export const OtpSchema = SchemaFactory.createForClass(Otp);
 OtpSchema.index({ email: 1, purpose: 1 }, { unique: true });
 OtpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
-/** Sends mail over SMTP (Gmail: smtp.gmail.com, port 465 or 587, an App Password). Without SMTP settings it only logs. */
+/**
+ * Sends mail. With RESEND_API_KEY it uses Resend's HTTPS API (works on hosts that block SMTP ports, such as Render's free plan);
+ * otherwise SMTP (Gmail: smtp.gmail.com, port 465 or 587, an App Password). With neither it only logs the mail.
+ */
 @Injectable()
 export class MailService {
   private readonly log = new Logger('Mail');
   private readonly tx: nodemailer.Transporter | null;
   private readonly from: string;
+  private readonly resendKey: string | undefined;
 
   constructor(config: ConfigService) {
+    this.resendKey = config.get<string>('RESEND_API_KEY');
     const user = config.get<string>('SMTP_USER');
     const pass = config.get<string>('SMTP_PASS');
     const port = Number(config.get('SMTP_PORT', 465));
     // 465: SSL from the start; 587: plain connection upgraded with STARTTLS.
-    this.tx = user && pass
+    this.tx = !this.resendKey && user && pass
       ? nodemailer.createTransport({ host: config.get('SMTP_HOST', 'smtp.gmail.com'), port, secure: port === 465, auth: { user, pass }, connectionTimeout: 15_000, greetingTimeout: 10_000, socketTimeout: 20_000 })
       : null;
-    this.from = config.get<string>('MAIL_FROM') || (user ? 'Wordbook <' + user + '>' : 'Wordbook');
+    // Resend without a verified domain only accepts its test sender (and only delivers to your own Resend account email).
+    this.from = config.get<string>('MAIL_FROM') || (this.resendKey ? 'Wordbook <onboarding@resend.dev>' : user ? 'Wordbook <' + user + '>' : 'Wordbook');
   }
 
   async send(to: string, subject: string, text: string, html: string): Promise<void> {
+    if (this.resendKey) {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + this.resendKey, 'content-type': 'application/json' },
+        body: JSON.stringify({ from: this.from, to: [to], subject, text, html }),
+        signal: AbortSignal.timeout(15_000)
+      });
+      if (!res.ok) throw new Error('Resend ' + res.status + ': ' + (await res.text().catch(() => '')).slice(0, 300));
+      return;
+    }
     if (!this.tx) { this.log.warn('SMTP not configured. Mail to ' + to + ': ' + text); return; }
     await this.tx.sendMail({ from: this.from, to, subject, text, html });
   }
