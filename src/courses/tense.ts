@@ -1,3 +1,4 @@
+import { claudeFetch } from '../audit/claude';
 /**
  * Tense exercises: the tenses we practise, verb forms for the built-in templates (used when AI isn't available),
  * and the OpenAI prompt for AI-written questions.
@@ -245,12 +246,8 @@ export async function aiTenseQuestions(
     '\nAbout half "fill" and half "choice".' + (reviewWords.length ? '\nREVIEW WORDS (for the recap): ' + reviewWords.join(' | ') : '\nNo review words: recap must be null.');
   let res: Response;
   try {
-    res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({ model, max_tokens: 4000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
-      signal: AbortSignal.timeout(45000)
-    });
+    res = await claudeFetch('tense-questions', apiKey, { model, max_tokens: 4000, system: SYSTEM, messages: [{ role: 'user', content: user }] },
+      { signal: AbortSignal.timeout(45000), detail: words.join(', ') });
   } catch (e) {
     console.warn('[Courses] fetch failed: ' + String(e));
     return null;

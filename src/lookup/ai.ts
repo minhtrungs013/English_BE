@@ -1,3 +1,4 @@
+import { claudeFetch } from '../audit/claude';
 import { LEVELS, POS_LIST, type Level } from '../common/constants';
 import { FAMILY_POS, cleanFamily, type FamilyMember } from '../common/family';
 
@@ -77,20 +78,15 @@ export function aiFamily(v: unknown, word: string, pos: string, vi: string): Fam
 //   }
 // }
 
-export async function aiLookup(word: string, apiKey: string, model: string): Promise<AiWord | null> {
+export async function aiLookup(word: string, apiKey: string, model: string, action = 'lookup'): Promise<AiWord | null> {
   let res: Response;
   try {
-    res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        max_tokens: 1000,
-        system: SYSTEM,
-        messages: [{ role: 'user', content: 'Word: ' + word }]
-      }),
-      signal: AbortSignal.timeout(20000)
-    });
+    res = await claudeFetch(action, apiKey, {
+      model,
+      max_tokens: 1000,
+      system: SYSTEM,
+      messages: [{ role: 'user', content: 'Word: ' + word }]
+    }, { signal: AbortSignal.timeout(20000), detail: word });
   } catch (e) {
     console.warn('[Lookup] fetch failed: ' + String(e));
     return null;

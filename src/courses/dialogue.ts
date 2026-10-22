@@ -1,3 +1,4 @@
+import { claudeFetch } from '../audit/claude';
 /**
  * Listening dialogues: a short two-person workplace conversation for a course day. Blanks are written
  * in the line text as [[surface]] or [[surface|base]] (e.g. "three [[items|item]]"): learners hear the line
@@ -103,17 +104,12 @@ Return ONLY JSON: {"title": short English title, "scenario": one Vietnamese sent
 export async function aiDialogue(words: string[], apiKey: string, model: string): Promise<Dialogue | null> {
   let res: Response;
   try {
-    res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        max_tokens: 2000,
-        system: DIALOGUE_SYSTEM,
-        messages: [{ role: 'user', content: 'WORDS: ' + words.join(' | ') }]
-      }),
-      signal: AbortSignal.timeout(45000)
-    });
+    res = await claudeFetch('dialogue', apiKey, {
+      model,
+      max_tokens: 2000,
+      system: DIALOGUE_SYSTEM,
+      messages: [{ role: 'user', content: 'WORDS: ' + words.join(' | ') }]
+    }, { signal: AbortSignal.timeout(45000), detail: words.join(', ') });
   } catch (e) {
     console.warn('[Courses] dialogue fetch failed: ' + String(e));
     return null;

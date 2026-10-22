@@ -5,6 +5,7 @@ import { Type } from 'class-transformer';
 import { IsIn, IsInt, IsMongoId, IsOptional, IsString, Max, MaxLength, Min } from 'class-validator';
 import { Model, type QueryFilter } from 'mongoose';
 import { AccessService, AdminGuard } from '../access/access';
+import { AuditLog } from '../audit/audit';
 import { UserId } from '../auth/auth.decorators';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { todayKey } from '../common/day';
@@ -48,6 +49,12 @@ export class LibraryPatchDto {
   @IsOptional() @IsIn(LEVELS) level?: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;
 }
+export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue'] as const;
+export class AuditQuery extends PageQuery {
+  @IsOptional() @IsIn(AUDIT_ACTIONS) action?: string;
+  @IsOptional() @IsIn(['ok', 'failed']) status?: string;
+  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(90) days?: number;
+}
 export class IdParam {
   @IsMongoId() id: string;
 }
@@ -56,6 +63,7 @@ export class IdParam {
 export class AdminService {
   constructor(
     @InjectModel(User.name) private readonly users: Model<User>,
+    @InjectModel(AuditLog.name) private readonly audit: Model<AuditLog>,
     @InjectModel(Course.name) private readonly courses: Model<Course>,
     @InjectModel(Enrollment.name) private readonly enrollments: Model<Enrollment>,
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
@@ -163,6 +171,45 @@ export class AdminService {
     return { id: String(w._id), word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, level: w.level, topic: w.topic, authorName: w.authorName, saves: w.saves };
   }
 
+  /**
+   * AI calls, newest first, with a summary of the same filter: calls, failures, tokens, average time, per action.
+   * `q` matches the user's email, the route or the detail (e.g. the looked-up word).
+   */
+  async listAudit(q: AuditQuery) {
+    const since = new Date(Date.now() - (q.days ?? 7) * 86400_000);
+    const filter: QueryFilter<AuditLog> = { at: { $gte: since } };
+    if (q.action) filter.action = q.action;
+    if (q.status) filter.ok = q.status === 'ok';
+    if (q.q) { const r = { $regex: esc(q.q), $options: 'i' }; filter.$or = [{ email: r }, { detail: r }, { route: r }]; }
+    const page = q.page ?? 1;
+    const [total, list, sum, byAction] = await Promise.all([
+      this.audit.countDocuments(filter),
+      this.audit.find(filter).sort({ at: -1 }).skip((page - 1) * PAGE).limit(PAGE).lean(),
+      this.audit.aggregate<{ calls: number; failed: number; inTokens: number; outTokens: number; ms: number; users: string[] }>([
+        { $match: filter },
+        { $group: { _id: null, calls: { $sum: 1 }, failed: { $sum: { $cond: ['$ok', 0, 1] } }, inTokens: { $sum: '$inTokens' }, outTokens: { $sum: '$outTokens' }, ms: { $avg: '$ms' }, users: { $addToSet: '$userId' } } }
+      ]),
+      this.audit.aggregate<{ _id: string; calls: number; failed: number; tokens: number }>([
+        { $match: filter },
+        { $group: { _id: '$action', calls: { $sum: 1 }, failed: { $sum: { $cond: ['$ok', 0, 1] } }, tokens: { $sum: { $add: ['$inTokens', '$outTokens'] } } } },
+        { $sort: { calls: -1 } }
+      ])
+    ]);
+    const t = sum[0];
+    return {
+      total, page, pages: Math.max(1, Math.ceil(total / PAGE)),
+      summary: {
+        calls: t?.calls ?? 0, failed: t?.failed ?? 0, inTokens: t?.inTokens ?? 0, outTokens: t?.outTokens ?? 0,
+        avgMs: Math.round(t?.ms ?? 0), users: (t?.users ?? []).filter(Boolean).length,
+        byAction: byAction.map((a) => ({ action: a._id, calls: a.calls, failed: a.failed, tokens: a.tokens }))
+      },
+      items: list.map((e) => ({
+        id: String(e._id), at: e.at.getTime(), action: e.action, email: e.email, route: e.route, model: e.model, ok: e.ok, status: e.status,
+        ms: e.ms, inTokens: e.inTokens, outTokens: e.outTokens, detail: e.detail, error: e.error
+      }))
+    };
+  }
+
   async deleteLibrary(id: string) {
     const r = await this.library.deleteOne({ _id: id });
     if (!r.deletedCount) throw new NotFoundException('Word not found.');
@@ -178,6 +225,7 @@ export class AdminController {
   constructor(private readonly admin: AdminService) {}
 
   @Get('stats') stats() { return this.admin.stats(); }
+  @Get('audit') audit(@Query() q: AuditQuery) { return this.admin.listAudit(q); }
   @Get('users') users(@Query() q: PageQuery) { return this.admin.listUsers(q); }
   @Patch('users/:id') setRole(@UserId() me: string, @Param() p: IdParam, @Body() dto: RoleDto) { return this.admin.setRole(me, p.id, dto.role); }
   @Get('courses') courses() { return this.admin.listCourses(); }

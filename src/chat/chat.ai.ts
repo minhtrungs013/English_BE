@@ -1,3 +1,4 @@
+import { claudeFetch } from '../audit/claude';
 import { LESSONS } from '../grammar/grammar.content';
 
 export interface ChatMessage { role: 'user' | 'assistant'; content: string }
@@ -51,8 +52,6 @@ type ClaudeBlock =
   | { type: 'tool_result'; tool_use_id: string; content: string };
 interface ClaudeMessage { role: 'user' | 'assistant'; content: string | ClaudeBlock[] }
 
-const URL = 'https://api.anthropic.com/v1/messages';
-const API_VERSION = '2023-06-01';
 const MAX_TOKENS = 600;
 
 /** Thrown when Anthropic refuses or fails; the status is logged (never the key). */
@@ -94,21 +93,20 @@ function toClaude(messages: OpenAiMessage[]): { system: string; messages: Claude
   return { system: system.join('\n\n'), messages: out };
 }
 
-function headers(key: string): Record<string, string> {
-  return { 'x-api-key': key, 'anthropic-version': API_VERSION, 'content-type': 'application/json' };
+/** The user's latest question, as a short hint in the audit log. */
+function lastQuestion(messages: OpenAiMessage[]): string {
+  for (let i = messages.length - 1; i >= 0; i--) if (messages[i].role === 'user' && messages[i].content) return messages[i].content!.slice(0, 120);
+  return '';
 }
 
 /** First round: the model either answers or asks for tools. Not streamed (tool calls are small). */
 export async function aiRound(messages: OpenAiMessage[], key: string, model: string, signal: AbortSignal): Promise<{ content: string; calls: ToolCall[]; message: OpenAiMessage }> {
   const conv = toClaude(messages);
-  const res = await fetch(URL, {
-    method: 'POST', signal, headers: headers(key),
-    body: JSON.stringify({
-      model, max_tokens: MAX_TOKENS,
-      system: conv.system, messages: conv.messages,
-      tools: TOOLS, tool_choice: { type: 'auto' }
-    })
-  });
+  const res = await claudeFetch('chat', key, {
+    model, max_tokens: MAX_TOKENS,
+    system: conv.system, messages: conv.messages,
+    tools: TOOLS, tool_choice: { type: 'auto' }
+  }, { signal, detail: lastQuestion(messages) });
   if (!res.ok) throw new AiError(res.status);
   const body = (await res.json()) as { content?: ClaudeBlock[] };
   const blocks = body.content ?? [];
@@ -122,16 +120,13 @@ export async function aiRound(messages: OpenAiMessage[], key: string, model: str
 /** Final answer, streamed: calls `onText` with each piece of text as it arrives. */
 export async function aiStream(messages: OpenAiMessage[], key: string, model: string, signal: AbortSignal, onText: (s: string) => void): Promise<void> {
   const conv = toClaude(messages);
-  const res = await fetch(URL, {
-    method: 'POST', signal, headers: headers(key),
-    body: JSON.stringify({
-      model, max_tokens: MAX_TOKENS, stream: true,
-      system: conv.system, messages: conv.messages,
-      // The history contains tool_use / tool_result blocks, so Claude requires `tools` to be declared;
-      // tool_choice "none" makes sure this round only writes the final text.
-      tools: TOOLS, tool_choice: { type: 'none' }
-    })
-  });
+  const res = await claudeFetch('chat', key, {
+    model, max_tokens: MAX_TOKENS, stream: true,
+    system: conv.system, messages: conv.messages,
+    // The history contains tool_use / tool_result blocks, so Claude requires `tools` to be declared;
+    // tool_choice "none" makes sure this round only writes the final text.
+    tools: TOOLS, tool_choice: { type: 'none' }
+  }, { signal, detail: lastQuestion(messages) });
   if (!res.ok || !res.body) throw new AiError(res.status);
   const reader = res.body.getReader();
   const dec = new TextDecoder();

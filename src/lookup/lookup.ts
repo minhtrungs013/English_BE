@@ -96,7 +96,7 @@ export class LookupService {
   private async aiFamilyOnly(word: string): Promise<FamilyMember[]> {
     const key = this.config.get<string>('ANTHROPIC_API_KEY');
     if (!key || /s/.test(word)) return [];
-    const ai = await aiLookup(word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
+    const ai = await aiLookup(word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'), 'lookup-family');
     return ai?.family ?? [];
   }
 
