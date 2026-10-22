@@ -1,11 +1,12 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Injectable, Module, NotFoundException, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Injectable, Module, NotFoundException, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { InjectModel, MongooseModule } from '@nestjs/mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsIn, IsInt, IsMongoId, IsOptional, IsString, Max, MaxLength, Min } from 'class-validator';
+import { IsBoolean, IsIn, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, ValidateIf } from 'class-validator';
 import { Model, type QueryFilter } from 'mongoose';
 import { AccessService, AdminGuard } from '../access/access';
 import { AuditLog } from '../audit/audit';
+import { PlanService } from '../plans/plans';
 import { UserId } from '../auth/auth.decorators';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { todayKey } from '../common/day';
@@ -55,6 +56,25 @@ export class AuditQuery extends PageQuery {
   @IsOptional() @IsIn(['ok', 'failed']) status?: string;
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(90) days?: number;
 }
+export class PlanDto {
+  @IsString() @IsNotEmpty() @MaxLength(40) name: string;
+  @IsInt() @Min(0) @Max(10_000) chat: number;
+  @IsInt() @Min(0) @Max(10_000) autofill: number;
+  @IsInt() @Min(0) @Max(10_000) courseAi: number;
+  @IsInt() @Min(0) @Max(100_000_000) tokens: number;
+}
+export class PlanPatchDto {
+  @IsOptional() @IsString() @IsNotEmpty() @MaxLength(40) name?: string;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) chat?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) autofill?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) courseAi?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(100_000_000) tokens?: number;
+  @IsOptional() @IsBoolean() isDefault?: boolean;
+}
+export class UserPlanDto {
+  /** A plan id, or "" for the default plan. */
+  @IsString() @ValidateIf((o: UserPlanDto) => o.plan !== '') @IsMongoId() plan: string;
+}
 export class IdParam {
   @IsMongoId() id: string;
 }
@@ -64,6 +84,7 @@ export class AdminService {
   constructor(
     @InjectModel(User.name) private readonly users: Model<User>,
     @InjectModel(AuditLog.name) private readonly audit: Model<AuditLog>,
+    private readonly plans: PlanService,
     @InjectModel(Course.name) private readonly courses: Model<Course>,
     @InjectModel(Enrollment.name) private readonly enrollments: Model<Enrollment>,
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
@@ -95,11 +116,13 @@ export class AdminService {
       this.enrollments.aggregate<{ _id: string; n: number }>([{ $match: { user: { $in: ids } } }, { $group: { _id: '$user', n: { $sum: 1 } } }])
     ]);
     const w = new Map(words.map((x) => [x._id, x.n])), j = new Map(joined.map((x) => [x._id, x.n]));
+    const tokens = await this.plans.tokensTodayFor(ids);
     return {
       total, page, pages: Math.max(1, Math.ceil(total / PAGE)),
       items: list.map((u) => ({
         id: String(u._id), name: u.name, email: u.email, role: u.role === 'admin' ? 'admin' : 'user',
-        createdAt: (u as { createdAt?: Date }).createdAt?.getTime() ?? null, words: w.get(String(u._id)) ?? 0, courses: j.get(String(u._id)) ?? 0
+        createdAt: (u as { createdAt?: Date }).createdAt?.getTime() ?? null, words: w.get(String(u._id)) ?? 0, courses: j.get(String(u._id)) ?? 0,
+        plan: u.plan ?? '', tokensToday: tokens.get(String(u._id)) ?? 0
       }))
     };
   }
@@ -222,10 +245,15 @@ export class AdminService {
 @UseGuards(AdminGuard)
 @Controller('admin')
 export class AdminController {
-  constructor(private readonly admin: AdminService) {}
+  constructor(private readonly admin: AdminService, private readonly plans: PlanService) {}
 
   @Get('stats') stats() { return this.admin.stats(); }
   @Get('audit') audit(@Query() q: AuditQuery) { return this.admin.listAudit(q); }
+  @Get('plans') listPlans() { return this.plans.list(); }
+  @Post('plans') createPlan(@Body() dto: PlanDto) { return this.plans.create(dto); }
+  @Patch('plans/:id') patchPlan(@Param() p: IdParam, @Body() dto: PlanPatchDto) { return this.plans.update(p.id, dto); }
+  @Delete('plans/:id') deletePlan(@Param() p: IdParam) { return this.plans.remove(p.id); }
+  @Patch('users/:id/plan') @HttpCode(204) async setUserPlan(@Param() p: IdParam, @Body() dto: UserPlanDto) { await this.plans.setUserPlan(p.id, dto.plan); }
   @Get('users') users(@Query() q: PageQuery) { return this.admin.listUsers(q); }
   @Patch('users/:id') setRole(@UserId() me: string, @Param() p: IdParam, @Body() dto: RoleDto) { return this.admin.setRole(me, p.id, dto.role); }
   @Get('courses') courses() { return this.admin.listCourses(); }

@@ -122,7 +122,7 @@ export class ChatService {
     if (last.content.length > MAX_QUESTION) throw new BadRequestException('Please keep your question under ' + MAX_QUESTION + ' characters.');
     if (!(await this.profile.useDaily(user, 'chat'))) {
       const { limit } = await this.profile.dailyStatus(user, 'chat');
-      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'Bạn đã dùng hết ' + limit + ' tin nhắn hôm nay. Hẹn bạn ngày mai nhé!' }, HttpStatus.TOO_MANY_REQUESTS);
+      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: limit ? 'Bạn đã dùng hết ' + limit + ' tin nhắn hôm nay. Hẹn bạn ngày mai nhé!' : 'Gói của bạn chưa bao gồm trợ lý AI.' }, HttpStatus.TOO_MANY_REQUESTS);
     }
     const history = input.slice(-HISTORY).map((m) => ({ role: m.role, content: m.content.slice(0, 3000) }));
     const cards = { n: 0 };

@@ -22,9 +22,9 @@ npm run start:dev      # development (watch mode): http://localhost:3000/api, Sw
 | `JWT_EXPIRES_IN` | `7d` | How long a login lasts |
 | `OPENAI_API_KEY` | — | Optional. Lets auto-fill ask OpenAI for words not in the library |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Model used for auto-fill |
-| `AUTOFILL_DAILY_LIMIT` | `3` | Auto-fills per user per day that go to OpenAI / online dictionaries (answers from your words or the library are free) |
+| `AUTOFILL_DAILY_LIMIT` | `3` | Only for the first Standard plan on a fresh database (limits are edited in Admin → Plans). Auto-fills per user per day that go to OpenAI / online dictionaries (answers from your words or the library are free) |
 | `APP_TIMEZONE` | `Asia/Ho_Chi_Minh` | Time zone for the daily limit reset and course days |
-| `COURSE_AI_DAILY_LIMIT` | `30` | Words per user per day that a course owner can generate with AI (library words are free) |
+| `COURSE_AI_DAILY_LIMIT` | `30` | Only for the first Standard plan (see Admin → Plans). Words per user per day that a course owner can generate with AI (library words are free) |
 
 ## Accounts
 

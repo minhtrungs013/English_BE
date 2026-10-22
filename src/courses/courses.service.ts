@@ -273,7 +273,7 @@ export class CoursesService {
     }
     if (!(await this.profile.useDaily(user, 'courseAi'))) {
       const { limit } = await this.profile.dailyStatus(user, 'courseAi');
-      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve generated ' + limit + ' words with AI today. Add the rest by hand, or try again tomorrow.' }, HttpStatus.TOO_MANY_REQUESTS);
+      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: limit ? 'You’ve generated ' + limit + ' words with AI today. Add the rest by hand, or try again tomorrow.' : 'AI word generation isn’t included in your plan. Add the words by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
     }
     const r = await this.lookup.external(word);
     const quota = await this.profile.dailyStatus(user, 'courseAi');

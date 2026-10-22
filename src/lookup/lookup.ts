@@ -86,7 +86,7 @@ export class LookupService {
     // Anything past this point calls OpenAI or online dictionaries: limited per user per day.
     if (!(await this.profile.useAutofill(user))) {
       const { limit } = await this.profile.autofillStatus(user);
-      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used all ' + limit + ' auto-fills for today. You can still fill in the details yourself, or try again tomorrow.' }, HttpStatus.TOO_MANY_REQUESTS);
+      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: limit ? 'You’ve used all ' + limit + ' auto-fills for today. You can still fill in the details yourself, or try again tomorrow.' : 'Auto-fill isn’t included in your plan. You can still fill in the details yourself.' }, HttpStatus.TOO_MANY_REQUESTS);
     }
 
     return this.external(word);

@@ -9,6 +9,8 @@ export class User {
   @Prop({ required: true }) passwordHash: string;
   /** admin: creates and manages courses, users, the sentence bank and the library (see AccessService). */
   @Prop({ enum: ['user', 'admin'], default: 'user' }) role: string;
+  /** Plan id (daily limits, see PlanService); empty = the default plan. */
+  @Prop({ default: '' }) plan: string;
 }
 
 export type UserDocument = HydratedDocument<User>;

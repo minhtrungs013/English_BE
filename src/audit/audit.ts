@@ -6,6 +6,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { Model } from 'mongoose';
 import type { Observable } from 'rxjs';
 import type { AuthUser } from '../auth/auth.decorators';
+import { PlanService } from '../plans/plans';
 
 /** Kept for 90 days, then MongoDB deletes the entry. */
 const KEEP_DAYS = 90;
@@ -68,10 +69,14 @@ class UserContextInterceptor implements NestInterceptor {
 @Injectable()
 export class AuditService implements OnModuleInit {
   private readonly log = new Logger('Audit');
-  constructor(@InjectModel(AuditLog.name) private readonly logs: Model<AuditLog>) {}
+  constructor(@InjectModel(AuditLog.name) private readonly logs: Model<AuditLog>, private readonly plans: PlanService) {}
 
   onModuleInit() {
-    sink = (e) => { this.logs.create({ ...e, at: new Date() }).catch((err) => this.log.warn('Could not write an audit entry: ' + String(err))); };
+    sink = (e) => {
+      this.logs.create({ ...e, at: new Date() }).catch((err) => this.log.warn('Could not write an audit entry: ' + String(err)));
+      // Counts toward the user's daily AI tokens (plan limit).
+      if (e.kind === 'ai' && e.userId) this.plans.addTokens(e.userId, e.inTokens + e.outTokens).catch((err) => this.log.warn('Could not count tokens: ' + String(err)));
+    };
   }
 }
 

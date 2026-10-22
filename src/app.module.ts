@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AccessModule } from './access/access';
 import { AuditModule } from './audit/audit';
+import { PlanModule } from './plans/plans';
 import { AdminModule } from './admin/admin';
 import { PracticeModule } from './practice/practice';
 import { AuthModule } from './auth/auth.module';
@@ -36,6 +37,7 @@ import { WordsModule } from './words/words.module';
     ThrottlerModule.forRoot([{ ttl: 60_000, limit: 300 }]),
     AccessModule,
     AuditModule,
+    PlanModule,
     AdminModule,
     PracticeModule,
     AuthModule,
