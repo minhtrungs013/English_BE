@@ -5,7 +5,7 @@ import { todayKey } from '../common/day';
 import { User, UserSchema } from '../users/user.schema';
 
 /** The daily allowances a plan sets. Counts: 0 turns the feature off. tokens: 0 means no token cap. */
-export const LIMIT_KEYS = ['chat', 'autofill', 'courseAi', 'tokens'] as const;
+export const LIMIT_KEYS = ['chat', 'autofill', 'courseAi', 'sentence', 'tokens'] as const;
 export type LimitKey = (typeof LIMIT_KEYS)[number];
 export type Limits = Record<LimitKey, number>;
 
@@ -20,6 +20,8 @@ export class Plan {
   @Prop({ default: 3, min: 0 }) autofill: number;
   /** AI course generations a day (questions, dialogues, course words). */
   @Prop({ default: 30, min: 0 }) courseAi: number;
+  /** AI checks of a sentence the learner wrote (Practice → Write a sentence) a day. */
+  @Prop({ default: 10, min: 0 }) sentence: number;
   /** AI tokens a day (in + out, all features together); 0 = no cap. */
   @Prop({ default: 0, min: 0 }) tokens: number;
 }
@@ -61,10 +63,13 @@ export class PlanService implements OnApplicationBootstrap {
 
   /** First start: a default "Standard" plan with the old limits and a "Pro" plan. */
   async onApplicationBootstrap(): Promise<void> {
+    // Plans made before a limit existed: the default plan gets 10 sentence checks, the others 50.
+    await this.plans.updateMany({ sentence: { $exists: false }, isDefault: true }, { $set: { sentence: 10 } });
+    await this.plans.updateMany({ sentence: { $exists: false } }, { $set: { sentence: 50 } });
     if (await this.plans.exists({})) return;
     await this.plans.create([
-      { name: 'Standard', isDefault: true, chat: legacyLimit('CHAT_DAILY_LIMIT', 30), autofill: legacyLimit('AUTOFILL_DAILY_LIMIT', 3), courseAi: legacyLimit('COURSE_AI_DAILY_LIMIT', 30), tokens: 50_000 },
-      { name: 'Pro', isDefault: false, chat: 100, autofill: 30, courseAi: 100, tokens: 300_000 }
+      { name: 'Standard', isDefault: true, chat: legacyLimit('CHAT_DAILY_LIMIT', 30), autofill: legacyLimit('AUTOFILL_DAILY_LIMIT', 3), courseAi: legacyLimit('COURSE_AI_DAILY_LIMIT', 30), sentence: 10, tokens: 50_000 },
+      { name: 'Pro', isDefault: false, chat: 100, autofill: 30, courseAi: 100, sentence: 50, tokens: 300_000 }
     ]);
     this.log.log('Created the Standard (default) and Pro plans.');
   }
@@ -88,7 +93,7 @@ export class PlanService implements OnApplicationBootstrap {
 
   async limit(user: string, key: LimitKey): Promise<number> {
     const p = await this.planOf(user);
-    return p ? p[key] : 0;
+    return p ? (p[key] ?? 0) : 0;
   }
 
   async tokensToday(user: string): Promise<number> {
@@ -129,7 +134,7 @@ export class PlanService implements OnApplicationBootstrap {
     // Users with no plan, or with a plan that was deleted, are on the default plan.
     const onDefault = counts.filter((c) => !c._id || !ids.has(c._id)).reduce((s, c) => s + c.n, 0);
     return plans.map((p) => ({
-      id: String(p._id), name: p.name, isDefault: p.isDefault, chat: p.chat, autofill: p.autofill, courseAi: p.courseAi, tokens: p.tokens,
+      id: String(p._id), name: p.name, isDefault: p.isDefault, chat: p.chat, autofill: p.autofill, courseAi: p.courseAi, sentence: p.sentence ?? 0, tokens: p.tokens,
       users: (n.get(String(p._id)) ?? 0) + (p.isDefault ? onDefault : 0)
     }));
   }

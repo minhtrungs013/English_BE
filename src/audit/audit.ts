@@ -17,7 +17,7 @@ export class AuditLog {
   @Prop({ required: true, index: true }) at: Date;
   /** "ai" for now; other kinds of events can be added later. */
   @Prop({ required: true }) kind: string;
-  /** What the call was for: chat, lookup, lookup-family, tense-questions, dialogue. */
+  /** What the call was for: chat, lookup, lookup-family, tense-questions, dialogue, sentence-check. */
   @Prop({ required: true, index: true }) action: string;
   @Prop({ default: '', index: true }) userId: string;
   @Prop({ default: '' }) email: string;

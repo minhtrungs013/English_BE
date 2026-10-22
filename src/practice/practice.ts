@@ -13,7 +13,9 @@ import { fullSentence, sentenceKey } from '../courses/sentence-rules';
 import { TENSE_LABEL, type Tense } from '../courses/tense';
 import { questionFrom, SentenceBankModule, SentenceBankService } from '../sentence-bank/sentence-bank';
 import { Word } from '../words/word.schema';
+import { ProfileModule } from '../profile/profile.module';
 import { WordsModule } from '../words/words.module';
+import { SentenceAttempt, SentenceAttemptSchema, SentenceCheckController, SentenceCheckService } from './sentence-check';
 
 /** Which sentences a learner has practised, so the next session prefers fresh ones. */
 @Schema({ collection: 'sentence_seen', timestamps: false })
@@ -174,13 +176,13 @@ export class PracticeController {
 
 @Module({
   imports: [
-    WordsModule, SentenceBankModule, CoursesModule,
+    WordsModule, SentenceBankModule, CoursesModule, ProfileModule,
     MongooseModule.forFeature([
-      { name: SentenceSeen.name, schema: SentenceSeenSchema }, { name: Enrollment.name, schema: EnrollmentSchema }, { name: BankItem.name, schema: BankItemSchema }
+      { name: SentenceSeen.name, schema: SentenceSeenSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema }, { name: Enrollment.name, schema: EnrollmentSchema }, { name: BankItem.name, schema: BankItemSchema }
     ])
   ],
-  controllers: [PracticeController],
-  providers: [PracticeService],
-  exports: [PracticeService]
+  controllers: [PracticeController, SentenceCheckController],
+  providers: [PracticeService, SentenceCheckService],
+  exports: [PracticeService, SentenceCheckService]
 })
 export class PracticeModule {}

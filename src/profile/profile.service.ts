@@ -6,7 +6,7 @@ import { todayKey } from '../common/day';
 import { PlanService } from '../plans/plans';
 
 /** Daily limits that reset at midnight (app time zone). The numbers come from the user's plan (PlanService). */
-export type DailyQuota = 'autofill' | 'courseAi' | 'chat';
+export type DailyQuota = 'autofill' | 'courseAi' | 'chat' | 'sentence';
 import { Profile, ProfileDocument, Progress, Settings } from './profile.schema';
 import { UpdateSettingsDto } from './profile.dto';
 
@@ -81,6 +81,11 @@ export class ProfileService {
 
   /** Throws 429 when today's AI tokens (plan) are used up; for callers that count the quota only after the AI call. */
   assertTokens(user: string) { return this.plans.assertTokens(user); }
+
+  /** Gives back one use of today's allowance (the AI call it was for failed). */
+  async refundDaily(user: string, q: DailyQuota): Promise<void> {
+    await this.profiles.updateOne({ user, [q + '.day']: todayKey(), [q + '.count']: { $gt: 0 } }, { $inc: { [q + '.count']: -1 } });
+  }
 
   autofillStatus(user: string) { return this.dailyStatus(user, 'autofill'); }
   useAutofill(user: string) { return this.useDaily(user, 'autofill'); }

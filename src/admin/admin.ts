@@ -50,7 +50,7 @@ export class LibraryPatchDto {
   @IsOptional() @IsIn(LEVELS) level?: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;
 }
-export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue'] as const;
+export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue', 'sentence-check'] as const;
 export class AuditQuery extends PageQuery {
   @IsOptional() @IsIn(AUDIT_ACTIONS) action?: string;
   @IsOptional() @IsIn(['ok', 'failed']) status?: string;
@@ -61,6 +61,7 @@ export class PlanDto {
   @IsInt() @Min(0) @Max(10_000) chat: number;
   @IsInt() @Min(0) @Max(10_000) autofill: number;
   @IsInt() @Min(0) @Max(10_000) courseAi: number;
+  @IsInt() @Min(0) @Max(10_000) sentence: number;
   @IsInt() @Min(0) @Max(100_000_000) tokens: number;
 }
 export class PlanPatchDto {
@@ -68,6 +69,7 @@ export class PlanPatchDto {
   @IsOptional() @IsInt() @Min(0) @Max(10_000) chat?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10_000) autofill?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10_000) courseAi?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) sentence?: number;
   @IsOptional() @IsInt() @Min(0) @Max(100_000_000) tokens?: number;
   @IsOptional() @IsBoolean() isDefault?: boolean;
 }

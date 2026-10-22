@@ -88,7 +88,7 @@ export class DataService implements OnApplicationBootstrap {
       this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user }),
       this.profiles.deleteOne({ user }), this.users.deleteOne({ _id: user }),
       // Practised sentences (the practice module's own collection).
-      this.users.db.collection('sentence_seen').deleteMany({ user })
+      this.users.db.collection('sentence_seen').deleteMany({ user }), this.users.db.collection('sentence_attempts').deleteMany({ user })
     ]);
   }
 
