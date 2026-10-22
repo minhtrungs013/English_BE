@@ -7,6 +7,7 @@ import { Model, type QueryFilter } from 'mongoose';
 import { AccessService, AdminGuard } from '../access/access';
 import { AuditLog } from '../audit/audit';
 import { PlanService } from '../plans/plans';
+import { DataModule, DataService } from '../data/data';
 import { SentenceAttempt, SentenceAttemptSchema, SentenceSuggestion, SentenceSuggestionSchema } from '../practice/sentence-grade';
 import { UserId } from '../auth/auth.decorators';
 import { LEVELS, POS_LIST } from '../common/constants';
@@ -95,6 +96,7 @@ export class AdminService {
     @InjectModel(User.name) private readonly users: Model<User>,
     @InjectModel(AuditLog.name) private readonly audit: Model<AuditLog>,
     private readonly plans: PlanService,
+    private readonly data: DataService,
     @InjectModel(Course.name) private readonly courses: Model<Course>,
     @InjectModel(Enrollment.name) private readonly enrollments: Model<Enrollment>,
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
@@ -137,6 +139,15 @@ export class AdminService {
         plan: u.plan ?? '', tokensToday: tokens.get(String(u._id)) ?? 0
       }))
     };
+  }
+
+  /** Deletes a learner's account and everything it owns (same as the learner deleting it). Not your own, and not the last admin. */
+  async deleteUser(me: string, id: string) {
+    if (id === me) throw new BadRequestException('You can’t delete your own account here. Use Settings instead.');
+    const u = await this.users.findById(id, { role: 1 }).lean();
+    if (!u) throw new NotFoundException('User not found.');
+    if (u.role === 'admin') throw new BadRequestException('Remove the admin role first, then delete the account.');
+    await this.data.deleteAccount(id);
   }
 
   async setRole(me: string, id: string, role: 'user' | 'admin') {
@@ -326,6 +337,7 @@ export class AdminController {
   @Post('plans') createPlan(@Body() dto: PlanDto) { return this.plans.create(dto); }
   @Patch('plans/:id') patchPlan(@Param() p: IdParam, @Body() dto: PlanPatchDto) { return this.plans.update(p.id, dto); }
   @Delete('plans/:id') deletePlan(@Param() p: IdParam) { return this.plans.remove(p.id); }
+  @Delete('users/:id') @HttpCode(204) async deleteUser(@UserId() me: string, @Param() p: IdParam) { await this.admin.deleteUser(me, p.id); }
   @Patch('users/:id/plan') @HttpCode(204) async setUserPlan(@Param() p: IdParam, @Body() dto: UserPlanDto) { await this.plans.setUserPlan(p.id, dto.plan); }
   @Get('users') users(@Query() q: PageQuery) { return this.admin.listUsers(q); }
   @Patch('users/:id') setRole(@UserId() me: string, @Param() p: IdParam, @Body() dto: RoleDto) { return this.admin.setRole(me, p.id, dto.role); }
@@ -344,6 +356,7 @@ export class AdminController {
 
 @Module({
   imports: [
+    DataModule,
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema }, { name: Course.name, schema: CourseSchema }, { name: Enrollment.name, schema: EnrollmentSchema },
       { name: BankItem.name, schema: BankItemSchema }, { name: LibraryWord.name, schema: LibraryWordSchema }, { name: WordSentence.name, schema: WordSentenceSchema },
