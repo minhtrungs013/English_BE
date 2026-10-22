@@ -15,7 +15,9 @@ import { questionFrom, SentenceBankModule, SentenceBankService } from '../senten
 import { Word } from '../words/word.schema';
 import { ProfileModule } from '../profile/profile.module';
 import { WordsModule } from '../words/words.module';
-import { SentenceAttempt, SentenceAttemptSchema, SentenceCheckController, SentenceCheckService } from './sentence-check';
+import { SentenceCheckController, SentenceCheckService } from './sentence-check';
+import { SentenceAttempt, SentenceAttemptSchema, SentenceSuggestion, SentenceSuggestionSchema } from './sentence-grade';
+import { LibraryWord, LibraryWordSchema } from '../library/library.schema';
 
 /** Which sentences a learner has practised, so the next session prefers fresh ones. */
 @Schema({ collection: 'sentence_seen', timestamps: false })
@@ -178,7 +180,8 @@ export class PracticeController {
   imports: [
     WordsModule, SentenceBankModule, CoursesModule, ProfileModule,
     MongooseModule.forFeature([
-      { name: SentenceSeen.name, schema: SentenceSeenSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema }, { name: Enrollment.name, schema: EnrollmentSchema }, { name: BankItem.name, schema: BankItemSchema }
+      { name: SentenceSeen.name, schema: SentenceSeenSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
+      { name: SentenceSuggestion.name, schema: SentenceSuggestionSchema }, { name: LibraryWord.name, schema: LibraryWordSchema }, { name: Enrollment.name, schema: EnrollmentSchema }, { name: BankItem.name, schema: BankItemSchema }
     ])
   ],
   controllers: [PracticeController, SentenceCheckController],

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { SentenceAttempt, SentenceAttemptSchema } from '../practice/sentence-grade';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LibraryModule } from '../library/library.module';
 import { LookupModule } from '../lookup/lookup';
@@ -25,7 +26,8 @@ import { SentenceGrammar, SentenceGrammarSchema, SentenceGrammarService } from '
       { name: Submission.name, schema: SubmissionSchema },
       { name: BankItem.name, schema: BankItemSchema },
       { name: User.name, schema: UserSchema },
-      { name: SentenceGrammar.name, schema: SentenceGrammarSchema }
+      { name: SentenceGrammar.name, schema: SentenceGrammarSchema },
+      { name: SentenceAttempt.name, schema: SentenceAttemptSchema }
     ]),
     WordsModule, LibraryModule, LookupModule, ProfileModule, TagsModule, NotificationsModule, SentenceBankModule
   ],

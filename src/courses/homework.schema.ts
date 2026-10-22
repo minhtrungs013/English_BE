@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export const QUESTION_TYPES = ['meaning', 'word', 'type', 'blank', 'tense', 'tenseChoice', 'dictation', 'wordform'] as const;
+export const QUESTION_TYPES = ['meaning', 'word', 'type', 'blank', 'tense', 'tenseChoice', 'dictation', 'wordform', 'sentence'] as const;
 export type QuestionType = (typeof QUESTION_TYPES)[number];
 
 /**
@@ -10,7 +10,8 @@ export type QuestionType = (typeof QUESTION_TYPES)[number];
  * tense / tenseChoice: put the verb in the right tense (typed / multiple choice), from the course's question bank;
  * dictation: hear a course word's example sentence (the device speaks it) and type it — `answer` is the sentence;
  * wordform: type the right form of a word-family member in its example sentence ("The ___ (decide) was made."),
- * `hint` is the answer's part of speech ("noun") and `explain` the family line + its Vietnamese meaning.
+ * `hint` is the answer's part of speech ("noun") and `explain` the family line + its Vietnamese meaning;
+ * sentence: write your own sentence with the word, graded by AI when handed in (`answer` is the word's example sentence, shown afterwards).
  */
 @Schema({ _id: false })
 export class Question {
@@ -67,6 +68,14 @@ export class Submission {
   /** Final score, 0–100. */
   @Prop({ default: 0 }) score: number;
   @Prop({ default: 0 }) durationMs: number;
+  /** "Write a sentence" questions: the AI's grade, by question index. */
+  @Prop({ type: Object, default: null }) feedback: Record<string, SentenceFeedback> | null;
+}
+
+/** The AI's grade of a homework sentence (score null when AI wasn't available and a simple check was used). */
+export interface SentenceFeedback {
+  score: number | null; corrected: string; better: string; feedbackVi: string;
+  mistakes: { type: string; wrong: string; fix: string; explainVi: string }[];
 }
 export type SubmissionDocument = HydratedDocument<Submission>;
 export const SubmissionSchema = SchemaFactory.createForClass(Submission);

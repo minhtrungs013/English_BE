@@ -1,4 +1,5 @@
-import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { addDays, daysBetween, todayKey } from '../common/day';
@@ -6,7 +7,8 @@ import { LibraryService } from '../library/library.service';
 import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
 import { gradeDictation } from '../dictation/dictation.grade';
-import { TENSE_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument } from './homework.schema';
+import { TENSE_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument, type SentenceFeedback } from './homework.schema';
+import { containsWord, gradeSentence, SentenceAttempt } from '../practice/sentence-grade';
 import { Dialogue, dialogueBlanks } from './dialogue';
 import { NotificationsService } from '../notifications/notifications.service';
 import { QuestionsService } from './questions.service';
@@ -147,6 +149,13 @@ function dictationQuestion(w: CourseWord, review: boolean): Question {
 }
 
 /** What the learner gets of a question before handing in: dictation sentences are only sent (encoded) for the device to speak. */
+/** "Write a sentence" with one of the day's new words. */
+function sentenceQuestion(w: CourseWord): Question {
+  return { type: 'sentence', word: w.word, review: false, prompt: 'Write a sentence with “' + w.word + '”', hint: label(w), choices: [], answer: w.ex.trim() || w.word, accept: [] };
+}
+/** AI's grade at or above this counts as correct. */
+const SENTENCE_PASS = 7;
+
 function shown(q: Question) {
   return { type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices, ...(q.type === 'dictation' ? { audio: Buffer.from(q.answer, 'utf8').toString('base64') } : {}) };
 }
@@ -174,12 +183,15 @@ function streakOf(onTime: Set<number>, current: number, hasWords: Set<number>): 
 
 @Injectable()
 export class HomeworkService {
+  private readonly log = new Logger('Homework');
   constructor(
     @InjectModel(Course.name) private readonly courses: Model<Course>,
     @InjectModel(Enrollment.name) private readonly enrollments: Model<Enrollment>,
     @InjectModel(Homework.name) private readonly homework: Model<Homework>,
     @InjectModel(Submission.name) private readonly submissions: Model<Submission>,
     @InjectModel(User.name) private readonly users: Model<User>,
+    @InjectModel(SentenceAttempt.name) private readonly attempts: Model<SentenceAttempt>,
+    private readonly config: ConfigService,
     private readonly library: LibraryService,
     private readonly questions: QuestionsService,
     private readonly notes: NotificationsService,
@@ -267,6 +279,9 @@ export class HomeworkService {
     qs.push(...wordFormQuestions(today, earlier, blankedNow, WORDFORM_PER_DAY));
     const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
     qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true)));
+    // One "Write a sentence" with a new word, graded by AI (only when AI is set up).
+    const writable = shuffle(today.filter((w) => !blankedNow.has(w.word.toLowerCase())));
+    if (this.config.get<string>('ANTHROPIC_API_KEY') && writable.length) qs.push(sentenceQuestion(writable[0]));
     return shuffle(qs);
   }
 
@@ -314,6 +329,7 @@ export class HomeworkService {
         tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '',
         yourAnswer: s.answers[i] ?? '', answer: q.answer, correct: !!s.results[i],
         ...(q.type === 'dictation' ? { grade: gradeDictation(q.answer, s.answers[i] ?? '') } : {}),
+        ...(q.type === 'sentence' ? { ai: s.feedback?.[i] ?? null } : {}),
         grammar: grammar[i]
       }))
     };
@@ -333,14 +349,44 @@ export class HomeworkService {
     };
   }
 
+  /**
+   * Grades the "Write a sentence" answers with AI (all at once). When AI isn't available, a sentence that uses the
+   * word and has at least 5 words passes, without a score. Each graded sentence also goes to the learner's mistake notebook.
+   */
+  private async gradeSentences(user: string, hw: HomeworkDocument, answers: string[]): Promise<Record<string, SentenceFeedback>> {
+    const key = this.config.get<string>('ANTHROPIC_API_KEY');
+    const model = this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5');
+    const out: Record<string, SentenceFeedback> = {};
+    await Promise.all(hw.questions.map(async (q, i) => {
+      if (q.type !== 'sentence') return;
+      const text = (answers[i] ?? '').replace(/\s+/g, ' ').trim().slice(0, 300);
+      const empty: SentenceFeedback = { score: 0, corrected: '', better: '', feedbackVi: '', mistakes: [] };
+      if (!text || !containsWord(text, q.word)) { out[i] = { ...empty, feedbackVi: text ? 'Câu chưa dùng từ “' + q.word + '”.' : '' }; return; }
+      const simple = text.split(' ').length >= 5;
+      if (!key) { out[i] = { ...empty, score: simple ? null : 0, feedbackVi: 'Chưa chấm được bằng AI; câu được tính theo kiểm tra cơ bản.' }; return; }
+      try {
+        const g = await gradeSentence(key, model, { word: q.word, pos: '', meaning: '', vi: q.hint }, text, 'homework-sentence');
+        out[i] = { score: g.score, corrected: g.corrected, better: g.better, feedbackVi: g.feedbackVi, mistakes: g.mistakes };
+        await this.attempts.create({ user, wordId: '', word: q.word, sentence: text, score: g.score, corrected: g.corrected, lesson: g.lesson?.id ?? '', mistakes: g.mistakes, source: 'homework' })
+          .catch(() => undefined);
+      } catch (e) {
+        this.log.warn('Homework sentence grading failed: ' + String(e));
+        out[i] = { ...empty, score: simple ? null : 0, feedbackVi: 'Chưa chấm được bằng AI; câu được tính theo kiểm tra cơ bản.' };
+      }
+    }));
+    return out;
+  }
+
   /** Grades and saves the homework. Each learner hands in each day once. */
   async submit(user: string, id: string, day: number, answers: string[]) {
     const { e } = await this.openDay(user, id, day);
     const hw = await this.homework.findOne({ courseId: id, day });
     if (!hw) throw new ConflictException('Open the homework first.');
     if (answers.length !== hw.questions.length) throw new ConflictException('This homework has changed. Reload it and try again.');
+    const feedback = await this.gradeSentences(user, hw, answers);
     const results = hw.questions.map((q, i) => {
       if (q.type === 'dictation') return gradeDictation(q.answer, answers[i] ?? '').passed;
+      if (q.type === 'sentence') { const f = feedback[i]; return !!f && (f.score === null || f.score >= SENTENCE_PASS); }
       const a = normalizeAnswer(answers[i] ?? '');
       return !!a && [q.answer, ...q.accept].some((x) => normalizeAnswer(x) === a);
     });
@@ -357,7 +403,7 @@ export class HomeworkService {
     try {
       s = await this.submissions.findOneAndUpdate(
         { courseId: id, user, day, submittedAt: null },
-        { $set: { submittedAt: now, answers, results, correct, total, raw, lateDays, penalty, score: Math.round((raw * penalty) / 100), durationMs: now.getTime() - openedAt.getTime() }, $setOnInsert: { openedAt } },
+        { $set: { submittedAt: now, answers, results, correct, total, raw, lateDays, penalty, score: Math.round((raw * penalty) / 100), durationMs: now.getTime() - openedAt.getTime(), feedback: Object.keys(feedback).length ? feedback : null }, $setOnInsert: { openedAt } },
         { upsert: true, returnDocument: 'after' }
       );
     } catch {

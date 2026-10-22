@@ -7,6 +7,7 @@ import { Model, type QueryFilter } from 'mongoose';
 import { AccessService, AdminGuard } from '../access/access';
 import { AuditLog } from '../audit/audit';
 import { PlanService } from '../plans/plans';
+import { SentenceAttempt, SentenceAttemptSchema, SentenceSuggestion, SentenceSuggestionSchema } from '../practice/sentence-grade';
 import { UserId } from '../auth/auth.decorators';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { todayKey } from '../common/day';
@@ -50,7 +51,7 @@ export class LibraryPatchDto {
   @IsOptional() @IsIn(LEVELS) level?: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;
 }
-export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue', 'sentence-check'] as const;
+export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence'] as const;
 export class AuditQuery extends PageQuery {
   @IsOptional() @IsIn(AUDIT_ACTIONS) action?: string;
   @IsOptional() @IsIn(['ok', 'failed']) status?: string;
@@ -77,6 +78,13 @@ export class UserPlanDto {
   /** A plan id, or "" for the default plan. */
   @IsString() @ValidateIf((o: UserPlanDto) => o.plan !== '') @IsMongoId() plan: string;
 }
+export class InsightQuery {
+  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(365) days?: number;
+}
+export class SuggestionApproveDto {
+  /** The sentence, when the admin edited it before approving. */
+  @IsOptional() @IsString() @MaxLength(300) sentence?: string;
+}
 export class IdParam {
   @IsMongoId() id: string;
 }
@@ -92,6 +100,8 @@ export class AdminService {
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
     @InjectModel(LibraryWord.name) private readonly library: Model<LibraryWord>,
     @InjectModel(WordSentence.name) private readonly sentences: Model<WordSentence>,
+    @InjectModel(SentenceSuggestion.name) private readonly suggestions: Model<SentenceSuggestion>,
+    @InjectModel(SentenceAttempt.name) private readonly attempts: Model<SentenceAttempt>,
     @InjectModel(Profile.name) private readonly profiles: Model<Profile>,
     @InjectModel(Word.name) private readonly words: Model<Word>,
     private readonly access: AccessService
@@ -170,6 +180,67 @@ export class AdminService {
     await s.save().catch((e: { code?: number }) => { throw e?.code === 11000 ? new BadRequestException('This sentence is already in the bank.') : e; });
     const { _id, key: _k, ...rest } = s.toObject();
     return { id: String(_id), ...rest };
+  }
+
+  /** AI example sentences from Write a sentence, waiting to be added to the bank. */
+  async listSuggestions(q: PageQuery) {
+    const filter: QueryFilter<SentenceSuggestion> = { status: 'pending' };
+    if (q.q) filter.$or = [{ word: { $regex: '^' + esc(q.q), $options: 'i' } }, { sentence: { $regex: esc(q.q), $options: 'i' } }];
+    const page = q.page ?? 1;
+    const [total, list] = await Promise.all([this.suggestions.countDocuments(filter), this.suggestions.find(filter).sort({ at: -1 }).skip((page - 1) * PAGE).limit(PAGE).lean()]);
+    return { total, page, pages: Math.max(1, Math.ceil(total / PAGE)), items: list.map((x) => ({ id: String(x._id), word: x.word, sentence: x.sentence, vi: x.vi, at: x.at.getTime() })) };
+  }
+
+  /** Adds the suggestion to the sentence bank (the admin can then set its tense in the Sentence bank tab). */
+  async approveSuggestion(id: string, sentence?: string) {
+    const x = await this.suggestions.findById(id);
+    if (!x || x.status !== 'pending') throw new NotFoundException('Suggestion not found.');
+    const text = (sentence ?? x.sentence).replace(/\s+/g, ' ').trim();
+    if (!text) throw new BadRequestException('The sentence is empty.');
+    const lib = await this.library.findById(x.libraryWordId).lean();
+    if (!lib) { x.status = 'rejected'; await x.save(); throw new NotFoundException('That library word no longer exists.'); }
+    const key = sentenceKey(text);
+    if (!(await this.sentences.exists({ key }))) {
+      await this.sentences.create({ wordId: String(lib._id), word: lib.word, sentence: text, key, level: lib.level, topic: lib.topic, source: 'ai' });
+    }
+    x.status = 'approved';
+    await x.save();
+  }
+
+  async rejectSuggestion(id: string) {
+    const r = await this.suggestions.updateOne({ _id: id, status: 'pending' }, { $set: { status: 'rejected' } });
+    if (!r.matchedCount) throw new NotFoundException('Suggestion not found.');
+  }
+
+  /** What learners get wrong in Write a sentence and homework: mistakes by kind, hardest words, scores. */
+  async insights(q: InsightQuery) {
+    const since = new Date(Date.now() - (q.days ?? 30) * 86400_000);
+    const match = { at: { $gte: since } };
+    const [totals, byType, hardWords, bySource, pending] = await Promise.all([
+      this.attempts.aggregate<{ attempts: number; users: string[]; avg: number; withMistakes: number }>([
+        { $match: match },
+        { $group: { _id: null, attempts: { $sum: 1 }, users: { $addToSet: '$user' }, avg: { $avg: '$score' }, withMistakes: { $sum: { $cond: [{ $gt: [{ $size: '$mistakes' }, 0] }, 1, 0] } } } }
+      ]),
+      this.attempts.aggregate<{ _id: string; count: number; users: string[] }>([
+        { $match: match }, { $unwind: '$mistakes' },
+        { $group: { _id: '$mistakes.type', count: { $sum: 1 }, users: { $addToSet: '$user' } } }, { $sort: { count: -1 } }
+      ]),
+      this.attempts.aggregate<{ _id: string; attempts: number; avg: number; mistakes: number }>([
+        { $match: match },
+        { $group: { _id: { $toLower: '$word' }, attempts: { $sum: 1 }, avg: { $avg: '$score' }, mistakes: { $sum: { $size: '$mistakes' } } } },
+        { $match: { attempts: { $gte: 2 } } }, { $sort: { avg: 1, attempts: -1 } }, { $limit: 15 }
+      ]),
+      this.attempts.aggregate<{ _id: string; n: number }>([{ $match: match }, { $group: { _id: '$source', n: { $sum: 1 } } }]),
+      this.suggestions.countDocuments({ status: 'pending' })
+    ]);
+    const t = totals[0];
+    return {
+      attempts: t?.attempts ?? 0, users: t?.users.length ?? 0, avg: t ? Math.round(t.avg * 10) / 10 : null, withMistakes: t?.withMistakes ?? 0,
+      practice: bySource.find((x) => x._id === 'practice' || !x._id)?.n ?? 0, homework: bySource.find((x) => x._id === 'homework')?.n ?? 0,
+      byType: byType.map((x) => ({ type: x._id, count: x.count, users: x.users.length })),
+      hardWords: hardWords.map((x) => ({ word: x._id, attempts: x.attempts, avg: Math.round(x.avg * 10) / 10, mistakes: x.mistakes })),
+      pendingSuggestions: pending
+    };
   }
 
   async deleteSentence(id: string) {
@@ -262,6 +333,10 @@ export class AdminController {
   @Get('sentences') sentences(@Query() q: SentenceQuery) { return this.admin.listSentences(q); }
   @Patch('sentences/:id') patchSentence(@Param() p: IdParam, @Body() dto: SentencePatchDto) { return this.admin.patchSentence(p.id, dto); }
   @Delete('sentences/:id') @HttpCode(204) async deleteSentence(@Param() p: IdParam) { await this.admin.deleteSentence(p.id); }
+  @Get('suggestions') suggestions(@Query() q: PageQuery) { return this.admin.listSuggestions(q); }
+  @Post('suggestions/:id/approve') @HttpCode(204) async approve(@Param() p: IdParam, @Body() dto: SuggestionApproveDto) { await this.admin.approveSuggestion(p.id, dto.sentence); }
+  @Post('suggestions/:id/reject') @HttpCode(204) async reject(@Param() p: IdParam) { await this.admin.rejectSuggestion(p.id); }
+  @Get('insights') insights(@Query() q: InsightQuery) { return this.admin.insights(q); }
   @Get('library') library(@Query() q: PageQuery) { return this.admin.listLibrary(q); }
   @Patch('library/:id') patchLibrary(@Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(p.id, dto); }
   @Delete('library/:id') @HttpCode(204) async deleteLibrary(@Param() p: IdParam) { await this.admin.deleteLibrary(p.id); }
@@ -272,6 +347,7 @@ export class AdminController {
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema }, { name: Course.name, schema: CourseSchema }, { name: Enrollment.name, schema: EnrollmentSchema },
       { name: BankItem.name, schema: BankItemSchema }, { name: LibraryWord.name, schema: LibraryWordSchema }, { name: WordSentence.name, schema: WordSentenceSchema },
+      { name: SentenceSuggestion.name, schema: SentenceSuggestionSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
       { name: Profile.name, schema: ProfileSchema }, { name: Word.name, schema: WordSchema }
     ])
   ],
