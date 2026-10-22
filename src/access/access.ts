@@ -7,7 +7,8 @@ import { User, UserSchema } from '../users/user.schema';
 
 /**
  * Who may manage the app. Admins create and manage every course, the users, the sentence bank and the library.
- * The accounts in ADMIN_EMAILS (comma separated) are made admins at start-up; others can be made admin in the admin page.
+ * Roles live in the database (users.role) and are managed in the admin page. ADMIN_EMAILS (comma separated, optional) is only
+ * for the very first admin: it is used at start-up when no account is admin yet, and ignored once one exists.
  */
 @Injectable()
 export class AccessService implements OnApplicationBootstrap {
@@ -18,10 +19,11 @@ export class AccessService implements OnApplicationBootstrap {
   constructor(@InjectModel(User.name) private readonly users: Model<User>, private readonly config: ConfigService) {}
 
   async onApplicationBootstrap(): Promise<void> {
-    const emails = this.config.get<string>('ADMIN_EMAILS', 'trung@gmail.com').split(',').map((e) => e.trim().toLowerCase()).filter(Boolean);
-    if (!emails.length) return;
-    const r = await this.users.updateMany({ email: { $in: emails }, role: { $ne: 'admin' } }, { $set: { role: 'admin' } }).catch(() => null);
-    if (r?.modifiedCount) this.log.log('Made ' + r.modifiedCount + ' account(s) admin from ADMIN_EMAILS.');
+    if (await this.users.exists({ role: 'admin' }).catch(() => null)) return;
+    const emails = (this.config.get<string>('ADMIN_EMAILS') ?? '').split(',').map((e) => e.trim().toLowerCase()).filter(Boolean);
+    if (!emails.length) { this.log.warn('No admin account yet. Set ADMIN_EMAILS to an existing account’s email and restart to make the first admin.'); return; }
+    const r = await this.users.updateMany({ email: { $in: emails } }, { $set: { role: 'admin' } }).catch(() => null);
+    this.log.log(r?.modifiedCount ? 'Made ' + r.modifiedCount + ' account(s) the first admin from ADMIN_EMAILS.' : 'ADMIN_EMAILS matches no account yet; sign up with that email, then restart.');
   }
 
   async isAdmin(user: string): Promise<boolean> {
