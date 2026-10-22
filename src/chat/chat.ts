@@ -21,7 +21,9 @@ import { fakePlan, fakeText } from './chat.fake';
 /** Longest question the user may send; earlier turns may be longer (the bot's answers). */
 const MAX_QUESTION = 500;
 /** Turns of history sent to the model (user + assistant messages). */
-const HISTORY = 10;
+const HISTORY = 6;
+/** The bot's earlier answers are cut to this many characters: the gist is enough for context. */
+const OLD_ANSWER = 600;
 const MAX_CARDS = 3;
 
 export class ChatMessageDto {
@@ -124,7 +126,7 @@ export class ChatService {
       const { limit } = await this.profile.dailyStatus(user, 'chat');
       throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: limit ? 'Bạn đã dùng hết ' + limit + ' tin nhắn hôm nay. Hẹn bạn ngày mai nhé!' : 'Gói của bạn chưa bao gồm trợ lý AI.' }, HttpStatus.TOO_MANY_REQUESTS);
     }
-    const history = input.slice(-HISTORY).map((m) => ({ role: m.role, content: m.content.slice(0, 3000) }));
+    const history = input.slice(-HISTORY).map((m) => ({ role: m.role, content: m.content.slice(0, m.role === 'assistant' ? OLD_ANSWER : 3000) }));
     const cards = { n: 0 };
 
     if (this.fake) {
