@@ -7,8 +7,7 @@ import type { Topic } from '../library/library.schema';
 import { CoursesService } from './courses.service';
 import {
   AiWordDto, BankItemDto, BankQuery, BankStatusDto, CoursesQuery, CreateCourseDto, GenerateQuestionsDto, JoinByCodeDto, LeaderboardQuery,
-  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, BankPickDto, ListeningDoneDto, AutoFillDto
-} from './courses.dto';
+  SetDayDto, ShareCourseWordDto, SubmitHomeworkDto, UpdateBankItemDto, UpdateCourseDto, WarmupDoneDto, LearnDayDto, SaveDayWordsDto, ImportQuestionsDto, BankPickDto, ListeningDoneDto, AutoFillDto, ReuseQuestionsDto } from './courses.dto';
 import { QuestionsService } from './questions.service';
 import { HomeworkService } from './homework.service';
 
@@ -215,6 +214,19 @@ export class CoursesController {
   }
 
   /** The word sentence bank's sentences for a day's words, to pick questions from (owner). */
+  /** Other courses' approved questions for the day's words (owner). */
+  @Get(':id/days/:day/reuse')
+  reuseList(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.questions.reuseList(user, id, day);
+  }
+
+  /** Copy picked questions of other courses into the day (approved). */
+  @Post(':id/days/:day/reuse')
+  @HttpCode(200)
+  reuseAdd(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: ReuseQuestionsDto) {
+    return this.questions.reuseAdd(user, id, day, dto.ids);
+  }
+
   @Get(':id/days/:day/sentence-bank')
   bankSentences(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
     return this.questions.bankSentences(user, id, day);

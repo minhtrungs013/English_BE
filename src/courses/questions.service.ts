@@ -100,6 +100,14 @@ export class QuestionsService {
     const perWord = dto.perWord ?? 2;
     const earlier = days.filter((d) => d.day < day).flatMap((d) => d.words.map((w) => w.word)).slice(-RECAP_WORDS);
 
+    // Other courses' approved questions for these words first: only the words still short of perWord go to AI.
+    const reused = dto.reuse ? await this.reusable(id, day, words.map((w) => w.word), tenses, perWord) : [];
+    const short = new Set(words.map((w) => w.word).filter((w) => reused.filter((r) => r.word.toLowerCase() === w.toLowerCase()).length < perWord));
+    if (dto.reuse && !short.size) {
+      await this.copyQuestions(id, day, reused, 'pending');
+      return { source: 'course' as const, aiProblem: '' as const, missing: [] as string[], reused: reused.length, added: reused.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
+    }
+
     let drafts: TenseDraft[] = [];
     let recap: { text: string; vi: string } | null = null;
     let source: 'ai' | 'template' = 'template';
@@ -107,7 +115,7 @@ export class QuestionsService {
     let aiProblem: 'off' | 'failed' | '' = '';
     const key = this.config.get<string>('ANTHROPIC_API_KEY');
     const model = this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5');
-    const list = words.map((w) => w.word);
+    const list = words.map((w) => w.word).filter((w) => !dto.reuse || short.has(w));
     if (key) {
       // Admins build the courses: their course AI isn't capped per day (tokens are still counted in the audit log).
       const admin = await this.access.isAdmin(user);
@@ -134,13 +142,13 @@ export class QuestionsService {
       } else aiProblem = 'failed';
     } else aiProblem = 'off';
     if (source === 'template') {
-      drafts = words.filter((w) => w.pos === 'Verb').flatMap((w) => templateQuestions(w.word, tenses, perWord));
-      if (!drafts.length) {
+      drafts = words.filter((w) => w.pos === 'Verb' && (!dto.reuse || short.has(w.word))).flatMap((w) => templateQuestions(w.word, tenses, perWord));
+      if (!drafts.length && !reused.length) {
         throw new UnprocessableEntityException((aiProblem === 'off' ? 'AI isn’t set up on the server' : 'AI couldn’t write questions right now')
           + ', and built-in questions only work for verbs (day ' + day + ' has none). Try again later, or write / import questions.');
       }
     }
-    const covered = new Set(drafts.map((d) => d.word.toLowerCase()));
+    const covered = new Set([...drafts, ...reused].map((d) => d.word.toLowerCase()));
     const missing = list.filter((w) => !covered.has(w.toLowerCase()));
 
     const docs: Partial<BankItem>[] = drafts.map((d) => ({ courseId: id, day, kind: d.kind, word: d.word, tense: d.tense, prompt: d.prompt, choices: d.choices, answer: d.answer, accept: d.accept, explain: d.explain, source, status: 'pending' }));
@@ -149,9 +157,10 @@ export class QuestionsService {
       docs.push({ courseId: id, day, kind: 'recap', word: '', tense: '', prompt: recap.text, explain: recap.vi, choices: [], answer: '', accept: [], source, status: 'pending' });
     }
     await this.bank.insertMany(docs);
+    if (reused.length) await this.copyQuestions(id, day, reused, 'pending');
     // The grammar of each sentence (answer in place), for "Grammar" after answering. Optional: never blocks the questions.
     await this.grammar.save(drafts.map((d) => ({ text: fullSentence({ type: d.kind, prompt: d.prompt, answer: d.answer }), tense: d.tense, parts: d.parts, explain: d.explain, source }))).catch(() => undefined);
-    return { source, aiProblem, missing, added: docs.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
+    return { source, aiProblem, missing, reused: reused.length, added: docs.length + reused.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
   }
 
   /** Has AI write a listening dialogue with the day's words (waits for approval; uses one daily AI generation). */
@@ -362,6 +371,84 @@ export class QuestionsService {
         })
       }))
     };
+  }
+
+  /**
+   * Approved tense questions of OTHER courses for these words, not already in this course (same source, or same sentence).
+   * With tenses / perWord: at most perWord per word, the chosen tenses first, one per tense where possible.
+   */
+  private async reusable(id: string, day: number, words: string[], tenses?: readonly string[], perWord?: number) {
+    const lower = words.map((w) => w.toLowerCase());
+    const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const [found, mine] = await Promise.all([
+      this.bank.find({ courseId: { $ne: id }, kind: { $in: TENSE_KINDS }, status: 'approved', word: { $in: lower.map((w) => new RegExp('^' + esc(w) + '$', 'i')) } }).sort({ createdAt: -1 }).limit(2000).lean(),
+      this.bank.find({ courseId: id, kind: { $in: TENSE_KINDS }, status: { $ne: 'rejected' } }, { prompt: 1, answer: 1, sourceId: 1 }).lean()
+    ]);
+    const keyOf = (b: { prompt: string; answer: string }) => sentenceKey(fullSentence({ type: 'tense', prompt: b.prompt, answer: b.answer }));
+    const taken = new Set(mine.flatMap((b) => [b.sourceId, keyOf(b)]).filter(Boolean));
+    const out: typeof found = [];
+    for (const w of lower) {
+      const seen = new Set<string>();
+      let list = found.filter((b) => b.word.toLowerCase() === w).filter((b) => {
+        const k = keyOf(b);
+        if (taken.has(String(b._id)) || taken.has(k) || seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+      if (tenses?.length) list = [...list.filter((b) => tenses.includes(b.tense)), ...list.filter((b) => !tenses.includes(b.tense))];
+      if (perWord) {
+        // One per tense first, so a word gets variety.
+        const byTense = new Map<string, typeof list>();
+        for (const b of list) byTense.set(b.tense, [...(byTense.get(b.tense) ?? []), b]);
+        const spread: typeof list = [];
+        while (spread.length < perWord && [...byTense.values()].some((x) => x.length)) for (const x of byTense.values()) { const b = x.shift(); if (b && spread.length < perWord) spread.push(b); }
+        list = spread;
+      }
+      out.push(...list);
+    }
+    void day;
+    return out;
+  }
+
+  /** Copies other courses' questions into a day (the word spelled as in this day). */
+  private async copyQuestions(id: string, day: number, items: BankItemDocument[] | (BankItem & { _id: unknown })[], status: 'approved' | 'pending') {
+    if (!items.length) return 0;
+    const c = await this.courses.findById(id, { days: 1 }).lean();
+    const words = new Map((c?.days.find((d) => d.day === day)?.words ?? []).map((w) => [w.word.toLowerCase(), w.word]));
+    const docs: Partial<BankItem>[] = items.flatMap((b) => {
+      const word = words.get(b.word.toLowerCase());
+      return word ? [{ courseId: id, day, kind: b.kind, word, tense: b.tense, prompt: b.prompt, choices: b.choices, answer: b.answer, accept: b.accept, explain: b.explain, source: 'course', sourceId: String(b._id), status }] : [];
+    });
+    if (docs.length) await this.bank.insertMany(docs);
+    return docs.length;
+  }
+
+  /** Other courses' approved questions for the day's words, to pick from (copies are approved: they were approved there). */
+  async reuseList(user: string, id: string, day: number) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const words = (c.days.find((d) => d.day === day)?.words ?? []).map((w) => w.word);
+    const found = await this.reusable(id, day, words);
+    const titles = new Map((await this.courses.find({ _id: { $in: [...new Set(found.map((b) => b.courseId))] } }, { title: 1 }).lean()).map((x) => [String(x._id), x.title]));
+    return {
+      words: words.map((word) => ({
+        word,
+        items: found.filter((b) => b.word.toLowerCase() === word.toLowerCase()).slice(0, 30).map((b) => ({
+          id: String(b._id), kind: b.kind, tense: b.tense, tenseLabel: TENSE_LABEL[b.tense as Tense] ?? '', prompt: b.prompt, answer: b.answer,
+          choices: b.choices, explain: b.explain, course: titles.get(b.courseId) ?? ''
+        }))
+      }))
+    };
+  }
+
+  async reuseAdd(user: string, id: string, day: number, ids: string[]) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const words = (c.days.find((d) => d.day === day)?.words ?? []).map((w) => w.word);
+    const allowed = new Set((await this.reusable(id, day, words)).map((b) => String(b._id)));
+    const picked = await this.bank.find({ _id: { $in: ids.filter((x) => allowed.has(x)) } }).lean();
+    const added = await this.copyQuestions(id, day, picked, 'approved');
+    return { added, skipped: ids.length - added, items: await this.list(user, id, day) };
   }
 
   /** Copies picked bank sentences into the day's questions (approved: the bank is checked already). */

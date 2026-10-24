@@ -1,8 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
-  ArrayMaxSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested
-} from 'class-validator';
+  ArrayMaxSize, IsArray, IsIn, IsInt, IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, Matches, Max, MaxLength, Min, ValidateNested, IsBoolean } from 'class-validator';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { FAMILY_MAX, FamilyMemberDto } from '../common/family';
 import { TOPICS } from '../library/library.schema';
@@ -108,6 +107,8 @@ export class GenerateQuestionsDto {
   @IsOptional() @IsArray() @ArrayMaxSize(7) @IsIn(TENSES, { each: true }) tenses?: string[];
   /** Questions per word, 1–3 (default 2). */
   @IsOptional() @IsInt() @Min(1) @Max(3) perWord?: number;
+  /** Use other courses' approved questions for these words first; AI writes only what's still missing. */
+  @IsOptional() @IsBoolean() reuse?: boolean;
 }
 
 export class BankItemDto {
@@ -153,4 +154,9 @@ export class BankPickItemDto {
 }
 export class BankPickDto {
   @IsArray() @ArrayMaxSize(60) @ValidateNested({ each: true }) @Type(() => BankPickItemDto) items: BankPickItemDto[];
+}
+
+export class ReuseQuestionsDto {
+  /** Approved questions of other courses to copy into this day. */
+  @IsArray() @ArrayMaxSize(100) @IsMongoId({ each: true }) ids: string[];
 }

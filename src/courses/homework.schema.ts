@@ -108,8 +108,8 @@ export class BankItem {
   @Prop({ type: [String], default: [] }) accept: string[];
   /** Why this tense (Vietnamese), or the recap's Vietnamese translation. */
   @Prop({ default: '' }) explain: string;
-  /** bank: copied from the word sentence bank (sourceId = that sentence). */
-  @Prop({ enum: ['ai', 'template', 'manual', 'bank'], default: 'manual' }) source: string;
+  /** bank: copied from the word sentence bank (sourceId = that sentence); course: copied from another course's approved question (sourceId = that question). */
+  @Prop({ enum: ['ai', 'template', 'manual', 'bank', 'course'], default: 'manual' }) source: string;
   @Prop({ default: '' }) sourceId: string;
   @Prop({ enum: BANK_STATUSES, default: 'pending' }) status: string;
   /** Dialogues: speakers, lines (with [[blanks]]) and comprehension questions — see dialogue.ts. */
