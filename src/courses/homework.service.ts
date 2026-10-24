@@ -7,7 +7,7 @@ import { LibraryService } from '../library/library.service';
 import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
 import { gradeDictation } from '../dictation/dictation.grade';
-import { TENSE_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument, type SentenceFeedback } from './homework.schema';
+import { CHOICE_KINDS, QUESTION_KINDS, TENSE_KINDS, WORD_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument, type SentenceFeedback } from './homework.schema';
 import { containsWord, gradeSentence, SentenceAttempt } from '../practice/sentence-grade';
 import { Dialogue, dialogueBlanks } from './dialogue';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -23,6 +23,8 @@ const MIN_REVIEW = 3;
 const BOARD_ROWS = 50;
 /** Tense questions from the bank in a day's homework: about the new words, and about review words. */
 const TENSE_NEW = 4;
+/** Word fill questions from the bank for the day's new words. */
+const WORD_NEW = 4;
 const TENSE_REVIEW = 2;
 /** Words in the warm-up before a day's new words. */
 const WARMUP_WORDS = 6;
@@ -161,8 +163,8 @@ function shown(q: Question) {
 }
 
 /** A homework question from an approved bank item. */
-function fromBank(b: BankItemDocument, review: boolean): Question {
-  return { type: b.kind, word: b.word, review, prompt: b.prompt, hint: '', choices: b.kind === 'tenseChoice' ? shuffle(b.choices) : [], answer: b.answer, accept: b.accept, tense: b.tense, explain: b.explain };
+function fromBank(b: BankItemDocument, review: boolean, hint = ''): Question {
+  return { type: b.kind, word: b.word, review, prompt: b.prompt, hint, choices: CHOICE_KINDS.includes(b.kind) ? shuffle(b.choices) : [], answer: b.answer, accept: b.accept, tense: b.tense, explain: b.explain };
 }
 
 const tenseLabel = (t: string) => TENSE_LABEL[t as Tense] ?? '';
@@ -231,7 +233,7 @@ export class HomeworkService {
 
   private async bankUpTo(c: CourseDocument, day: number): Promise<BankItemDocument[]> {
     const items = await this.questions.approved(String(c._id), Array.from({ length: day }, (_, i) => i + 1));
-    return items.filter((b) => TENSE_KINDS.includes(b.kind));
+    return items.filter((b) => QUESTION_KINDS.includes(b.kind));
   }
 
   /** Words to take wrong choices from: the course's, plus some library words for small courses. */
@@ -261,7 +263,10 @@ export class HomeworkService {
     const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
     for (const w of review) qs.push(makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool));
     // Tense practice from the owner-approved question bank.
-    qs.push(...shuffle(bank.filter((b) => b.day === day)).slice(0, TENSE_NEW).map((b) => fromBank(b, false)));
+    qs.push(...shuffle(bank.filter((b) => b.day === day && TENSE_KINDS.includes(b.kind))).slice(0, TENSE_NEW).map((b) => fromBank(b, false)));
+    // Word fill: the day's word itself in the blank; the hint is its Vietnamese meaning.
+    const viOf = new Map([...today, ...earlier].map((w) => [w.word.toLowerCase(), label(w)]));
+    qs.push(...shuffle(bank.filter((b) => b.day === day && WORD_KINDS.includes(b.kind))).slice(0, WORD_NEW).map((b) => fromBank(b, false, b.kind === 'wordFill' ? viOf.get(b.word.toLowerCase()) ?? '' : '')));
     // Dictation: example sentences of earlier words not asked as a blank today (a blank's own sentence would give it away).
     const blanked = new Set(qs.filter((q) => q.type === 'blank').map((q) => q.word.toLowerCase()));
     const want = Math.min(3, Math.max(0, c.dictationPerDay ?? 2));
@@ -278,7 +283,7 @@ export class HomeworkService {
     const blankedNow = new Set(qs.filter((q) => q.type === 'blank').map((q) => q.word.toLowerCase()));
     qs.push(...wordFormQuestions(today, earlier, blankedNow, WORDFORM_PER_DAY));
     const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
-    qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true)));
+    qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true, b.kind === 'wordFill' ? viOf.get(b.word.toLowerCase()) ?? '' : '')));
     // One "Write a sentence" with a new word, graded by AI (only when AI is set up).
     const writable = shuffle(today.filter((w) => !blankedNow.has(w.word.toLowerCase())));
     if (this.config.get<string>('ANTHROPIC_API_KEY') && writable.length) qs.push(sentenceQuestion(writable[0]));
@@ -445,12 +450,12 @@ export class HomeworkService {
     const rank = (w: CourseWord) => (wrong.get(w.word.toLowerCase()) ?? 0) * 10 + (practised.has(w.word.toLowerCase()) ? 0 : 1) + Math.random();
     const picked = [...earlier].sort((a, b) => rank(b) - rank(a)).slice(0, WARMUP_WORDS);
 
-    const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => TENSE_KINDS.includes(b.kind));
+    const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => QUESTION_KINDS.includes(b.kind));
     const pool = await this.poolFor(c);
     const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
     const questions = picked.map((w) => {
       const tense = shuffle(bank.filter((b) => b.word.toLowerCase() === w.word.toLowerCase()))[0];
-      const q = tense && Math.random() < 0.5 ? fromBank(tense, true) : makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool);
+      const q = tense && Math.random() < 0.5 ? fromBank(tense, true, tense.kind === 'wordFill' ? label(w) : '') : makeQuestion(w, types[Math.floor(Math.random() * types.length)], true, pool);
       return { type: q.type, word: q.word, prompt: q.prompt, hint: q.hint, choices: q.choices, answer: q.answer, accept: q.accept, tense: q.tense ?? '', tenseLabel: tenseLabel(q.tense ?? ''), explain: q.explain ?? '' };
     });
     // The warm-up already includes the answers, so the grammar can come along (shown once a question is answered).

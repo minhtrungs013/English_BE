@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 import { UserId } from '../auth/auth.decorators';
 import { Enrollment, EnrollmentSchema } from '../courses/course.schema';
 import { CoursesModule } from '../courses/courses.module';
-import { BankItem, BankItemSchema, TENSE_KINDS } from '../courses/homework.schema';
+import { BankItem, BankItemSchema, QUESTION_KINDS } from '../courses/homework.schema';
 import { SentenceGrammarService, type GrammarView } from '../courses/sentence-grammar';
 import { fullSentence, sentenceKey } from '../courses/sentence-rules';
 import { TENSE_LABEL, type Tense } from '../courses/tense';
@@ -90,7 +90,7 @@ export class PracticeService {
   private async courseKeys(user: string): Promise<Set<string>> {
     const courseIds = (await this.enrollments.find({ user }, { courseId: 1 }).lean()).map((e) => e.courseId);
     if (!courseIds.length) return new Set();
-    const items = await this.bank.find({ courseId: { $in: courseIds }, kind: { $in: TENSE_KINDS }, status: 'approved' }, { prompt: 1, answer: 1 }).lean();
+    const items = await this.bank.find({ courseId: { $in: courseIds }, kind: { $in: QUESTION_KINDS }, status: 'approved' }, { prompt: 1, answer: 1 }).lean();
     return new Set(items.map((b) => sentenceKey(fullSentence({ type: 'tense', prompt: b.prompt, answer: b.answer }))));
   }
 

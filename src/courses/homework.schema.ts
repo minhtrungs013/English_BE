@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export const QUESTION_TYPES = ['meaning', 'word', 'type', 'blank', 'tense', 'tenseChoice', 'dictation', 'wordform', 'sentence'] as const;
+export const QUESTION_TYPES = ['meaning', 'word', 'type', 'blank', 'tense', 'tenseChoice', 'dictation', 'wordform', 'sentence', 'wordFill', 'wordFillChoice'] as const;
 export type QuestionType = (typeof QUESTION_TYPES)[number];
 
 /**
@@ -11,7 +11,8 @@ export type QuestionType = (typeof QUESTION_TYPES)[number];
  * dictation: hear a course word's example sentence (the device speaks it) and type it — `answer` is the sentence;
  * wordform: type the right form of a word-family member in its example sentence ("The ___ (decide) was made."),
  * `hint` is the answer's part of speech ("noun") and `explain` the family line + its Vietnamese meaning;
- * sentence: write your own sentence with the word, graded by AI when handed in (`answer` is the word's example sentence, shown afterwards).
+ * sentence: write your own sentence with the word, graded by AI when handed in (`answer` is the word's example sentence, shown afterwards);
+ * wordFill / wordFillChoice: the course word itself goes in the "___" of an owner-written sentence (typed / multiple choice).
  */
 @Schema({ _id: false })
 export class Question {
@@ -82,9 +83,15 @@ export const SubmissionSchema = SchemaFactory.createForClass(Submission);
 SubmissionSchema.index({ courseId: 1, user: 1, day: 1 }, { unique: true });
 SubmissionSchema.index({ courseId: 1, day: 1, submittedAt: 1 });
 
-export const BANK_KINDS = ['tense', 'tenseChoice', 'recap', 'dialogue'] as const;
-/** Bank kinds that are questions in homework and warm-ups. */
+export const BANK_KINDS = ['tense', 'tenseChoice', 'wordFill', 'wordFillChoice', 'recap', 'dialogue'] as const;
+/** Tense questions: a verb goes in the blank. */
 export const TENSE_KINDS = ['tense', 'tenseChoice'];
+/** Word fill: the vocabulary word itself goes in the blank (any part of speech). */
+export const WORD_KINDS = ['wordFill', 'wordFillChoice'];
+/** Bank kinds that are questions in homework and warm-ups. */
+export const QUESTION_KINDS = [...TENSE_KINDS, ...WORD_KINDS];
+/** Bank kinds with 4 choices. */
+export const CHOICE_KINDS = ['tenseChoice', 'wordFillChoice'];
 export const BANK_STATUSES = ['pending', 'approved', 'rejected'] as const;
 export type BankStatus = (typeof BANK_STATUSES)[number];
 

@@ -6,7 +6,8 @@ import { ProfileService } from '../profile/profile.service';
 import { Course, CourseDocument } from './course.schema';
 import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.dto';
 import { Dialogue, aiDialogue, cleanDialogue, dayWordProblem } from './dialogue';
-import { BankItem, BankItemDocument, BankStatus, TENSE_KINDS } from './homework.schema';
+import { BankItem, BankItemDocument, BankStatus, CHOICE_KINDS, QUESTION_KINDS, TENSE_KINDS, WORD_KINDS } from './homework.schema';
+import { containsWord } from '../practice/sentence-grade';
 import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiRecap, aiTenseQuestions, templateQuestions } from './tense';
 import { SentenceGrammarService } from './sentence-grammar';
 import { fullSentence, sentenceKey } from './sentence-rules';
@@ -17,6 +18,15 @@ const shuffle = <T,>(a: T[]): T[] => a.map((x) => [Math.random(), x] as const).s
 
 /** How many earlier words the recap story may use. */
 const RECAP_WORDS = 12;
+
+/**
+ * A word question's answer is the word or a form of it (legs, rode). Long words are checked by their stem; short ones
+ * (leg, buy) can't be, so they must at least start with the same letter — "hand" for "leg" is refused.
+ */
+function isWordForm(answer: string, word: string): boolean {
+  const w = word.trim().toLowerCase();
+  return containsWord(answer, word) && (w.length > 4 || w.includes(' ') || answer.trim().toLowerCase().startsWith(w[0]));
+}
 
 @Injectable()
 export class QuestionsService {
@@ -50,7 +60,7 @@ export class QuestionsService {
   }
 
   /** Checks a question's shape: one blank, and for multiple choice 4 different choices including the answer. */
-  private validate(kind: string, prompt: string, choices: string[], answer: string) {
+  private validate(kind: string, prompt: string, choices: string[], answer: string, word = '') {
     if (kind === 'dialogue') return; // checked by cleanDialogue
     if (kind === 'recap') {
       if (!prompt.trim()) throw new BadRequestException('The recap story is empty.');
@@ -58,8 +68,15 @@ export class QuestionsService {
     }
     if ((prompt.match(/___/g) ?? []).length !== 1) throw new BadRequestException('The sentence needs exactly one blank (___).');
     if (!answer.trim()) throw new BadRequestException('The answer is empty.');
-    if (kind === 'tenseChoice' && (new Set(choices.map((c) => c.trim().toLowerCase())).size !== 4 || !choices.includes(answer))) {
+    if (CHOICE_KINDS.includes(kind) && (new Set(choices.map((c) => c.trim().toLowerCase())).size !== 4 || !choices.includes(answer))) {
       throw new BadRequestException('Multiple choice needs 4 different choices, one of them the answer.');
+    }
+    // Word fill: the blank is the vocabulary word itself (or a form of it, e.g. legs, rode).
+    if (WORD_KINDS.includes(kind) && /___\s*\([^)]*\)/.test(prompt)) {
+      throw new BadRequestException('A word question has no hint in brackets after ___ — the blank is the word itself.');
+    }
+    if (WORD_KINDS.includes(kind) && word && !isWordForm(answer, word)) {
+      throw new BadRequestException('For a word question, the answer must be “' + word + '” (or a form of it), not “' + answer.trim() + '”.');
     }
   }
 
@@ -229,10 +246,10 @@ export class QuestionsService {
   async create(user: string, id: string, day: number, dto: BankItemDto) {
     const c = await this.owned(user, id);
     this.checkDay(c, day);
-    const choices = dto.kind === 'tenseChoice' ? (dto.choices ?? []).map((x) => x.trim()) : [];
+    const choices = CHOICE_KINDS.includes(dto.kind) ? (dto.choices ?? []).map((x) => x.trim()) : [];
     const dialogue = dto.kind === 'dialogue' ? cleanDialogue(dto.data) : null;
     if (dialogue) this.assertDayWords(c, day, dialogue);
-    this.validate(dto.kind, dto.prompt ?? '', choices, dto.answer ?? '');
+    this.validate(dto.kind, dto.prompt ?? '', choices, dto.answer ?? '', dto.word ?? '');
     if (dto.kind === 'recap') await this.bank.deleteMany({ courseId: id, day, kind: 'recap' });
     // One approved dialogue per day: the new one replaces it.
     if (dialogue) await this.bank.updateMany({ courseId: id, day, kind: 'dialogue', status: 'approved' }, { $set: { status: 'rejected' } });
@@ -272,7 +289,7 @@ export class QuestionsService {
       q.explain = d.scenario;
       q.markModified('data');
     }
-    this.validate(q.kind, q.prompt, q.choices, q.answer);
+    this.validate(q.kind, q.prompt, q.choices, q.answer, q.word);
     // Only one recap and one dialogue per day are used.
     if ((q.kind === 'recap' || q.kind === 'dialogue') && q.status === 'approved') {
       await this.bank.updateMany({ courseId: id, day: q.day, kind: q.kind, status: 'approved', _id: { $ne: q._id } }, { $set: { status: 'rejected' } });
@@ -298,19 +315,20 @@ export class QuestionsService {
     rows.forEach((r, index) => {
       try {
         const rawKind = text(r.kind ?? r.type).toLowerCase();
-        const kind = ['tense', 'typed', 'type'].includes(rawKind) ? 'tense' : ['tensechoice', 'multi', 'choice', 'mc', 'multiple'].includes(rawKind) ? 'tenseChoice' : '';
-        if (!kind) throw new BadRequestException('Type must be "typed" or "multi".');
+        const kind = ['tense', 'typed', 'type'].includes(rawKind) ? 'tense' : ['tensechoice', 'multi', 'choice', 'mc', 'multiple'].includes(rawKind) ? 'tenseChoice'
+          : ['word', 'word-typed', 'wordfill', 'word-fill'].includes(rawKind) ? 'wordFill' : ['word-multi', 'wordmulti', 'word-choice', 'wordfillchoice'].includes(rawKind) ? 'wordFillChoice' : '';
+        if (!kind) throw new BadRequestException('Type must be "typed" or "multi" (verb tense), or "word" or "word-multi" (the word itself).');
         const word = byLower.get(text(r.word).toLowerCase());
         if (!word) throw new BadRequestException('“' + text(r.word) + '” isn’t one of day ' + day + '’s words.');
         const tense = text(r.tense);
         if (tense && !(TENSES as readonly string[]).includes(tense)) throw new BadRequestException('Unknown tense “' + tense + '”. Use one of: ' + TENSES.join(', ') + '.');
         const prompt = text(r.prompt ?? r.sentence);
         const answer = text(r.answer);
-        const choices = kind === 'tenseChoice' ? (Array.isArray(r.choices) ? list(r.choices) : [r.choice1, r.choice2, r.choice3, r.choice4].map(text).filter(Boolean)) : [];
-        if (kind === 'tenseChoice' && choices.length === 3 && answer && !choices.includes(answer)) choices.push(answer);
-        this.validate(kind, prompt, choices, answer);
+        const choices = CHOICE_KINDS.includes(kind) ? (Array.isArray(r.choices) ? list(r.choices) : [r.choice1, r.choice2, r.choice3, r.choice4].map(text).filter(Boolean)) : [];
+        if (CHOICE_KINDS.includes(kind) && choices.length === 3 && answer && !choices.includes(answer)) choices.push(answer);
+        this.validate(kind, prompt, choices, answer, word);
         if (prompt.length > 1500 || answer.length > 80 || choices.some((x) => x.length > 80)) throw new BadRequestException('Text is too long.');
-        docs.push({ courseId: id, day, kind, word, tense, prompt, choices, answer, accept: list(r.accept).slice(0, 5), explain: text(r.explain).slice(0, 1500), source: 'manual', status: 'approved' });
+        docs.push({ courseId: id, day, kind, word, tense: WORD_KINDS.includes(kind) ? '' : tense, prompt, choices, answer, accept: list(r.accept).slice(0, 5), explain: text(r.explain).slice(0, 1500), source: 'manual', status: 'approved' });
       } catch (e) {
         errors.push({ index, message: e instanceof Error ? e.message : 'Invalid row.' });
       }
@@ -381,8 +399,8 @@ export class QuestionsService {
     const lower = words.map((w) => w.toLowerCase());
     const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const [found, mine] = await Promise.all([
-      this.bank.find({ courseId: { $ne: id }, kind: { $in: TENSE_KINDS }, status: 'approved', word: { $in: lower.map((w) => new RegExp('^' + esc(w) + '$', 'i')) } }).sort({ createdAt: -1 }).limit(2000).lean(),
-      this.bank.find({ courseId: id, kind: { $in: TENSE_KINDS }, status: { $ne: 'rejected' } }, { prompt: 1, answer: 1, sourceId: 1 }).lean()
+      this.bank.find({ courseId: { $ne: id }, kind: { $in: QUESTION_KINDS }, status: 'approved', word: { $in: lower.map((w) => new RegExp('^' + esc(w) + '$', 'i')) } }).sort({ createdAt: -1 }).limit(2000).lean(),
+      this.bank.find({ courseId: id, kind: { $in: QUESTION_KINDS }, status: { $ne: 'rejected' } }, { prompt: 1, answer: 1, sourceId: 1 }).lean()
     ]);
     const keyOf = (b: { prompt: string; answer: string }) => sentenceKey(fullSentence({ type: 'tense', prompt: b.prompt, answer: b.answer }));
     const taken = new Set(mine.flatMap((b) => [b.sourceId, keyOf(b)]).filter(Boolean));
