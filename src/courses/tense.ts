@@ -246,7 +246,7 @@ export async function aiTenseQuestions(
     '\nAbout half "fill" and half "choice".' + (reviewWords.length ? '\nREVIEW WORDS (for the recap): ' + reviewWords.join(' | ') : '\nNo review words: recap must be null.');
   let res: Response;
   try {
-    res = await claudeFetch('tense-questions', apiKey, { model, max_tokens: 4000, system: SYSTEM, messages: [{ role: 'user', content: user }] },
+    res = await claudeFetch('tense-questions', apiKey, { model, max_tokens: 8000, system: SYSTEM, messages: [{ role: 'user', content: user }] },
       { signal: AbortSignal.timeout(45000), detail: words.join(', ') });
   } catch (e) {
     console.warn('[Courses] fetch failed: ' + String(e));

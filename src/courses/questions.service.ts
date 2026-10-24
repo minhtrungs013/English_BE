@@ -103,29 +103,45 @@ export class QuestionsService {
     let drafts: TenseDraft[] = [];
     let recap: { text: string; vi: string } | null = null;
     let source: 'ai' | 'template' = 'template';
-    // const key = this.config.get<string>('OPENAI_API_KEY');
+    /** Why AI wasn't used: no key on the server, or the call failed. */
+    let aiProblem: 'off' | 'failed' | '' = '';
     const key = this.config.get<string>('ANTHROPIC_API_KEY');
+    const model = this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5');
+    const list = words.map((w) => w.word);
     if (key) {
-      const { used, limit } = await this.profile.dailyStatus(user, 'courseAi');
-      if (used >= limit) {
-        throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write questions by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
+      // Admins build the courses: their course AI isn't capped per day (tokens are still counted in the audit log).
+      const admin = await this.access.isAdmin(user);
+      if (!admin) {
+        const { used, limit } = await this.profile.dailyStatus(user, 'courseAi');
+        if (used >= limit) {
+          throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write questions by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
+        }
+        await this.profile.assertTokens(user);
       }
-      await this.profile.assertTokens(user);
-      // const ai = await aiTenseQuestions(words.map((w) => w.word), earlier, tenses, perWord, key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
-      const ai = await aiTenseQuestions(words.map((w) => w.word), earlier, tenses, perWord, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
+      const ai = await aiTenseQuestions(list, earlier, tenses, perWord, key, model);
       if (ai && ai.questions.length) {
-        await this.profile.useDaily(user, 'courseAi', { checkTokens: false });
+        if (!admin) await this.profile.useDaily(user, 'courseAi', { checkTokens: false });
         drafts = ai.questions;
         recap = ai.recap;
         source = 'ai';
-      }
-    }
+        // AI sometimes skips a word (long lists): one more call just for the words it left out.
+        const got = new Set(drafts.map((d) => d.word.toLowerCase()));
+        const left = list.filter((w) => !got.has(w.toLowerCase()));
+        if (left.length) {
+          const more = await aiTenseQuestions(left, [], tenses, perWord, key, model);
+          if (more?.questions.length) drafts = [...drafts, ...more.questions];
+        }
+      } else aiProblem = 'failed';
+    } else aiProblem = 'off';
     if (source === 'template') {
       drafts = words.filter((w) => w.pos === 'Verb').flatMap((w) => templateQuestions(w.word, tenses, perWord));
       if (!drafts.length) {
-        throw new UnprocessableEntityException('AI isn’t available right now, and built-in questions only work for verbs. Write questions by hand, or try again later.');
+        throw new UnprocessableEntityException((aiProblem === 'off' ? 'AI isn’t set up on the server' : 'AI couldn’t write questions right now')
+          + ', and built-in questions only work for verbs (day ' + day + ' has none). Try again later, or write / import questions.');
       }
     }
+    const covered = new Set(drafts.map((d) => d.word.toLowerCase()));
+    const missing = list.filter((w) => !covered.has(w.toLowerCase()));
 
     const docs: Partial<BankItem>[] = drafts.map((d) => ({ courseId: id, day, kind: d.kind, word: d.word, tense: d.tense, prompt: d.prompt, choices: d.choices, answer: d.answer, accept: d.accept, explain: d.explain, source, status: 'pending' }));
     if (recap) {
@@ -135,7 +151,7 @@ export class QuestionsService {
     await this.bank.insertMany(docs);
     // The grammar of each sentence (answer in place), for "Grammar" after answering. Optional: never blocks the questions.
     await this.grammar.save(drafts.map((d) => ({ text: fullSentence({ type: d.kind, prompt: d.prompt, answer: d.answer }), tense: d.tense, parts: d.parts, explain: d.explain, source }))).catch(() => undefined);
-    return { source, added: docs.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
+    return { source, aiProblem, missing, added: docs.length, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
   }
 
   /** Has AI write a listening dialogue with the day's words (waits for approval; uses one daily AI generation). */

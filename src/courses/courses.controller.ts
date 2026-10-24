@@ -184,7 +184,8 @@ export class CoursesController {
   }
 
   /** Write tense questions (and a recap) for a day with AI; they wait for approval. */
-  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  // 'All days' sends one request per day, one after another.
+  @Throttle({ default: { limit: 30, ttl: 60_000 } })
   @Post(':id/days/:day/questions/generate')
   @HttpCode(200)
   generateQuestions(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: GenerateQuestionsDto) {
