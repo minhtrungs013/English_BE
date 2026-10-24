@@ -27,6 +27,23 @@ export function dialogueBlanks(d: Pick<Dialogue, 'lines'>): { surface: string; b
   return d.lines.flatMap((l) => [...l.text.matchAll(BLANK_RE)].map((m) => ({ surface: m[1].trim(), base: (m[2] ?? m[1]).trim() })));
 }
 
+/** Which of the day's words have no blank, and which blanks aren't the day's words (case-insensitive). */
+export function dayWordCheck(d: Pick<Dialogue, 'lines'>, words: string[]): { missing: string[]; extra: string[] } {
+  const norm = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ');
+  const bases = new Set(dialogueBlanks(d).map((b) => norm(b.base)));
+  const wanted = new Map(words.map((w) => [norm(w), w]));
+  return {
+    missing: [...wanted].filter(([k]) => !bases.has(k)).map(([, w]) => w),
+    extra: [...new Set(dialogueBlanks(d).map((b) => b.base.trim()))].filter((b) => !wanted.has(norm(b)))
+  };
+}
+
+/** "Missing: a, b · Not day 3's words: c" ('' when the blanks are exactly the day's words). */
+export function dayWordProblem(d: Pick<Dialogue, 'lines'>, words: string[], day: number): string {
+  const { missing, extra } = dayWordCheck(d, words);
+  return [missing.length ? 'Missing a blank for: ' + missing.join(', ') : '', extra.length ? 'Not day ' + day + '’s words: ' + extra.join(', ') : ''].filter(Boolean).join(' · ');
+}
+
 /** Checks and cleans a dialogue from the owner, an import or AI; throws a 400 with the first problem. */
 export function cleanDialogue(raw: unknown): Dialogue {
   const o = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
@@ -68,7 +85,7 @@ export function cleanDialogue(raw: unknown): Dialogue {
 
 export const DIALOGUE_SYSTEM = `You write short listening dialogues for Vietnamese office workers studying TOEIC / workplace English.
 Write ONE natural two-person conversation (8–12 lines, B1 level, realistic workplace or customer-service situation) that uses ALL the given words.
-Mark each use of a given word as a blank: [[word]] when it appears exactly as given, or [[said form|word]] when inflected (e.g. [[items|item]], [[deployed|deploy]]). Each given word is a blank exactly once; no other blanks.
+Mark each use of a given word as a blank: [[word]] when it appears exactly as given, or [[said form|word]] when inflected (e.g. [[items|item]], [[deployed|deploy]]); the part after | must be the given word exactly. Each given word is a blank exactly once; no other blanks.
 Never repeat a blanked word in the very next line (it would give the answer away).
 Return ONLY JSON: {"title": short English title, "scenario": one Vietnamese sentence describing the situation,
 "speakers": [{"name": role or first name, "gender": "female"|"male"}, {...}] (one female, one male),
@@ -101,14 +118,14 @@ Return ONLY JSON: {"title": short English title, "scenario": one Vietnamese sent
 // }
 
 /** Asks Claude for a dialogue; null when the call fails or the result doesn't pass the checks. */
-export async function aiDialogue(words: string[], apiKey: string, model: string): Promise<Dialogue | null> {
+export async function aiDialogue(words: string[], apiKey: string, model: string, fix = ''): Promise<Dialogue | null> {
   let res: Response;
   try {
     res = await claudeFetch('dialogue', apiKey, {
       model,
       max_tokens: 2000,
       system: DIALOGUE_SYSTEM,
-      messages: [{ role: 'user', content: 'WORDS: ' + words.join(' | ') }]
+      messages: [{ role: 'user', content: 'WORDS: ' + words.join(' | ') + (fix ? '\nYour previous dialogue was wrong (' + fix + '). Every given word must be a blank, and only the given words.' : '') }]
     }, { signal: AbortSignal.timeout(45000), detail: words.join(', ') });
   } catch (e) {
     console.warn('[Courses] dialogue fetch failed: ' + String(e));

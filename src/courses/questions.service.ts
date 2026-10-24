@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { ProfileService } from '../profile/profile.service';
 import { Course, CourseDocument } from './course.schema';
 import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.dto';
-import { Dialogue, aiDialogue, cleanDialogue } from './dialogue';
+import { Dialogue, aiDialogue, cleanDialogue, dayWordProblem } from './dialogue';
 import { BankItem, BankItemDocument, BankStatus, TENSE_KINDS } from './homework.schema';
 import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiRecap, aiTenseQuestions, templateQuestions } from './tense';
 import { SentenceGrammarService } from './sentence-grammar';
@@ -174,8 +174,16 @@ export class QuestionsService {
       await this.profile.assertTokens(user);
     }
     // const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
-    const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
+    const list = words.map((w) => w.word);
+    const model = this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5');
+    let d: Dialogue | null = await aiDialogue(list, key, model);
+    let problem = d ? dayWordProblem(d, list, day) : '';
+    if (d && problem) {
+      d = await aiDialogue(list, key, model, problem);
+      problem = d ? dayWordProblem(d, list, day) : '';
+    }
     if (!d) throw new UnprocessableEntityException('AI couldn’t write a dialogue right now. Try again later, or write it by hand / import it.');
+    if (problem) throw new UnprocessableEntityException('AI’s dialogue didn’t use day ' + day + '’s words (' + problem + '). Try again, or write / import it.');
     if (!admin) await this.profile.useDaily(user, 'courseAi', { checkTokens: false });
     await this.bank.create({ courseId: id, day, kind: 'dialogue', word: '', tense: '', prompt: d.title, explain: d.scenario, choices: [], answer: '', accept: [], data: d as unknown as Record<string, unknown>, source: 'ai', status: 'pending' });
     return { skipped: false, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
@@ -214,6 +222,7 @@ export class QuestionsService {
     this.checkDay(c, day);
     const choices = dto.kind === 'tenseChoice' ? (dto.choices ?? []).map((x) => x.trim()) : [];
     const dialogue = dto.kind === 'dialogue' ? cleanDialogue(dto.data) : null;
+    if (dialogue) this.assertDayWords(c, day, dialogue);
     this.validate(dto.kind, dto.prompt ?? '', choices, dto.answer ?? '');
     if (dto.kind === 'recap') await this.bank.deleteMany({ courseId: id, day, kind: 'recap' });
     // One approved dialogue per day: the new one replaces it.
@@ -227,8 +236,15 @@ export class QuestionsService {
     return this.view(q);
   }
 
+  /** A dialogue's blanks must be exactly the day's words: none missing, none from elsewhere. */
+  private assertDayWords(c: CourseDocument, day: number, d: Dialogue): void {
+    const words = (c.days.find((x) => x.day === day)?.words ?? []).map((w) => w.word);
+    const problem = dayWordProblem(d, words, day);
+    if (problem) throw new BadRequestException('The blanks must be day ' + day + '’s words. ' + problem + '.');
+  }
+
   async update(user: string, id: string, qid: string, dto: UpdateBankItemDto) {
-    await this.owned(user, id);
+    const c = await this.owned(user, id);
     const q = await this.bank.findOne({ _id: qid, courseId: id });
     if (!q) throw new NotFoundException('Question not found.');
     if (dto.prompt !== undefined) q.prompt = dto.prompt.trim();
@@ -241,6 +257,7 @@ export class QuestionsService {
     if (dto.status !== undefined) q.status = dto.status;
     if (q.kind === 'dialogue' && dto.data !== undefined) {
       const d = cleanDialogue(dto.data);
+      this.assertDayWords(c, q.day, d);
       q.data = d as unknown as Record<string, unknown>;
       q.prompt = d.title;
       q.explain = d.scenario;
