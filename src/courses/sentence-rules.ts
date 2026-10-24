@@ -37,7 +37,7 @@ const BLANK = /_{3,}(\s*\([^)]*\))?/;
 /** The sentence a question is about, with the answer in place; '' for questions without a sentence. */
 export function fullSentence(q: { type: string; prompt: string; answer: string }): string {
   if (q.type === 'dictation') return q.answer.trim();
-  if (!['tense', 'tenseChoice', 'blank', 'wordform'].includes(q.type) || !BLANK.test(q.prompt)) return '';
+  if (!['tense', 'tenseChoice', 'blank', 'wordform', 'wordFill', 'wordFillChoice'].includes(q.type) || !BLANK.test(q.prompt)) return '';
   return q.prompt.replace(BLANK, q.answer).replace(/\s+/g, ' ').trim();
 }
 

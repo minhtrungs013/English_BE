@@ -267,6 +267,16 @@ export class HomeworkService {
     // Word fill: the day's word itself in the blank; the hint is its Vietnamese meaning.
     const viOf = new Map([...today, ...earlier].map((w) => [w.word.toLowerCase(), label(w)]));
     qs.push(...shuffle(bank.filter((b) => b.day === day && WORD_KINDS.includes(b.kind))).slice(0, WORD_NEW).map((b) => fromBank(b, false, b.kind === 'wordFill' ? viOf.get(b.word.toLowerCase()) ?? '' : '')));
+    // A word already asked by word fill isn't asked as a blank too (two gaps for one word): it's typed from its meaning instead.
+    const unblank = () => {
+      const filled = new Set(qs.filter((q) => WORD_KINDS.includes(q.type)).map((q) => q.word.toLowerCase()));
+      qs.forEach((q, i) => {
+        if (q.type !== 'blank' || !filled.has(q.word.toLowerCase())) return;
+        const w = [...today, ...earlier].find((x) => x.word.toLowerCase() === q.word.toLowerCase());
+        if (w) qs[i] = makeQuestion(w, 'type', q.review, pool);
+      });
+    };
+    unblank();
     // Dictation: example sentences of earlier words not asked as a blank today (a blank's own sentence would give it away).
     const blanked = new Set(qs.filter((q) => q.type === 'blank').map((q) => q.word.toLowerCase()));
     const want = Math.min(3, Math.max(0, c.dictationPerDay ?? 2));
@@ -284,6 +294,7 @@ export class HomeworkService {
     qs.push(...wordFormQuestions(today, earlier, blankedNow, WORDFORM_PER_DAY));
     const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
     qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true, b.kind === 'wordFill' ? viOf.get(b.word.toLowerCase()) ?? '' : '')));
+    unblank();
     // One "Write a sentence" with a new word, graded by AI (only when AI is set up).
     const writable = shuffle(today.filter((w) => !blankedNow.has(w.word.toLowerCase())));
     if (this.config.get<string>('ANTHROPIC_API_KEY') && writable.length) qs.push(sentenceQuestion(writable[0]));
