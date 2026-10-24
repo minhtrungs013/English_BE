@@ -52,7 +52,7 @@ export class LibraryPatchDto {
   @IsOptional() @IsIn(LEVELS) level?: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;
 }
-export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence'] as const;
+export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence', 'recap'] as const;
 export class AuditQuery extends PageQuery {
   @IsOptional() @IsIn(AUDIT_ACTIONS) action?: string;
   @IsOptional() @IsIn(['ok', 'failed']) status?: string;

@@ -192,12 +192,20 @@ export class CoursesController {
     return this.questions.generate(user, id, day, dto);
   }
 
-  /** Have AI write a listening dialogue for a day (waits for approval). */
-  @Throttle({ default: { limit: 10, ttl: 60_000 } })
+  /** Have AI write a listening dialogue for a day (waits for approval). ?skip=1: do nothing when the day already has one. */
+  @Throttle({ default: { limit: 30, ttl: 60_000 } })
   @Post(':id/days/:day/dialogue/generate')
   @HttpCode(200)
-  generateDialogue(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
-    return this.questions.generateDialogue(user, id, day);
+  generateDialogue(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Query('skip') skip?: string) {
+    return this.questions.generateDialogue(user, id, day, skip === '1');
+  }
+
+  /** Have AI write the day's recap story only (waits for approval). */
+  @Throttle({ default: { limit: 30, ttl: 60_000 } })
+  @Post(':id/days/:day/recap/generate')
+  @HttpCode(200)
+  generateRecap(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number) {
+    return this.questions.generateRecap(user, id, day);
   }
 
   /** Add a question or recap by hand (approved straight away). */

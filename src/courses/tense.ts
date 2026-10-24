@@ -285,3 +285,24 @@ export async function aiTenseQuestions(
     return null;
   }
 }
+const RECAP_SYSTEM = `You write short reading texts for Vietnamese software developers learning professional English.
+Write a short workplace story (3–4 sentences, B1 level) that uses as many of the REVIEW WORDS as possible, mixing past, present and future tenses.
+Return ONLY JSON: {"text": the English story, "vi": its Vietnamese translation}.`;
+
+/** Asks Claude for a recap story of earlier days' words. Null when the call or its answer fails. */
+export async function aiRecap(reviewWords: string[], apiKey: string, model: string): Promise<RecapDraft | null> {
+  try {
+    const res = await claudeFetch('recap', apiKey, { model, max_tokens: 1200, system: RECAP_SYSTEM, messages: [{ role: 'user', content: 'REVIEW WORDS: ' + reviewWords.join(' | ') }] },
+      { signal: AbortSignal.timeout(30000), detail: reviewWords.join(', ') });
+    if (!res.ok) return null;
+    const body = (await res.json()) as { content?: { type: string; text?: string }[] };
+    const text = (body.content ?? []).filter((b) => b.type === 'text').map((b) => b.text ?? '').join('');
+    const a = text.indexOf('{'), b = text.lastIndexOf('}');
+    const o = JSON.parse(a >= 0 && b > a ? text.slice(a, b + 1) : '{}') as Record<string, unknown>;
+    const story = str(o.text, 1200);
+    return story ? { text: story, vi: str(o.vi, 1500) } : null;
+  } catch (e) {
+    console.warn('[Courses] recap failed: ' + String(e));
+    return null;
+  }
+}

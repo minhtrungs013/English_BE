@@ -7,7 +7,7 @@ import { Course, CourseDocument } from './course.schema';
 import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.dto';
 import { Dialogue, aiDialogue, cleanDialogue } from './dialogue';
 import { BankItem, BankItemDocument, BankStatus, TENSE_KINDS } from './homework.schema';
-import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiTenseQuestions, templateQuestions } from './tense';
+import { TENSES, TENSE_LABEL, Tense, TenseDraft, aiRecap, aiTenseQuestions, templateQuestions } from './tense';
 import { SentenceGrammarService } from './sentence-grammar';
 import { fullSentence, sentenceKey } from './sentence-rules';
 import { questionFrom, SentenceBankService } from '../sentence-bank/sentence-bank';
@@ -155,25 +155,57 @@ export class QuestionsService {
   }
 
   /** Has AI write a listening dialogue with the day's words (waits for approval; uses one daily AI generation). */
-  async generateDialogue(user: string, id: string, day: number) {
+  async generateDialogue(user: string, id: string, day: number, skipIfExists = false) {
     const c = await this.owned(user, id);
     this.checkDay(c, day);
     const words = c.days.find((d) => d.day === day)?.words ?? [];
     if (!words.length) throw new BadRequestException('Add words to day ' + day + ' first.');
-    // const key = this.config.get<string>('OPENAI_API_KEY');
-    const key = this.config.get<string>('ANTHROPIC_API_KEY');
-    if (!key) throw new UnprocessableEntityException('AI isn’t set up. Write the dialogue by hand or import it.');
-    const { used, limit } = await this.profile.dailyStatus(user, 'courseAi');
-    if (used >= limit) {
-      throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write the dialogue by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
+    if (skipIfExists && (await this.bank.exists({ courseId: id, day, kind: 'dialogue', status: { $ne: 'rejected' } }))) {
+      return { skipped: true, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
     }
-    await this.profile.assertTokens(user);
+    const key = this.config.get<string>('ANTHROPIC_API_KEY');
+    if (!key) throw new UnprocessableEntityException('AI isn’t set up on the server. Write the dialogue by hand or import it.');
+    const admin = await this.access.isAdmin(user);
+    if (!admin) {
+      const { used, limit } = await this.profile.dailyStatus(user, 'courseAi');
+      if (used >= limit) {
+        throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write the dialogue by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
+      }
+      await this.profile.assertTokens(user);
+    }
     // const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('OPENAI_MODEL', 'gpt-4o-mini'));
     const d: Dialogue | null = await aiDialogue(words.map((w) => w.word), key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
     if (!d) throw new UnprocessableEntityException('AI couldn’t write a dialogue right now. Try again later, or write it by hand / import it.');
-    await this.profile.useDaily(user, 'courseAi', { checkTokens: false });
+    if (!admin) await this.profile.useDaily(user, 'courseAi', { checkTokens: false });
     await this.bank.create({ courseId: id, day, kind: 'dialogue', word: '', tense: '', prompt: d.title, explain: d.scenario, choices: [], answer: '', accept: [], data: d as unknown as Record<string, unknown>, source: 'ai', status: 'pending' });
-    return { quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
+    return { skipped: false, quota: await this.profile.dailyStatus(user, 'courseAi'), items: await this.list(user, id, day) };
+  }
+
+  /** The words a day's recap should use: the last words of the earlier days (empty on day 1). */
+  reviewWords(c: CourseDocument, day: number): string[] {
+    return c.toObject().days.filter((d) => d.day < day).flatMap((d) => d.words.map((w) => w.word)).slice(-RECAP_WORDS);
+  }
+
+  /** AI writes only the day's recap story (pending; replaces the day's pending recap). Admins aren't capped per day. */
+  async generateRecap(user: string, id: string, day: number) {
+    const c = await this.owned(user, id);
+    this.checkDay(c, day);
+    const review = this.reviewWords(c, day);
+    if (!review.length) throw new BadRequestException('Day ' + day + ' has no earlier words to recap.');
+    const key = this.config.get<string>('ANTHROPIC_API_KEY');
+    if (!key) throw new UnprocessableEntityException('AI isn’t set up on the server. Write the recap by hand.');
+    const admin = await this.access.isAdmin(user);
+    if (!admin) {
+      const { used, limit } = await this.profile.dailyStatus(user, 'courseAi');
+      if (used >= limit) throw new HttpException({ statusCode: 429, error: 'Daily limit reached', message: 'You’ve used your ' + limit + ' AI generations for today. Try again tomorrow, or write the recap by hand.' }, HttpStatus.TOO_MANY_REQUESTS);
+      await this.profile.assertTokens(user);
+    }
+    const r = await aiRecap(review, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'));
+    if (!r) throw new UnprocessableEntityException('AI couldn’t write a recap right now. Try again later, or write it by hand.');
+    if (!admin) await this.profile.useDaily(user, 'courseAi', { checkTokens: false });
+    await this.bank.deleteMany({ courseId: id, day, kind: 'recap', status: 'pending' });
+    await this.bank.create({ courseId: id, day, kind: 'recap', word: '', tense: '', prompt: r.text, explain: r.vi, choices: [], answer: '', accept: [], source: 'ai', status: 'pending' });
+    return { review, items: await this.list(user, id, day) };
   }
 
   /** A question (or recap) the owner writes; approved straight away. */
