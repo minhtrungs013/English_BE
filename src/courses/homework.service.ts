@@ -150,14 +150,10 @@ function dictationQuestion(w: CourseWord, review: boolean): Question {
   return { type: 'dictation', word: w.word, review, prompt: '', hint: n + ' words', choices: [], answer: w.ex.trim(), accept: [] };
 }
 
-/** What the learner gets of a question before handing in: dictation sentences are only sent (encoded) for the device to speak. */
-/** "Write a sentence" with one of the day's new words. */
-function sentenceQuestion(w: CourseWord): Question {
-  return { type: 'sentence', word: w.word, review: false, prompt: 'Write a sentence with “' + w.word + '”', hint: label(w), choices: [], answer: w.ex.trim() || w.word, accept: [] };
-}
-/** AI's grade at or above this counts as correct. */
+/** AI's grade at or above this counts as correct ("Write a sentence" questions in homework made before it moved to Practice only). */
 const SENTENCE_PASS = 7;
 
+/** What the learner gets of a question before handing in: dictation sentences are only sent (encoded) for the device to speak. */
 function shown(q: Question) {
   return { type: q.type, review: q.review, prompt: q.prompt, hint: q.hint, choices: q.choices, ...(q.type === 'dictation' ? { audio: Buffer.from(q.answer, 'utf8').toString('base64') } : {}) };
 }
@@ -226,7 +222,8 @@ export class HomeworkService {
     return c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
       .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|') +
       '#' + bank.map((b) => String(b._id) + ':' + ((b as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? 0)).join(',') +
-      '#d' + (c.dictationPerDay ?? 2) +
+      // v2: no "Write a sentence" (it's in Practice), so homework nobody handed in is made again without it.
+      '#v2#d' + (c.dictationPerDay ?? 2) +
       '#f' + hashOf(JSON.stringify(c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
         .map((d) => d.words.map((w) => (w.family ?? []).map((m) => [m.word, m.pos, m.vi, m.ex ?? ''])))));
   }
@@ -295,9 +292,6 @@ export class HomeworkService {
     const reviewed = new Set(review.map((w) => w.word.toLowerCase()));
     qs.push(...shuffle(bank.filter((b) => b.day < day && reviewed.has(b.word.toLowerCase()))).slice(0, TENSE_REVIEW).map((b) => fromBank(b, true, b.kind === 'wordFill' ? viOf.get(b.word.toLowerCase()) ?? '' : '')));
     unblank();
-    // One "Write a sentence" with a new word, graded by AI (only when AI is set up).
-    const writable = shuffle(today.filter((w) => !blankedNow.has(w.word.toLowerCase())));
-    if (this.config.get<string>('ANTHROPIC_API_KEY') && writable.length) qs.push(sentenceQuestion(writable[0]));
     return shuffle(qs);
   }
 
