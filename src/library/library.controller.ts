@@ -4,7 +4,7 @@ import { Throttle } from '@nestjs/throttler';
 import { UserId } from '../auth/auth.decorators';
 import { ParseObjectIdPipe } from '../common/parse-object-id.pipe';
 import { LibraryService } from './library.service';
-import { FamilyStatusDto, FindWordQuery, LibraryQuery, ShareWordDto } from './library.dto';
+import { FamilyStatusDto, FindWordQuery, LibraryQuery, ShareWordDto, SuggestMeaningDto } from './library.dto';
 
 @ApiTags('library')
 @ApiBearerAuth()
@@ -48,6 +48,14 @@ export class LibraryController {
   @Post(':id/save')
   save(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string) {
     return this.library.save(user, id);
+  }
+
+  /** Suggest another Vietnamese meaning for a library word (an admin approves it): { vi } */
+  @Post(':id/meanings')
+  @HttpCode(200)
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
+  suggestMeaning(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Body() dto: SuggestMeaningDto) {
+    return this.library.suggestMeaning(user, id, dto.vi);
   }
 
   /** Share one of my words to the library: { wordId, topic? } */

@@ -7,7 +7,7 @@ import { User } from '../users/user.schema';
 import { NotificationsService } from '../notifications/notifications.service';
 import { WordsService } from '../words/words.service';
 import { LibraryQuery, ShareWordDto } from './library.dto';
-import { LibraryWord, LibraryWordDocument, TOPIC_TAG, TOPICS, type Topic } from './library.schema';
+import { hasMeaning, LibraryWord, LibraryWordDocument, MeaningSuggestion, TOPIC_TAG, TOPICS, type Topic } from './library.schema';
 import SEED from './seed/library.json';
 
 interface SeedEntry { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; topic: string; family?: unknown[] }
@@ -22,6 +22,7 @@ export class LibraryService implements OnApplicationBootstrap {
 
   constructor(
     @InjectModel(LibraryWord.name) private readonly lib: Model<LibraryWord>,
+    @InjectModel(MeaningSuggestion.name) private readonly meanings: Model<MeaningSuggestion>,
     @InjectModel(Tag.name) private readonly tags: Model<Tag>,
     @InjectModel(User.name) private readonly users: Model<User>,
     private readonly words: WordsService,
@@ -178,6 +179,23 @@ export class LibraryService implements OnApplicationBootstrap {
       if ((e as { code?: number }).code === 11000) throw new ConflictException('“' + w.word + '” is already in the library.');
       throw e;
     }
+  }
+
+  /**
+   * Suggest another Vietnamese meaning for a library word; it waits for an admin. 'exists': the word already has it,
+   * 'pending': waiting (now or from an earlier suggestion).
+   */
+  async suggestMeaning(user: string, id: string, raw: string): Promise<{ status: 'exists' | 'pending' }> {
+    const d = await this.findOne(id);
+    const vi = raw.replace(/\s+/g, ' ').trim().slice(0, 60);
+    if (hasMeaning(d.vi, vi)) return { status: 'exists' };
+    const u = await this.users.findById(user, { name: 1 }).lean();
+    const viKey = vi.toLowerCase().normalize('NFC');
+    await this.meanings.create({ libraryWordId: id, word: d.word, vi, viKey, userId: user, userName: u?.name ?? '' })
+      .catch((e: { code?: number }) => { if (e?.code !== 11000) throw e; });
+    // Approved before but no longer in the word (an admin edited it out): ask again. A rejected one stays rejected.
+    await this.meanings.updateOne({ libraryWordId: id, viKey, status: 'approved' }, { $set: { status: 'pending', at: new Date(), userId: user, userName: u?.name ?? '' } });
+    return { status: 'pending' };
   }
 
   /** Only the person who shared a word can take it back out of the library. */

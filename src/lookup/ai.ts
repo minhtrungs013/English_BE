@@ -1,22 +1,26 @@
 import { claudeFetch } from '../audit/claude';
 import { LEVELS, POS_LIST, type Level } from '../common/constants';
 import { FAMILY_POS, cleanFamily, type FamilyMember } from '../common/family';
+import { TOPICS, type Topic } from '../library/library.schema';
 
 export interface AiWord {
   ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: Level;
   family: FamilyMember[];
+  /** The library topic the word fits best (used when it's shared). */
+  topic: Topic;
 }
 
 const SYSTEM = `You write entries for a vocabulary app used by Vietnamese software developers learning professional English (IT work, interviews, meetings, TOEIC).
 Return ONLY a JSON object with these keys:
 - "ipa": American English IPA between slashes, e.g. "/mənˈteɪn/" (whole phrase for multi-word entries)
 - "pos": exactly one of ${POS_LIST.map((p) => '"' + p + '"').join(', ')} (phrasal verbs are "Verb", compound nouns "Noun", idioms "Other")
-- "meaning": a clear, learner-friendly English definition, one sentence ending with a period, at most 110 characters
-- "vi": a natural Vietnamese translation (1–2 short alternatives separated by ", ")
+- "meaning": a clear, learner-friendly English definition of the first (work / IT) meaning, one sentence ending with a period, at most 110 characters
+- "vi": 1–3 short Vietnamese meanings separated by ", ", the meaning used at work / in IT first, then other common ones (e.g. platform → "nền tảng, sân ga, bục"); one meaning when the word has only one
 - "ex": a realistic workplace example sentence that contains the word exactly as given (same spelling and casing)
 - "syn": up to 3 lowercase synonyms (array, may be empty)
 - "ant": up to 2 lowercase antonyms (array, may be empty)
 - "level": CEFR level, one of ${LEVELS.map((l) => '"' + l + '"').join(', ')}
+- "topic": where the word is mostly used, one of ${TOPICS.map((t) => '"' + t + '"').join(', ')} (it = software work, leader = managing a team, customer = clients and support, toeic = general business English)
 - "family": the word family: common related forms of the same root (e.g. decide → decide, decision, decisive, decisively, indecisive), at most 6, INCLUDING the word itself; [] when the word has no common related forms (and for phrases). Each item: {"word": the form (lowercase unless a proper noun), "pos": one of ${FAMILY_POS.map((p) => '"' + p + '"').join(', ')}, "vi": short Vietnamese translation (at most 60 characters), "ex": optional short workplace example sentence using that form (at most 120 characters), "note": optional hint of at most 25 characters, e.g. "opposite (in-)"}. Only real, commonly used words; no rare or invented forms.
 If the input is not a real English word or phrase, return {"error":"unknown"}.`;
 
@@ -116,7 +120,8 @@ export async function aiLookup(word: string, apiKey: string, model: string, acti
       syn: list(o.syn, 3),
       ant: list(o.ant, 2),
       level: (LEVELS as readonly string[]).includes(level) ? level : 'B1',
-      family: aiFamily(o.family, word, pos, str(o.vi, 200))
+      family: aiFamily(o.family, word, pos, str(o.vi, 200)),
+      topic: (TOPICS as readonly string[]).includes(str(o.topic, 20)) ? (str(o.topic, 20) as Topic) : 'other'
     };
   } catch (e) {
     console.warn('[Lookup] parse failed: ' + String(e));

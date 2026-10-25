@@ -5,12 +5,12 @@ import { TagsModule } from '../tags/tags';
 import { User, UserSchema } from '../users/user.schema';
 import { WordsModule } from '../words/words.module';
 import { LibraryController } from './library.controller';
-import { LibraryWord, LibraryWordSchema } from './library.schema';
+import { LibraryWord, LibraryWordSchema, MeaningSuggestion, MeaningSuggestionSchema } from './library.schema';
 import { LibraryService } from './library.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: LibraryWord.name, schema: LibraryWordSchema }, { name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: LibraryWord.name, schema: LibraryWordSchema }, { name: MeaningSuggestion.name, schema: MeaningSuggestionSchema }, { name: User.name, schema: UserSchema }]),
     WordsModule,
     TagsModule,
     NotificationsModule

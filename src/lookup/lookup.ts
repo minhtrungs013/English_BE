@@ -21,6 +21,8 @@ export interface LookupResult {
   syn?: string[]; ant?: string[]; level?: Level;
   /** Word family (the word itself included); only from your words, the library and AI. */
   family?: FamilyMember[];
+  /** AI only: the library topic the word fits best. */
+  topic?: string;
   /** Today's auto-fill usage after this request. */
   quota?: { used: number; limit: number };
 }

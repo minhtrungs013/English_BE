@@ -16,6 +16,7 @@ import { ProfileService } from '../profile/profile.service';
 import { WordsModule } from '../words/words.module';
 import { WordsService } from '../words/words.service';
 import { AiError, aiRound, aiStream, CHAT_LESSONS, SYSTEM, type ChatMessage, type ToolCall } from './chat.ai';
+import { hasMeaning } from '../library/library.schema';
 import { fakePlan, fakeText } from './chat.fake';
 
 /** Longest question the user may send; earlier turns may be longer (the bot's answers). */
@@ -42,7 +43,14 @@ export class ChatDto {
  */
 export interface WordCard {
   word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; level: Level | ''; family: FamilyMember[];
+  syn: string[]; ant: string[];
+  /** The library topic: the library word's, or AI's guess for a new word ('other' when unknown). */
+  topic: string;
   status: 'mine' | 'library' | 'new'; id?: string;
+  /** New words: 'ai' (checked data, shared to the library when added) or 'online' (free dictionaries: only saved). */
+  source?: 'ai' | 'online';
+  /** The meaning this question is about, when the card's Vietnamese doesn't have it (e.g. "nền tảng" for a "sân ga" entry). */
+  sense?: string;
 }
 
 /** Events sent to the client, one per SSE `data:` line. */
@@ -53,6 +61,12 @@ type ChatEvent =
   | { type: 'grammar'; lesson: { id: string; name: string; vi: string } }
   | { type: 'done'; quota: { used: number; limit: number } }
   | { type: 'error'; message: string };
+
+/** Marks the meaning the question is about when the card's Vietnamese doesn't have it (platform: "nền tảng" vs "sân ga"). */
+function withSense(card: WordCard, vi: unknown) {
+  const sense = typeof vi === 'string' ? vi.replace(/\s+/g, ' ').trim().slice(0, 60) : '';
+  if (sense && !hasMeaning(card.vi, sense)) card.sense = sense;
+}
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -84,16 +98,16 @@ export class ChatService {
     if (!word) return null;
     const mine = await this.words.findByWord(user, word);
     if (mine) {
-      return { word: mine.word, ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, level: mine.level as Level, family: mine.toObject().family ?? [], status: 'mine', id: String(mine._id) };
+      return { word: mine.word, ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, level: mine.level as Level, family: mine.toObject().family ?? [], syn: mine.syn ?? [], ant: mine.ant ?? [], topic: 'other', status: 'mine', id: String(mine._id) };
     }
     const lib = await this.library.findByWord(word.toLowerCase());
     if (lib) {
-      return { word: lib.word, ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, level: lib.level as Level, family: lib.toObject().family ?? [], status: 'library', id: String(lib._id) };
+      return { word: lib.word, ipa: lib.ipa, pos: lib.pos, meaning: lib.meaning, vi: lib.vi, ex: lib.ex, level: lib.level as Level, family: lib.toObject().family ?? [], syn: lib.syn ?? [], ant: lib.ant ?? [], topic: lib.topic ?? 'other', status: 'library', id: String(lib._id) };
     }
     // In test mode, skip OpenAI (the key may be out of credit) and use the free dictionaries.
     const ext = this.fake ? await this.lookup.external(word, { noAi: true }) : await this.lookup.external(word);
     if (!ext?.meaning && !ext?.vi) return null;
-    return { word, ipa: ext.ipa ?? '', pos: ext.pos ?? '', meaning: ext.meaning ?? '', vi: ext.vi ?? '', ex: ext.ex ?? '', level: ext.level ?? '', family: ext.family ?? [], status: 'new' };
+    return { word, ipa: ext.ipa ?? '', pos: ext.pos ?? '', meaning: ext.meaning ?? '', vi: ext.vi ?? '', ex: ext.ex ?? '', level: ext.level ?? '', family: ext.family ?? [], syn: ext.syn ?? [], ant: ext.ant ?? [], topic: ext.topic ?? 'other', status: 'new', source: ext.source === 'ai' ? 'ai' : 'online' };
   }
 
   /** Runs one tool for the model: sends its card/button to the client and returns what the model gets to read. */
@@ -106,6 +120,7 @@ export class ChatService {
       cards.n++;
       const card = await this.findWord(user, word);
       if (!card) { send({ type: 'notfound', word: word.slice(0, 60) }); return JSON.stringify({ found: false }); }
+      withSense(card, args.vi);
       send({ type: 'word', card });
       return JSON.stringify({ found: true, word: card.word, pos: card.pos, meaning: card.meaning, vi: card.vi, level: card.level, in_my_vocab: card.status === 'mine', in_library: card.status !== 'new' });
     }
@@ -134,7 +149,7 @@ export class ChatService {
       const found: WordCard[] = [];
       for (const w of plan.words) {
         const c = await this.findWord(user, w);
-        if (c) { found.push(c); send({ type: 'word', card: c }); } else send({ type: 'notfound', word: w });
+        if (c) { withSense(c, plan.vi); found.push(c); send({ type: 'word', card: c }); } else send({ type: 'notfound', word: w });
       }
       const lesson = plan.lesson ? CHAT_LESSONS.find((l) => l.id === plan.lesson) ?? null : null;
       if (lesson) send({ type: 'grammar', lesson });

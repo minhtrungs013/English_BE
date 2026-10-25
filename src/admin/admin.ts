@@ -16,7 +16,7 @@ import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/c
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
 import { sentenceKey } from '../courses/sentence-rules';
 import { TENSES } from '../courses/tense';
-import { LibraryWord, LibraryWordSchema, TOPICS } from '../library/library.schema';
+import { LibraryWord, LibraryWordSchema, MeaningSuggestion, MeaningSuggestionSchema, TOPICS } from '../library/library.schema';
 import { Profile, ProfileSchema } from '../profile/profile.schema';
 import { WordSentence, WordSentenceSchema } from '../sentence-bank/sentence-bank';
 import { User, UserSchema } from '../users/user.schema';
@@ -86,6 +86,10 @@ export class SuggestionApproveDto {
   /** The sentence, when the admin edited it before approving. */
   @IsOptional() @IsString() @MaxLength(300) sentence?: string;
 }
+export class MeaningApproveDto {
+  /** The library word's whole Vietnamese field after approving (the admin may reorder or edit it). */
+  @IsString() @IsNotEmpty() @MaxLength(200) vi: string;
+}
 export class IdParam {
   @IsMongoId() id: string;
 }
@@ -103,6 +107,7 @@ export class AdminService {
     @InjectModel(LibraryWord.name) private readonly library: Model<LibraryWord>,
     @InjectModel(WordSentence.name) private readonly sentences: Model<WordSentence>,
     @InjectModel(SentenceSuggestion.name) private readonly suggestions: Model<SentenceSuggestion>,
+    @InjectModel(MeaningSuggestion.name) private readonly meanings: Model<MeaningSuggestion>,
     @InjectModel(SentenceAttempt.name) private readonly attempts: Model<SentenceAttempt>,
     @InjectModel(Profile.name) private readonly profiles: Model<Profile>,
     @InjectModel(Word.name) private readonly words: Model<Word>,
@@ -220,6 +225,35 @@ export class AdminService {
 
   async rejectSuggestion(id: string) {
     const r = await this.suggestions.updateOne({ _id: id, status: 'pending' }, { $set: { status: 'rejected' } });
+    if (!r.matchedCount) throw new NotFoundException('Suggestion not found.');
+  }
+
+  /** Vietnamese meanings learners suggested for library words, with the word's current meanings. */
+  async listMeanings(q: PageQuery) {
+    const filter: QueryFilter<MeaningSuggestion> = { status: 'pending' };
+    if (q.q) filter.word = { $regex: '^' + esc(q.q), $options: 'i' };
+    const page = q.page ?? 1;
+    const [total, list] = await Promise.all([this.meanings.countDocuments(filter), this.meanings.find(filter).sort({ at: -1 }).skip((page - 1) * PAGE).limit(PAGE).lean()]);
+    const libs = await this.library.find({ _id: { $in: list.map((x) => x.libraryWordId) } }, { vi: 1, meaning: 1 }).lean();
+    const byId = new Map(libs.map((l) => [String(l._id), l]));
+    return {
+      total, page, pages: Math.max(1, Math.ceil(total / PAGE)),
+      items: list.map((x) => ({ id: String(x._id), libraryWordId: x.libraryWordId, word: x.word, vi: x.vi, current: byId.get(x.libraryWordId)?.vi ?? '', meaning: byId.get(x.libraryWordId)?.meaning ?? '', by: x.userName, at: x.at.getTime() }))
+    };
+  }
+
+  /** Saves the library word's Vietnamese field (with the new meaning, as the admin arranged it). */
+  async approveMeaning(id: string, vi: string) {
+    const x = await this.meanings.findById(id);
+    if (!x || x.status !== 'pending') throw new NotFoundException('Suggestion not found.');
+    const r = await this.library.updateOne({ _id: x.libraryWordId }, { $set: { vi: vi.replace(/\s+/g, ' ').trim() } });
+    x.status = r.matchedCount ? 'approved' : 'rejected';
+    await x.save();
+    if (!r.matchedCount) throw new NotFoundException('That library word no longer exists.');
+  }
+
+  async rejectMeaning(id: string) {
+    const r = await this.meanings.updateOne({ _id: id, status: 'pending' }, { $set: { status: 'rejected' } });
     if (!r.matchedCount) throw new NotFoundException('Suggestion not found.');
   }
 
@@ -348,6 +382,9 @@ export class AdminController {
   @Get('suggestions') suggestions(@Query() q: PageQuery) { return this.admin.listSuggestions(q); }
   @Post('suggestions/:id/approve') @HttpCode(204) async approve(@Param() p: IdParam, @Body() dto: SuggestionApproveDto) { await this.admin.approveSuggestion(p.id, dto.sentence); }
   @Post('suggestions/:id/reject') @HttpCode(204) async reject(@Param() p: IdParam) { await this.admin.rejectSuggestion(p.id); }
+  @Get('meanings') meanings(@Query() q: PageQuery) { return this.admin.listMeanings(q); }
+  @Post('meanings/:id/approve') @HttpCode(204) async approveMeaning(@Param() p: IdParam, @Body() dto: MeaningApproveDto) { await this.admin.approveMeaning(p.id, dto.vi); }
+  @Post('meanings/:id/reject') @HttpCode(204) async rejectMeaning(@Param() p: IdParam) { await this.admin.rejectMeaning(p.id); }
   @Get('insights') insights(@Query() q: InsightQuery) { return this.admin.insights(q); }
   @Get('library') library(@Query() q: PageQuery) { return this.admin.listLibrary(q); }
   @Patch('library/:id') patchLibrary(@Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(p.id, dto); }
@@ -360,7 +397,7 @@ export class AdminController {
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema }, { name: Course.name, schema: CourseSchema }, { name: Enrollment.name, schema: EnrollmentSchema },
       { name: BankItem.name, schema: BankItemSchema }, { name: LibraryWord.name, schema: LibraryWordSchema }, { name: WordSentence.name, schema: WordSentenceSchema },
-      { name: SentenceSuggestion.name, schema: SentenceSuggestionSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
+      { name: SentenceSuggestion.name, schema: SentenceSuggestionSchema }, { name: MeaningSuggestion.name, schema: MeaningSuggestionSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
       { name: Profile.name, schema: ProfileSchema }, { name: Word.name, schema: WordSchema }
     ])
   ],

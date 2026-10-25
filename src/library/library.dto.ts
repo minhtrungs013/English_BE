@@ -23,6 +23,10 @@ export class FamilyStatusDto {
   @IsArray() @ArrayMinSize(1) @ArrayMaxSize(10) @IsString({ each: true }) @IsNotEmpty({ each: true }) @MaxLength(40, { each: true }) words: string[];
 }
 
+export class SuggestMeaningDto {
+  @IsString() @IsNotEmpty() @MaxLength(60) vi: string;
+}
+
 export class ShareWordDto {
   @IsMongoId() wordId: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;

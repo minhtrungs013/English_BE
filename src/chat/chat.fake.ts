@@ -4,7 +4,7 @@ import { CHAT_LESSONS } from './chat.ai';
  * Test mode (CHAT_FAKE=1): a canned answer without calling OpenAI, so the chat can be tried end to end.
  * The word cards and lesson buttons still come from the real tools; only the text is made up here.
  */
-export function fakePlan(text: string): { words: string[]; lesson: string | null } {
+export function fakePlan(text: string): { words: string[]; lesson: string | null; vi: string } {
   const low = text.toLowerCase();
   // "Present perfect" and "past simple" are both lessons; the first one mentioned wins.
   const hits = CHAT_LESSONS
@@ -18,7 +18,9 @@ export function fakePlan(text: string): { words: string[]; lesson: string | null
     if (m) words.push(m[1]);
     else if (/^[A-Za-z][A-Za-z' -]{0,40}\??$/.test(text.trim()) && text.trim().split(/\s+/).length <= 3 && !hits.length) words.push(text.trim().replace(/\?$/, ''));
   }
-  return { words: [...new Set(words.map((w) => w.toLowerCase()))].slice(0, 3), lesson: hits[0]?.id ?? null };
+  // The meaning meant, when the question says it: “platform” nghĩa là nền tảng.
+  const vi = (/nghĩa là\s+([^?.,!“”"]{2,40})/i.exec(text)?.[1] ?? '').split(/\s+(?:thì|thế|và|có|được|khi|trong)\s/)[0].trim();
+  return { words: [...new Set(words.map((w) => w.toLowerCase()))].slice(0, 3), lesson: hits[0]?.id ?? null, vi };
 }
 
 export function fakeText(cards: { word: string; pos?: string; vi?: string; ex?: string }[], lesson: { name: string; vi: string } | null): string {

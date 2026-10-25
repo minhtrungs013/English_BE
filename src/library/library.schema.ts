@@ -39,3 +39,30 @@ export class LibraryWord {
 
 export type LibraryWordDocument = HydratedDocument<LibraryWord>;
 export const LibraryWordSchema = SchemaFactory.createForClass(LibraryWord);
+
+/**
+ * A Vietnamese meaning a learner suggested for a library word (from the chat, when the word meant something the
+ * library entry doesn't have, e.g. platform = "nền tảng" while the library only says "sân ga"). An admin approves it.
+ */
+@Schema({ collection: 'meaning_suggestions', versionKey: false })
+export class MeaningSuggestion {
+  @Prop({ required: true, index: true }) libraryWordId: string;
+  @Prop({ required: true }) word: string;
+  @Prop({ required: true }) vi: string;
+  /** Lowercase vi: one suggestion per meaning per word. */
+  @Prop({ required: true }) viKey: string;
+  @Prop({ default: '' }) userId: string;
+  @Prop({ default: '' }) userName: string;
+  @Prop({ enum: ['pending', 'approved', 'rejected'], default: 'pending', index: true }) status: string;
+  @Prop({ default: () => new Date() }) at: Date;
+}
+export const MeaningSuggestionSchema = SchemaFactory.createForClass(MeaningSuggestion);
+MeaningSuggestionSchema.index({ libraryWordId: 1, viKey: 1 }, { unique: true });
+
+/** The meanings in a Vietnamese field ("nền tảng, sân ga" → ["nền tảng", "sân ga"]), lowercase. */
+export const viParts = (vi: string): string[] => vi.toLowerCase().normalize('NFC').split(/[,;/]/).map((x) => x.replace(/\s+/g, ' ').trim()).filter(Boolean);
+/** True when the field already has this meaning (or one containing it, e.g. "nền tảng (phần mềm)"). */
+export const hasMeaning = (vi: string, sense: string): boolean => {
+  const s = sense.toLowerCase().normalize('NFC').replace(/\s+/g, ' ').trim();
+  return !!s && viParts(vi).some((p) => p === s || p.includes(s) || s.includes(p));
+};
