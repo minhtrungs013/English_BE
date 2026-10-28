@@ -26,10 +26,54 @@ export class SentenceSeen {
   @Prop({ required: true }) key: string;
   @Prop({ default: 0 }) n: number;
   @Prop({ default: 0 }) ok: number;
+  /** The last answer: a sentence I got wrong comes back first. */
+  @Prop({ type: Boolean, default: null }) lastOk: boolean | null;
   @Prop({ type: Date, default: () => new Date() }) lastAt: Date;
 }
 export const SentenceSeenSchema = SchemaFactory.createForClass(SentenceSeen);
 SentenceSeenSchema.index({ user: 1, key: 1 }, { unique: true });
+
+/** The practice modes whose answers are counted per word. */
+export const PRACTICE_WORD_MODES = ['mc', 'trans', 'listen', 'wordform', 'fill', 'tense', 'dictation'] as const;
+export type PracticeWordMode = (typeof PRACTICE_WORD_MODES)[number];
+const DAY_MS = 86_400_000;
+/** How many recent wrong answers a record keeps (for "wrong this week"). */
+const RECENT_WRONG = 20;
+
+/**
+ * How a learner stands with one of their words in one practice mode. mistakes: still to fix (+1 wrong,
+ * −1 right, 0 after two right in a row) — the weak words come back in the next sessions until they're fixed.
+ */
+@Schema({ collection: 'practice_words', versionKey: false })
+export class PracticeWord {
+  @Prop({ required: true }) user: string;
+  @Prop({ required: true }) wordId: string;
+  @Prop({ required: true, enum: PRACTICE_WORD_MODES }) mode: string;
+  @Prop({ default: 0 }) mistakes: number;
+  @Prop({ default: 0 }) streak: number;
+  @Prop({ default: 0 }) wrong: number;
+  @Prop({ default: 0 }) right: number;
+  /** Wrong answers that were almost right (one letter off). */
+  @Prop({ default: 0 }) spelling: number;
+  @Prop({ type: Date, default: null }) lastAt: Date | null;
+  @Prop({ type: Date, default: null }) lastWrongAt: Date | null;
+  /** When its mistakes were last all fixed. */
+  @Prop({ type: Date, default: null }) fixedAt: Date | null;
+  @Prop({ type: [Date], default: [] }) recentWrong: Date[];
+}
+export const PracticeWordSchema = SchemaFactory.createForClass(PracticeWord);
+PracticeWordSchema.index({ user: 1, wordId: 1, mode: 1 }, { unique: true });
+
+export class PracticeResultDto {
+  @IsString() @MaxLength(40) wordId: string;
+  @IsIn(PRACTICE_WORD_MODES) mode: PracticeWordMode;
+  @IsBoolean() ok: boolean;
+  /** Wrong, but only one letter off. */
+  @IsOptional() @IsBoolean() spelling?: boolean;
+}
+export class PracticeResultsDto {
+  @IsArray() @ArrayMaxSize(60) @ValidateNested({ each: true }) @Type(() => PracticeResultDto) items: PracticeResultDto[];
+}
 
 export const PRACTICE_SENTENCE_MODES = ['fill', 'tense', 'dictation', 'flash'] as const;
 type Mode = (typeof PRACTICE_SENTENCE_MODES)[number];
@@ -82,6 +126,7 @@ export class PracticeService {
     @InjectModel(Enrollment.name) private readonly enrollments: Model<Enrollment>,
     @InjectModel(BankItem.name) private readonly bank: Model<BankItem>,
     @InjectModel(SentenceSeen.name) private readonly seen: Model<SentenceSeen>,
+    @InjectModel(PracticeWord.name) private readonly records: Model<PracticeWord>,
     private readonly sentenceBank: SentenceBankService,
     private readonly grammar: SentenceGrammarService
   ) {}
@@ -97,16 +142,24 @@ export class PracticeService {
   async sentences(user: string, mode: Mode, n = 10, only?: string[]): Promise<{ items: PracticeSentence[] }> {
     const filter: Record<string, unknown> = { user };
     if (only?.length) filter._id = { $in: only.filter((x) => /^[a-f0-9]{24}$/i.test(x)) };
-    const mine = shuffle(await this.words.find(filter, { word: 1, ex: 1, vi: 1 }).lean());
-    if (!mine.length) return { items: [] };
-    const [byWord, blocked, seenList] = await Promise.all([
-      this.sentenceBank.forWords(mine.map((w) => w.word)),
+    const all = await this.words.find(filter, { word: 1, ex: 1, vi: 1 }).lean();
+    if (!all.length) return { items: [] };
+    const [byWord, blocked, seenList, recs] = await Promise.all([
+      this.sentenceBank.forWords(all.map((w) => w.word)),
       this.courseKeys(user),
-      this.seen.find({ user }, { key: 1, ok: 1, lastAt: 1 }).lean()
+      this.seen.find({ user }, { key: 1, ok: 1, lastOk: 1, lastAt: 1 }).lean(),
+      mode === 'flash' ? Promise.resolve([]) : this.records.find({ user, mode }, { wordId: 1, mistakes: 1, lastAt: 1, lastWrongAt: 1 }).lean()
     ]);
+    // Words: the weak ones in this mode first (up to 40%), then the ones I haven't practised for the longest time.
+    const mine = mode === 'flash' ? shuffle(all) : orderWords(all, (w) => String(w._id), new Map(recs.map((r) => [r.wordId, { errors: r.mistakes, lastAt: r.lastAt, lastWrongAt: r.lastWrongAt }])), n);
     const seen = new Map(seenList.map((s) => [s.key, s]));
-    /** Lower is better: never seen first, then the longest ago; sentences I got right twice wait 3 more days. */
-    const score = (key: string) => { const s = seen.get(key); return s ? s.lastAt.getTime() + (s.ok >= 2 ? 3 * 86_400_000 : 0) : 0; };
+    /** Lower is better: a sentence I got wrong last time first, then never seen, then the longest ago; right twice waits 3 more days. */
+    const score = (key: string) => {
+      const s = seen.get(key);
+      if (!s) return 0;
+      if (s.lastOk === false) return -1;
+      return s.lastAt.getTime() + (s.ok >= 2 ? 3 * DAY_MS : 0);
+    };
 
     const picked: { w: (typeof mine)[number]; c: Candidate }[] = [];
     const limit = mode === 'flash' ? mine.length : n;
@@ -147,13 +200,86 @@ export class PracticeService {
     if (!items.length) return;
     const now = new Date();
     await this.seen.bulkWrite(items.map((x) => ({
-      updateOne: { filter: { user, key: x.key }, update: { $inc: { n: 1, ok: x.ok ? 1 : 0 }, $set: { lastAt: now } }, upsert: true }
+      updateOne: { filter: { user, key: x.key }, update: { $inc: { n: 1, ok: x.ok ? 1 : 0 }, $set: { lastAt: now, lastOk: !!x.ok } }, upsert: true }
     })), { ordered: false });
   }
 
-  async deleteForUser(user: string): Promise<void> {
-    await this.seen.deleteMany({ user });
+  /** Records answers (in order): a wrong one adds a mistake to fix, a right one takes one off, two right in a row clear them. */
+  async record(user: string, items: PracticeResultDto[]): Promise<void> {
+    const ids = [...new Set(items.map((x) => x.wordId).filter((x) => /^[a-f0-9]{24}$/i.test(x)))];
+    if (!ids.length) return;
+    const owned = new Set((await this.words.find({ user, _id: { $in: ids } }, { _id: 1 }).lean()).map((w) => String(w._id)));
+    const now = new Date();
+    for (const x of items) {
+      if (!owned.has(x.wordId)) continue;
+      const r = await this.records.findOne({ user, wordId: x.wordId, mode: x.mode });
+      const d = r ?? new this.records({ user, wordId: x.wordId, mode: x.mode });
+      if (x.ok) {
+        const had = d.mistakes;
+        d.right++; d.streak++;
+        d.mistakes = d.streak >= 2 ? 0 : Math.max(0, d.mistakes - 1);
+        if (had > 0 && d.mistakes === 0) d.fixedAt = now;
+      } else {
+        d.wrong++; d.streak = 0; d.mistakes++;
+        if (x.spelling) d.spelling++;
+        d.lastWrongAt = now;
+        d.recentWrong = [...(d.recentWrong ?? []), now].slice(-RECENT_WRONG);
+      }
+      d.lastAt = now;
+      await d.save();
+    }
   }
+
+  /**
+   * What practice knows about my words: every record (to build sessions), the weak words (mistakes still to fix,
+   * with the modes they're weak in), how many per mode, and this week's fixed words and wrong answers.
+   */
+  async stats(user: string) {
+    const [recs, words] = await Promise.all([
+      this.records.find({ user }).lean(),
+      this.words.find({ user }, { word: 1, vi: 1 }).lean()
+    ]);
+    const byId = new Map(words.map((w) => [String(w._id), w]));
+    const live = recs.filter((r) => byId.has(r.wordId));
+    const weekAgo = Date.now() - 7 * DAY_MS;
+    const weak = new Map<string, { wordId: string; word: string; vi: string; errors: number; lastWrongAt: number; modes: { mode: string; errors: number; wrong: number; spelling: number }[] }>();
+    for (const r of live) {
+      if (r.mistakes <= 0) continue;
+      const w = byId.get(r.wordId)!;
+      const x = weak.get(r.wordId) ?? { wordId: r.wordId, word: w.word, vi: w.vi, errors: 0, lastWrongAt: 0, modes: [] };
+      x.errors += r.mistakes;
+      x.lastWrongAt = Math.max(x.lastWrongAt, r.lastWrongAt ? new Date(r.lastWrongAt).getTime() : 0);
+      x.modes.push({ mode: r.mode, errors: r.mistakes, wrong: r.wrong, spelling: r.spelling });
+      weak.set(r.wordId, x);
+    }
+    const byMode: Record<string, number> = {};
+    for (const r of live) if (r.mistakes > 0) byMode[r.mode] = (byMode[r.mode] ?? 0) + 1;
+    const fixed = new Set(live.filter((r) => r.fixedAt && new Date(r.fixedAt).getTime() >= weekAgo && !weak.has(r.wordId)).map((r) => r.wordId)).size;
+    const wrong = live.reduce((n, r) => n + (r.recentWrong ?? []).filter((t) => new Date(t).getTime() >= weekAgo).length, 0);
+    return {
+      records: live.map((r) => ({ wordId: r.wordId, mode: r.mode, errors: r.mistakes, lastAt: r.lastAt ? new Date(r.lastAt).getTime() : 0, lastWrongAt: r.lastWrongAt ? new Date(r.lastWrongAt).getTime() : 0 })),
+      weak: [...weak.values()].sort((a, b) => b.errors - a.errors || b.lastWrongAt - a.lastWrongAt).map((x) => ({ ...x, modes: x.modes.sort((a, b) => b.errors - a.errors) })),
+      byMode, week: { fixed, wrong }
+    };
+  }
+
+  async deleteForUser(user: string): Promise<void> {
+    await Promise.all([this.seen.deleteMany({ user }), this.records.deleteMany({ user })]);
+  }
+}
+
+/**
+ * Practice order for a session of n: the weak words (mistakes still to fix) first, at most 40% of it, most mistakes
+ * first; then the words not practised for the longest time (never first). Ties are random.
+ */
+export function orderWords<T>(items: T[], idOf: (x: T) => string, recs: Map<string, { errors: number; lastAt: Date | null; lastWrongAt: Date | null }>, n: number): T[] {
+  const ms = (d: Date | null | undefined) => (d ? new Date(d).getTime() : 0);
+  const list = shuffle(items);
+  const weak = list.filter((x) => (recs.get(idOf(x))?.errors ?? 0) > 0)
+    .sort((a, b) => recs.get(idOf(b))!.errors - recs.get(idOf(a))!.errors || ms(recs.get(idOf(b))!.lastWrongAt) - ms(recs.get(idOf(a))!.lastWrongAt))
+    .slice(0, Math.max(1, Math.ceil(n * 0.4)));
+  const rest = list.filter((x) => !weak.includes(x)).sort((a, b) => ms(recs.get(idOf(a))?.lastAt) - ms(recs.get(idOf(b))?.lastAt));
+  return [...weak, ...rest];
 }
 
 @ApiTags('practice')
@@ -176,15 +302,35 @@ export class PracticeController {
   }
 }
 
+@ApiTags('practice')
+@ApiBearerAuth()
+@Controller('practice/words')
+export class PracticeWordsController {
+  constructor(private readonly practice: PracticeService) {}
+
+  /** My practice records, weak words and this week's numbers. */
+  @Get('stats')
+  stats(@UserId() user: string) {
+    return this.practice.stats(user);
+  }
+
+  /** Records practice answers (in the order given). */
+  @Post('results')
+  @HttpCode(204)
+  async results(@UserId() user: string, @Body() dto: PracticeResultsDto) {
+    await this.practice.record(user, dto.items);
+  }
+}
+
 @Module({
   imports: [
     WordsModule, SentenceBankModule, CoursesModule, ProfileModule,
     MongooseModule.forFeature([
-      { name: SentenceSeen.name, schema: SentenceSeenSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
+      { name: SentenceSeen.name, schema: SentenceSeenSchema }, { name: PracticeWord.name, schema: PracticeWordSchema }, { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
       { name: SentenceSuggestion.name, schema: SentenceSuggestionSchema }, { name: LibraryWord.name, schema: LibraryWordSchema }, { name: Enrollment.name, schema: EnrollmentSchema }, { name: BankItem.name, schema: BankItemSchema }
     ])
   ],
-  controllers: [PracticeController, SentenceCheckController],
+  controllers: [PracticeController, PracticeWordsController, SentenceCheckController],
   providers: [PracticeService, SentenceCheckService],
   exports: [PracticeService, SentenceCheckService]
 })

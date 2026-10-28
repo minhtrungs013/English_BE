@@ -75,6 +75,8 @@ export class WordsService {
   async remove(user: string, id: string): Promise<void> {
     const res = await this.words.deleteOne({ _id: id, user });
     if (!res.deletedCount) throw new NotFoundException('Word not found');
+    // Its practice records (the practice module's collection).
+    await this.words.db.collection('practice_words').deleteMany({ user, wordId: id });
   }
 
   async review(user: string, id: string, dto: ReviewWordDto) {

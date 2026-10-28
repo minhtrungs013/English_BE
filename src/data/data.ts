@@ -74,7 +74,7 @@ export class DataService implements OnApplicationBootstrap {
 
   /** Removes the user's words, categories and tags and resets progress (settings are kept). */
   async clear(user: string): Promise<void> {
-    await Promise.all([this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user })]);
+    await Promise.all([this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user }), this.users.db.collection('practice_words').deleteMany({ user })]);
     await this.profile.resetProgress(user);
   }
 
@@ -88,7 +88,8 @@ export class DataService implements OnApplicationBootstrap {
       this.words.deleteMany({ user }), this.cats.deleteMany({ user }), this.tags.deleteMany({ user }),
       this.profiles.deleteOne({ user }), this.users.deleteOne({ _id: user }),
       // Practised sentences (the practice module's own collection).
-      this.users.db.collection('sentence_seen').deleteMany({ user }), this.users.db.collection('sentence_attempts').deleteMany({ user })
+      this.users.db.collection('sentence_seen').deleteMany({ user }), this.users.db.collection('sentence_attempts').deleteMany({ user }),
+      this.users.db.collection('practice_words').deleteMany({ user })
     ]);
   }
 
