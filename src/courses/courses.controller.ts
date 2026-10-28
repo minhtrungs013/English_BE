@@ -134,7 +134,7 @@ export class CoursesController {
   @Post(':id/days/:day/warmup/done')
   @HttpCode(200)
   warmupDone(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Param('day', ParseIntPipe) day: number, @Body() dto: WarmupDoneDto) {
-    return this.homework.warmupDone(user, id, day, dto.correct, dto.total);
+    return this.homework.warmupDone(user, id, day, dto.correct, dto.total, dto.results);
   }
 
   /** The grammar of the example sentences of a day's words, for "Grammar" in the Learn step. */

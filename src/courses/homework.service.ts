@@ -28,6 +28,35 @@ const WORD_NEW = 4;
 const TENSE_REVIEW = 2;
 /** Words in the warm-up before a day's new words. */
 const WARMUP_WORDS = 6;
+/** Of those, at most this many weak words (still to fix); the rest are words not seen for the longest time. */
+const WARMUP_WEAK = 4;
+
+/** How a learner stands with one word: answers in homework and warm-ups, oldest first. */
+interface WordRecord {
+  /** Mistakes still to fix: +1 per wrong answer, −1 per right one, 0 after two right in a row. */
+  errors: number; streak: number; wrong: number; right: number;
+  /** Last answer about it (ms), 0 = never. */
+  last: number;
+}
+
+/** Replays every answer in time order. A word answered right twice in a row is no longer weak. */
+function wordRecords(events: { at: number; word: string; ok: boolean }[]): Map<string, WordRecord> {
+  const out = new Map<string, WordRecord>();
+  for (const ev of [...events].sort((a, b) => a.at - b.at)) {
+    const k = ev.word.trim().toLowerCase();
+    if (!k) continue;
+    const r = out.get(k) ?? { errors: 0, streak: 0, wrong: 0, right: 0, last: 0 };
+    if (ev.ok) {
+      r.right++; r.streak++;
+      r.errors = r.streak >= 2 ? 0 : Math.max(0, r.errors - 1);
+    } else {
+      r.wrong++; r.streak = 0; r.errors++;
+    }
+    r.last = Math.max(r.last, ev.at);
+    out.set(k, r);
+  }
+  return out;
+}
 /** Most word-form (word family) questions in a day's homework. */
 const WORDFORM_PER_DAY = 2;
 
@@ -439,21 +468,32 @@ export class HomeworkService {
     const recap = recapItem ? { text: recapItem.prompt, vi: recapItem.explain } : null;
     if (!earlier.length) return { day, recap, words: [], questions: [] };
 
-    // Mistakes in my earlier homework, by word.
+    // Every answer I gave about each word: my handed-in homework and my earlier warm-ups.
     const subs = await this.submissions.find({ courseId: id, user, day: { $lt: day }, submittedAt: { $ne: null } }).lean();
     const hws = new Map((await this.homework.find({ courseId: id, day: { $in: subs.map((s) => s.day) } }).lean()).map((h) => [h.day, h]));
-    const wrong = new Map<string, number>();
-    const practised = new Set<string>();
+    const events: { at: number; word: string; ok: boolean }[] = [];
     for (const s of subs) {
-      hws.get(s.day)?.questions.forEach((q, i) => {
-        const k = q.word.toLowerCase();
-        practised.add(k);
-        if (!s.results[i]) wrong.set(k, (wrong.get(k) ?? 0) + 1);
-      });
+      const at = s.submittedAt ? new Date(s.submittedAt).getTime() : 0;
+      hws.get(s.day)?.questions.forEach((q, i) => events.push({ at, word: q.word, ok: !!s.results[i] }));
     }
-    // Missed most first, then words not practised in homework yet, then the rest (random within each group).
-    const rank = (w: CourseWord) => (wrong.get(w.word.toLowerCase()) ?? 0) * 10 + (practised.has(w.word.toLowerCase()) ? 0 : 1) + Math.random();
-    const picked = [...earlier].sort((a, b) => rank(b) - rank(a)).slice(0, WARMUP_WORDS);
+    const warmups = (e.warmedUp ?? []).filter((x) => x.day !== day);
+    for (const x of warmups) for (const a of x.words ?? []) events.push({ at: new Date(x.at).getTime(), word: a.word, ok: a.ok });
+    const rec = wordRecords(events);
+    const of = (w: CourseWord) => rec.get(w.word.toLowerCase());
+
+    // Right in my last warm-up: not again straight away (unless it's all that's left).
+    const lastWarm = [...warmups].sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())[0];
+    const justRight = new Set((lastWarm?.words ?? []).filter((a) => a.ok).map((a) => a.word.toLowerCase()));
+    const justSeen = new Set((lastWarm?.words ?? []).map((a) => a.word.toLowerCase()));
+    const unique = earlier.filter((w, i, all) => all.findIndex((x) => x.word.toLowerCase() === w.word.toLowerCase()) === i);
+    // Weak words: most mistakes still to fix first; the ones I just got right go last.
+    const weak = shuffle(unique.filter((w) => (of(w)?.errors ?? 0) > 0))
+      .sort((a, b) => Number(justRight.has(a.word.toLowerCase())) - Number(justRight.has(b.word.toLowerCase())) || (of(b)?.errors ?? 0) - (of(a)?.errors ?? 0));
+    const picked = weak.slice(0, WARMUP_WEAK);
+    // The rest: the words I haven't seen for the longest time (never first), skipping the last warm-up's when I can.
+    const rest = shuffle(unique.filter((w) => !picked.includes(w)))
+      .sort((a, b) => Number(justSeen.has(a.word.toLowerCase())) - Number(justSeen.has(b.word.toLowerCase())) || (of(a)?.last ?? 0) - (of(b)?.last ?? 0));
+    picked.push(...rest.slice(0, WARMUP_WORDS - picked.length));
 
     const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => QUESTION_KINDS.includes(b.kind));
     const pool = await this.poolFor(c);
@@ -467,7 +507,8 @@ export class HomeworkService {
     const grammar = await this.grammarOf(questions);
     return {
       day, recap,
-      words: picked.map((w) => ({ word: w.word, ipa: w.ipa, vi: w.vi, meaning: w.meaning, missed: wrong.get(w.word.toLowerCase()) ?? 0 })),
+      // missed: mistakes still to fix (0 once it's answered right twice in a row); wrong / right: all my answers about it.
+      words: picked.map((w) => ({ word: w.word, ipa: w.ipa, vi: w.vi, meaning: w.meaning, missed: of(w)?.errors ?? 0, wrong: of(w)?.wrong ?? 0, right: of(w)?.right ?? 0 })),
       questions: questions.map((q, i) => ({ ...q, grammar: grammar[i] }))
     };
   }
@@ -484,13 +525,16 @@ export class HomeworkService {
   }
 
   /** Marks a day's warm-up as finished (it isn't graded; the result is only kept for the learner's progress). */
-  async warmupDone(user: string, id: string, day: number, correct = 0, total = 0) {
+  async warmupDone(user: string, id: string, day: number, correct = 0, total = 0, results: { word: string; ok: boolean }[] = []) {
     const c = await this.courses.findById(id);
     if (!c) throw new NotFoundException('Course not found.');
     const e = await this.enrollments.findOne({ user, courseId: id });
     if (!e) throw new ForbiddenException('Join the course first.');
     if (!Number.isInteger(day) || day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
-    const entry = { day, at: new Date(), correct: Math.max(0, correct), total: Math.max(0, total) };
+    // Only the words this warm-up could ask about (earlier days'), so a client can't mark other words.
+    const known = new Set(c.days.filter((d) => d.day < day).flatMap((d) => d.words.map((w) => w.word.toLowerCase())));
+    const words = results.filter((r) => known.has(r.word.trim().toLowerCase())).map((r) => ({ word: r.word.trim(), ok: !!r.ok }));
+    const entry = { day, at: new Date(), correct: Math.max(0, correct), total: Math.max(0, total), words };
     const others = (e.warmedUp ?? []).filter((w) => w.day !== day);
     e.warmedUp = [...others, entry].sort((a, b) => a.day - b.day);
     await e.save();

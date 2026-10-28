@@ -93,9 +93,16 @@ export class ListeningDoneDto {
   @IsOptional() @IsInt() @Min(0) @Max(100) total?: number;
 }
 
+export class WarmupAnswerDto {
+  @IsString() @MaxLength(80) word: string;
+  @IsBoolean() ok: boolean;
+}
+
 export class WarmupDoneDto {
   @IsOptional() @IsInt() @Min(0) @Max(100) correct?: number;
   @IsOptional() @IsInt() @Min(0) @Max(100) total?: number;
+  /** Each answer (the question's word, right or wrong), so the next warm-ups know which words are still weak. */
+  @IsOptional() @IsArray() @ArrayMaxSize(30) @ValidateNested({ each: true }) @Type(() => WarmupAnswerDto) results?: WarmupAnswerDto[];
 }
 
 export class LeaderboardQuery {

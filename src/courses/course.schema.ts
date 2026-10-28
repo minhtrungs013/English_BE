@@ -72,9 +72,9 @@ export class Enrollment {
   @Prop({ required: true }) startDay: string;
   /** Days whose words the learner has learned (saved to My Vocabulary). */
   @Prop({ type: [{ day: Number, at: Date, _id: false }], default: [] }) learned: { day: number; at: Date }[];
-  /** Days whose warm-up (review of earlier words) the learner has finished, with how they did. */
-  @Prop({ type: [{ day: Number, at: Date, correct: Number, total: Number, _id: false }], default: [] })
-  warmedUp: { day: number; at: Date; correct: number; total: number }[];
+  /** Days whose warm-up (review of earlier words) the learner has finished, with how they did (words: each answer). */
+  @Prop({ type: [{ day: Number, at: Date, correct: Number, total: Number, words: { type: [{ word: String, ok: Boolean, _id: false }], default: [] }, _id: false }], default: [] })
+  warmedUp: { day: number; at: Date; correct: number; total: number; words?: { word: string; ok: boolean }[] }[];
   /** Days whose listening practice the learner has finished (or skipped). */
   @Prop({ type: [{ day: Number, at: Date, correct: Number, total: Number, _id: false }], default: [] })
   listened: { day: number; at: Date; correct: number; total: number }[];
