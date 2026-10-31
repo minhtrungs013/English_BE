@@ -14,6 +14,7 @@ import { UserId } from '../auth/auth.decorators';
 import { LEVELS, POS_LIST } from '../common/constants';
 import { FAMILY_MAX, FamilyMemberDto, cleanFamily } from '../common/family';
 import { aiLookup } from '../lookup/ai';
+import { UsageModule, UsageService, keyOf } from '../usage/usage';
 import { todayKey } from '../common/day';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/course.schema';
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
@@ -57,6 +58,8 @@ export class LibraryPatchDto {
   @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(60, { each: true }) syn?: string[];
   @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(60, { each: true }) ant?: string[];
   @IsOptional() @IsArray() @ArrayMaxSize(FAMILY_MAX) @ValidateNested({ each: true }) @Type(() => FamilyMemberDto) family?: FamilyMemberDto[];
+  /** Also write the word's "How to use" again with AI, for the saved meaning. */
+  @IsOptional() @IsBoolean() usage?: boolean;
 }
 
 /** Fields of a library word that are copied to learners' saved words when an admin changes them. */
@@ -128,6 +131,7 @@ export class AdminService {
     @InjectModel(Profile.name) private readonly profiles: Model<Profile>,
     @InjectModel(Word.name) private readonly words: Model<Word>,
     private readonly config: ConfigService,
+    private readonly usage: UsageService,
     private readonly access: AccessService
   ) {}
 
@@ -330,7 +334,7 @@ export class AdminService {
     ).catch(() => undefined);
   }
 
-  async patchLibrary(id: string, dto: LibraryPatchDto) {
+  async patchLibrary(admin: string, id: string, { usage, ...dto }: LibraryPatchDto) {
     const before = await this.library.findById(id).lean();
     if (!before) throw new NotFoundException('Word not found.');
     const set: Record<string, unknown> = { ...dto };
@@ -343,7 +347,8 @@ export class AdminService {
     if (!w) throw new NotFoundException('Word not found.');
     await this.staleUsage(w.wordLower, w.pos, w.vi);
     const synced = await this.syncSavedWords(before, w);
-    return { ...this.libRow(w), syn: w.syn, ant: w.ant, family: w.family ?? [], synced };
+    const usageWriting = !!usage && this.usage.rewriteLater(keyOf(w.word), admin, { word: w.word, pos: w.pos, vi: w.vi, meaning: w.meaning });
+    return { ...this.libRow(w), syn: w.syn, ant: w.ant, family: w.family ?? [], synced, usageWriting };
   }
 
   private libRow(w: LibraryWord & { _id: unknown }) {
@@ -460,13 +465,14 @@ export class AdminController {
   @Get('insights') insights(@Query() q: InsightQuery) { return this.admin.insights(q); }
   @Get('library') library(@Query() q: PageQuery) { return this.admin.listLibrary(q); }
   @Post('library/:id/regenerate') regenerateLibrary(@Param() p: IdParam) { return this.admin.regenerateLibrary(p.id); }
-  @Patch('library/:id') patchLibrary(@Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(p.id, dto); }
+  @Patch('library/:id') patchLibrary(@UserId() me: string, @Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(me, p.id, dto); }
   @Delete('library/:id') @HttpCode(204) async deleteLibrary(@Param() p: IdParam) { await this.admin.deleteLibrary(p.id); }
 }
 
 @Module({
   imports: [
     DataModule,
+    UsageModule,
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema }, { name: Course.name, schema: CourseSchema }, { name: Enrollment.name, schema: EnrollmentSchema },
       { name: BankItem.name, schema: BankItemSchema }, { name: LibraryWord.name, schema: LibraryWordSchema }, { name: WordSentence.name, schema: WordSentenceSchema },

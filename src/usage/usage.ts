@@ -280,6 +280,18 @@ export class UsageService {
   }
 
   /** Written again by AI (no learner quota); open reports are resolved. */
+  /**
+   * An admin rewrote the word: write its usage again in the background for the new meaning (no daily allowance).
+   * The panel sees it being written and shows it when done. False when AI isn't set up.
+   */
+  rewriteLater(key: string, admin: string, given: { word: string; pos: string; vi: string; meaning: string }): boolean {
+    if (!this.aiKey) return false;
+    void this.write(key, admin, given)
+      .then((u) => (u ? Promise.all([this.usages.updateOne({ key }, { $set: { reports: 0 } }), this.reports.updateMany({ key, status: 'open' }, { $set: { status: 'resolved' } })]) : null))
+      .catch((e: Error) => this.log.warn('Usage rewrite failed for “' + key + '”: ' + e.message));
+    return true;
+  }
+
   async adminRegenerate(admin: string, key: string) {
     if (!this.aiKey) throw new ServiceUnavailableException('AI isn’t set up yet.');
     const u = await this.write(key, admin).catch((e) => { throw e instanceof HttpException ? e : new UnprocessableEntityException('AI couldn’t write it right now.'); });
