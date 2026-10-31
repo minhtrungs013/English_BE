@@ -4,13 +4,14 @@ import { Throttle } from '@nestjs/throttler';
 import { UserId } from '../auth/auth.decorators';
 import { ParseObjectIdPipe } from '../common/parse-object-id.pipe';
 import { LibraryService } from './library.service';
+import { UsageService } from '../usage/usage';
 import { FamilyStatusDto, FindWordQuery, LibraryQuery, ShareWordDto, SuggestMeaningDto } from './library.dto';
 
 @ApiTags('library')
 @ApiBearerAuth()
 @Controller('library')
 export class LibraryController {
-  constructor(private readonly library: LibraryService) {}
+  constructor(private readonly library: LibraryService, private readonly usage: UsageService) {}
 
   /** Browse / search the shared library: ?q=&topic=&level=&source=&page=&limit= */
   @Get()
@@ -46,8 +47,11 @@ export class LibraryController {
 
   /** Save a library word into my vocabulary. */
   @Post(':id/save')
-  save(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string) {
-    return this.library.save(user, id);
+  async save(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string) {
+    const r = await this.library.save(user, id);
+    // The saved word gets its "How to use" written in the background when it has none yet.
+    this.usage.ensureForNewWord(user, { word: r.word.word, pos: r.word.pos, vi: r.word.vi, meaning: r.word.meaning });
+    return r;
   }
 
   /** Suggest another Vietnamese meaning for a library word (an admin approves it): { vi } */

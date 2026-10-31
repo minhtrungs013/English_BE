@@ -22,6 +22,7 @@ import { LookupModule } from './lookup/lookup';
 import { ProfileModule } from './profile/profile.module';
 import { TagsModule } from './tags/tags';
 import { WordsModule } from './words/words.module';
+import { UsageModule } from './usage/usage';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { WordsModule } from './words/words.module';
     GrammarModule,
     DictationModule,
     ChatModule,
+    UsageModule,
     DataModule
   ],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }, KeepAliveService]

@@ -64,6 +64,7 @@ export class PlanDto {
   @IsInt() @Min(0) @Max(10_000) autofill: number;
   @IsInt() @Min(0) @Max(10_000) courseAi: number;
   @IsInt() @Min(0) @Max(10_000) sentence: number;
+  @IsInt() @Min(0) @Max(10_000) usage: number;
   @IsInt() @Min(0) @Max(100_000_000) tokens: number;
 }
 export class PlanPatchDto {
@@ -72,6 +73,7 @@ export class PlanPatchDto {
   @IsOptional() @IsInt() @Min(0) @Max(10_000) autofill?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10_000) courseAi?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10_000) sentence?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) usage?: number;
   @IsOptional() @IsInt() @Min(0) @Max(100_000_000) tokens?: number;
   @IsOptional() @IsBoolean() isDefault?: boolean;
 }
@@ -247,6 +249,8 @@ export class AdminService {
     const x = await this.meanings.findById(id);
     if (!x || x.status !== 'pending') throw new NotFoundException('Suggestion not found.');
     const r = await this.library.updateOne({ _id: x.libraryWordId }, { $set: { vi: vi.replace(/\s+/g, ' ').trim() } });
+    const lib = r.matchedCount ? await this.library.findById(x.libraryWordId, { wordLower: 1, pos: 1, vi: 1 }).lean() : null;
+    if (lib) await this.staleUsage(lib.wordLower, lib.pos, lib.vi);
     x.status = r.matchedCount ? 'approved' : 'rejected';
     await x.save();
     if (!r.matchedCount) throw new NotFoundException('That library word no longer exists.');
@@ -303,12 +307,21 @@ export class AdminService {
     };
   }
 
+  /** The word's "How to use" was written for another meaning: write it again on its next open. */
+  private async staleUsage(key: string, pos: string, vi: string) {
+    await this.library.db.collection('word_usages').updateOne(
+      { key, status: { $ne: 'stale' }, $or: [{ 'basedOn.pos': { $ne: pos } }, { 'basedOn.vi': { $ne: vi } }] },
+      { $set: { status: 'stale' } }
+    ).catch(() => undefined);
+  }
+
   async patchLibrary(id: string, dto: LibraryPatchDto) {
     const set: Record<string, unknown> = { ...dto };
     if (dto.word) { set.word = dto.word.trim(); set.wordLower = dto.word.trim().toLowerCase(); }
     const w = await this.library.findByIdAndUpdate(id, { $set: set }, { new: true }).lean()
       .catch((e: { code?: number }) => { throw e?.code === 11000 ? new BadRequestException('Another library word is already spelled like this.') : e; });
     if (!w) throw new NotFoundException('Word not found.');
+    await this.staleUsage(w.wordLower, w.pos, w.vi);
     return { id: String(w._id), word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, level: w.level, topic: w.topic, authorName: w.authorName, saves: w.saves };
   }
 

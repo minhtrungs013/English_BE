@@ -54,6 +54,8 @@ export class Profile {
   @Prop({ type: SchemaFactory.createForClass(Autofill), default: () => ({}) }) chat: Autofill;
   /** Today's AI sentence checks (Practice → Write a sentence). */
   @Prop({ type: SchemaFactory.createForClass(Autofill), default: () => ({}) }) sentence: Autofill;
+  /** Today's AI-written "How to use" sections. */
+  @Prop({ type: SchemaFactory.createForClass(Autofill), default: () => ({}) }) usage: Autofill;
 }
 
 export type ProfileDocument = HydratedDocument<Profile>;

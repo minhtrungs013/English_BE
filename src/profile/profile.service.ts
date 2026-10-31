@@ -6,7 +6,7 @@ import { todayKey } from '../common/day';
 import { PlanService } from '../plans/plans';
 
 /** Daily limits that reset at midnight (app time zone). The numbers come from the user's plan (PlanService). */
-export type DailyQuota = 'autofill' | 'courseAi' | 'chat' | 'sentence';
+export type DailyQuota = 'autofill' | 'courseAi' | 'chat' | 'sentence' | 'usage';
 import { Profile, ProfileDocument, Progress, Settings } from './profile.schema';
 import { UpdateSettingsDto } from './profile.dto';
 
