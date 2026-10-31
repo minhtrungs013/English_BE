@@ -2,7 +2,8 @@ import { BadRequestException, Body, Controller, Delete, Get, HttpCode, Injectabl
 import { InjectModel, MongooseModule } from '@nestjs/mongoose';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsBoolean, IsIn, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, ValidateIf } from 'class-validator';
+import { ArrayMaxSize, IsArray, IsBoolean, IsIn, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, ValidateIf, ValidateNested } from 'class-validator';
+import { ConfigService } from '@nestjs/config';
 import { Model, type QueryFilter } from 'mongoose';
 import { AccessService, AdminGuard } from '../access/access';
 import { AuditLog } from '../audit/audit';
@@ -11,6 +12,8 @@ import { DataModule, DataService } from '../data/data';
 import { SentenceAttempt, SentenceAttemptSchema, SentenceSuggestion, SentenceSuggestionSchema } from '../practice/sentence-grade';
 import { UserId } from '../auth/auth.decorators';
 import { LEVELS, POS_LIST } from '../common/constants';
+import { FAMILY_MAX, FamilyMemberDto, cleanFamily } from '../common/family';
+import { aiLookup } from '../lookup/ai';
 import { todayKey } from '../common/day';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/course.schema';
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
@@ -51,8 +54,19 @@ export class LibraryPatchDto {
   @IsOptional() @IsString() @MaxLength(300) ex?: string;
   @IsOptional() @IsIn(LEVELS) level?: string;
   @IsOptional() @IsIn(TOPICS) topic?: string;
+  @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(60, { each: true }) syn?: string[];
+  @IsOptional() @IsArray() @ArrayMaxSize(5) @IsString({ each: true }) @MaxLength(60, { each: true }) ant?: string[];
+  @IsOptional() @IsArray() @ArrayMaxSize(FAMILY_MAX) @ValidateNested({ each: true }) @Type(() => FamilyMemberDto) family?: FamilyMemberDto[];
 }
-export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence', 'recap'] as const;
+
+/** Fields of a library word that are copied to learners' saved words when an admin changes them. */
+const SYNC_FIELDS = ['word', 'ipa', 'pos', 'meaning', 'vi', 'ex', 'syn', 'ant', 'level', 'family'] as const;
+/** A field value in a form that compares equal however it was stored (family members without their empty keys). */
+const norm = (v: unknown): string => JSON.stringify(Array.isArray(v)
+  ? v.map((x) => (x && typeof x === 'object' ? { word: x.word, pos: x.pos, vi: x.vi, ex: x.ex || undefined, note: x.note || undefined } : x))
+  : v ?? '');
+const blank = (v: unknown) => v == null || v === '' || (Array.isArray(v) && !v.length);
+export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'library-regenerate', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence', 'recap'] as const;
 export class AuditQuery extends PageQuery {
   @IsOptional() @IsIn(AUDIT_ACTIONS) action?: string;
   @IsOptional() @IsIn(['ok', 'failed']) status?: string;
@@ -113,6 +127,7 @@ export class AdminService {
     @InjectModel(SentenceAttempt.name) private readonly attempts: Model<SentenceAttempt>,
     @InjectModel(Profile.name) private readonly profiles: Model<Profile>,
     @InjectModel(Word.name) private readonly words: Model<Word>,
+    private readonly config: ConfigService,
     private readonly access: AccessService
   ) {}
 
@@ -316,13 +331,57 @@ export class AdminService {
   }
 
   async patchLibrary(id: string, dto: LibraryPatchDto) {
+    const before = await this.library.findById(id).lean();
+    if (!before) throw new NotFoundException('Word not found.');
     const set: Record<string, unknown> = { ...dto };
     if (dto.word) { set.word = dto.word.trim(); set.wordLower = dto.word.trim().toLowerCase(); }
+    if (dto.syn) set.syn = dto.syn.map((x) => x.trim()).filter(Boolean);
+    if (dto.ant) set.ant = dto.ant.map((x) => x.trim()).filter(Boolean);
+    if (dto.family) set.family = cleanFamily(dto.family);
     const w = await this.library.findByIdAndUpdate(id, { $set: set }, { new: true }).lean()
       .catch((e: { code?: number }) => { throw e?.code === 11000 ? new BadRequestException('Another library word is already spelled like this.') : e; });
     if (!w) throw new NotFoundException('Word not found.');
     await this.staleUsage(w.wordLower, w.pos, w.vi);
+    const synced = await this.syncSavedWords(before, w);
+    return { ...this.libRow(w), syn: w.syn, ant: w.ant, family: w.family ?? [], synced };
+  }
+
+  private libRow(w: LibraryWord & { _id: unknown }) {
     return { id: String(w._id), word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, level: w.level, topic: w.topic, authorName: w.authorName, saves: w.saves };
+  }
+
+  /**
+   * Copies a library word's changes to learners' saved copies of it. A field is copied only when the learner
+   * left it as the library had it (or empty), so their own edits stay. Returns how many saved words changed.
+   */
+  private async syncSavedWords(before: LibraryWord, after: LibraryWord): Promise<number> {
+    const changed = SYNC_FIELDS.filter((k) => norm(before[k]) !== norm(after[k]));
+    if (!changed.length) return 0;
+    const saved = await this.words.find({ wordLower: before.wordLower }, Object.fromEntries(changed.map((k) => [k, 1]))).lean();
+    const ops = [];
+    for (const uw of saved) {
+      const set: Partial<Word> = {};
+      for (const k of changed) if (blank(uw[k]) || norm(uw[k]) === norm(before[k])) (set as Record<string, unknown>)[k] = after[k];
+      if (set.word) set.wordLower = after.wordLower;
+      if (Object.keys(set).length) ops.push({ updateOne: { filter: { _id: uw._id }, update: { $set: set } } });
+    }
+    if (!ops.length) return 0;
+    // A learner who already has a word spelled like a renamed one keeps both as they were.
+    const res = await this.words.bulkWrite(ops, { ordered: false }).catch((e: { result?: { modifiedCount?: number } }) => e.result ?? null);
+    return res?.modifiedCount ?? 0;
+  }
+
+  /** AI writes the library word again, as for a new word. Nothing is saved: the admin picks what to keep. */
+  async regenerateLibrary(id: string) {
+    const w = await this.library.findById(id).lean();
+    if (!w) throw new NotFoundException('Word not found.');
+    const key = this.config.get<string>('ANTHROPIC_API_KEY');
+    if (!key) throw new BadRequestException('AI isn’t set up on the server (ANTHROPIC_API_KEY).');
+    const ai = await aiLookup(w.word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'), 'library-regenerate');
+    if (!ai) throw new BadRequestException('AI gave no result for “' + w.word + '”. Please try again.');
+    const pick = (x: { ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; topic: string; family?: unknown[] }) =>
+      ({ ipa: x.ipa, pos: x.pos, meaning: x.meaning, vi: x.vi, ex: x.ex, syn: x.syn ?? [], ant: x.ant ?? [], level: x.level, topic: x.topic, family: x.family ?? [] });
+    return { word: w.word, current: pick(w), proposal: pick(ai) };
   }
 
   /**
@@ -400,6 +459,7 @@ export class AdminController {
   @Post('meanings/:id/reject') @HttpCode(204) async rejectMeaning(@Param() p: IdParam) { await this.admin.rejectMeaning(p.id); }
   @Get('insights') insights(@Query() q: InsightQuery) { return this.admin.insights(q); }
   @Get('library') library(@Query() q: PageQuery) { return this.admin.listLibrary(q); }
+  @Post('library/:id/regenerate') regenerateLibrary(@Param() p: IdParam) { return this.admin.regenerateLibrary(p.id); }
   @Patch('library/:id') patchLibrary(@Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(p.id, dto); }
   @Delete('library/:id') @HttpCode(204) async deleteLibrary(@Param() p: IdParam) { await this.admin.deleteLibrary(p.id); }
 }
