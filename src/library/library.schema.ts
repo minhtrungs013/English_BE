@@ -7,6 +7,9 @@ import { jsonOptions } from '../common/to-json';
 export const TOPICS = ['it', 'interview', 'customer', 'leader', 'toeic', 'other'] as const;
 export type Topic = (typeof TOPICS)[number];
 
+/** Author of library words added by an admin import: shown as "Wordbook", never removed by the seed sync. */
+export const IMPORT_AUTHOR = 'import';
+
 /** Tag added to a word when it is saved from the library. */
 export const TOPIC_TAG: Record<Topic, string> = {
   it: 'it', interview: 'interview', customer: 'customer-meeting', leader: 'leader-meeting', toeic: 'toeic', other: 'library'

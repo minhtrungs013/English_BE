@@ -7,7 +7,7 @@ import { User } from '../users/user.schema';
 import { NotificationsService } from '../notifications/notifications.service';
 import { WordsService } from '../words/words.service';
 import { LibraryQuery, ShareWordDto } from './library.dto';
-import { hasMeaning, LibraryWord, LibraryWordDocument, MeaningSuggestion, TOPIC_TAG, TOPICS, type Topic } from './library.schema';
+import { hasMeaning, IMPORT_AUTHOR, LibraryWord, LibraryWordDocument, MeaningSuggestion, TOPIC_TAG, TOPICS, type Topic } from './library.schema';
 import SEED from './seed/library.json';
 
 interface SeedEntry { word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; topic: string; family?: unknown[] }
@@ -88,8 +88,8 @@ export class LibraryService implements OnApplicationBootstrap {
     }
     if (q.level) filter.level = q.level;
     if (q.source === 'me') filter.authorId = user;
-    else if (q.source === 'community') filter.authorId = { $ne: '' };
-    else if (q.source === 'builtin') filter.authorId = '';
+    else if (q.source === 'community') filter.authorId = { $nin: ['', IMPORT_AUTHOR] };
+    else if (q.source === 'builtin') filter.authorId = { $in: ['', IMPORT_AUTHOR] };
     // Topic counts ignore the topic filter so the chips can show how many words each topic has.
     const term = q.q?.trim().toLowerCase() ?? '';
     const [items, total, counts] = await Promise.all([

@@ -15,6 +15,7 @@ import { LEVELS, POS_LIST } from '../common/constants';
 import { FAMILY_MAX, FamilyMemberDto, cleanFamily } from '../common/family';
 import { aiLookup } from '../lookup/ai';
 import { UsageModule, UsageService, keyOf } from '../usage/usage';
+import { IMPORT_AUTHOR, cleanImportItem, type ImportWord } from './library-import';
 import { todayKey } from '../common/day';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/course.schema';
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
@@ -62,12 +63,22 @@ export class LibraryPatchDto {
   @IsOptional() @IsBoolean() usage?: boolean;
 }
 
+export class LibraryImportDto {
+  /** Up to 100 items per request (the page sends a big file in parts); each is checked on its own. */
+  @IsArray() @ArrayMaxSize(100) items: unknown[];
+  /** Only check: nothing is saved. */
+  @IsBoolean() dryRun: boolean;
+  /** A word the library already has: leave it, or fill its empty fields (and add How to use when it has none). */
+  @IsIn(['skip', 'fill']) duplicates: 'skip' | 'fill';
+}
+
 /** Fields of a library word that are copied to learners' saved words when an admin changes them. */
 const SYNC_FIELDS = ['word', 'ipa', 'pos', 'meaning', 'vi', 'ex', 'syn', 'ant', 'level', 'family'] as const;
 /** A field value in a form that compares equal however it was stored (family members without their empty keys). */
 const norm = (v: unknown): string => JSON.stringify(Array.isArray(v)
   ? v.map((x) => (x && typeof x === 'object' ? { word: x.word, pos: x.pos, vi: x.vi, ex: x.ex || undefined, note: x.note || undefined } : x))
   : v ?? '');
+const importKeyOf = (word: string) => word.trim().toLowerCase().replace(/\s+/g, ' ');
 const blank = (v: unknown) => v == null || v === '' || (Array.isArray(v) && !v.length);
 export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'library-regenerate', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence', 'recap'] as const;
 export class AuditQuery extends PageQuery {
@@ -376,6 +387,85 @@ export class AdminService {
     return res?.modifiedCount ?? 0;
   }
 
+  /**
+   * Adds words from an import file to the library. Each item comes back with its status: new, exists (already in the
+   * library: skipped, or filled), same (exists and nothing to fill) or invalid, with the reasons.
+   * Words the file repeats are caught by the page before they get here; a repeat within one request counts as "repeat".
+   */
+  async importLibrary(admin: string, dto: LibraryImportDto) {
+    const cleaned = dto.items.map((raw) => cleanImportItem(raw));
+    const keys = [...new Set(cleaned.flatMap((c) => (c.word ? [c.word.wordLower] : [])))];
+    const [have, usages] = await Promise.all([
+      this.library.find({ wordLower: { $in: keys } }).lean(),
+      this.library.db.collection('word_usages').find({ key: { $in: keys } }, { projection: { key: 1 } }).toArray()
+    ]);
+    const byKey = new Map(have.map((w) => [w.wordLower, w]));
+    const hasUsage = new Set(usages.map((u) => String(u.key)));
+    const seen = new Set<string>();
+    const now = new Date();
+    const inserts: (ImportWord & { authorId: string; authorName: string; saves: number; sharedAt: Date })[] = [];
+    const fills: { id: unknown; set: Partial<ImportWord> }[] = [];
+    const usageAdds: { key: string; word: ImportWord; usage: NonNullable<ReturnType<typeof cleanImportItem>['usage']> }[] = [];
+    const results = cleaned.map((c, index) => {
+      const base = { index, word: c.word?.word ?? c.raw, errors: c.errors, warnings: c.warnings, filled: [] as string[] };
+      if (!c.word) return { ...base, status: 'invalid' as const };
+      const w = c.word;
+      if (seen.has(w.wordLower)) return { ...base, status: 'repeat' as const };
+      seen.add(w.wordLower);
+      const old = byKey.get(w.wordLower);
+      const addUsage = c.usage && !hasUsage.has(w.wordLower);
+      if (!old) {
+        inserts.push({ ...w, authorId: IMPORT_AUTHOR, authorName: 'Wordbook', saves: 0, sharedAt: now });
+        if (addUsage) usageAdds.push({ key: w.wordLower, word: w, usage: c.usage! });
+        return { ...base, status: 'new' as const, usage: !!addUsage };
+      }
+      if (dto.duplicates === 'skip') return { ...base, status: 'exists' as const };
+      // Fill: only fields the library word has empty; its meaning and Vietnamese stay as they are.
+      const set: Partial<ImportWord> = {};
+      for (const k of ['ipa', 'ex', 'syn', 'ant', 'family'] as const) {
+        const cur = old[k] as unknown;
+        const empty = cur == null || cur === '' || (Array.isArray(cur) && !cur.length);
+        const next = w[k] as unknown;
+        if (empty && !(next === '' || (Array.isArray(next) && !next.length))) (set as Record<string, unknown>)[k] = next;
+      }
+      const filled: string[] = Object.keys(set);
+      if (filled.length) fills.push({ id: old._id, set });
+      if (addUsage) { usageAdds.push({ key: w.wordLower, word: { ...w, pos: old.pos, vi: old.vi }, usage: c.usage! }); filled.push('usage'); }
+      return { ...base, status: filled.length ? ('fill' as const) : ('same' as const), filled };
+    });
+
+    if (!dto.dryRun) {
+      if (inserts.length) {
+        // Another import (or a learner sharing the word) may have added one meanwhile: those are skipped.
+        const r = await this.library.insertMany(inserts, { ordered: false }).catch((e: { insertedDocs?: unknown[]; writeErrors?: { index?: number; err?: { index?: number } }[] }) => {
+          for (const we of e.writeErrors ?? []) {
+            const i = we.index ?? we.err?.index;
+            const key = i != null ? inserts[i]?.wordLower : undefined;
+            const res = key ? results.find((x) => x.status === 'new' && importKeyOf(x.word) === key) : undefined;
+            if (res) Object.assign(res, { status: 'exists', usage: false });
+          }
+          return null;
+        });
+        void r;
+      }
+      if (fills.length) await this.library.bulkWrite(fills.map((f) => ({ updateOne: { filter: { _id: f.id }, update: { $set: f.set } } })));
+      if (usageAdds.length) {
+        await this.library.db.collection('word_usages').bulkWrite(usageAdds.map((u) => ({
+          updateOne: {
+            filter: { key: u.key },
+            update: { $setOnInsert: {
+              key: u.key, word: u.word.word, basedOn: { pos: u.word.pos, vi: u.word.vi }, ...u.usage,
+              source: 'admin', status: 'unreviewed', model: 'import', createdBy: admin, createdAt: now, updatedAt: now, reports: 0
+            } },
+            upsert: true
+          }
+        })), { ordered: false });
+      }
+    }
+    const count = (st: string) => results.filter((x) => x.status === st).length;
+    return { items: results, summary: { new: count('new'), exists: count('exists'), fill: count('fill'), same: count('same'), repeat: count('repeat'), invalid: count('invalid') } };
+  }
+
   /** AI writes the library word again, as for a new word. Nothing is saved: the admin picks what to keep. */
   async regenerateLibrary(id: string) {
     const w = await this.library.findById(id).lean();
@@ -464,6 +554,7 @@ export class AdminController {
   @Post('meanings/:id/reject') @HttpCode(204) async rejectMeaning(@Param() p: IdParam) { await this.admin.rejectMeaning(p.id); }
   @Get('insights') insights(@Query() q: InsightQuery) { return this.admin.insights(q); }
   @Get('library') library(@Query() q: PageQuery) { return this.admin.listLibrary(q); }
+  @Post('library/import') @HttpCode(200) importLibrary(@UserId() me: string, @Body() dto: LibraryImportDto) { return this.admin.importLibrary(me, dto); }
   @Post('library/:id/regenerate') regenerateLibrary(@Param() p: IdParam) { return this.admin.regenerateLibrary(p.id); }
   @Patch('library/:id') patchLibrary(@UserId() me: string, @Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(me, p.id, dto); }
   @Delete('library/:id') @HttpCode(204) async deleteLibrary(@Param() p: IdParam) { await this.admin.deleteLibrary(p.id); }
