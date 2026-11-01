@@ -308,6 +308,19 @@ export class UsageService {
   }
 
   /** Library words without a usage, written in the background, one at a time (no learner quota). */
+  /** Writes the usage of these words one after another in the background (no daily allowance). False when AI isn't set up. */
+  writeManyLater(admin: string, words: { word: string; pos: string; vi: string; meaning: string }[]): boolean {
+    if (!this.aiKey) return false;
+    if (!words.length) return true;
+    void (async () => {
+      for (const w of words) {
+        await this.write(keyOf(w.word), admin, w).catch((e) => this.log.warn('Usage failed for "' + w.word + '": ' + String(e)));
+      }
+      this.log.log('Wrote usage for ' + words.length + ' imported words.');
+    })();
+    return true;
+  }
+
   async adminGenerateLibrary(admin: string, limit: number) {
     if (!this.aiKey) throw new ServiceUnavailableException('AI isn’t set up yet.');
     const have = new Set((await this.usages.find({}, { key: 1 }).lean()).map((u) => u.key));

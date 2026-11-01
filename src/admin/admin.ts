@@ -70,6 +70,8 @@ export class LibraryImportDto {
   @IsBoolean() dryRun: boolean;
   /** A word the library already has: leave it, or fill its empty fields (and add How to use when it has none). */
   @IsIn(['skip', 'fill']) duplicates: 'skip' | 'fill';
+  /** Words left without How to use (none in the file, none saved): AI writes it after the import, in the background. */
+  @IsOptional() @IsBoolean() aiUsage?: boolean;
 }
 
 /** Fields of a library word that are copied to learners' saved words when an admin changes them. */
@@ -406,6 +408,7 @@ export class AdminService {
     const inserts: (ImportWord & { authorId: string; authorName: string; saves: number; sharedAt: Date })[] = [];
     const fills: { id: unknown; set: Partial<ImportWord> }[] = [];
     const usageAdds: { key: string; word: ImportWord; usage: NonNullable<ReturnType<typeof cleanImportItem>['usage']> }[] = [];
+    const aiTodo: { word: string; pos: string; vi: string; meaning: string }[] = [];
     const results = cleaned.map((c, index) => {
       const base = { index, word: c.word?.word ?? c.raw, errors: c.errors, warnings: c.warnings, filled: [] as string[] };
       if (!c.word) return { ...base, status: 'invalid' as const };
@@ -417,7 +420,9 @@ export class AdminService {
       if (!old) {
         inserts.push({ ...w, authorId: IMPORT_AUTHOR, authorName: 'Wordbook', saves: 0, sharedAt: now });
         if (addUsage) usageAdds.push({ key: w.wordLower, word: w, usage: c.usage! });
-        return { ...base, status: 'new' as const, usage: !!addUsage };
+        const ai = !c.usage && !hasUsage.has(w.wordLower);
+        if (ai) aiTodo.push({ word: w.word, pos: w.pos, vi: w.vi, meaning: w.meaning });
+        return { ...base, status: 'new' as const, usage: !!addUsage, aiUsage: ai };
       }
       if (dto.duplicates === 'skip') return { ...base, status: 'exists' as const };
       // Fill: only fields the library word has empty; its meaning and Vietnamese stay as they are.
@@ -431,7 +436,9 @@ export class AdminService {
       const filled: string[] = Object.keys(set);
       if (filled.length) fills.push({ id: old._id, set });
       if (addUsage) { usageAdds.push({ key: w.wordLower, word: { ...w, pos: old.pos, vi: old.vi }, usage: c.usage! }); filled.push('usage'); }
-      return { ...base, status: filled.length ? ('fill' as const) : ('same' as const), filled };
+      const ai = !c.usage && !hasUsage.has(w.wordLower);
+      if (ai) aiTodo.push({ word: old.word, pos: old.pos, vi: old.vi, meaning: old.meaning });
+      return { ...base, status: filled.length ? ('fill' as const) : ('same' as const), filled, aiUsage: ai };
     });
 
     if (!dto.dryRun) {
@@ -462,8 +469,11 @@ export class AdminService {
         })), { ordered: false });
       }
     }
+    // Words another import added meanwhile (now "exists") are left to that import.
+    const aiWords = aiTodo.filter((x) => results.some((r) => importKeyOf(r.word) === importKeyOf(x.word) && (r.status === 'new' || r.status === 'fill' || r.status === 'same')));
+    const aiStarted = !dto.dryRun && !!dto.aiUsage && this.usage.writeManyLater(admin, aiWords);
     const count = (st: string) => results.filter((x) => x.status === st).length;
-    return { items: results, summary: { new: count('new'), exists: count('exists'), fill: count('fill'), same: count('same'), repeat: count('repeat'), invalid: count('invalid') } };
+    return { aiUsage: { words: aiWords.length, started: aiStarted }, items: results, summary: { new: count('new'), exists: count('exists'), fill: count('fill'), same: count('same'), repeat: count('repeat'), invalid: count('invalid') } };
   }
 
   /** AI writes the library word again, as for a new word. Nothing is saved: the admin picks what to keep. */
