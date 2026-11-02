@@ -37,6 +37,11 @@ export class WordsService {
     private readonly profile: ProfileService
   ) {}
 
+  /** Id, spelling and review dates of all my words (for picking practice rounds). */
+  brief(user: string) {
+    return this.words.find({ user }, { word: 1, wordLower: 1, dueAt: 1, addedAt: 1 }).lean();
+  }
+
   findAll(user: string): Promise<WordDocument[]> {
     return this.words.find({ user }).sort({ addedAt: -1 }).exec();
   }

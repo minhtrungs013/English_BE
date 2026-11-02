@@ -33,7 +33,18 @@ export class DrillQuery extends MistakesQuery {
   @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(20) n?: number;
 }
 
+export class SentenceRoundQuery {
+  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(30) n?: number;
+  /** The last round's word ids (comma-separated): not picked again unless there aren't enough other words. */
+  @IsOptional() @IsString() @MaxLength(1500) exclude?: string;
+}
+
 export type SentenceResult = SentenceGrade & { quota: { used: number; limit: number } };
+
+const HOUR = 3600_000;
+/** A sentence at least this good counts as "known" for a few days. */
+const GOOD = 7;
+
 
 /** A practice question made from one of my own mistakes: the corrected sentence with the fixed part blanked. */
 export interface MistakeDrill { id: string; word: string; type: string; prompt: string; choices: string[]; answer: string; wrong: string; explainVi: string; sentence: string }
@@ -55,6 +66,49 @@ export class SentenceCheckService {
     private readonly profile: ProfileService,
     private readonly config: ConfigService
   ) {}
+
+  /**
+   * The words for a round of Write a sentence, from what I wrote before (Practice and homework):
+   * a few words due for review, then words I got wrong (not in the last hour), words I never wrote, words I wrote
+   * longest ago, and last the ones I wrote well in the last 3 days. The last round's words come only when nothing
+   * else is left; the round comes back shuffled.
+   */
+  async round(user: string, q: SentenceRoundQuery): Promise<{ ids: string[] }> {
+    const n = q.n ?? 10;
+    const now = Date.now();
+    const words = await this.words.brief(user);
+    if (!words.length) return { ids: [] };
+    const last = await this.attempts.aggregate<{ _id: string; at: Date; score: number }>([
+      { $match: { user } },
+      { $sort: { at: -1 } },
+      { $group: { _id: { $toLower: '$word' }, at: { $first: '$at' }, score: { $first: '$score' } } }
+    ]);
+    const byWord = new Map(last.map((x) => [x._id, x]));
+    const excluded = new Set((q.exclude ?? '').split(',').map((x) => x.trim()).filter(Boolean));
+    const due: string[] = [], weak: string[] = [], never: string[] = [], old: { id: string; at: number }[] = [], recent: { id: string; at: number }[] = [], again: string[] = [];
+    for (const w of words) {
+      const id = String(w._id);
+      if (excluded.has(id)) { again.push(id); continue; }
+      const a = byWord.get(w.wordLower ?? w.word.toLowerCase());
+      const at = a ? new Date(a.at).getTime() : 0;
+      if (a && now - at < HOUR) { recent.push({ id, at }); continue; }
+      if (a && a.score >= GOOD && now - at < 3 * DAY) { recent.push({ id, at }); continue; }
+      if (new Date(w.dueAt).getTime() <= now) due.push(id);
+      if (a && a.score < GOOD) weak.push(id);
+      else if (!a) never.push(id);
+      else old.push({ id, at });
+    }
+    const out: string[] = [];
+    const add = (ids: string[], max = n) => { for (const id of ids) { if (out.length >= n || max <= 0) break; if (!out.includes(id)) { out.push(id); max--; } } };
+    add(shuffle(due), 3);
+    add(shuffle(weak), 4);
+    add(shuffle(never));
+    add(old.sort((x, y) => x.at - y.at).map((x) => x.id));
+    add(weak);
+    add(recent.sort((x, y) => x.at - y.at).map((x) => x.id));
+    add(shuffle(again));
+    return { ids: shuffle(out) };
+  }
 
   async check(user: string, dto: SentenceCheckDto): Promise<SentenceResult> {
     const w = await this.words.findOne(user, dto.wordId);
@@ -194,6 +248,12 @@ export class SentenceCheckController {
   @HttpCode(200)
   check(@UserId() user: string, @Body() dto: SentenceCheckDto) {
     return this.svc.check(user, dto);
+  }
+
+  /** The words for a round of Write a sentence: GET /api/practice/sentence-round?n=10&exclude=id1,id2 */
+  @Get('sentence-round')
+  round(@UserId() user: string, @Query() q: SentenceRoundQuery) {
+    return this.svc.round(user, q);
   }
 
   /** My mistake notebook: GET /api/practice/mistakes?type= */
