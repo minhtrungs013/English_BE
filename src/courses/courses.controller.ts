@@ -72,7 +72,7 @@ export class CoursesController {
   @Post(':id/auto-fill')
   @Throttle({ default: { limit: 10, ttl: 60_000 } })
   autoFill(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Body() dto: AutoFillDto) {
-    return this.courses.autoFill(user, id, dto.levels ?? [], dto.topics ?? [], dto.mode ?? 'empty');
+    return this.courses.autoFill(user, id, dto.levels ?? [], dto.topics ?? [], dto.mode ?? 'empty', !!dto.skipMine);
   }
 
   /** Add word #index of a day to the shared library (owner only). */

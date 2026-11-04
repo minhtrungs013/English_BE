@@ -29,6 +29,8 @@ export class AutoFillDto {
   @IsOptional() @IsArray() @ArrayMaxSize(6) @IsIn(TOPICS, { each: true }) topics?: string[];
   /** empty (default): fill only the free places, keeping the words already chosen; replace: choose every day again. */
   @IsOptional() @IsIn(['empty', 'replace']) mode?: 'empty' | 'replace';
+  /** Leave out the words already in my vocabulary. */
+  @IsOptional() @IsBoolean() skipMine?: boolean;
 }
 
 export class CourseWordDto {

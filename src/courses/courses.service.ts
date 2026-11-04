@@ -226,7 +226,7 @@ export class CoursesService {
    * Fills the days with built-in library words: `empty` tops up each day to wordsPerDay and keeps what is there;
    * `replace` (only before anyone has joined) chooses every day again. Easier words go to the earlier days.
    */
-  async autoFill(user: string, id: string, levels: string[], topics: string[], mode: 'empty' | 'replace') {
+  async autoFill(user: string, id: string, levels: string[], topics: string[], mode: 'empty' | 'replace', skipMine = false) {
     const c = await this.loadOwned(user, id);
     if (mode === 'replace' && (await this.enrollments.exists({ courseId: id }))) {
       throw new ConflictException('People have joined this course, so its words can’t all be replaced. Fill the empty places instead.');
@@ -237,6 +237,8 @@ export class CoursesService {
     for (let day = 1; day <= c.totalDays; day++) need += Math.max(0, c.wordsPerDay - (byDay.get(day)?.length ?? 0));
     if (!need) throw new BadRequestException('Every day already has ' + c.wordsPerDay + ' words.');
     const exclude = new Set(kept.flatMap((d) => d.words.map((w) => w.word.toLowerCase())));
+    // Words I already have in My Vocabulary: not picked again.
+    if (skipMine) for (const w of await this.words.brief(user)) exclude.add(w.wordLower ?? w.word.toLowerCase());
     const picked = await this.library.pickForCourse(need, levels, topics, exclude);
     if (!picked.length) throw new BadRequestException('No library words match these levels and topics.');
     const rank = (l: string) => ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].indexOf(l);
