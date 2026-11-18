@@ -177,9 +177,9 @@ export class UsageService {
     if (!key) throw new NotFoundException('No word.');
     const found = await this.usages.findOne({ key }).lean();
     const quota = () => this.profile.dailyStatus(user, 'usage');
-    if (found && found.status !== 'stale') return { usage: view(found), quota: await quota() };
-    // Being written right now (e.g. the word was just added): wait for it instead of paying again.
+    // Being written right now (a word just added, or an admin rewrote it): the panel waits for the new one.
     const running = this.writing.get(key);
+    if (found && found.status !== 'stale') return { usage: view(found), writing: !!running, quota: await quota() };
     if (running && generate) { const u = await running.catch(() => null); if (u) return { usage: view(u), quota: await quota() }; }
     if (!generate) return { usage: found ? view(found) : null, stale: !!found, writing: !!running, ai: !!this.aiKey, quota: await quota() };
     if (!this.aiKey) throw new ServiceUnavailableException('AI isn’t set up yet, so there’s no usage for this word.');
