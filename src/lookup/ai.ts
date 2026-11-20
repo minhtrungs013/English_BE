@@ -82,14 +82,19 @@ export function aiFamily(v: unknown, word: string, pos: string, vi: string): Fam
 //   }
 // }
 
-export async function aiLookup(word: string, apiKey: string, model: string, action = 'lookup'): Promise<AiWord | null> {
+/**
+ * `sense`: write the entry for this part of speech — e.g. an admin writing a noun again doesn't want it to come back
+ * as a verb. The meanings are written fresh (the old Vietnamese may be wrong).
+ */
+export async function aiLookup(word: string, apiKey: string, model: string, action = 'lookup', sense?: { pos: string }): Promise<AiWord | null> {
+  const ask = 'Word: ' + word + (sense ? '\nPart of speech: ' + sense.pos + ' — write every field for this part of speech only ("pos" must be "' + sense.pos + '"; the meaning, Vietnamese, example and level are for the ' + sense.pos.toLowerCase() + ').' : '');
   let res: Response;
   try {
     res = await claudeFetch(action, apiKey, {
       model,
       max_tokens: 1000,
       system: SYSTEM,
-      messages: [{ role: 'user', content: 'Word: ' + word }]
+      messages: [{ role: 'user', content: ask }]
     }, { signal: AbortSignal.timeout(20000), detail: word });
   } catch (e) {
     console.warn('[Lookup] fetch failed: ' + String(e));

@@ -63,6 +63,11 @@ export class LibraryPatchDto {
   @IsOptional() @IsBoolean() usage?: boolean;
 }
 
+export class LibraryRegenDto {
+  /** Write the word as this part of speech (default: the one it has now). */
+  @IsOptional() @IsIn(POS_LIST) pos?: string;
+}
+
 export class LibraryImportDto {
   /** Up to 100 items per request (the page sends a big file in parts); each is checked on its own. */
   @IsArray() @ArrayMaxSize(100) items: unknown[];
@@ -477,12 +482,15 @@ export class AdminService {
   }
 
   /** AI writes the library word again, as for a new word. Nothing is saved: the admin picks what to keep. */
-  async regenerateLibrary(id: string) {
+  async regenerateLibrary(id: string, posIn?: string) {
     const w = await this.library.findById(id).lean();
     if (!w) throw new NotFoundException('Word not found.');
     const key = this.config.get<string>('ANTHROPIC_API_KEY');
     if (!key) throw new BadRequestException('AI isn’t set up on the server (ANTHROPIC_API_KEY).');
-    const ai = await aiLookup(w.word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'), 'library-regenerate');
+    // Same part of speech as now (a noun stays a noun) unless the admin picked another; the meanings are written fresh.
+    const pos = posIn ?? w.pos;
+    const ai = await aiLookup(w.word, key, this.config.get<string>('ANTHROPIC_MODEL', 'claude-haiku-4-5'), 'library-regenerate', { pos });
+    if (ai && ai.pos !== pos) ai.pos = pos;
     if (!ai) throw new BadRequestException('AI gave no result for “' + w.word + '”. Please try again.');
     const pick = (x: { ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[]; level: string; topic: string; family?: unknown[] }) =>
       ({ ipa: x.ipa, pos: x.pos, meaning: x.meaning, vi: x.vi, ex: x.ex, syn: x.syn ?? [], ant: x.ant ?? [], level: x.level, topic: x.topic, family: x.family ?? [] });
@@ -565,7 +573,7 @@ export class AdminController {
   @Get('insights') insights(@Query() q: InsightQuery) { return this.admin.insights(q); }
   @Get('library') library(@Query() q: PageQuery) { return this.admin.listLibrary(q); }
   @Post('library/import') @HttpCode(200) importLibrary(@UserId() me: string, @Body() dto: LibraryImportDto) { return this.admin.importLibrary(me, dto); }
-  @Post('library/:id/regenerate') regenerateLibrary(@Param() p: IdParam) { return this.admin.regenerateLibrary(p.id); }
+  @Post('library/:id/regenerate') regenerateLibrary(@Param() p: IdParam, @Body() dto: LibraryRegenDto) { return this.admin.regenerateLibrary(p.id, dto.pos); }
   @Patch('library/:id') patchLibrary(@UserId() me: string, @Param() p: IdParam, @Body() dto: LibraryPatchDto) { return this.admin.patchLibrary(me, p.id, dto); }
   @Delete('library/:id') @HttpCode(204) async deleteLibrary(@Param() p: IdParam) { await this.admin.deleteLibrary(p.id); }
 }
