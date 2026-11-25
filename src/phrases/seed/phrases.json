@@ -1,0 +1,246 @@
+[
+  {
+    "phrase": "run out of", "kind": "slot", "pos": "Verb", "vi": "hết (cái gì), cạn", "meaning": "To use all of something so that there is none left.",
+    "level": "A2", "topic": "toeic", "register": "neutral",
+    "pattern": "S + run out of + X",
+    "slot": { "type": "noun", "hint": "thứ dùng dần rồi hết: đồ dùng, đồ ăn uống, tiền, thời gian, dung lượng" },
+    "forms": [
+      { "use": "vừa hết, kết quả bây giờ (\"... rồi\")", "en": "I've run out of toothpaste." },
+      { "use": "hết vào lúc nào đó trong quá khứ", "en": "We ran out of milk yesterday." },
+      { "use": "sắp hết", "en": "We're running out of time." },
+      { "use": "hỏi", "en": "Have you run out of money?" }
+    ],
+    "templates": [
+      { "type": "statement", "vi": "Tôi hết {X} rồi.", "en": "I've run out of {X}.", "alt": ["I have run out of {X}.", "I ran out of {X}."] },
+      { "type": "question", "vi": "Bạn hết {X} rồi phải không?", "en": "Have you run out of {X}?", "alt": ["You've run out of {X}, haven't you?", "Did you run out of {X}?"] },
+      { "type": "continuous", "vi": "Chúng ta sắp hết {X}.", "en": "We're running out of {X}.", "alt": ["We are running out of {X}."] },
+      { "type": "past", "vi": "Hôm qua văn phòng hết {X}.", "en": "The office ran out of {X} yesterday.", "alt": [] }
+    ],
+    "fillers": [
+      { "en": "toothpaste", "word": "toothpaste", "vi": "kem đánh răng" },
+      { "en": "shampoo", "word": "shampoo", "vi": "dầu gội" },
+      { "en": "money", "word": "money", "vi": "tiền" },
+      { "en": "paper", "word": "paper", "vi": "giấy" },
+      { "en": "coffee", "word": "coffee", "vi": "cà phê" },
+      { "en": "storage space", "word": "storage", "vi": "dung lượng lưu trữ" },
+      { "en": "ink", "word": "ink", "vi": "mực" },
+      { "en": "budget", "word": "budget", "vi": "ngân sách" }
+    ],
+    "examples": [
+      { "en": "The printer has run out of ink again.", "vi": "Máy in lại hết mực rồi." },
+      { "en": "We're running out of time, so let's skip the last slide.", "vi": "Chúng ta sắp hết giờ, nên bỏ qua slide cuối nhé." }
+    ],
+    "notes": ["\"... rồi\" thường dịch bằng thì hiện tại hoàn thành: I've run out of …", "Luôn có \"of\" trước danh từ; không có danh từ thì dùng \"run out\": The milk has run out."],
+    "mistakes": [
+      { "wrong": "I have run out toothpaste.", "right": "I have run out of toothpaste.", "why": "Thiếu \"of\" trước danh từ." },
+      { "wrong": "The money runs out of.", "right": "We have run out of money.", "why": "Chủ ngữ là người/nơi dùng hết, \"of\" đứng trước thứ bị hết." }
+    ]
+  },
+  {
+    "phrase": "look forward to", "kind": "slot", "pos": "Verb", "vi": "mong chờ, trông đợi", "meaning": "To feel happy and excited about something that is going to happen.",
+    "level": "B1", "topic": "toeic", "register": "neutral",
+    "pattern": "S + look forward to + X",
+    "slot": { "type": "ving", "hint": "việc sắp làm (động từ thêm -ing) hoặc sự kiện sắp tới" },
+    "forms": [
+      { "use": "đang mong chờ (hay dùng cuối email)", "en": "I'm looking forward to meeting you." },
+      { "use": "trang trọng hơn", "en": "I look forward to hearing from you." },
+      { "use": "hỏi", "en": "Are you looking forward to the trip?" }
+    ],
+    "templates": [
+      { "type": "statement", "vi": "Tôi rất mong được {X}.", "en": "I'm looking forward to {X}.", "alt": ["I am looking forward to {X}.", "I look forward to {X}."] },
+      { "type": "question", "vi": "Bạn có mong được {X} không?", "en": "Are you looking forward to {X}?", "alt": ["Do you look forward to {X}?"] },
+      { "type": "statement", "vi": "Cả nhóm đang mong được {X}.", "en": "The team is looking forward to {X}.", "alt": ["The team looks forward to {X}."] }
+    ],
+    "fillers": [
+      { "en": "meeting you", "word": "meet", "vi": "gặp bạn" },
+      { "en": "working with you", "word": "work", "vi": "làm việc với bạn" },
+      { "en": "hearing from you", "word": "hear", "vi": "nhận được phản hồi của bạn" },
+      { "en": "visiting Da Nang", "word": "visit", "vi": "đi thăm Đà Nẵng" },
+      { "en": "starting the new project", "word": "project", "vi": "bắt đầu dự án mới" },
+      { "en": "learning English", "word": "learn", "vi": "học tiếng Anh" }
+    ],
+    "examples": [
+      { "en": "I look forward to hearing from you.", "vi": "Tôi mong nhận được phản hồi của bạn." },
+      { "en": "We're looking forward to the team trip next month.", "vi": "Chúng tôi đang mong chờ chuyến đi của nhóm tháng sau." }
+    ],
+    "notes": ["\"to\" ở đây là giới từ, nên sau nó là V-ing hoặc danh từ, không phải động từ nguyên mẫu.", "\"I look forward to ...\" trang trọng, hay dùng cuối email công việc."],
+    "mistakes": [
+      { "wrong": "I look forward to meet you.", "right": "I look forward to meeting you.", "why": "Sau \"look forward to\" dùng V-ing." },
+      { "wrong": "I'm looking forward for the trip.", "right": "I'm looking forward to the trip.", "why": "Giới từ đi kèm là \"to\", không phải \"for\"." }
+    ]
+  },
+  {
+    "phrase": "get rid of", "kind": "slot", "pos": "Verb", "vi": "loại bỏ, vứt bỏ, tống khứ", "meaning": "To remove or throw away something you do not want.",
+    "level": "B1", "topic": "it", "register": "neutral",
+    "pattern": "S + get rid of + X",
+    "slot": { "type": "noun", "hint": "thứ không cần nữa, muốn bỏ đi: đồ cũ, lỗi, file, tính năng thừa" },
+    "forms": [
+      { "use": "nên / cần bỏ", "en": "We need to get rid of the old code." },
+      { "use": "đã bỏ rồi", "en": "I've got rid of the old laptop." },
+      { "use": "hỏi", "en": "Can we get rid of this feature?" }
+    ],
+    "templates": [
+      { "type": "statement", "vi": "Chúng ta cần loại bỏ {X}.", "en": "We need to get rid of {X}.", "alt": ["We have to get rid of {X}."] },
+      { "type": "question", "vi": "Chúng ta có thể bỏ {X} được không?", "en": "Can we get rid of {X}?", "alt": ["Could we get rid of {X}?"] },
+      { "type": "past", "vi": "Tuần trước tôi đã bỏ {X} rồi.", "en": "I got rid of {X} last week.", "alt": [] }
+    ],
+    "fillers": [
+      { "en": "the old files", "word": "file", "vi": "các file cũ" },
+      { "en": "the bug", "word": "bug", "vi": "lỗi đó" },
+      { "en": "this feature", "word": "feature", "vi": "tính năng này" },
+      { "en": "the old furniture", "word": "furniture", "vi": "đồ nội thất cũ" },
+      { "en": "the extra steps", "word": "step", "vi": "các bước thừa" },
+      { "en": "the spam emails", "word": "email", "vi": "các email rác" }
+    ],
+    "examples": [
+      { "en": "Let's get rid of the unused code before the release.", "vi": "Hãy bỏ phần code không dùng trước khi phát hành." },
+      { "en": "I finally got rid of my old phone.", "vi": "Cuối cùng tôi cũng bỏ được cái điện thoại cũ." }
+    ],
+    "notes": ["Dùng nhiều trong nói và viết thân mật; trang trọng hơn có thể dùng \"remove\".", "Quá khứ: got rid of; hiện tại hoàn thành: have got / have gotten rid of."],
+    "mistakes": [
+      { "wrong": "We need to get rid the bug.", "right": "We need to get rid of the bug.", "why": "Thiếu \"of\"." }
+    ]
+  },
+  {
+    "phrase": "be used to", "kind": "slot", "pos": "Verb", "vi": "quen với", "meaning": "To be familiar with something so that it no longer seems strange or difficult.",
+    "level": "B1", "topic": "toeic", "register": "neutral",
+    "pattern": "S + be used to + X",
+    "slot": { "type": "ving", "hint": "việc đã thành quen (động từ thêm -ing) hoặc danh từ" },
+    "forms": [
+      { "use": "đã quen", "en": "I'm used to working late." },
+      { "use": "chưa quen", "en": "She isn't used to the cold weather." },
+      { "use": "đang dần quen", "en": "I'm getting used to the new system." }
+    ],
+    "templates": [
+      { "type": "statement", "vi": "Tôi đã quen với việc {X}.", "en": "I'm used to {X}.", "alt": ["I am used to {X}."] },
+      { "type": "negative", "vi": "Tôi chưa quen với việc {X}.", "en": "I'm not used to {X}.", "alt": ["I am not used to {X}."] },
+      { "type": "question", "vi": "Bạn đã quen với việc {X} chưa?", "en": "Are you used to {X}?", "alt": ["Are you used to {X} yet?"] }
+    ],
+    "fillers": [
+      { "en": "working late", "word": "work", "vi": "làm việc muộn" },
+      { "en": "getting up early", "word": "early", "vi": "dậy sớm" },
+      { "en": "working from home", "word": "home", "vi": "làm việc ở nhà" },
+      { "en": "speaking English", "word": "speak", "vi": "nói tiếng Anh" },
+      { "en": "using the new system", "word": "system", "vi": "dùng hệ thống mới" },
+      { "en": "driving in the city", "word": "drive", "vi": "lái xe trong thành phố" }
+    ],
+    "examples": [
+      { "en": "I'm used to working with remote teams.", "vi": "Tôi đã quen làm việc với các nhóm từ xa." },
+      { "en": "It took me a month to get used to the new tools.", "vi": "Tôi mất một tháng để quen với các công cụ mới." }
+    ],
+    "notes": ["Khác \"used to + V\" (đã từng làm trong quá khứ): I used to work there.", "Sau \"be used to\" là V-ing hoặc danh từ."],
+    "mistakes": [
+      { "wrong": "I'm used to work late.", "right": "I'm used to working late.", "why": "\"to\" là giới từ nên theo sau là V-ing." },
+      { "wrong": "I used to working late.", "right": "I'm used to working late.", "why": "Thiếu động từ \"be\" (am/is/are)." }
+    ]
+  },
+  {
+    "phrase": "take care of", "kind": "slot", "pos": "Verb", "vi": "chăm sóc, lo liệu, xử lý", "meaning": "To look after someone or to deal with a task.",
+    "level": "A2", "topic": "toeic", "register": "neutral",
+    "pattern": "S + take care of + X",
+    "slot": { "type": "noun", "hint": "người cần chăm sóc hoặc việc cần lo liệu, xử lý" },
+    "forms": [
+      { "use": "để tôi lo", "en": "I'll take care of the booking." },
+      { "use": "đã lo xong", "en": "Don't worry, it's been taken care of." },
+      { "use": "hỏi ai lo", "en": "Who's taking care of the client?" }
+    ],
+    "templates": [
+      { "type": "future", "vi": "Để tôi lo {X}.", "en": "I'll take care of {X}.", "alt": ["I will take care of {X}.", "Let me take care of {X}."] },
+      { "type": "question", "vi": "Ai đang lo {X} vậy?", "en": "Who is taking care of {X}?", "alt": ["Who's taking care of {X}?"] },
+      { "type": "past", "vi": "Hôm qua Minh đã lo {X} rồi.", "en": "Minh took care of {X} yesterday.", "alt": [] }
+    ],
+    "fillers": [
+      { "en": "the booking", "word": "booking", "vi": "việc đặt chỗ" },
+      { "en": "the client", "word": "client", "vi": "khách hàng đó" },
+      { "en": "the invoice", "word": "invoice", "vi": "hóa đơn" },
+      { "en": "the report", "word": "report", "vi": "bản báo cáo" },
+      { "en": "the new intern", "word": "intern", "vi": "bạn thực tập sinh mới" },
+      { "en": "the deployment", "word": "deployment", "vi": "việc triển khai" }
+    ],
+    "examples": [
+      { "en": "Don't worry about the slides, I'll take care of them.", "vi": "Đừng lo phần slide, để tôi lo." },
+      { "en": "Who takes care of your dog when you travel?", "vi": "Ai chăm chó của bạn khi bạn đi công tác?" }
+    ],
+    "notes": ["\"I'll take care of it\" = \"để tôi lo\", rất hay dùng ở công sở.", "Với người: chăm sóc; với việc: lo liệu, xử lý."],
+    "mistakes": [
+      { "wrong": "I'll take care the booking.", "right": "I'll take care of the booking.", "why": "Thiếu \"of\"." }
+    ]
+  },
+  {
+    "phrase": "deal with", "kind": "slot", "pos": "Verb", "vi": "giải quyết, xử lý, đối phó với", "meaning": "To take action to solve a problem or handle a situation or person.",
+    "level": "B1", "topic": "customer", "register": "neutral",
+    "pattern": "S + deal with + X",
+    "slot": { "type": "noun", "hint": "vấn đề, tình huống hoặc người cần xử lý" },
+    "forms": [
+      { "use": "sẽ xử lý", "en": "I'll deal with it tomorrow." },
+      { "use": "quá khứ (dealt)", "en": "She dealt with the complaint quickly." },
+      { "use": "hỏi cách xử lý", "en": "How do you deal with stress?" }
+    ],
+    "templates": [
+      { "type": "statement", "vi": "Chúng ta cần xử lý {X} ngay.", "en": "We need to deal with {X} right away.", "alt": ["We have to deal with {X} right away.", "We need to deal with {X} now."] },
+      { "type": "question", "vi": "Bạn xử lý {X} như thế nào?", "en": "How do you deal with {X}?", "alt": [] },
+      { "type": "past", "vi": "Lan đã xử lý {X} rất tốt.", "en": "Lan dealt with {X} very well.", "alt": [] }
+    ],
+    "fillers": [
+      { "en": "the complaint", "word": "complaint", "vi": "lời phàn nàn" },
+      { "en": "the problem", "word": "problem", "vi": "vấn đề này" },
+      { "en": "angry customers", "word": "customer", "vi": "khách hàng đang tức giận" },
+      { "en": "stress", "word": "stress", "vi": "căng thẳng" },
+      { "en": "the delay", "word": "delay", "vi": "việc chậm trễ" },
+      { "en": "the bug", "word": "bug", "vi": "lỗi đó" }
+    ],
+    "examples": [
+      { "en": "Our support team deals with about fifty tickets a day.", "vi": "Đội hỗ trợ xử lý khoảng năm mươi yêu cầu mỗi ngày." },
+      { "en": "I'll deal with the client's email after lunch.", "vi": "Tôi sẽ xử lý email của khách sau bữa trưa." }
+    ],
+    "notes": ["Quá khứ và phân từ: dealt /delt/.", "Trang trọng hơn có thể dùng \"handle\" hoặc \"resolve\"."],
+    "mistakes": [
+      { "wrong": "She dealed with the complaint.", "right": "She dealt with the complaint.", "why": "\"deal\" là động từ bất quy tắc: dealt." },
+      { "wrong": "We need to deal the problem.", "right": "We need to deal with the problem.", "why": "Thiếu \"with\"." }
+    ]
+  },
+  {
+    "phrase": "How's it going?", "kind": "fixed", "pos": "Other", "vi": "dạo này thế nào?, khỏe không?", "meaning": "A friendly way to ask someone how they are.",
+    "level": "A2", "topic": "other", "register": "informal", "function": "greeting",
+    "situations": ["Gặp đồng nghiệp ở thang máy buổi sáng", "Mở đầu cuộc gọi với người quen"],
+    "dialogue": [{ "s": "A", "en": "Hey Lan, how's it going?", "vi": "Chào Lan, dạo này thế nào?" }, { "s": "B", "en": "Pretty good, thanks. You?", "vi": "Khá ổn, cảm ơn. Còn bạn?" }],
+    "replies": { "good": ["Pretty good, thanks. You?", "Not bad. How about you?", "Busy, but good."], "bad": ["Yes, it is going.", "I go well.", "It goes to the office."] },
+    "variants": ["How are you doing?", "How's everything?"],
+    "examples": [{ "en": "How's it going with the new project?", "vi": "Dự án mới tiến triển thế nào rồi?" }, { "en": "Hi Minh, how's it going?", "vi": "Chào Minh, dạo này sao rồi?" }],
+    "notes": ["Thân mật, dùng với đồng nghiệp, bạn bè; với khách hàng mới nên dùng \"How are you?\".", "\"How's it going with + việc gì?\" để hỏi công việc đó tiến triển ra sao."],
+    "mistakes": [{ "wrong": "Yes, it is going well.", "right": "Pretty good, thanks.", "why": "Đây là câu chào, không trả lời Yes/No." }]
+  },
+  {
+    "phrase": "to be honest", "kind": "fixed", "pos": "Other", "vi": "thành thật mà nói, nói thật là", "meaning": "Used before saying what you really think, often something a little negative.",
+    "level": "B1", "topic": "toeic", "register": "neutral", "function": "opinion", "pattern": "To be honest, + clause",
+    "situations": ["Nói thật ý kiến của mình về một kế hoạch trong cuộc họp", "Từ chối khéo một đề nghị"],
+    "dialogue": [{ "s": "A", "en": "What do you think of the new design?", "vi": "Bạn thấy thiết kế mới thế nào?" }, { "s": "B", "en": "To be honest, I liked the old one better.", "vi": "Nói thật là tôi thích cái cũ hơn." }],
+    "replies": { "good": [], "bad": [] },
+    "variants": ["Honestly,", "Frankly,", "To tell you the truth,"],
+    "examples": [{ "en": "To be honest, I don't think we can finish by Friday.", "vi": "Nói thật, tôi không nghĩ chúng ta xong được trước thứ Sáu." }, { "en": "To be honest, the meeting was a waste of time.", "vi": "Thành thật mà nói, cuộc họp đó khá phí thời gian." }],
+    "notes": ["Thường đứng đầu câu, sau nó là dấu phẩy.", "Hay dùng để làm mềm một ý không tích cực."],
+    "mistakes": [{ "wrong": "To be honestly, I don't agree.", "right": "To be honest, I don't agree.", "why": "Sau \"to be\" dùng tính từ \"honest\", không dùng trạng từ." }]
+  },
+  {
+    "phrase": "by the way", "kind": "fixed", "pos": "Other", "vi": "nhân tiện, à này", "meaning": "Used to add something or change to a new topic in a conversation.",
+    "level": "A2", "topic": "other", "register": "neutral", "function": "transition", "pattern": "By the way, + clause",
+    "situations": ["Đang nói chuyện thì nhớ ra một việc khác cần nhắc", "Cuối cuộc gọi, hỏi thêm một chuyện nhỏ"],
+    "dialogue": [{ "s": "A", "en": "Thanks for the update.", "vi": "Cảm ơn bạn đã cập nhật." }, { "s": "B", "en": "No problem. By the way, are you coming to the party on Friday?", "vi": "Không có gì. À này, thứ Sáu bạn có đến bữa tiệc không?" }],
+    "replies": { "good": [], "bad": [] },
+    "variants": ["Oh, before I forget,", "Incidentally,"],
+    "examples": [{ "en": "By the way, the meeting has moved to 3 p.m.", "vi": "Nhân tiện, cuộc họp đã dời sang 3 giờ chiều." }, { "en": "By the way, did you send the invoice?", "vi": "À này, bạn đã gửi hóa đơn chưa?" }],
+    "notes": ["Viết tắt trong tin nhắn: BTW.", "Thường đứng đầu câu, sau đó là dấu phẩy."],
+    "mistakes": [{ "wrong": "By the ways, the meeting moved.", "right": "By the way, the meeting has moved.", "why": "\"way\" ở dạng số ít." }]
+  },
+  {
+    "phrase": "no worries", "kind": "fixed", "pos": "Other", "vi": "không sao đâu, không có gì", "meaning": "An informal way to say it is fine, or to reply to thanks or an apology.",
+    "level": "A2", "topic": "other", "register": "informal", "function": "reacting",
+    "situations": ["Đồng nghiệp cảm ơn vì bạn giúp một việc nhỏ", "Ai đó xin lỗi vì đến muộn vài phút"],
+    "dialogue": [{ "s": "A", "en": "Sorry I'm a bit late.", "vi": "Xin lỗi tôi đến hơi muộn." }, { "s": "B", "en": "No worries, we've just started.", "vi": "Không sao đâu, chúng ta vừa bắt đầu thôi." }],
+    "replies": { "good": [], "bad": [] },
+    "variants": ["No problem.", "Don't worry about it.", "That's OK."],
+    "examples": [{ "en": "Thanks for your help! — No worries.", "vi": "Cảm ơn bạn đã giúp! — Không có gì." }, { "en": "No worries, I can send it again.", "vi": "Không sao, tôi gửi lại được." }],
+    "notes": ["Thân mật; trong email trang trọng nên dùng \"No problem\" hoặc \"You're welcome\".", "Dùng để đáp lại lời cảm ơn hoặc lời xin lỗi."],
+    "mistakes": [{ "wrong": "No worry.", "right": "No worries.", "why": "Cụm cố định dùng số nhiều \"worries\"." }]
+  }
+]

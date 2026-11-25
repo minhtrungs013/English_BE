@@ -23,6 +23,7 @@ import { ProfileModule } from './profile/profile.module';
 import { TagsModule } from './tags/tags';
 import { WordsModule } from './words/words.module';
 import { UsageModule } from './usage/usage';
+import { PhrasesModule } from './phrases/phrases';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { UsageModule } from './usage/usage';
     TagsModule,
     LookupModule,
     LibraryModule,
+    PhrasesModule,
     CoursesModule,
     NotificationsModule,
     GrammarModule,
