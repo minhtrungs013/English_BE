@@ -87,7 +87,7 @@ const norm = (v: unknown): string => JSON.stringify(Array.isArray(v)
   : v ?? '');
 const importKeyOf = (word: string) => word.trim().toLowerCase().replace(/\s+/g, ' ');
 const blank = (v: unknown) => v == null || v === '' || (Array.isArray(v) && !v.length);
-export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'library-regenerate', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence', 'recap'] as const;
+export const AUDIT_ACTIONS = ['chat', 'lookup', 'lookup-family', 'library-regenerate', 'phrase-sentence', 'phrase-words', 'roleplay', 'tense-questions', 'dialogue', 'sentence-check', 'homework-sentence', 'recap'] as const;
 export class AuditQuery extends PageQuery {
   @IsOptional() @IsIn(AUDIT_ACTIONS) action?: string;
   @IsOptional() @IsIn(['ok', 'failed']) status?: string;
@@ -100,6 +100,8 @@ export class PlanDto {
   @IsInt() @Min(0) @Max(10_000) courseAi: number;
   @IsInt() @Min(0) @Max(10_000) sentence: number;
   @IsInt() @Min(0) @Max(10_000) usage: number;
+  @IsInt() @Min(0) @Max(10_000) phraseAi: number;
+  @IsInt() @Min(0) @Max(10_000) roleplay: number;
   @IsInt() @Min(0) @Max(100_000_000) tokens: number;
 }
 export class PlanPatchDto {
@@ -109,6 +111,8 @@ export class PlanPatchDto {
   @IsOptional() @IsInt() @Min(0) @Max(10_000) courseAi?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10_000) sentence?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10_000) usage?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) phraseAi?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10_000) roleplay?: number;
   @IsOptional() @IsInt() @Min(0) @Max(100_000_000) tokens?: number;
   @IsOptional() @IsBoolean() isDefault?: boolean;
 }

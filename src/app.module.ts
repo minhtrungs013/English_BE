@@ -24,6 +24,7 @@ import { TagsModule } from './tags/tags';
 import { WordsModule } from './words/words.module';
 import { UsageModule } from './usage/usage';
 import { PhrasesModule } from './phrases/phrases';
+import { PhraseAiModule } from './phrases/phrase-ai';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { PhrasesModule } from './phrases/phrases';
     LookupModule,
     LibraryModule,
     PhrasesModule,
+    PhraseAiModule,
     CoursesModule,
     NotificationsModule,
     GrammarModule,

@@ -11,6 +11,7 @@ import { LibraryWord, LibraryWordSchema, TOPICS } from '../library/library.schem
 import { Tag, TagSchema } from '../tags/tags';
 import { WordsModule } from '../words/words.module';
 import { WordsService } from '../words/words.service';
+import { Word, WordSchema } from '../words/word.schema';
 import SEED from './seed/phrases.json';
 import { pastForms, tenseOf, type PhraseTense } from './tense';
 
@@ -76,6 +77,36 @@ export class PracticePhrase {
 }
 export const PracticePhraseSchema = SchemaFactory.createForClass(PracticePhrase);
 PracticePhraseSchema.index({ user: 1, key: 1 }, { unique: true });
+
+/** Words of mine that AI found fit a slot phrase (one record per learner and phrase); they're practised like its fillers. */
+@Schema({ collection: 'phrase_fillers', versionKey: false })
+export class PhraseFillers {
+  @Prop({ required: true }) user: string;
+  @Prop({ required: true }) key: string;
+  @Prop({ type: [Object], default: [] }) fillers: PhraseFiller[];
+  /** The words of mine AI has looked at (lowercase), so it is only asked about new ones next time. */
+  @Prop({ type: [String], default: [] }) checked: string[];
+  @Prop({ default: () => new Date() }) at: Date;
+}
+export const PhraseFillersSchema = SchemaFactory.createForClass(PhraseFillers);
+PhraseFillersSchema.index({ user: 1, key: 1 }, { unique: true });
+
+export interface RolePlayLine { from: 'ai' | 'me'; text: string; used: string[]; noteVi: string }
+/** A role-play with AI: a short workplace conversation where the learner uses some phrases. */
+@Schema({ collection: 'roleplays', versionKey: false })
+export class RolePlay {
+  @Prop({ required: true, index: true }) user: string;
+  /** The phrases to use (keys). */
+  @Prop({ type: [String], default: [] }) keys: string[];
+  @Prop({ type: Object, required: true }) scenario: { title: string; titleVi: string; aiRole: string; learnerRole: string; learnerRoleVi: string; settingVi: string };
+  @Prop({ type: [Object], default: [] }) lines: RolePlayLine[];
+  /** Phrases the learner used right (keys). */
+  @Prop({ type: [String], default: [] }) used: string[];
+  @Prop({ default: false }) done: boolean;
+  @Prop({ type: Object, default: null }) feedback: { summaryVi: string; items: { text: string; ok: boolean; corrected: string; noteVi: string }[] } | null;
+  @Prop({ default: () => new Date(), index: true }) createdAt: Date;
+}
+export const RolePlaySchema = SchemaFactory.createForClass(RolePlay);
 
 /* ---------- checking an import item ---------- */
 
@@ -187,7 +218,7 @@ function keyWords(template: string, phrase: string): string[] {
 
 /* ---------- practice ---------- */
 
-export type DrillType = 'translate' | 'fill' | 'transform' | 'situation' | 'reply' | 'meaning';
+export type DrillType = 'translate' | 'fill' | 'transform' | 'situation' | 'reply' | 'meaning' | 'own';
 export interface Drill {
   id: string; key: string; phrase: string; kind: string; pattern: string; type: DrillType;
   /** What is asked: a Vietnamese sentence, an English one with blanks, a sentence to change, a situation, a dialogue line… */
@@ -247,6 +278,8 @@ export class PhrasesService implements OnApplicationBootstrap {
     @InjectModel(PracticePhrase.name) private readonly records: Model<PracticePhrase>,
     @InjectModel(LibraryWord.name) private readonly library: Model<LibraryWord>,
     @InjectModel(Tag.name) private readonly tags: Model<Tag>,
+    @InjectModel(PhraseFillers.name) private readonly myFillers: Model<PhraseFillers>,
+    @InjectModel(Word.name) private readonly wordDocs: Model<Word>,
     private readonly words: WordsService
   ) {}
 
@@ -282,11 +315,35 @@ export class PhrasesService implements OnApplicationBootstrap {
     const lib = new Map((await this.library.find({ wordLower: { $in: p.fillers.map((f) => f.word.toLowerCase()) } }, { wordLower: 1 }).lean()).map((l) => [l.wordLower, String(l._id)]));
     const { _id, ...rest } = p as Phrase & { _id: unknown };
     void _id;
+    const own = p.kind === 'slot' ? await this.myFillers.findOne({ user, key: p.key }).lean() : null;
+    const listed = new Set(p.fillers.map((f) => f.en.toLowerCase()));
+    const extra = (own?.fillers ?? []).filter((f) => !listed.has(f.en.toLowerCase()));
+    const unchecked = p.kind === 'slot' ? (await this.candidates(user, p, own?.checked ?? [])).length : 0;
     return {
       ...rest,
       savedId: mine.get(p.key) ?? mine.get(p.phrase.toLowerCase()) ?? '',
-      fillers: p.fillers.map((f) => ({ ...f, mine: mine.has(f.word.toLowerCase()), wordId: mine.get(f.word.toLowerCase()) ?? '', libraryId: lib.get(f.word.toLowerCase()) ?? '' }))
+      fillers: [
+        ...p.fillers.map((f) => ({ ...f, mine: mine.has(f.word.toLowerCase()), wordId: mine.get(f.word.toLowerCase()) ?? '', libraryId: lib.get(f.word.toLowerCase()) ?? '', ai: false })),
+        ...extra.map((f) => ({ ...f, mine: true, wordId: mine.get(f.word.toLowerCase()) ?? '', libraryId: '', ai: true }))
+      ],
+      /** My words AI hasn't looked at yet for this phrase (the "Find my words" button). */
+      unchecked
     };
+  }
+
+  /** My words that could fit a slot phrase (by part of speech), not in its list and not looked at by AI yet. */
+  async candidates(user: string, p: Phrase, checked: string[]) {
+    const type = p.slot?.type ?? 'noun';
+    const pos = type === 'noun' ? ['Noun'] : ['Verb'];
+    const skip = new Set([...checked, ...p.fillers.map((f) => f.word.toLowerCase()), phraseKey(p.phrase)]);
+    const list = await this.wordDocs.find({ user, pos: { $in: pos } }, { word: 1, wordLower: 1, pos: 1, vi: 1 }).sort({ addedAt: -1 }).limit(400).lean();
+    return list.filter((w) => !skip.has(w.wordLower)).slice(0, 120).map((w) => ({ word: w.word, pos: w.pos, vi: w.vi }));
+  }
+
+  /** The keys of the phrases I saved to My Vocabulary. */
+  async listSaved(user: string): Promise<string[]> {
+    const [all, mine] = await Promise.all([this.phrases.find({}, { key: 1, phrase: 1 }).lean(), this.mine(user)]);
+    return all.filter((p) => mine.has(p.key) || mine.has(p.phrase.toLowerCase())).map((p) => p.key);
   }
 
   /** Phrases a word can go into (its word details: "Phrases with this word"). */
@@ -333,6 +390,11 @@ export class PhrasesService implements OnApplicationBootstrap {
       if (picked.length < 4) picked.push(...order(all.filter((p) => usable(p) && !picked.includes(p))).slice(0, 4 - picked.length));
     }
     const fixed = all.filter((p) => p.kind === 'fixed');
+    const ownFillers = new Map((await this.myFillers.find({ user, key: { $in: picked.map((p) => p.key) } }).lean()).map((x) => [x.key, x.fillers]));
+    picked = picked.map((p) => {
+      const extra = (ownFillers.get(p.key) ?? []).filter((f) => !p.fillers.some((x) => x.en.toLowerCase() === f.en.toLowerCase()));
+      return extra.length ? { ...p, fillers: [...p.fillers, ...extra] } : p;
+    });
     const used = new Map<string, Set<string>>();
     const items: Drill[] = [];
     for (let i = 0; i < n; i++) {
@@ -340,6 +402,11 @@ export class PhrasesService implements OnApplicationBootstrap {
       const round = Math.floor(i / picked.length);
       const d = p.kind === 'slot' ? this.slotDrill(p, round, mine, used) : this.fixedDrill(p, round, fixed);
       if (d) items.push({ ...d, id: p.key + ':' + i });
+    }
+    // One question where I write my own sentence with a phrase (graded by AI when I check it).
+    if (n >= 6 && items.length) {
+      const p = shuffle(picked.filter((x) => x.kind === 'slot'))[0] ?? picked[0];
+      items[items.length - 1] = { ...this.ownDrill(p), id: p.key + ':own' };
     }
     // New words can be saved straight from the question: their library ids.
     const fw = [...new Set(items.flatMap((d) => (d.filler && !d.filler.mine ? [d.filler.word.toLowerCase()] : [])))];
@@ -391,6 +458,19 @@ export class PhrasesService implements OnApplicationBootstrap {
     return {
       ...base, type: 'translate', prompt: cap(fillX(t.vi, f.vi)), sub: '',
       answers: accepted(t), check: check(t, t.type === 'question'), tense: tenseFor(t.en)
+    };
+  }
+
+  /** "Your own sentence with run out of" (in one of its templates' tenses, about something that fits the slot). */
+  private ownDrill(p: Phrase): Omit<Drill, 'id'> {
+    const re = phraseRe(p.phrase, p.pos === 'Verb');
+    const verb = phraseKey(p.phrase).split(' ')[0];
+    const t = shuffle(p.templates.filter((x) => x.type !== 'question'))[0];
+    const tense = t && p.pos === 'Verb' ? tenseOf(fillX(t.en, 'it'), re, verb) : '';
+    const sub = p.kind === 'slot' ? (p.slot?.hint ? '… = ' + p.slot.hint : '') : p.situations[0] ? 'Tình huống: ' + shuffle(p.situations)[0] : '';
+    return {
+      key: p.key, phrase: p.phrase, kind: p.kind, pattern: p.pattern, type: 'own', prompt: 'Write your own sentence with “' + p.phrase + '”', sub,
+      choices: [], answers: [], check: null, filler: null, explain: p.notes[0] ?? '', tense
     };
   }
 
@@ -520,7 +600,8 @@ export class AdminPhrasesController {
     WordsModule,
     MongooseModule.forFeature([
       { name: Phrase.name, schema: PhraseSchema }, { name: PracticePhrase.name, schema: PracticePhraseSchema },
-      { name: LibraryWord.name, schema: LibraryWordSchema }, { name: Tag.name, schema: TagSchema }
+      { name: LibraryWord.name, schema: LibraryWordSchema }, { name: Tag.name, schema: TagSchema },
+      { name: PhraseFillers.name, schema: PhraseFillersSchema }, { name: Word.name, schema: WordSchema }
     ])
   ],
   controllers: [PhrasesController, PracticePhrasesController, AdminPhrasesController],
