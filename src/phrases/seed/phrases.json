@@ -11,8 +11,8 @@
       { "use": "hỏi", "en": "Have you run out of money?" }
     ],
     "templates": [
-      { "type": "statement", "vi": "Tôi hết {X} rồi.", "en": "I've run out of {X}.", "alt": ["I have run out of {X}.", "I ran out of {X}."] },
-      { "type": "question", "vi": "Bạn hết {X} rồi phải không?", "en": "Have you run out of {X}?", "alt": ["You've run out of {X}, haven't you?", "Did you run out of {X}?"] },
+      { "type": "statement", "vi": "Tôi hết {X} rồi.", "en": "I've run out of {X}.", "alt": ["I have run out of {X}."] },
+      { "type": "question", "vi": "Bạn hết {X} rồi phải không?", "en": "Have you run out of {X}?", "alt": ["You've run out of {X}, haven't you?"] },
       { "type": "continuous", "vi": "Chúng ta sắp hết {X}.", "en": "We're running out of {X}.", "alt": ["We are running out of {X}."] },
       { "type": "past", "vi": "Hôm qua văn phòng hết {X}.", "en": "The office ran out of {X} yesterday.", "alt": [] }
     ],
@@ -145,7 +145,7 @@
       { "use": "hỏi ai lo", "en": "Who's taking care of the client?" }
     ],
     "templates": [
-      { "type": "future", "vi": "Để tôi lo {X}.", "en": "I'll take care of {X}.", "alt": ["I will take care of {X}.", "Let me take care of {X}."] },
+      { "type": "future", "vi": "Để tôi lo {X}.", "en": "I'll take care of {X}.", "alt": ["I will take care of {X}."] },
       { "type": "question", "vi": "Ai đang lo {X} vậy?", "en": "Who is taking care of {X}?", "alt": ["Who's taking care of {X}?"] },
       { "type": "past", "vi": "Hôm qua Minh đã lo {X} rồi.", "en": "Minh took care of {X} yesterday.", "alt": [] }
     ],

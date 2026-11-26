@@ -12,6 +12,7 @@ import { Tag, TagSchema } from '../tags/tags';
 import { WordsModule } from '../words/words.module';
 import { WordsService } from '../words/words.service';
 import SEED from './seed/phrases.json';
+import { pastForms, tenseOf, type PhraseTense } from './tense';
 
 /* ---------- data ---------- */
 
@@ -166,7 +167,8 @@ export function phraseRe(phrase: string, isVerb: boolean): string {
   const words = phraseKey(phrase).split(' ');
   const [head, ...rest] = words;
   let first = '\\b' + esc(head) + '\\b';
-  if (isVerb && head === 'be') first = "(?:\\b(?:be|am|is|are|was|were|been|being)\\b|'(?:m|re|s))";
+  // "be" may have up to two words before the rest: "I am not used to", "Are you used to".
+  if (isVerb && head === 'be') first = "(?:\\b(?:be|am|is|are|was|were|been|being)\\b|'(?:m|re|s))(?:\\s+(?!" + esc(rest[0] ?? '') + "\\b)[a-z']+){0,2}";
   else if (isVerb) first = '\\b(?:' + verbForms(head).map(esc).join('|') + ')\\b';
   return [first, ...rest.map((w) => esc(w) + '\\b')].join('\\s*');
 }
@@ -196,7 +198,9 @@ export interface Drill {
   /** Accepted answers (typed) / the right choices. */
   answers: string[];
   /** Typed answers that aren't listed: right when they have the phrase (any verb form) and the filler's words (and look like a question when asked). */
-  check: { phrase: string; need: string[]; question: boolean } | null;
+  check: { phrase: string; need: string[]; question: boolean; tense: PhraseTense | ''; base: string; past: string[] } | null;
+  /** The tense the answer is in (shown as a hint; another tense is wrong). '' when it doesn't matter. */
+  tense: PhraseTense | '';
   /** mine: in my vocabulary (wordId); otherwise a new word, saved from the library (libraryId). */
   filler: { en: string; word: string; vi: string; mine: boolean; wordId: string; libraryId: string } | null;
   explain: string;
@@ -359,6 +363,11 @@ export class PhrasesService implements OnApplicationBootstrap {
     const base = { key: p.key, phrase: p.phrase, kind: p.kind, pattern: p.pattern, choices: [], filler, explain };
     const statements = p.templates.filter((t) => t.type === 'statement');
     const questions = p.templates.filter((t) => t.type === 'question');
+    // The tense of each template; other answers count only in the same tense ("rồi" → I've run out of, not I ran out of).
+    const verb = phraseKey(p.phrase).split(' ')[0];
+    const tenseFor = (en: string): PhraseTense | '' => (p.pos === 'Verb' ? tenseOf(fillX(en, 'it'), re, verb) : '');
+    const accepted = (t: PhraseTemplate) => { const want = tenseFor(t.en); return [t.en, ...t.alt.filter((a) => !want || tenseFor(a) === want)].map((a) => fillX(a, f.en)); };
+    const check = (t: PhraseTemplate, question: boolean) => ({ phrase: re, need: [...needWords(f.en), ...keyWords(t.en, p.phrase)], question, tense: tenseFor(t.en), base: verb, past: pastForms(verb) });
     const kind = (['translate', 'fill', 'translate', 'transform'] as const)[round % 4];
 
     if (kind === 'fill') {
@@ -368,27 +377,27 @@ export class PhrasesService implements OnApplicationBootstrap {
       const m = new RegExp(re, 'i').exec(en);
       if (m) {
         const blanks = m[0].split(/\s+/).map(() => '___').join(' ');
-        return { ...base, type: 'fill', prompt: en.slice(0, m.index) + blanks + en.slice(m.index + m[0].length), sub: fillX(t.vi, f.vi), answers: [m[0]], check: null };
+        return { ...base, type: 'fill', prompt: en.slice(0, m.index) + blanks + en.slice(m.index + m[0].length), sub: fillX(t.vi, f.vi), answers: [m[0]], check: null, tense: tenseFor(t.en) };
       }
     }
     if (kind === 'transform' && statements.length && questions.length) {
       const from = shuffle(statements)[0], to = shuffle(questions)[0];
       return {
         ...base, type: 'transform', prompt: fillX(from.en, f.en), sub: 'Đổi thành câu hỏi: ' + fillX(to.vi, f.vi),
-        answers: [to.en, ...to.alt].map((a) => fillX(a, f.en)), check: { phrase: re, need: [...needWords(f.en), ...keyWords(to.en, p.phrase)], question: true }
+        answers: accepted(to), check: check(to, true), tense: tenseFor(to.en)
       };
     }
     const t = shuffle(p.templates)[0];
     return {
       ...base, type: 'translate', prompt: cap(fillX(t.vi, f.vi)), sub: '',
-      answers: [t.en, ...t.alt].map((a) => fillX(a, f.en)), check: { phrase: re, need: [...needWords(f.en), ...keyWords(t.en, p.phrase)], question: t.type === 'question' }
+      answers: accepted(t), check: check(t, t.type === 'question'), tense: tenseFor(t.en)
     };
   }
 
   private fixedDrill(p: Phrase, round: number, fixed: Phrase[]): Omit<Drill, 'id'> {
     const others = shuffle(fixed.filter((x) => x.key !== p.key));
     const explain = p.notes[0] ?? '';
-    const base = { key: p.key, phrase: p.phrase, kind: p.kind, pattern: p.pattern, sub: '', check: null, filler: null, explain };
+    const base = { key: p.key, phrase: p.phrase, kind: p.kind, pattern: p.pattern, sub: '', check: null, filler: null, explain, tense: '' as const };
     const kinds: DrillType[] = [];
     if (p.situations.length && others.length >= 2) kinds.push('situation');
     if (p.replies.good.length && p.replies.bad.length) kinds.push('reply');
