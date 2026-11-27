@@ -9,30 +9,51 @@ export const VISIBILITIES = ['private', 'public'] as const;
 export const WORD_SOURCES = ['library', 'ai', 'manual'] as const;
 export const TOTAL_DAYS = 30;
 
-/** A word as stored in a course day: a snapshot, so later library edits don't change a course people are taking. */
-@Schema({ _id: false })
-export class CourseWord {
-  @Prop({ required: true, trim: true }) word: string;
-  @Prop({ default: '' }) ipa: string;
-  @Prop({ default: 'Noun' }) pos: string;
-  @Prop({ default: '' }) meaning: string;
-  @Prop({ default: '' }) vi: string;
-  @Prop({ default: '' }) ex: string;
-  @Prop({ type: [String], default: [] }) syn: string[];
-  @Prop({ type: [String], default: [] }) ant: string[];
+/** The details of a course word that come from the library (or are written for this course only). */
+export const COURSE_WORD_FIELDS = ['ipa', 'pos', 'meaning', 'vi', 'ex', 'syn', 'ant', 'family', 'level'] as const;
+export type CourseWordField = (typeof COURSE_WORD_FIELDS)[number];
+
+/** A course word with all its details: the library word with the course's own changes on top (course-words.ts). */
+export interface CourseWord {
+  word: string; ipa: string; pos: string; meaning: string; vi: string; ex: string; syn: string[]; ant: string[];
   /** Related forms (decide → decision, decisive…), the word itself included; [] = none. */
-  @Prop(familyProp) family: FamilyMember[];
-  @Prop({ enum: LEVELS, default: 'B1' }) level: string;
-  /** Library entry this word came from (or was shared to); '' when it's only in this course. */
+  family: FamilyMember[];
+  level: string;
+  /** Library entry the word comes from; '' when it's only in this course. */
+  libraryId: string;
+  source: string;
+}
+export type CourseWordOverrides = Partial<Pick<CourseWord, CourseWordField>>;
+
+/**
+ * A word as stored in a course day: a link to the library word plus what this course changed (`overrides`), so a
+ * library edit (or an AI regenerate) shows in every course. A word that isn't in the library keeps all its details
+ * in `overrides`. Courses saved before kept a full copy in the old fields below; they are read as overrides until
+ * scripts/migrate-course-words.js turns them into links.
+ */
+@Schema({ _id: false })
+export class CourseWordRef {
+  @Prop({ required: true, trim: true }) word: string;
   @Prop({ default: '' }) libraryId: string;
   @Prop({ enum: WORD_SOURCES, default: 'manual' }) source: string;
+  @Prop({ type: Object, default: () => ({}) }) overrides: CourseWordOverrides;
+  // The old full copy (no defaults, so new words don't get these fields).
+  @Prop() ipa?: string;
+  @Prop() pos?: string;
+  @Prop() meaning?: string;
+  @Prop() vi?: string;
+  @Prop() ex?: string;
+  @Prop({ type: [String], default: undefined }) syn?: string[];
+  @Prop({ type: [String], default: undefined }) ant?: string[];
+  @Prop({ ...familyProp, default: undefined }) family?: FamilyMember[];
+  @Prop({ enum: LEVELS }) level?: string;
 }
-const CourseWordSchema = SchemaFactory.createForClass(CourseWord);
+const CourseWordSchema = SchemaFactory.createForClass(CourseWordRef);
 
 @Schema({ _id: false })
 export class CourseDay {
   @Prop({ required: true }) day: number;
-  @Prop({ type: [CourseWordSchema], default: [] }) words: CourseWord[];
+  @Prop({ type: [CourseWordSchema], default: [] }) words: CourseWordRef[];
 }
 const CourseDaySchema = SchemaFactory.createForClass(CourseDay);
 

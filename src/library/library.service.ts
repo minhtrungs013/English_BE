@@ -2,6 +2,7 @@ import { ConflictException, ForbiddenException, Injectable, Logger, NotFoundExce
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, QueryFilter } from 'mongoose';
 import { cleanFamily, type FamilyMember } from '../common/family';
+import { detachFromCourses, type LibraryDetails } from '../courses/course-words';
 import { Tag } from '../tags/tags';
 import { User } from '../users/user.schema';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -39,6 +40,9 @@ export class LibraryService implements OnApplicationBootstrap {
     const seed = SEED as SeedEntry[];
     const keys = seed.map((e) => e.word.toLowerCase());
     if (keys.length) {
+      // Courses that use a built-in word being removed keep its details as their own.
+      const going = await this.lib.find({ authorId: '', wordLower: { $nin: keys } }).lean();
+      if (going.length) await detachFromCourses(this.lib.db.db!, going as unknown as LibraryDetails[]);
       const removed = await this.lib.deleteMany({ authorId: '', wordLower: { $nin: keys } });
       if (removed.deletedCount) this.log.log('Removed ' + removed.deletedCount + ' built-in words no longer in the seed list.');
     }

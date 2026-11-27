@@ -6,6 +6,7 @@ import { addDays, daysBetween, todayKey } from '../common/day';
 import { LibraryService } from '../library/library.service';
 import { User } from '../users/user.schema';
 import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, currentDay } from './course.schema';
+import { CourseWordsService } from './course-words';
 import { gradeDictation } from '../dictation/dictation.grade';
 import { CHOICE_KINDS, QUESTION_KINDS, TENSE_KINDS, WORD_KINDS, BankItemDocument, Homework, HomeworkDocument, Question, QuestionType, Submission, SubmissionDocument, type SentenceFeedback } from './homework.schema';
 import { containsWord, gradeSentence, SentenceAttempt } from '../practice/sentence-grade';
@@ -208,6 +209,9 @@ function streakOf(onTime: Set<number>, current: number, hasWords: Set<number>): 
   return streak;
 }
 
+/** A course's days with their words' full details (CourseWordsService.days). */
+type FullDays = { day: number; words: CourseWord[] }[];
+
 @Injectable()
 export class HomeworkService {
   private readonly log = new Logger('Homework');
@@ -223,7 +227,8 @@ export class HomeworkService {
     private readonly questions: QuestionsService,
     private readonly notes: NotificationsService,
     private readonly grammar: SentenceGrammarService,
-    private readonly access: AccessService
+    private readonly access: AccessService,
+    private readonly courseWords: CourseWordsService
   ) {}
 
   /* ---------- access ---------- */
@@ -246,15 +251,17 @@ export class HomeworkService {
 
   /* ---------- making the homework ---------- */
 
-  /** What the homework is made from: the words up to this day and the approved tense questions for them. */
-  private wordsKey(c: CourseDocument, day: number, bank: BankItemDocument[]): string {
-    return c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
-      .map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|') +
+  /**
+   * What the homework is made from: the words up to this day (with their details, so a library edit — e.g. an AI
+   * regenerate — makes the homework again while nobody has handed it in) and the approved tense questions for them.
+   */
+  private wordsKey(c: CourseDocument, full: FullDays, day: number, bank: BankItemDocument[]): string {
+    const upTo = full.filter((d) => d.day <= day);
+    return upTo.map((d) => d.day + ':' + d.words.map((w) => w.word.toLowerCase()).join(',')).join('|') +
       '#' + bank.map((b) => String(b._id) + ':' + ((b as unknown as { updatedAt?: Date }).updatedAt?.getTime() ?? 0)).join(',') +
       // v2: no "Write a sentence" (it's in Practice), so homework nobody handed in is made again without it.
       '#v2#d' + (c.dictationPerDay ?? 2) +
-      '#f' + hashOf(JSON.stringify(c.days.filter((d) => d.day <= day).sort((a, b) => a.day - b.day)
-        .map((d) => d.words.map((w) => (w.family ?? []).map((m) => [m.word, m.pos, m.vi, m.ex ?? ''])))));
+      '#w' + hashOf(JSON.stringify(upTo.map((d) => d.words.map((w) => [w.pos, w.meaning, w.vi, w.ex, (w.family ?? []).map((m) => [m.word, m.pos, m.vi, m.ex ?? ''])]))));
   }
 
   private async bankUpTo(c: CourseDocument, day: number): Promise<BankItemDocument[]> {
@@ -263,8 +270,8 @@ export class HomeworkService {
   }
 
   /** Words to take wrong choices from: the course's, plus some library words for small courses. */
-  private async poolFor(c: CourseDocument): Promise<Pool> {
-    const all = c.toObject().days.flatMap((d) => d.words);
+  private async poolFor(full: FullDays): Promise<Pool> {
+    const all = full.flatMap((d) => d.words);
     const extra = all.length < 12 ? await this.library.sample(12) : [];
     return [...all, ...extra].map((w) => ({ word: w.word, label: label(w) }));
   }
@@ -273,11 +280,10 @@ export class HomeworkService {
    * Questions for a day: two for each new word (pick the meaning or the word, then type it or fill the example),
    * and one for each of a few words from earlier days.
    */
-  private async build(c: CourseDocument, day: number, bank: BankItemDocument[]): Promise<Question[]> {
-    const days = c.toObject().days;
+  private async build(c: CourseDocument, days: FullDays, day: number, bank: BankItemDocument[]): Promise<Question[]> {
     const today = days.find((d) => d.day === day)?.words ?? [];
     const earlier = days.filter((d) => d.day < day).flatMap((d) => d.words);
-    const pool = await this.poolFor(c);
+    const pool = await this.poolFor(days);
 
     const qs: Question[] = [];
     for (const w of today) {
@@ -328,10 +334,11 @@ export class HomeworkService {
   private async ensure(c: CourseDocument, day: number): Promise<HomeworkDocument> {
     const courseId = String(c._id);
     const bank = await this.bankUpTo(c, day);
-    const key = this.wordsKey(c, day, bank);
+    const full = await this.courseWords.days(c);
+    const key = this.wordsKey(c, full, day, bank);
     const existing = await this.homework.findOne({ courseId, day });
     if (existing && (existing.wordsKey === key || (await this.submissions.exists({ courseId, day, submittedAt: { $ne: null } })))) return existing;
-    const questions = await this.build(c, day, bank);
+    const questions = await this.build(c, full, day, bank);
     try {
       return (await this.homework.findOneAndUpdate({ courseId, day }, { $set: { wordsKey: key, questions } }, { upsert: true, returnDocument: 'after' }))!;
     } catch {
@@ -462,7 +469,7 @@ export class HomeworkService {
     const e = await this.enrollments.findOne({ user, courseId: id });
     if (!e) throw new ForbiddenException('Join the course first.');
     if (!Number.isInteger(day) || day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
-    const days = c.toObject().days;
+    const days = await this.courseWords.days(c);
     const earlier = days.filter((d) => d.day < day).flatMap((d) => d.words);
     const recapItem = (await this.questions.approved(id, [day])).find((b) => b.kind === 'recap');
     const recap = recapItem ? { text: recapItem.prompt, vi: recapItem.explain } : null;
@@ -496,7 +503,7 @@ export class HomeworkService {
     picked.push(...rest.slice(0, WARMUP_WORDS - picked.length));
 
     const bank = (await this.questions.approved(id, Array.from({ length: day - 1 }, (_, i) => i + 1))).filter((b) => QUESTION_KINDS.includes(b.kind));
-    const pool = await this.poolFor(c);
+    const pool = await this.poolFor(days);
     const types: QuestionType[] = ['meaning', 'word', 'type', 'blank'];
     const questions = picked.map((w) => {
       const tense = shuffle(bank.filter((b) => b.word.toLowerCase() === w.word.toLowerCase()))[0];
@@ -519,7 +526,7 @@ export class HomeworkService {
    */
   async examples(user: string, id: string, day: number) {
     const { c } = await this.openDay(user, id, day);
-    const words = (c.days.find((d) => d.day === day)?.words ?? []).filter((w) => w.ex?.trim());
+    const words = (await this.courseWords.day(c, day)).filter((w) => w.ex?.trim());
     const grammar = await this.grammar.views(words.map((w) => ({ text: w.ex.trim() })));
     return { items: words.map((w, i) => ({ word: w.word, ex: w.ex.trim(), grammar: grammar[i] })).filter((x) => x.grammar) };
   }

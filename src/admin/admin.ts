@@ -18,6 +18,7 @@ import { UsageModule, UsageService, keyOf } from '../usage/usage';
 import { IMPORT_AUTHOR, cleanImportItem, type ImportWord } from './library-import';
 import { todayKey } from '../common/day';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/course.schema';
+import { detachFromCourses, type LibraryDetails } from '../courses/course-words';
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
 import { sentenceKey } from '../courses/sentence-rules';
 import { TENSES } from '../courses/tense';
@@ -541,6 +542,9 @@ export class AdminService {
   }
 
   async deleteLibrary(id: string) {
+    // Courses that use the word keep its details as their own.
+    const lib = await this.library.findById(id).lean();
+    if (lib) await detachFromCourses(this.library.db.db!, [lib as unknown as LibraryDetails]);
     const r = await this.library.deleteOne({ _id: id });
     if (!r.deletedCount) throw new NotFoundException('Word not found.');
     await this.sentences.deleteMany({ wordId: id });

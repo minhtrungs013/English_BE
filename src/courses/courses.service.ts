@@ -18,7 +18,8 @@ import { ProfileService } from '../profile/profile.service';
 import { Tag, normalizeTag } from '../tags/tags';
 import { User } from '../users/user.schema';
 import { WordsService } from '../words/words.service';
-import { Course, CourseDocument, CourseWord, Enrollment, EnrollmentDocument, TOTAL_DAYS, currentDay } from './course.schema';
+import { Course, CourseDocument, CourseWord, CourseWordRef, Enrollment, EnrollmentDocument, TOTAL_DAYS, currentDay } from './course.schema';
+import { CourseWordsService } from './course-words';
 import { CourseWordDto, CreateCourseDto, UpdateCourseDto } from './courses.dto';
 import { HomeworkService } from './homework.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -40,7 +41,8 @@ export class CoursesService {
     private readonly homework: HomeworkService,
     private readonly questions: QuestionsService,
     private readonly notes: NotificationsService,
-    private readonly access: AccessService
+    private readonly access: AccessService,
+    private readonly courseWords: CourseWordsService
   ) {}
 
   /* ---------- views ---------- */
@@ -79,13 +81,12 @@ export class CoursesService {
    * for them (future days show only how many words they have).
    */
   private detail(
-    c: CourseDocument, user: string, members: number, e: EnrollmentDocument | null,
+    c: CourseDocument, full: { day: number; words: CourseWord[] }[], user: string, members: number, e: EnrollmentDocument | null,
     scores = new Map<number, number>(), bank?: Map<number, { pending: number; approved: number }>, admin = false
   ) {
     const base = this.summary(c, user, members, e, admin);
     const open = base.isOwner ? c.totalDays : e ? currentDay(e, c.totalDays) : 0;
-    // Plain objects (spreading Mongoose subdocuments doesn't copy their fields).
-    const byDay = new Map(c.toObject().days.map((d) => [d.day, d.words]));
+    const byDay = new Map(full.map((d) => [d.day, d.words]));
     const days = Array.from({ length: c.totalDays }, (_, i) => {
       const n = i + 1;
       const words = byDay.get(n) ?? [];
@@ -133,7 +134,10 @@ export class CoursesService {
     // Private courses are only visible to admins and learners who joined with the code.
     if (c.visibility !== 'public' && !admin && !e) throw new NotFoundException('Course not found.');
     const counts = await this.memberCounts([id]);
-    return this.detail(c, user, counts[id] ?? 0, e, e ? await this.homework.myScores(user, id) : undefined, admin ? await this.questions.counts(id) : undefined, admin);
+    // The words with their library details (only the open days' are sent).
+    const open = admin ? c.totalDays : e ? currentDay(e, c.totalDays) : 0;
+    const full = await this.courseWords.days({ days: c.days.filter((d) => d.day <= open) });
+    return this.detail(c, full, user, counts[id] ?? 0, e, e ? await this.homework.myScores(user, id) : undefined, admin ? await this.questions.counts(id) : undefined, admin);
   }
 
   /* ---------- owner: create & edit ---------- */
@@ -155,7 +159,7 @@ export class CoursesService {
       wordsPerDay: dto.wordsPerDay ?? 5, dictationPerDay: dto.dictationPerDay ?? 2, totalDays: TOTAL_DAYS, visibility: dto.visibility ?? 'private', startDate: this.checkDate(dto.startDate),
       joinCode: await this.newCode(), tag: 'course-' + (slug || 'words'), days: []
     });
-    return this.detail(c, user, 0, null, undefined, undefined, true);
+    return this.detail(c, [], user, 0, null, undefined, undefined, true);
   }
 
   private checkDate(s?: string): string {
@@ -205,17 +209,17 @@ export class CoursesService {
     if (!Number.isInteger(day) || day < 1 || day > c.totalDays) throw new BadRequestException('Day must be between 1 and ' + c.totalDays + '.');
     if (words.length > c.wordsPerDay) throw new BadRequestException('This course has ' + c.wordsPerDay + ' words per day.');
     const seen = new Set<string>();
-    const clean: CourseWord[] = [];
     for (const w of words) {
       const key = w.word.trim().toLowerCase();
       if (seen.has(key)) throw new BadRequestException('“' + w.word + '” is in this day twice.');
       seen.add(key);
-      clean.push({
-        word: w.word.trim(), ipa: w.ipa ?? '', pos: w.pos ?? 'Noun', meaning: w.meaning ?? '', vi: w.vi ?? '', ex: w.ex ?? '',
-        syn: w.syn ?? [], ant: w.ant ?? [], level: w.level ?? 'B1', libraryId: w.libraryId ?? '', source: w.source ?? 'manual',
-        family: cleanFamily(w.family)
-      });
     }
+    // Stored as links to the library words with only what the editor changed (a word not in the library keeps every detail).
+    const clean = await this.courseWords.refs(words.map((w) => ({
+      word: w.word.trim(), ipa: w.ipa ?? '', pos: w.pos ?? 'Noun', meaning: w.meaning ?? '', vi: w.vi ?? '', ex: w.ex ?? '',
+      syn: w.syn ?? [], ant: w.ant ?? [], level: w.level ?? 'B1', libraryId: w.libraryId ?? '', source: w.source ?? 'manual',
+      family: cleanFamily(w.family)
+    })));
     const others = c.days.filter((d) => d.day !== day);
     c.days = (clean.length ? [...others, { day, words: clean }] : others).sort((a, b) => a.day - b.day);
     await c.save();
@@ -232,7 +236,7 @@ export class CoursesService {
       throw new ConflictException('People have joined this course, so its words can’t all be replaced. Fill the empty places instead.');
     }
     const kept = mode === 'replace' ? [] : c.toObject().days;
-    const byDay = new Map<number, CourseWord[]>(kept.map((d) => [d.day, [...d.words]]));
+    const byDay = new Map<number, CourseWordRef[]>(kept.map((d) => [d.day, [...d.words]]));
     let need = 0;
     for (let day = 1; day <= c.totalDays; day++) need += Math.max(0, c.wordsPerDay - (byDay.get(day)?.length ?? 0));
     if (!need) throw new BadRequestException('Every day already has ' + c.wordsPerDay + ' words.');
@@ -248,10 +252,8 @@ export class CoursesService {
       const words = byDay.get(day) ?? [];
       while (words.length < c.wordsPerDay && next < picked.length) {
         const w = picked[next++];
-        words.push({
-          word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant,
-          level: w.level, libraryId: String(w._id), source: 'library', family: w.family ?? []
-        });
+        // A link to the library word, nothing changed.
+        words.push({ word: w.word, libraryId: String(w._id), source: 'library', overrides: {} });
       }
       byDay.set(day, words);
     }
@@ -293,8 +295,11 @@ export class CoursesService {
     const w = d?.words[index];
     if (!d || !w) throw new NotFoundException('Word not found in this day.');
     if (!w.libraryId) {
+      const full = (await this.courseWords.day({ days: [{ day, words: [w] }] }, day))[0];
       const existing = await this.library.findByWord(w.word.toLowerCase());
-      w.libraryId = String((existing ?? (await this.library.shareData(user, w, topic)))._id);
+      if (!existing) await this.library.shareData(user, full, topic);
+      // Now a link to the library word, keeping only what differs from it.
+      d.words[index] = (await this.courseWords.refs([{ ...full, libraryId: '' }]))[0];
       c.markModified('days');
       await c.save();
     }
@@ -335,7 +340,7 @@ export class CoursesService {
     const e = await this.enrollments.findOne({ user, courseId: id });
     if (!e) throw new ForbiddenException('Join the course first.');
     if (day < 1 || day > currentDay(e, c.totalDays)) throw new ForbiddenException('Day ' + day + ' isn’t open yet.');
-    const words = c.days.find((d) => d.day === day)?.words ?? [];
+    const words = await this.courseWords.day(c, day);
     if (!words.length) throw new BadRequestException('Day ' + day + ' has no words yet.');
     return { c, e, words };
   }
