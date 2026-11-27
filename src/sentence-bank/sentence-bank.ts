@@ -25,6 +25,8 @@ export class WordSentence {
   @Prop({ default: '' }) verb: string;
   @Prop({ default: '' }) base: string;
   @Prop({ default: 'ai' }) source: string;
+  /** The library word's meaning changed after this was written: not used until an admin keeps (or edits) it. */
+  @Prop({ default: false, index: true }) stale: boolean;
 }
 export type WordSentenceDocument = HydratedDocument<WordSentence>;
 export const WordSentenceSchema = SchemaFactory.createForClass(WordSentence);
@@ -116,9 +118,9 @@ export function questionFrom(s: Pick<WordSentence, 'sentence' | 'verb' | 'base' 
 export class SentenceBankService {
   constructor(@InjectModel(WordSentence.name) private readonly sentences: Model<WordSentence>) {}
 
-  /** The bank's sentences for these words (case-insensitive), by lower-case word. */
+  /** The bank's sentences for these words (case-insensitive), by lower-case word; not the ones whose word's meaning changed. */
   async forWords(words: string[]): Promise<Map<string, WordSentenceDocument[]>> {
-    const list = words.length ? await this.sentences.find({ word: { $in: words } }).collation({ locale: 'en', strength: 2 }) : [];
+    const list = words.length ? await this.sentences.find({ word: { $in: words }, stale: { $ne: true } }).collation({ locale: 'en', strength: 2 }) : [];
     const out = new Map<string, WordSentenceDocument[]>();
     for (const s of list) out.set(s.word.toLowerCase(), [...(out.get(s.word.toLowerCase()) ?? []), s]);
     return out;
@@ -126,7 +128,7 @@ export class SentenceBankService {
 
   findByIds(ids: string[]): Promise<WordSentenceDocument[]> {
     const valid = ids.filter((x) => Types.ObjectId.isValid(x));
-    return valid.length ? this.sentences.find({ _id: { $in: valid } }) : Promise.resolve([]);
+    return valid.length ? this.sentences.find({ _id: { $in: valid }, stale: { $ne: true } }) : Promise.resolve([]);
   }
 }
 

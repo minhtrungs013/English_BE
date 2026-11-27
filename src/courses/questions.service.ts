@@ -56,7 +56,7 @@ export class QuestionsService {
   view(q: BankItemDocument) {
     return {
       id: String(q._id), day: q.day, kind: q.kind, word: q.word, tense: q.tense, tenseLabel: TENSE_LABEL[q.tense as Tense] ?? '',
-      prompt: q.prompt, choices: q.choices, answer: q.answer, accept: q.accept, explain: q.explain, source: q.source, status: q.status,
+      prompt: q.prompt, choices: q.choices, answer: q.answer, accept: q.accept, explain: q.explain, source: q.source, status: q.status, stale: !!q.stale,
       ...(q.kind === 'dialogue' ? { data: q.data } : {})
     };
   }
@@ -284,6 +284,8 @@ export class QuestionsService {
     if (dto.tense !== undefined) q.tense = dto.tense;
     if (dto.word !== undefined) q.word = dto.word.trim();
     if (dto.status !== undefined) q.status = dto.status;
+    // The owner looked at it again: no longer "meaning changed".
+    q.stale = false;
     if (q.kind === 'dialogue' && dto.data !== undefined) {
       const d = cleanDialogue(dto.data);
       this.assertDayWords(c, q.day, d);
@@ -343,7 +345,7 @@ export class QuestionsService {
   /** Approve or reject several items at once. */
   async setStatus(user: string, id: string, ids: string[], status: BankStatus) {
     await this.owned(user, id);
-    await this.bank.updateMany({ courseId: id, _id: { $in: ids }, kind: { $nin: ['recap', 'dialogue'] } }, { $set: { status } });
+    await this.bank.updateMany({ courseId: id, _id: { $in: ids }, kind: { $nin: ['recap', 'dialogue'] } }, { $set: { status, ...(status === 'approved' ? { stale: false } : {}) } });
     // Recaps and dialogues one at a time, so a day keeps a single approved one of each.
     const recaps = await this.bank.find({ courseId: id, _id: { $in: ids }, kind: { $in: ['recap', 'dialogue'] } });
     for (const r of recaps) await this.update(user, id, String(r._id), { status });
@@ -353,6 +355,20 @@ export class QuestionsService {
   async remove(user: string, id: string, qid: string): Promise<void> {
     await this.owned(user, id);
     await this.bank.deleteOne({ _id: qid, courseId: id });
+  }
+
+  /**
+   * These words' meaning changed in this course (the library word, or the course's own change): their questions go
+   * back to pending, marked "meaning changed", so homework doesn't use a sentence written for the old meaning.
+   */
+  async flagWords(courseId: string, words: string[]): Promise<number> {
+    if (!words.length) return 0;
+    const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const r = await this.bank.updateMany(
+      { courseId, word: { $in: words.map((w) => new RegExp('^' + esc(w) + '$', 'i')) }, status: { $ne: 'rejected' } },
+      { $set: { stale: true, status: 'pending' } }
+    );
+    return r.modifiedCount;
   }
 
   /** Approved items for some days of a course (for homework and warm-ups). */

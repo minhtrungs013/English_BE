@@ -119,6 +119,11 @@ export class BankItem {
   @Prop({ enum: ['ai', 'template', 'manual', 'bank', 'course'], default: 'manual' }) source: string;
   @Prop({ default: '' }) sourceId: string;
   @Prop({ enum: BANK_STATUSES, default: 'pending' }) status: string;
+  /**
+   * The word's meaning changed after this was written (library edit, AI regenerate, or the course's own change):
+   * it's back to pending and shown as "meaning changed" until the owner approves (or edits) it again.
+   */
+  @Prop({ default: false }) stale: boolean;
   /** Dialogues: speakers, lines (with [[blanks]]) and comprehension questions — see dialogue.ts. */
   @Prop({ type: Object, default: null }) data: Record<string, unknown> | null;
 }

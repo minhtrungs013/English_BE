@@ -19,7 +19,7 @@ import { Tag, normalizeTag } from '../tags/tags';
 import { User } from '../users/user.schema';
 import { WordsService } from '../words/words.service';
 import { Course, CourseDocument, CourseWord, CourseWordRef, Enrollment, EnrollmentDocument, TOTAL_DAYS, currentDay } from './course.schema';
-import { CourseWordsService } from './course-words';
+import { CourseWordsService, senseOf } from './course-words';
 import { CourseWordDto, CreateCourseDto, UpdateCourseDto } from './courses.dto';
 import { HomeworkService } from './homework.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -220,9 +220,14 @@ export class CoursesService {
       syn: w.syn ?? [], ant: w.ant ?? [], level: w.level ?? 'B1', libraryId: w.libraryId ?? '', source: w.source ?? 'manual',
       family: cleanFamily(w.family)
     })));
+    // A word kept on the day whose meaning changed: its questions are checked again.
+    const before = new Map((await this.courseWords.day(c, day)).map((w) => [w.word.toLowerCase(), senseOf(w)]));
+    const after = await this.courseWords.day({ days: [{ day, words: clean }] }, day);
+    const changed = after.filter((w) => before.has(w.word.toLowerCase()) && before.get(w.word.toLowerCase()) !== senseOf(w)).map((w) => w.word);
     const others = c.days.filter((d) => d.day !== day);
     c.days = (clean.length ? [...others, { day, words: clean }] : others).sort((a, b) => a.day - b.day);
     await c.save();
+    await this.questions.flagWords(id, changed);
     return this.get(user, id);
   }
 

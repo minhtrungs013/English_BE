@@ -18,7 +18,7 @@ import { UsageModule, UsageService, keyOf } from '../usage/usage';
 import { IMPORT_AUTHOR, cleanImportItem, type ImportWord } from './library-import';
 import { todayKey } from '../common/day';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/course.schema';
-import { detachFromCourses, type LibraryDetails } from '../courses/course-words';
+import { detachFromCourses, fullWord, senseOf, type LibraryDetails } from '../courses/course-words';
 import { detachFromWords } from '../words/words.service';
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
 import { sentenceKey } from '../courses/sentence-rules';
@@ -38,6 +38,8 @@ export class PageQuery {
 }
 export class SentenceQuery extends PageQuery {
   @IsOptional() @IsIn([...TENSES, 'none']) tense?: string;
+  /** '1': only sentences whose word's meaning changed (waiting to be kept, edited or deleted). */
+  @IsOptional() @IsIn(['1']) stale?: string;
 }
 export class RoleDto {
   @IsIn(['user', 'admin']) role: 'user' | 'admin';
@@ -227,6 +229,7 @@ export class AdminService {
     const filter: QueryFilter<WordSentence> = {};
     if (q.q) filter.$or = [{ word: { $regex: '^' + esc(q.q), $options: 'i' } }, { sentence: { $regex: esc(q.q), $options: 'i' } }];
     if (q.tense) filter.tense = q.tense === 'none' ? '' : q.tense;
+    if (q.stale) filter.stale = true;
     const page = q.page ?? 1;
     const [total, list] = await Promise.all([this.sentences.countDocuments(filter), this.sentences.find(filter).sort({ word: 1 }).skip((page - 1) * PAGE).limit(PAGE).lean()]);
     return { total, page, pages: Math.max(1, Math.ceil(total / PAGE)), items: list.map(({ _id, key: _k, ...s }) => ({ id: String(_id), ...s })) };
@@ -237,7 +240,8 @@ export class AdminService {
     if (!s) throw new NotFoundException('Sentence not found.');
     const next = { sentence: dto.sentence?.replace(/\s+/g, ' ').trim() ?? s.sentence, verb: dto.verb?.trim() ?? s.verb };
     if (next.verb && !next.sentence.includes(next.verb)) throw new BadRequestException('The verb phrase must appear in the sentence exactly.');
-    Object.assign(s, { ...dto, ...next, key: sentenceKey(next.sentence) });
+    // Saved by an admin (also with no change = "keep it"): no longer "meaning changed".
+    Object.assign(s, { ...dto, ...next, key: sentenceKey(next.sentence), stale: false });
     await s.save().catch((e: { code?: number }) => { throw e?.code === 11000 ? new BadRequestException('This sentence is already in the bank.') : e; });
     const { _id, key: _k, ...rest } = s.toObject();
     return { id: String(_id), ...rest };
@@ -371,8 +375,32 @@ export class AdminService {
     if (!w) throw new NotFoundException('Word not found.');
     await this.staleUsage(w.wordLower, w.pos, w.vi);
     const synced = await this.syncSavedWords(before, w);
+    const stale = await this.flagSense(before, w);
     const usageWriting = !!usage && this.usage.rewriteLater(keyOf(w.word), admin, { word: w.word, pos: w.pos, vi: w.vi, meaning: w.meaning });
-    return { ...this.libRow(w), syn: w.syn, ant: w.ant, family: w.family ?? [], synced, usageWriting };
+    return { ...this.libRow(w), syn: w.syn, ant: w.ant, family: w.family ?? [], synced, usageWriting, stale };
+  }
+
+  /**
+   * A library word's meaning (part of speech, Vietnamese, English meaning) changed: its bank sentences and the
+   * questions about it in courses that show the new meaning (not those that changed it for themselves) were written
+   * for the old one, so they're marked "meaning changed" (sentences aren't used, questions go back to pending).
+   */
+  private async flagSense(before: LibraryWord & { _id: unknown }, after: LibraryWord & { _id: unknown }) {
+    const out = { sentences: 0, questions: 0 };
+    if (senseOf(before) === senseOf(after)) return out;
+    const id = String(before._id);
+    const same = (w: string) => new RegExp('^' + esc(w) + '$', 'i');
+    const s = await this.sentences.updateMany({ $or: [{ wordId: id }, { word: same(before.word) }, { word: same(after.word) }], stale: { $ne: true } }, { $set: { stale: true } });
+    out.sentences = s.modifiedCount;
+    const courses = await this.courses.find({ 'days.words.libraryId': id }, { days: 1 }).lean();
+    for (const c of courses) {
+      const refs = c.days.flatMap((d) => d.words).filter((r) => r.libraryId === id);
+      const words = refs.filter((r) => senseOf(fullWord(r, before as unknown as LibraryDetails)) !== senseOf(fullWord(r, after as unknown as LibraryDetails))).map((r) => r.word);
+      if (!words.length) continue;
+      const q = await this.bank.updateMany({ courseId: String(c._id), word: { $in: words.map(same) }, status: { $ne: 'rejected' } }, { $set: { stale: true, status: 'pending' } });
+      out.questions += q.modifiedCount;
+    }
+    return out;
   }
 
   private libRow(w: LibraryWord & { _id: unknown }) {

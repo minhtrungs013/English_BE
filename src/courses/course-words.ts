@@ -23,6 +23,9 @@ function same(field: string, a: unknown, b: unknown): boolean {
   return squash(a) === squash(b);
 }
 
+/** What a question or sentence about the word depends on: its part of speech and meanings (lower case, spaces squashed). */
+export const senseOf = (w: { pos?: string; vi?: string; meaning?: string }) => [w.pos, w.vi, w.meaning].map((x) => squash(x).toLowerCase()).join('|');
+
 export const blank = (v: unknown) => v == null || (typeof v === 'string' && !v.trim()) || (Array.isArray(v) && !v.length);
 
 const plain = <T>(v: T): T => JSON.parse(JSON.stringify(v ?? null)) as T;
