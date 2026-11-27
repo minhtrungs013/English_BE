@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProfileService } from '../profile/profile.service';
 import { Course, CourseDocument } from './course.schema';
+import { CourseWordsService } from './course-words';
 import { BankItemDto, GenerateQuestionsDto, UpdateBankItemDto } from './courses.dto';
 import { Dialogue, aiDialogue, cleanDialogue, dayWordProblem } from './dialogue';
 import { BankItem, BankItemDocument, BankStatus, CHOICE_KINDS, QUESTION_KINDS, TENSE_KINDS, WORD_KINDS } from './homework.schema';
@@ -37,7 +38,8 @@ export class QuestionsService {
     private readonly profile: ProfileService,
     private readonly grammar: SentenceGrammarService,
     private readonly sentenceBank: SentenceBankService,
-    private readonly access: AccessService
+    private readonly access: AccessService,
+    private readonly courseWords: CourseWordsService
   ) {}
 
   private async owned(user: string, id: string): Promise<CourseDocument> {
@@ -111,7 +113,8 @@ export class QuestionsService {
     const c = await this.owned(user, id);
     this.checkDay(c, day);
     const days = c.toObject().days;
-    const words = days.find((d) => d.day === day)?.words ?? [];
+    // With their library details (the part of speech decides which words get built-in questions).
+    const words = await this.courseWords.day(c, day);
     if (!words.length) throw new BadRequestException('Add words to day ' + day + ' first.');
     const tenses = (dto.tenses?.length ? dto.tenses : TENSES) as Tense[];
     const perWord = dto.perWord ?? 2;

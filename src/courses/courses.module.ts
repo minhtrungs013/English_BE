@@ -9,7 +9,9 @@ import { User, UserSchema } from '../users/user.schema';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { SentenceBankModule } from '../sentence-bank/sentence-bank';
 import { WordsModule } from '../words/words.module';
+import { LibraryWord, LibraryWordSchema } from '../library/library.schema';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from './course.schema';
+import { CourseWordsService } from './course-words';
 import { CoursesController } from './courses.controller';
 import { CoursesService } from './courses.service';
 import { BankItem, BankItemSchema, Homework, HomeworkSchema, Submission, SubmissionSchema } from './homework.schema';
@@ -27,12 +29,13 @@ import { SentenceGrammar, SentenceGrammarSchema, SentenceGrammarService } from '
       { name: BankItem.name, schema: BankItemSchema },
       { name: User.name, schema: UserSchema },
       { name: SentenceGrammar.name, schema: SentenceGrammarSchema },
-      { name: SentenceAttempt.name, schema: SentenceAttemptSchema }
+      { name: SentenceAttempt.name, schema: SentenceAttemptSchema },
+      { name: LibraryWord.name, schema: LibraryWordSchema }
     ]),
     WordsModule, LibraryModule, LookupModule, ProfileModule, TagsModule, NotificationsModule, SentenceBankModule
   ],
   controllers: [CoursesController],
-  providers: [CoursesService, HomeworkService, QuestionsService, SentenceGrammarService],
-  exports: [CoursesService, SentenceGrammarService]
+  providers: [CoursesService, CourseWordsService, HomeworkService, QuestionsService, SentenceGrammarService],
+  exports: [CoursesService, CourseWordsService, SentenceGrammarService]
 })
 export class CoursesModule {}
