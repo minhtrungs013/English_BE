@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import { LEVELS, RATINGS, STATUSES } from '../common/constants';
 import { FamilyMember, familyProp } from '../common/family';
 import { jsonOptions } from '../common/to-json';
+import type { CourseWordOverrides as WordDetailsPatch } from '../courses/course.schema';
 
 @Schema({ _id: false })
 export class ReviewEntry {
@@ -17,16 +18,23 @@ export class Word {
   @Prop({ required: true, trim: true }) word: string;
   /** Lower-cased copy of `word`; unique per user so a word can't be saved twice. */
   @Prop({ required: true }) wordLower: string;
-  @Prop({ default: '' }) ipa: string;
-  @Prop({ default: 'Noun' }) pos: string;
-  @Prop({ default: '' }) meaning: string;
-  @Prop({ default: '' }) vi: string;
-  @Prop({ default: '' }) ex: string;
-  @Prop({ type: [String], default: [] }) syn: string[];
-  @Prop({ type: [String], default: [] }) ant: string[];
-  /** Related forms (decide → decision, decisive…), the word itself included; [] = none. */
-  @Prop(familyProp) family: FamilyMember[];
-  @Prop({ enum: LEVELS, default: 'B1' }) level: string;
+  /**
+   * The library word this is (its details come from there: words.service.ts views); '' for a word that isn't in the
+   * library (a phrase, or one with no meaning yet), whose details are all in `overrides`.
+   */
+  @Prop({ default: '', index: true }) libraryId: string;
+  /** What I changed for myself (only the fields that differ from the library word). */
+  @Prop({ type: Object, default: () => ({}) }) overrides: WordDetailsPatch;
+  // The old full copy (words saved before they were links; no defaults, so new words don't get these fields).
+  @Prop() ipa?: string;
+  @Prop() pos?: string;
+  @Prop() meaning?: string;
+  @Prop() vi?: string;
+  @Prop() ex?: string;
+  @Prop({ type: [String], default: undefined }) syn?: string[];
+  @Prop({ type: [String], default: undefined }) ant?: string[];
+  @Prop({ ...familyProp, default: undefined }) family?: FamilyMember[];
+  @Prop({ enum: LEVELS }) level?: string;
   @Prop({ enum: STATUSES, default: 'new' }) status: string;
   /** Category id, or '' when uncategorized. */
   @Prop({ default: '', index: true }) cat: string;

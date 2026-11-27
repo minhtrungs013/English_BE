@@ -70,7 +70,7 @@ export class LookupService {
     const lw = word.toLowerCase();
     const mine = await this.words.findByWord(user, word);
     if (mine) {
-      return { source: 'collection', ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, syn: mine.syn, ant: mine.ant, level: mine.level as Level, family: mine.toObject().family ?? [] };
+      return { source: 'collection', ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, syn: mine.syn, ant: mine.ant, level: mine.level as Level, family: mine.family ?? [] };
     }
     const lib = await this.library.findByWord(lw);
     if (lib) {

@@ -19,6 +19,7 @@ import { IMPORT_AUTHOR, cleanImportItem, type ImportWord } from './library-impor
 import { todayKey } from '../common/day';
 import { Course, CourseSchema, Enrollment, EnrollmentSchema } from '../courses/course.schema';
 import { detachFromCourses, type LibraryDetails } from '../courses/course-words';
+import { detachFromWords } from '../words/words.service';
 import { BankItem, BankItemSchema } from '../courses/homework.schema';
 import { sentenceKey } from '../courses/sentence-rules';
 import { TENSES } from '../courses/tense';
@@ -379,13 +380,23 @@ export class AdminService {
   }
 
   /**
-   * Copies a library word's changes to learners' saved copies of it. A field is copied only when the learner
-   * left it as the library had it (or empty), so their own edits stay. Returns how many saved words changed.
+   * Learners' words that link to this library word show its changes by themselves (only a new spelling is copied to
+   * them). Old full copies (saved before words were links) get a field copied only when the learner left it as the
+   * library had it (or empty), so their own edits stay. Returns how many saved words show the change.
    */
-  private async syncSavedWords(before: LibraryWord, after: LibraryWord): Promise<number> {
+  private async syncSavedWords(before: LibraryWord & { _id: unknown }, after: LibraryWord): Promise<number> {
     const changed = SYNC_FIELDS.filter((k) => norm(before[k]) !== norm(after[k]));
     if (!changed.length) return 0;
-    const saved = await this.words.find({ wordLower: before.wordLower }, Object.fromEntries(changed.map((k) => [k, 1]))).lean();
+    const id = String(before._id);
+    if (after.wordLower !== before.wordLower) {
+      // A learner who already has a word spelled like the new one keeps both as they were.
+      const linked = await this.words.find({ libraryId: id }, { _id: 1 }).lean();
+      await this.words.bulkWrite(linked.map((l) => ({ updateOne: { filter: { _id: l._id }, update: { $set: { word: after.word, wordLower: after.wordLower } } } })), { ordered: false }).catch(() => null);
+      // Courses keep the spelling next to the link too.
+      await this.courses.updateMany({ 'days.words.libraryId': id }, { $set: { 'days.$[].words.$[w].word': after.word } }, { arrayFilters: [{ 'w.libraryId': id }] });
+    }
+    const linked = await this.words.countDocuments({ libraryId: id });
+    const saved = await this.words.find({ wordLower: before.wordLower, libraryId: { $in: [null, ''] }, overrides: { $exists: false } }, Object.fromEntries(changed.map((k) => [k, 1]))).lean();
     const ops = [];
     for (const uw of saved) {
       const set: Partial<Word> = {};
@@ -393,10 +404,10 @@ export class AdminService {
       if (set.word) set.wordLower = after.wordLower;
       if (Object.keys(set).length) ops.push({ updateOne: { filter: { _id: uw._id }, update: { $set: set } } });
     }
-    if (!ops.length) return 0;
+    if (!ops.length) return linked;
     // A learner who already has a word spelled like a renamed one keeps both as they were.
     const res = await this.words.bulkWrite(ops, { ordered: false }).catch((e: { result?: { modifiedCount?: number } }) => e.result ?? null);
-    return res?.modifiedCount ?? 0;
+    return linked + (res?.modifiedCount ?? 0);
   }
 
   /**
@@ -544,7 +555,8 @@ export class AdminService {
   async deleteLibrary(id: string) {
     // Courses that use the word keep its details as their own.
     const lib = await this.library.findById(id).lean();
-    if (lib) await detachFromCourses(this.library.db.db!, [lib as unknown as LibraryDetails]);
+    // …and learners who saved it keep it in My Vocabulary.
+    if (lib) await Promise.all([detachFromCourses(this.library.db.db!, [lib as unknown as LibraryDetails]), detachFromWords(this.library.db.db!, [lib as unknown as LibraryDetails])]);
     const r = await this.library.deleteOne({ _id: id });
     if (!r.deletedCount) throw new NotFoundException('Word not found.');
     await this.sentences.deleteMany({ wordId: id });

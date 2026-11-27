@@ -17,6 +17,7 @@ import { Tag, TagsModule } from '../tags/tags';
 import { User, UserSchema } from '../users/user.schema';
 import { Word } from '../words/word.schema';
 import { WordsModule } from '../words/words.module';
+import { WordsService } from '../words/words.service';
 import { CoursesModule } from '../courses/courses.module';
 import { CoursesService } from '../courses/courses.service';
 import { LibraryModule } from '../library/library.module';
@@ -39,7 +40,8 @@ export class DataService implements OnApplicationBootstrap {
     private readonly courses: CoursesService,
     private readonly notes: NotificationsService,
     private readonly grammar: GrammarService,
-    private readonly dictation: DictationService
+    private readonly dictation: DictationService,
+    private readonly myWords: WordsService
   ) {}
 
   /**
@@ -96,15 +98,15 @@ export class DataService implements OnApplicationBootstrap {
   async bootstrap(user: string) {
     const [u, words, cats, tags, profile] = await Promise.all([
       this.users.findById(user),
-      this.words.find({ user }).sort({ addedAt: -1 }),
+      this.myWords.findAll(user),
       this.cats.find({ user }).sort({ createdAt: 1 }),
       this.tags.find({ user }).sort({ createdAt: 1 }).lean(),
       this.profile.get(user)
     ]);
     const p = profile.toJSON();
-    const shared = await this.library.existing(words.map((w) => w.wordLower));
+    const shared = await this.library.existing(words.map((w) => w.word.toLowerCase()));
     return {
-      words: words.map((w) => w.toJSON()), cats: cats.map((c) => c.toJSON()), tags: tags.map((t) => t.name),
+      words, cats: cats.map((c) => c.toJSON()), tags: tags.map((t) => t.name),
       // Lower-cased words of yours that are already in the library (so the app hides "Share").
       shared,
       userId: user,

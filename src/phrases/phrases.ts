@@ -281,7 +281,6 @@ export class PhrasesService implements OnApplicationBootstrap {
     @InjectModel(LibraryWord.name) private readonly library: Model<LibraryWord>,
     @InjectModel(Tag.name) private readonly tags: Model<Tag>,
     @InjectModel(PhraseFillers.name) private readonly myFillers: Model<PhraseFillers>,
-    @InjectModel(Word.name) private readonly wordDocs: Model<Word>,
     private readonly words: WordsService
   ) {}
 
@@ -338,8 +337,9 @@ export class PhrasesService implements OnApplicationBootstrap {
     const type = p.slot?.type ?? 'noun';
     const pos = type === 'noun' ? ['Noun'] : ['Verb'];
     const skip = new Set([...checked, ...p.fillers.map((f) => f.word.toLowerCase()), phraseKey(p.phrase)]);
-    const list = await this.wordDocs.find({ user, pos: { $in: pos } }, { word: 1, wordLower: 1, pos: 1, vi: 1 }).sort({ addedAt: -1 }).limit(400).lean();
-    return list.filter((w) => !skip.has(w.wordLower)).slice(0, 120).map((w) => ({ word: w.word, pos: w.pos, vi: w.vi }));
+    // The part of speech comes from the library word (my words keep only a link), so it's checked after reading.
+    const list = (await this.words.findAll(user)).filter((w) => pos.includes(w.pos)).slice(0, 400);
+    return list.filter((w) => !skip.has(w.word.toLowerCase())).slice(0, 120).map((w) => ({ word: w.word, pos: w.pos, vi: w.vi }));
   }
 
   /** The keys of the phrases I saved to My Vocabulary. */
@@ -365,7 +365,7 @@ export class PhrasesService implements OnApplicationBootstrap {
       word: p.phrase.replace(/[?.!]+$/, ''), pos: p.pos, meaning: p.meaning, vi: p.vi, ex: p.examples[0]?.en ?? '', level: p.level,
       tags: ['phrase'], notes: [p.pattern, ...p.notes].filter(Boolean).join('\n')
     });
-    return { word: w.toJSON(), tag: 'phrase' };
+    return { word: w, tag: 'phrase' };
   }
 
   /**

@@ -98,7 +98,7 @@ export class ChatService {
     if (!word) return null;
     const mine = await this.words.findByWord(user, word);
     if (mine) {
-      return { word: mine.word, ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, level: mine.level as Level, family: mine.toObject().family ?? [], syn: mine.syn ?? [], ant: mine.ant ?? [], topic: 'other', status: 'mine', id: String(mine._id) };
+      return { word: mine.word, ipa: mine.ipa, pos: mine.pos, meaning: mine.meaning, vi: mine.vi, ex: mine.ex, level: mine.level as Level, family: mine.family ?? [], syn: mine.syn ?? [], ant: mine.ant ?? [], topic: 'other', status: 'mine', id: mine.id };
     }
     const lib = await this.library.findByWord(word.toLowerCase());
     if (lib) {

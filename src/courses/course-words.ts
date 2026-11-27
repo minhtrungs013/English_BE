@@ -11,11 +11,16 @@ export type LibraryDetails = Pick<CourseWord, (typeof COURSE_WORD_FIELDS)[number
 
 const EMPTY: Omit<CourseWord, 'word' | 'libraryId' | 'source'> = { ipa: '', pos: 'Noun', meaning: '', vi: '', ex: '', syn: [], ant: [], family: [], level: 'B1' };
 
-/** A field value compared however it was stored (family members without their empty keys, extra spaces). */
+const squash = (s: unknown) => String(s ?? '').replace(/\s+/g, ' ').trim();
+
+/** A field value compared however it was stored (family members in any order without their empty keys, extra spaces). */
 function same(field: string, a: unknown, b: unknown): boolean {
-  if (field === 'family') return JSON.stringify(cleanFamily(a)) === JSON.stringify(cleanFamily(b));
-  if (Array.isArray(a) || Array.isArray(b)) return JSON.stringify((a as string[] | undefined) ?? []) === JSON.stringify((b as string[] | undefined) ?? []);
-  return String(a ?? '').trim() === String(b ?? '').trim();
+  if (field === 'family') {
+    const key = (v: unknown) => JSON.stringify(cleanFamily(v).map((m) => JSON.stringify(m)).sort());
+    return key(a) === key(b);
+  }
+  if (Array.isArray(a) || Array.isArray(b)) return JSON.stringify(((a as string[] | undefined) ?? []).map(squash)) === JSON.stringify(((b as string[] | undefined) ?? []).map(squash));
+  return squash(a) === squash(b);
 }
 
 export const blank = (v: unknown) => v == null || (typeof v === 'string' && !v.trim()) || (Array.isArray(v) && !v.length);

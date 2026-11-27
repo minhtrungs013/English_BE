@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, QueryFilter } from 'mongoose';
 import { cleanFamily, type FamilyMember } from '../common/family';
 import { detachFromCourses, type LibraryDetails } from '../courses/course-words';
+import { detachFromWords } from '../words/words.service';
 import { Tag } from '../tags/tags';
 import { User } from '../users/user.schema';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -32,8 +33,8 @@ export class LibraryService implements OnApplicationBootstrap {
 
   /**
    * Keeps the built-in words in line with seed/library.json: adds missing ones, removes
-   * built-in words no longer in the file and updates the word family of built-in words whose family
-   * in the file changed (entries without a `family` key are left as they are). Words users shared,
+   * built-in words no longer in the file and gives built-in words with no word family the file's family
+   * (a family an admin changed — e.g. with AI regenerate — is kept). Words users shared,
    * and words users saved to their own vocabulary, are never touched.
    */
   async onApplicationBootstrap(): Promise<void> {
@@ -42,7 +43,7 @@ export class LibraryService implements OnApplicationBootstrap {
     if (keys.length) {
       // Courses that use a built-in word being removed keep its details as their own.
       const going = await this.lib.find({ authorId: '', wordLower: { $nin: keys } }).lean();
-      if (going.length) await detachFromCourses(this.lib.db.db!, going as unknown as LibraryDetails[]);
+      if (going.length) await Promise.all([detachFromCourses(this.lib.db.db!, going as unknown as LibraryDetails[]), detachFromWords(this.lib.db.db!, going as unknown as LibraryDetails[])]);
       const removed = await this.lib.deleteMany({ authorId: '', wordLower: { $nin: keys } });
       if (removed.deletedCount) this.log.log('Removed ' + removed.deletedCount + ' built-in words no longer in the seed list.');
     }
@@ -63,7 +64,10 @@ export class LibraryService implements OnApplicationBootstrap {
     await this.syncFamilies(seed);
   }
 
-  /** Sets the family of built-in words to the seed's where it differs (compared as cleaned JSON). */
+  /**
+   * Gives built-in words that have no word family the seed's. A family that is there is kept: it may be an admin's
+   * fix (AI regenerate), which used to be put back to the seed's on every start.
+   */
   async syncFamilies(seed: SeedEntry[]): Promise<number> {
     const want = new Map<string, FamilyMember[]>();
     for (const e of seed) if (Array.isArray(e.family)) want.set(e.word.toLowerCase(), cleanFamily(e.family));
@@ -72,13 +76,13 @@ export class LibraryService implements OnApplicationBootstrap {
     const ops = [];
     for (const d of have) {
       const family = want.get(d.wordLower);
-      if (family && JSON.stringify(cleanFamily(d.family)) !== JSON.stringify(family)) {
+      if (family?.length && !cleanFamily(d.family).length) {
         ops.push({ updateOne: { filter: { _id: d._id, authorId: '' }, update: { $set: { family } } } });
       }
     }
     if (!ops.length) return 0;
     await this.lib.bulkWrite(ops, { ordered: false });
-    this.log.log('Updated the word family of ' + ops.length + ' built-in words.');
+    this.log.log('Added the word family to ' + ops.length + ' built-in words.');
     return ops.length;
   }
 
@@ -157,13 +161,16 @@ export class LibraryService implements OnApplicationBootstrap {
     });
     await this.lib.updateOne({ _id: d._id }, { $inc: { saves: 1 } });
     await this.notes.librarySaved(d.authorId, user, String(d._id), d.word).catch(() => undefined);
-    return { word: w.toJSON(), tag };
+    return { word: w, tag };
   }
 
   /** Shares one of the user's own words to the library under the user's name. */
   async share(user: string, dto: ShareWordDto) {
     const w = await this.words.findOne(user, dto.wordId);
-    return (await this.shareData(user, w, dto.topic ?? 'other')).toJSON();
+    const d = await this.shareData(user, w, dto.topic ?? 'other');
+    // My word now links to the library word it became.
+    await this.words.update(user, dto.wordId, {});
+    return d.toJSON();
   }
 
   /** Adds a word to the library under the user's name (used for my words and for course words). */

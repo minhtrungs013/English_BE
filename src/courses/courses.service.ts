@@ -355,7 +355,7 @@ export class CoursesService {
     for (const w of chosen) {
       if (await this.words.findByWord(user, w.word)) { skipped.push(w.word); continue; }
       const created = await this.words.create(user, { word: w.word, ipa: w.ipa, pos: w.pos, meaning: w.meaning, vi: w.vi, ex: w.ex, syn: w.syn, ant: w.ant, level: w.level, tags: [c.tag], family: w.family ?? [] });
-      added.push(created.toJSON());
+      added.push(created);
     }
     return { added, skipped };
   }
