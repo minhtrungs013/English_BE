@@ -13,7 +13,7 @@ import { WordsModule } from '../words/words.module';
 import { WordsService } from '../words/words.service';
 import { Word, WordSchema } from '../words/word.schema';
 import SEED from './seed/phrases.json';
-import { pastForms, tenseOf, type PhraseTense } from './tense';
+import { IRREGULAR_VERBS, pastForms, tenseOf, type PhraseTense } from './tense';
 
 /* ---------- data ---------- */
 
@@ -156,11 +156,11 @@ export function cleanPhrase(raw: unknown): { doc?: PhraseDoc; errors: string[]; 
     forms: arr(o.forms).map((f) => { const x = obj(f); return { use: s(x.use, 120), en: s(x.en, 200) }; }).filter((f) => f.en).slice(0, 6),
     templates: kind === 'slot' ? templates.slice(0, 8) : [],
     fillers: kind === 'slot' ? fillers : [],
-    examples: arr(o.examples).map((e) => { const x = obj(e); return { en: s(x.en, 240), vi: s(x.vi, 240) }; }).filter((e) => e.en).slice(0, 4),
+    examples: arr(o.examples).map((e) => { const x = obj(e); return { en: s(x.en, 240), vi: s(x.vi, 240) }; }).filter((e) => e.en).slice(0, 8),
     notes: strs(o.notes, 4),
     mistakes: arr(o.mistakes).map((m) => { const x = obj(m); return { wrong: s(x.wrong, 200), right: s(x.right, 200), why: s(x.why, 200) }; }).filter((m) => m.wrong && m.right && m.wrong !== m.right).slice(0, 4),
     function: kind === 'fixed' ? pick(o.function, FUNCTIONS, 'other') : '',
-    situations: strs(o.situations, 4),
+    situations: strs(o.situations, 8),
     dialogue: arr(o.dialogue).map((d) => { const x = obj(d); return { s: s(x.s, 1).toUpperCase() === 'B' ? 'B' : 'A', en: s(x.en, 240), vi: s(x.vi, 240) }; }).filter((d) => d.en).slice(0, 6),
     replies: { good: strs(replies.good, 4), bad: strs(replies.bad, 4) },
     variants: strs(o.variants, 4, 80)
@@ -171,19 +171,12 @@ export function cleanPhrase(raw: unknown): { doc?: PhraseDoc; errors: string[]; 
 
 /* ---------- answers ---------- */
 
-const IRREGULAR: Record<string, string[]> = {
+const SPECIAL_FORMS: Record<string, string[]> = {
   be: ['am', 'is', 'are', 'was', 'were', 'been', 'being'], have: ['has', 'had', 'having'], do: ['does', 'did', 'done', 'doing'],
-  run: ['runs', 'ran', 'running'], get: ['gets', 'got', 'gotten', 'getting'], take: ['takes', 'took', 'taken', 'taking'],
-  deal: ['deals', 'dealt', 'dealing'], give: ['gives', 'gave', 'given', 'giving'], go: ['goes', 'went', 'gone', 'going'],
-  come: ['comes', 'came', 'coming'], make: ['makes', 'made', 'making'], put: ['puts', 'putting'], set: ['sets', 'setting'],
-  keep: ['keeps', 'kept', 'keeping'], find: ['finds', 'found', 'finding'], bring: ['brings', 'brought', 'bringing'],
-  think: ['thinks', 'thought', 'thinking'], hold: ['holds', 'held', 'holding'], break: ['breaks', 'broke', 'broken', 'breaking'],
-  fall: ['falls', 'fell', 'fallen', 'falling'], catch: ['catches', 'caught', 'catching'], cut: ['cuts', 'cutting'], let: ['lets', 'letting'],
-  turn: ['turns', 'turned', 'turning'], sit: ['sits', 'sat', 'sitting'], stand: ['stands', 'stood', 'standing'], write: ['writes', 'wrote', 'written', 'writing']
+  go: ['goes', 'went', 'gone', 'going']
 };
-/** The forms of a verb: decide → decides, decided, deciding (common irregular ones listed). */
-export function verbForms(v: string): string[] {
-  if (IRREGULAR[v]) return [v, ...IRREGULAR[v]];
+/** The regular forms of a verb (decide → decides, decided, deciding). */
+function regularForms(v: string): string[] {
   const out = [v];
   if (/[^aeiou]y$/.test(v)) out.push(v.slice(0, -1) + 'ies', v.slice(0, -1) + 'ied', v + 'ing');
   else if (/e$/.test(v)) out.push(v + 's', v + 'd', v.slice(0, -1) + 'ing');
@@ -191,6 +184,14 @@ export function verbForms(v: string): string[] {
   else if (/^[^aeiou]*[aeiou][^aeiouwxy]$/.test(v)) out.push(v + 's', v + v.slice(-1) + 'ed', v + v.slice(-1) + 'ing');
   else out.push(v + 's', v + 'ed', v + 'ing');
   return out;
+}
+/** The forms of a verb: decide → decides, decided, deciding; build → builds, built, building (irregular ones from tense.ts). */
+export function verbForms(v: string): string[] {
+  if (SPECIAL_FORMS[v]) return [v, ...SPECIAL_FORMS[v]];
+  const irr = IRREGULAR_VERBS[v];
+  if (!irr) return regularForms(v);
+  const [base, s, , ing] = regularForms(v);
+  return [...new Set([base, s, ...irr, ing])];
 }
 const esc = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 /** A regex (source, case-insensitive) for a phrase in any form of its verb: "run out of" also matches "ran out of", "I'm used to". */
@@ -201,7 +202,8 @@ export function phraseRe(phrase: string, isVerb: boolean): string {
   // "be" may have up to two words before the rest: "I am not used to", "Are you used to".
   if (isVerb && head === 'be') first = "(?:\\b(?:be|am|is|are|was|were|been|being)\\b|'(?:m|re|s))(?:\\s+(?!" + esc(rest[0] ?? '') + "\\b)[a-z']+){0,2}";
   else if (isVerb) first = '\\b(?:' + verbForms(head).map(esc).join('|') + ')\\b';
-  return [first, ...rest.map((w) => esc(w) + '\\b')].join('\\s*');
+  // A word ending in punctuation ("point," in "I see your point, but") can't be followed by a word boundary.
+  return [first, ...rest.map((w) => esc(w) + (/\w$/.test(w) ? '\\b' : ''))].join('\\s*');
 }
 const ARTICLES = new Set(['the', 'a', 'an', 'this', 'that', 'these', 'those', 'my', 'our', 'your', 'his', 'her', 'their', 'its']);
 /** The words of a filler that an answer must contain ("the old files" → old, files). */
@@ -478,11 +480,22 @@ export class PhrasesService implements OnApplicationBootstrap {
     const others = shuffle(fixed.filter((x) => x.key !== p.key));
     const explain = p.notes[0] ?? '';
     const base = { key: p.key, phrase: p.phrase, kind: p.kind, pattern: p.pattern, sub: '', check: null, filler: null, explain, tense: '' as const };
+    // Sentences with the phrase in them (examples and dialogue lines) for "fill in the phrase".
+    const re = new RegExp(phraseRe(p.phrase, false), 'i');
+    const withPhrase = [...p.examples, ...p.dialogue.map((d) => ({ en: d.en, vi: d.vi }))].filter((x) => re.test(x.en));
     const kinds: DrillType[] = [];
     if (p.situations.length && others.length >= 2) kinds.push('situation');
+    if (withPhrase.length) kinds.push('fill');
     if (p.replies.good.length && p.replies.bad.length) kinds.push('reply');
     kinds.push('meaning');
+    if (withPhrase.length > 2) kinds.push('fill');
     const type = kinds[round % kinds.length];
+    if (type === 'fill') {
+      const ex = shuffle(withPhrase)[0];
+      const m = re.exec(ex.en)!;
+      const blanks = m[0].split(/\s+/).map(() => '___').join(' ');
+      return { ...base, type, prompt: ex.en.slice(0, m.index) + blanks + ex.en.slice(m.index + m[0].length), sub: ex.vi, choices: [], answers: [m[0]] };
+    }
     if (type === 'situation') {
       return { ...base, type, prompt: shuffle(p.situations)[0], sub: 'Bạn sẽ nói gì?', choices: shuffle([p.phrase, ...others.slice(0, 3).map((x) => x.phrase)]), answers: [p.phrase] };
     }
