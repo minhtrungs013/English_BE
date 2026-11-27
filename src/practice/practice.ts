@@ -15,6 +15,7 @@ import { questionFrom, SentenceBankModule, SentenceBankService } from '../senten
 import { Word } from '../words/word.schema';
 import { ProfileModule } from '../profile/profile.module';
 import { WordsModule } from '../words/words.module';
+import { WordsService } from '../words/words.service';
 import { SentenceCheckController, SentenceCheckService } from './sentence-check';
 import { SentenceAttempt, SentenceAttemptSchema, SentenceSuggestion, SentenceSuggestionSchema } from './sentence-grade';
 import { LibraryWord, LibraryWordSchema } from '../library/library.schema';
@@ -128,7 +129,8 @@ export class PracticeService {
     @InjectModel(SentenceSeen.name) private readonly seen: Model<SentenceSeen>,
     @InjectModel(PracticeWord.name) private readonly records: Model<PracticeWord>,
     private readonly sentenceBank: SentenceBankService,
-    private readonly grammar: SentenceGrammarService
+    private readonly grammar: SentenceGrammarService,
+    private readonly myWords: WordsService
   ) {}
 
   /** Sentence keys used as questions in the courses I take. */
@@ -142,7 +144,8 @@ export class PracticeService {
   async sentences(user: string, mode: Mode, n = 10, only?: string[]): Promise<{ items: PracticeSentence[] }> {
     const filter: Record<string, unknown> = { user };
     if (only?.length) filter._id = { $in: only.filter((x) => /^[a-f0-9]{24}$/i.test(x)) };
-    const all = await this.words.find(filter, { word: 1, ex: 1, vi: 1 }).lean();
+    // With their details (from the library, with my own changes).
+    const all = (await this.myWords.list(user, only?.length ? (filter._id as { $in: string[] }).$in : undefined)).map((w) => ({ _id: w.id, word: w.word, ex: w.ex, vi: w.vi }));
     if (!all.length) return { items: [] };
     const [byWord, blocked, seenList, recs] = await Promise.all([
       this.sentenceBank.forWords(all.map((w) => w.word)),
@@ -237,7 +240,7 @@ export class PracticeService {
   async stats(user: string) {
     const [recs, words] = await Promise.all([
       this.records.find({ user }).lean(),
-      this.words.find({ user }, { word: 1, vi: 1 }).lean()
+      this.myWords.list(user).then((ws) => ws.map((w) => ({ _id: w.id, word: w.word, vi: w.vi })))
     ]);
     const byId = new Map(words.map((w) => [String(w._id), w]));
     const live = recs.filter((r) => byId.has(r.wordId));

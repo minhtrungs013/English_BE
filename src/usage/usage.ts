@@ -143,8 +143,10 @@ export class UsageService {
   private async meaningOf(key: string, user?: string) {
     const lib = await this.library.findOne({ wordLower: key }, { word: 1, pos: 1, vi: 1, meaning: 1 }).lean();
     if (lib) return { word: lib.word, pos: lib.pos, vi: lib.vi, meaning: lib.meaning };
-    const mine = user ? await this.words.findOne({ user, word: { $regex: '^' + esc(key) + '$', $options: 'i' } }, { word: 1, pos: 1, vi: 1, meaning: 1 }).lean() : null;
-    return mine ? { word: mine.word, pos: mine.pos, vi: mine.vi, meaning: mine.meaning } : null;
+    const mine = user ? await this.words.findOne({ user, word: { $regex: '^' + esc(key) + '$', $options: 'i' } }, { word: 1, pos: 1, vi: 1, meaning: 1, overrides: 1 }).lean() : null;
+    // Not in the library: my word keeps its details itself (overrides; older copies in the fields).
+    const o = mine?.overrides ?? {};
+    return mine ? { word: mine.word, pos: o.pos ?? mine.pos ?? 'Noun', vi: o.vi ?? mine.vi ?? '', meaning: o.meaning ?? mine.meaning ?? '' } : null;
   }
 
   /** Writes (or rewrites) the record with AI. Callers count the quota. */

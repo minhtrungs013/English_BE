@@ -112,7 +112,7 @@ export class SentenceCheckService {
 
   async check(user: string, dto: SentenceCheckDto): Promise<SentenceResult> {
     const w = await this.words.findOne(user, dto.wordId);
-    const family = (w.toObject().family ?? []).map((m: { word: string }) => m.word);
+    const family = (w.family ?? []).map((m) => m.word);
     if (dto.sentence.split(' ').length < 3) throw new BadRequestException('Please write a full sentence (at least 3 words).');
     if (!containsWord(dto.sentence, w.word, family)) throw new BadRequestException('Your sentence doesn’t use “' + w.word + '” yet.');
     const key = this.config.get<string>('ANTHROPIC_API_KEY');
@@ -134,7 +134,7 @@ export class SentenceCheckService {
       throw new UnprocessableEntityException('AI couldn’t check your sentence right now. Please try again.');
     }
     await this.attempts.create({
-      user, wordId: String(w._id), word: w.word, sentence: dto.sentence, score: g.score, corrected: g.corrected, lesson: g.lesson?.id ?? '', mistakes: g.mistakes, source: 'practice'
+      user, wordId: w.id, word: w.word, sentence: dto.sentence, score: g.score, corrected: g.corrected, lesson: g.lesson?.id ?? '', mistakes: g.mistakes, source: 'practice'
     }).catch((e) => this.log.warn('Could not save the attempt: ' + String(e)));
     await this.suggest(w.word, g);
     return { ...g, quota: await this.profile.dailyStatus(user, 'sentence') };

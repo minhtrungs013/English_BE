@@ -14,12 +14,12 @@ export class WordsController {
 
   @Get()
   async findAll(@UserId() user: string) {
-    return (await this.words.findAll(user)).map((w) => w.toJSON());
+    return this.words.findAll(user);
   }
 
   @Get(':id')
   async findOne(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string) {
-    return (await this.words.findOne(user, id)).toJSON();
+    return this.words.findOne(user, id);
   }
 
   @Post()
@@ -27,12 +27,12 @@ export class WordsController {
     const w = await this.words.create(user, dto);
     // A new word gets its "How to use" written in the background (shared; uses my daily Usage allowance).
     this.usage.ensureForNewWord(user, { word: w.word, pos: w.pos, vi: w.vi, meaning: w.meaning });
-    return w.toJSON();
+    return w;
   }
 
   @Patch(':id')
   async update(@UserId() user: string, @Param('id', ParseObjectIdPipe) id: string, @Body() dto: UpdateWordDto) {
-    return (await this.words.update(user, id, dto)).toJSON();
+    return this.words.update(user, id, dto);
   }
 
   @Delete(':id')
