@@ -240,8 +240,10 @@ export class AdminService {
     if (!s) throw new NotFoundException('Sentence not found.');
     const next = { sentence: dto.sentence?.replace(/\s+/g, ' ').trim() ?? s.sentence, verb: dto.verb?.trim() ?? s.verb };
     if (next.verb && !next.sentence.includes(next.verb)) throw new BadRequestException('The verb phrase must appear in the sentence exactly.');
+    // Only the fields sent: the DTO also has the others, as undefined, which would clear them (context, tense…).
+    const given = Object.fromEntries(Object.entries(dto).filter(([, v]) => v !== undefined));
     // Saved by an admin (also with no change = "keep it"): no longer "meaning changed".
-    Object.assign(s, { ...dto, ...next, key: sentenceKey(next.sentence), stale: false });
+    Object.assign(s, { ...given, ...next, key: sentenceKey(next.sentence), stale: false });
     await s.save().catch((e: { code?: number }) => { throw e?.code === 11000 ? new BadRequestException('This sentence is already in the bank.') : e; });
     const { _id, key: _k, ...rest } = s.toObject();
     return { id: String(_id), ...rest };
